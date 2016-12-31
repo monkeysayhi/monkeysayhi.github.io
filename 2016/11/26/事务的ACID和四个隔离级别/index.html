@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>事务的ACID和四个隔离级别 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x7684;&amp;#x4E1A;&amp;#x52A1;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5E76;&amp;#x53D1;&amp;#x8BFB;&amp;#x5199;&amp;#x5F15;&amp;#x51FA;&amp;#x4E86;&amp;#x548C;&amp;#x4E8B;&amp;#x52A1;&amp;#x63A7;&amp;#x5236;&amp;#x7684;&amp;#x9700;&amp;#x6C42;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="事务的ACID和四个隔离级别">
+<meta property="og:url" content="https://monkeysayhi.github.io/2016/11/26/事务的ACID和四个隔离级别/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x7684;&amp;#x4E1A;&amp;#x52A1;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5E76;&amp;#x53D1;&amp;#x8BFB;&amp;#x5199;&amp;#x5F15;&amp;#x51FA;&amp;#x4E86;&amp;#x548C;&amp;#x4E8B;&amp;#x52A1;&amp;#x63A7;&amp;#x5236;&amp;#x7684;&amp;#x9700;&amp;#x6C42;">
+<meta property="og:updated_time" content="2016-12-10T08:47:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="事务的ACID和四个隔离级别">
+<meta name="twitter:description" content="&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x7684;&amp;#x4E1A;&amp;#x52A1;&amp;#x573A;&amp;#x666F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x5E76;&amp;#x53D1;&amp;#x8BFB;&amp;#x5199;&amp;#x5F15;&amp;#x51FA;&amp;#x4E86;&amp;#x548C;&amp;#x4E8B;&amp;#x52A1;&amp;#x63A7;&amp;#x5236;&amp;#x7684;&amp;#x9700;&amp;#x6C42;">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-88415227-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴哥</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴哥</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴哥</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-事务的ACID和四个隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      事务的ACID和四个隔离级别
+    </h1>
+  
+
+        <a href="/2016/11/26/事务的ACID和四个隔离级别/" class="archive-article-date">
+  	<time datetime="2016-11-25T16:34:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-26</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x5728;&#x5B9E;&#x9645;&#x7684;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x5E76;&#x53D1;&#x8BFB;&#x5199;&#x5F15;&#x51FA;&#x4E86;&#x548C;&#x4E8B;&#x52A1;&#x63A7;&#x5236;&#x7684;&#x9700;&#x6C42;&#x3002;&#x4F18;&#x79C0;&#x7684;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x80FD;&#x529B;&#x662F;&#x5173;&#x7CFB;&#x578B;&#x6570;&#x636E;&#x5E93;&#xFF08;&#x7279;&#x522B;&#x662F;oracle&#x7B49;&#x5546;&#x7528;RDBMS&#xFF09;&#x76F8;&#x5BF9;&#x4E8E;&#x6B63;&#x5F53;&#x98CE;&#x53E3;&#x7684;NoSQL&#x6570;&#x636E;&#x5E93;&#x7684;&#x4E00;&#x5927;&#x4EAE;&#x70B9;&#x3002;&#x4F46;&#x8FD9;&#x4E5F;&#x4ECE;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x8BF4;&#x660E;&#x4E86;&#x4E8B;&#x52A1;&#x63A7;&#x5236;&#x7684;&#x590D;&#x6742;&#x6027;&#x2014;&#x2014;&#x6B63;&#x56E0;&#x4E3A;&#x8FC7;&#x4E8E;&#x590D;&#x6742;&#xFF0C;&#x5927;&#x90E8;&#x5206;NoSQL&#x90FD;&#x6CA1;&#x63D0;&#x4F9B;&#x4E8B;&#x52A1;&#x652F;&#x6301;&#x6216;&#x53EA;&#x63D0;&#x4F9B;&#x90E8;&#x5206;&#x4E8B;&#x52A1;&#x652F;&#x6301;&#x3002;</p>
+<a id="more"></a>
+<h1 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h1><p>&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x4E8B;&#x52A1;&#x662F;<code>&quot;&#x4E00;&#x4E2A;&#x88AB;&#x89C6;&#x4E3A;&#x5355;&#x4E00;&#x7684;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&quot;</code>&#x3002;&#x4E00;&#x4E2A;&#x826F;&#x597D;&#x7684;&#x4E8B;&#x52A1;&#x5904;&#x7406;&#x7CFB;&#x7EDF;&#xFF0C;&#x5FC5;&#x987B;&#x5177;&#x5907;&#x56DB;&#x4E2A;&#x6807;&#x51C6;&#x7279;&#x6027;&#xFF1A;  </p>
+<ol>
+<li><strong>&#x539F;&#x5B50;&#x6027;&#xFF08;Atomicity&#xFF09;</strong>&#xFF1A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5FC5;&#x987B;&#x88AB;&#x89C6;&#x4E3A;&#x4E00;&#x4E2A;&#x4E0D;&#x53EF;&#x5206;&#x5272;&#x7684;&#x6700;&#x5C0F;&#x5DE5;&#x4F5C;&#x5355;&#x5143;&#xFF0C;&#x6574;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x8981;&#x4E48;&#x5168;&#x90E8;&#x63D0;&#x4EA4;&#x6210;&#x529F;&#xFF0C;&#x8981;&#x4E48;&#x5168;&#x90E8;&#x5931;&#x8D25;&#x56DE;&#x6EDA;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6765;&#x8BF4;&#xFF0C;&#x4E0D;&#x53EF;&#x80FD;&#x53EA;&#x6267;&#x884C;&#x5176;&#x4E2D;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x64CD;&#x4F5C;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x4E8B;&#x52A1;&#x7684;&#x539F;&#x5B50;&#x6027;</li>
+<li><strong>&#x4E00;&#x81F4;&#x6027;&#xFF08;Consistency&#xFF09;</strong>&#xFF1A;&#x6570;&#x636E;&#x5E93;&#x603B;&#x662F;&#x4ECE;&#x4E00;&#x4E2A;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x72B6;&#x6001;&#x8F6C;&#x6362;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x72B6;&#x6001;&#x3002;&#xFF08;&#x5728;&#x524D;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x4E00;&#x81F4;&#x6027;&#x786E;&#x4FDD;&#x4E86;&#xFF0C;&#x5373;&#x4F7F;&#x5728;&#x6267;&#x884C;&#x7B2C;&#x4E09;&#x3001;&#x56DB;&#x6761;&#x8BED;&#x53E5;&#x4E4B;&#x95F4;&#x65F6;&#x7CFB;&#x7EDF;&#x5D29;&#x6E83;&#xFF0C;&#x652F;&#x7968;&#x8D26;&#x6237;&#x4E2D;&#x4E5F;&#x4E0D;&#x4F1A;&#x635F;&#x5931;200&#x7F8E;&#x5143;&#xFF0C;&#x56E0;&#x4E3A;&#x4E8B;&#x52A1;&#x6700;&#x7EC8;&#x6CA1;&#x6709;&#x63D0;&#x4EA4;&#xFF0C;&#x6240;&#x4EE5;&#x4E8B;&#x52A1;&#x4E2D;&#x6240;&#x505A;&#x7684;&#x4FEE;&#x6539;&#x4E5F;&#x4E0D;&#x4F1A;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x3002;&#xFF09;</li>
+<li><strong>&#x9694;&#x79BB;&#x6027;&#xFF08;Isolation&#xFF09;</strong>&#xFF1A;&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x6240;&#x505A;&#x7684;&#x4FEE;&#x6539;&#x5728;&#x6700;&#x7EC8;&#x63D0;&#x4EA4;&#x4EE5;&#x524D;&#xFF0C;&#x5BF9;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x662F;&#x4E0D;&#x53EF;&#x89C1;&#x7684;&#x3002;</li>
+<li><strong>&#x6301;&#x4E45;&#x6027;&#xFF08;Durability&#xFF09;</strong>&#xFF1A;&#x4E00;&#x65E6;&#x4E8B;&#x52A1;&#x63D0;&#x4EA4;&#xFF0C;&#x5219;&#x5176;&#x6240;&#x505A;&#x7684;&#x4FEE;&#x6539;&#x4E0D;&#x4F1A;&#x6C38;&#x4E45;&#x4FDD;&#x5B58;&#x5230;&#x6570;&#x636E;&#x5E93;&#x3002;&#xFF08;&#x6B64;&#x65F6;&#x5373;&#x4F7F;&#x7CFB;&#x7EDF;&#x5D29;&#x6E83;&#xFF0C;&#x4FEE;&#x6539;&#x7684;&#x6570;&#x636E;&#x4E5F;&#x4E0D;&#x4F1A;&#x4E22;&#x5931;&#x3002;&#x6301;&#x4E45;&#x6027;&#x662F;&#x4E2A;&#x6709;&#x5360;&#x6A21;&#x7CCA;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x56E0;&#x4E3A;&#x5B9E;&#x9645;&#x4E0A;&#x6301;&#x4E45;&#x6027;&#x4E5F;&#x5206;&#x5F88;&#x591A;&#x4E0D;&#x540C;&#x7684;&#x7EA7;&#x522B;&#x3002;&#x6709;&#x4E9B;&#x6301;&#x4E45;&#x6027;&#x7B56;&#x7565;&#x80FD;&#x591F;&#x63D0;&#x4F9B;&#x975E;&#x5E38;&#x5F3A;&#x7684;&#x5B89;&#x5168;&#x4FDD;&#x969C;&#xFF0C;&#x800C;&#x6709;&#x4E9B;&#x5219;&#x672A;&#x5FC5;&#xFF0C;&#x800C;&#x4E14;&#x4E0D;&#x53EF;&#x80FD;&#x6709;&#x80FD;&#x505A;&#x5230;100%&#x7684;&#x6301;&#x4E45;&#x6027;&#x4FDD;&#x8BC1;&#x7684;&#x7B56;&#x7565;&#x3002;&#xFF09;</li>
+</ol>
+<p>&#x4EE5;&#x4E0A;&#x56DB;&#x4E2A;&#x7279;&#x6027;&#x5C31;&#x662F;&#x5E38;&#x8BF4;&#x7684;<strong>ACID</strong>&#x3002;<br>&#x5176;&#x4E2D;&#xFF0C;<strong>&#x9694;&#x79BB;&#x6027;&#x7684;&#x56DB;&#x4E2A;&#x7EA7;&#x522B;</strong>&#x662F;&#x9762;&#x8BD5;&#x5E38;&#x8003;&#x70B9;&#x3002;  </p>
+<h1 id="&#x9694;&#x79BB;&#x6027;&#x7684;&#x56DB;&#x4E2A;&#x7EA7;&#x522B;"><a href="#&#x9694;&#x79BB;&#x6027;&#x7684;&#x56DB;&#x4E2A;&#x7EA7;&#x522B;" class="headerlink" title="&#x9694;&#x79BB;&#x6027;&#x7684;&#x56DB;&#x4E2A;&#x7EA7;&#x522B;"></a>&#x9694;&#x79BB;&#x6027;&#x7684;&#x56DB;&#x4E2A;&#x7EA7;&#x522B;</h1><h2 id="READ-UNCOMMITTED&#xFF08;&#x672A;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;"><a href="#READ-UNCOMMITTED&#xFF08;&#x672A;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;" class="headerlink" title="READ UNCOMMITTED&#xFF08;&#x672A;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;"></a>READ UNCOMMITTED&#xFF08;&#x672A;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;</h2><p>&#x5728;READ UNCOMMITTED&#x7EA7;&#x522B;&#xFF0C;&#x4E8B;&#x52A1;&#x4E2D;&#x7684;&#x4FEE;&#x6539;&#xFF0C;&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x63D0;&#x4EA4;&#xFF0C;&#x5BF9;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x4E5F;&#x90FD;&#x662F;&#x53EF;&#x89C1;&#x7684;&#x3002;&#x4E8B;&#x52A1;&#x53EF;&#x4EE5;&#x8BFB;&#x53D6;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x810F;&#x8BFB;&#xFF08;Dirty Read&#xFF09;&#x3002;&#x8FD9;&#x4E2A;&#x7EA7;&#x522B;&#x4F1A;&#x5BFC;&#x81F4;&#x5F88;&#x591A;&#x95EE;&#x9898;&#xFF0C;&#x4ECE;&#x6027;&#x80FD;&#x4E0A;&#x6765;&#x8BF4;&#xFF0C;READ UNCOMMITTED&#x4E0D;&#x4F1A;&#x6BD4;&#x5176;&#x4ED6;&#x7684;&#x7EA7;&#x522B;&#x597D;&#x592A;&#x591A;&#xFF0C;&#x4F46;&#x5374;&#x7F3A;&#x4E4F;&#x5176;&#x4ED6;&#x7EA7;&#x522B;&#x7684;&#x5F88;&#x591A;&#x597D;&#x5904;&#xFF0C;&#x9664;&#x975E;&#x771F;&#x7684;&#x6709;&#x975E;&#x5E38;&#x5FC5;&#x8981;&#x7684;&#x7406;&#x7531;&#xFF0C;&#x5728;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#x4E00;&#x822C;&#x5F88;&#x5C11;&#x4F7F;&#x7528;&#x3002;  </p>
+<h2 id="READ-COMMITTED&#xFF08;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;"><a href="#READ-COMMITTED&#xFF08;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;" class="headerlink" title="READ COMMITTED&#xFF08;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;"></a>READ COMMITTED&#xFF08;&#x63D0;&#x4EA4;&#x8BFB;&#xFF09;</h2><p>&#x5927;&#x591A;&#x6570;&#x6570;&#x636E;&#x5E93;&#x7CFB;&#x7EDF;&#x7684;&#x9ED8;&#x8BA4;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x90FD;&#x662F;READ COMMTTED&#xFF08;&#x4F46;MySQL&#x4E0D;&#x662F;&#xFF09;&#x3002;READ COMMITTED&#x6EE1;&#x8DB3;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684;&#x9694;&#x79BB;&#x6027;&#x7684;&#x7B80;&#x5355;&#x5B9A;&#x4E49;&#xFF1A;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x5F00;&#x59CB;&#x65F6;&#xFF0C;&#x53EA;&#x80FD;&#x201D;&#x770B;&#x89C1;&#x201D;&#x5DF2;&#x7ECF;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x6240;&#x505A;&#x7684;&#x4FEE;&#x6539;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4ECE;&#x5F00;&#x59CB;&#x76F4;&#x5230;&#x63D0;&#x4EA4;&#x4E4B;&#x524D;&#xFF0C;&#x6240;&#x505A;&#x7684;&#x4EFB;&#x4F55;&#x4FEE;&#x6539;&#x5BF9;&#x5176;&#x4ED6;&#x4E8B;&#x52A1;&#x90FD;&#x662F;&#x4E0D;&#x53EF;&#x89C1;&#x7684;&#x3002;&#x8FD9;&#x4E2A;&#x7EA7;&#x522B;&#x6709;&#x65F6;&#x5019;&#x53EB;&#x505A;&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF08;nonrepeatble read&#xFF09;&#xFF0C;&#x56E0;&#x4E3A;&#x4E24;&#x6B21;&#x6267;&#x884C;&#x540C;&#x6837;&#x7684;&#x67E5;&#x8BE2;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5F97;&#x5230;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x7ED3;&#x679C;&#x3002;  </p>
+<h2 id="REPEATABLE-READ-&#x53EF;&#x91CD;&#x590D;&#x8BFB;"><a href="#REPEATABLE-READ-&#x53EF;&#x91CD;&#x590D;&#x8BFB;" class="headerlink" title="REPEATABLE READ(&#x53EF;&#x91CD;&#x590D;&#x8BFB;)"></a>REPEATABLE READ(&#x53EF;&#x91CD;&#x590D;&#x8BFB;)</h2><p>REPEATABLE READ&#x89E3;&#x51B3;&#x4E86;&#x810F;&#x8BFB;&#x7684;&#x95EE;&#x9898;&#x3002;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x4FDD;&#x8BC1;&#x4E86;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x4E2D;&#x591A;&#x6B21;&#x8BFB;&#x53D6;&#x540C;&#x6837;&#x8BB0;&#x5F55;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x81F4;&#x7684;&#x3002;&#x4F46;&#x662F;&#x7406;&#x8BBA;&#x4E0A;&#xFF0C;&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x8FD8;&#x662F;&#x65E0;&#x6CD5;&#x89E3;&#x51B3;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x5E7B;&#x8BFB;&#xFF08;Phantom Read&#xFF09;&#x7684;&#x95EE;&#x9898;&#x3002;&#x6240;&#x8C13;&#x5E7B;&#x8BFB;&#xFF0C;&#x6307;&#x7684;&#x662F;&#x5F53;&#x67D0;&#x4E2A;&#x4E8B;&#x52A1;&#x5728;&#x8BFB;&#x53D6;&#x67D0;&#x4E2A;&#x8303;&#x56F4;&#x5185;&#x7684;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x4E8B;&#x52A1;&#x53C8;&#x5728;&#x8BE5;&#x8303;&#x56F4;&#x5185;&#x63D2;&#x5165;&#x4E86;&#x65B0;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x5F53;&#x4E4B;&#x524D;&#x7684;&#x4E8B;&#x52A1;&#x518D;&#x6B21;&#x8BFB;&#x53D6;&#x8BE5;&#x8303;&#x56F4;&#x7684;&#x8BB0;&#x5F55;&#x65F6;&#xFF0C;&#x4F1A;&#x4EA7;&#x751F;&#x5E7B;&#x884C;&#xFF08;Phantom Row&#xFF09;&#x3002;InnoDB&#x548C;XtraDB&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x901A;&#x8FC7;&#x591A;&#x7248;&#x672C;&#x5E76;&#x53D1;&#x63A7;&#x5236;&#xFF08;MVCC&#xFF0C;Multiversion Concurrency Control&#xFF09;&#x89E3;&#x51B3;&#x4E86;&#x5E7B;&#x8BFB;&#x7684;&#x95EE;&#x9898;&#x3002;  </p>
+<h2 id="SERIALIZABLE&#xFF08;&#x4E32;&#x884C;&#x5316;&#xFF09;"><a href="#SERIALIZABLE&#xFF08;&#x4E32;&#x884C;&#x5316;&#xFF09;" class="headerlink" title="SERIALIZABLE&#xFF08;&#x4E32;&#x884C;&#x5316;&#xFF09;"></a>SERIALIZABLE&#xFF08;&#x4E32;&#x884C;&#x5316;&#xFF09;</h2><p>SERIALIZABLE&#x662F;&#x6700;&#x9AD8;&#x7684;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x3002;&#x5B83;&#x901A;&#x8FC7;&#x5F3A;&#x5236;&#x4E8B;&#x52A1;&#x4E32;&#x884C;&#x6267;&#x884C;&#xFF0C;&#x907F;&#x514D;&#x4E86;&#x524D;&#x9762;&#x8BF4;&#x7684;&#x5E7B;&#x8BFB;&#x7684;&#x95EE;&#x9898;&#x3002;&#x7B80;&#x5355;&#x6765;&#x8BF4;&#xFF0C;SERIALIZABLE&#x4F1A;&#x5728;&#x8BFB;&#x53D6;&#x6BCF;&#x4E00;&#x884C;&#x6570;&#x636E;&#x90FD;&#x52A0;&#x9501;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x5927;&#x91CF;&#x7684;&#x8D85;&#x65F6;&#x548C;&#x9501;&#x4E89;&#x7528;&#x95EE;&#x9898;&#x3002;&#x5B9E;&#x9645;&#x5E94;&#x7528;&#x4E2D;&#x4E5F;&#x5F88;&#x5C11;&#x7528;&#x5230;&#x8FD9;&#x4E2A;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#xFF0C;&#x53EA;&#x6709;&#x5728;&#x975E;&#x5E38;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x6570;&#x636E;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x800C;&#x4E14;&#x53EF;&#x4EE5;&#x63A5;&#x53D7;&#x6CA1;&#x6709;&#x5E76;&#x53D1;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x624D;&#x8003;&#x8651;&#x91C7;&#x7528;&#x8BE5;&#x7EA7;&#x522B;&#x3002;  </p>
+<h1 id="&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x603B;&#x7ED3;"><a href="#&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x603B;&#x7ED3;" class="headerlink" title="&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x603B;&#x7ED3;"></a>&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x603B;&#x7ED3;</h1><p>&#x6253;&#x94A9;&#x8BF4;&#x660E;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x8FD8;&#x5B58;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6253;X&#x4EE3;&#x8868;&#x8BE5;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x5DF2;&#x7ECF;&#x89E3;&#x51B3;&#x4E86;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF1A;  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">&#x9694;&#x79BB;&#x7EA7;&#x522B;</th>
+<th style="text-align:center">&#x810F;&#x8BFB;</th>
+<th style="text-align:center">&#x4E0D;&#x53EF;&#x91CD;&#x590D;&#x8BFB;</th>
+<th style="text-align:center">&#x5E7B;&#x8BFB;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&#x8BFB;&#x672A;&#x63D0;&#x4EA4;&#xFF08;Read uncommitted&#xFF09;</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x8BFB;&#x5DF2;&#x63D0;&#x4EA4;&#xFF08;Read committed&#xFF09;</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">Y</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x53EF;&#x91CD;&#x590D;&#x8BFB;&#xFF08;Repeatable read&#xFF09;</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">Y</td>
+</tr>
+<tr>
+<td style="text-align:left">&#x53EF;&#x4E32;&#x884C;&#x5316;&#xFF08;Serializable&#xFF09;</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;<br><a href="http://www.cnblogs.com/xuanzhi201111/p/4103696.html" target="_blank" rel="external">MySQL ACID&#x53CA;&#x56DB;&#x79CD;&#x9694;&#x79BB;&#x7EA7;&#x522B;&#x7684;&#x89E3;&#x91CA;</a>  </p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2016/11/26/事务的ACID和四个隔离级别/">事务的ACID和四个隔离级别</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴哥</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2016/11/27/源码|ThreadLocal的实现原理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          源码|ThreadLocal的实现原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/26/Java内存模型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java内存模型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="事务的ACID和四个隔离级别" data-title="事务的ACID和四个隔离级别" data-url="https://monkeysayhi.github.io/2016/11/26/事务的ACID和四个隔离级别/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"forienlauo"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 猴哥
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Java/" style="font-size: 17.5px;">Java</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/书籍/" style="font-size: 10px;">书籍</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/科普/" style="font-size: 12.5px;">科普</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 12.5px;">随笔</a> <a href="/tags/面试/" style="font-size: 15px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.google.com/">Google大法好</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://monkeysayhi.github.io/">程序猿说你好 - github.io</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">一只猴子，&lt;br&gt;在计算机的丛林里探险。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
