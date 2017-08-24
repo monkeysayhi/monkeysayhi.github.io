@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>Linked List Cycle II | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linked List Cycle II">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/08/19/Linked-List-Cycle-II/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;">
+<meta property="og:updated_time" content="2017-08-19T13:46:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linked List Cycle II">
+<meta name="twitter:description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Linked-List-Cycle-II" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linked List Cycle II
+    </h1>
+  
+
+        <a href="/2017/08/19/Linked-List-Cycle-II/" class="archive-article-date">
+  	<time datetime="2017-08-19T13:38:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-19</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.lintcode.com/en/problem/linked-list-cycle-ii" target="_blank" rel="external">&#x539F;&#x9898;&#x6233;&#x6211;</a></p>
+<a id="more"></a>
+<h1 id="&#x9898;&#x76EE;"><a href="#&#x9898;&#x76EE;" class="headerlink" title="&#x9898;&#x76EE;"></a>&#x9898;&#x76EE;</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a linked list, return the node where the cycle begins.</p>
+<p>If there is no cycle, return null.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Given -21-&gt;10-&gt;4-&gt;5, tail connects to node index 1&#xFF0C;return 10</p>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h2><p>Follow up:</p>
+<p>Can you solve it without using extra space?</p>
+<h1 id="&#x5206;&#x6790;"><a href="#&#x5206;&#x6790;" class="headerlink" title="&#x5206;&#x6790;"></a>&#x5206;&#x6790;</h1><h2 id="&#x95EE;&#x9898;&#x5206;&#x89E3;"><a href="#&#x95EE;&#x9898;&#x5206;&#x89E3;" class="headerlink" title="&#x95EE;&#x9898;&#x5206;&#x89E3;"></a>&#x95EE;&#x9898;&#x5206;&#x89E3;</h2><h3 id="basic-problem"><a href="#basic-problem" class="headerlink" title="basic problem"></a>basic problem</h3><blockquote>
+<p>&#x5355;&#x94FE;&#x8868;&#x4E2D;&#x786E;&#x5B9A;&#x6709;&#x65E0;&#x73AF;</p>
+</blockquote>
+<p>&#x66B4;&#x529B;&#x65B9;&#x6CD5;&#x662F;&#x4F7F;&#x7528;hash&#x8868;&#x7EDF;&#x8BA1;&#x8282;&#x70B9;&#x7684;&#x51FA;&#x73B0;&#x6B21;&#x6570;&#xFF0C;O(n)&#x7684;space&#x3002;&#x4E0D;&#x8FC7;&#x4E00;&#x822C;&#x662F;&#x5E0C;&#x671B;&#x4EE5;O(1)&#x7684;space&#x89E3;&#x51B3;&#xFF1A;</p>
+<p>1.&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x5FEB;&#x6307;&#x9488;fast&#x548C;&#x4E00;&#x4E2A;&#x6162;&#x6307;&#x9488;slow&#xFF0C;&#x5B83;&#x4EEC;&#x540C;&#x65F6;&#x4ECE;&#x94FE;&#x8868;&#x5934;&#x5F00;&#x59CB;&#x5F80;&#x540E;&#x904D;&#x5386;&#xFF0C;&#x5FEB;&#x6307;&#x9488;&#x6BCF;&#x6B21;&#x79FB;&#x52A8;&#x4E24;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x6162;&#x6307;&#x9488;&#x6BCF;&#x6B21;&#x79FB;&#x52A8;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;<br>2.&#x5982;&#x679C;&#x5728;&#x5FEB;&#x6307;&#x9488;&#x8BBF;&#x95EE;&#x5230;null&#xFF08;&#x5373;&#x65E0;&#x73AF;&#xFF09;&#x4E4B;&#x524D;&#xFF0C;&#x5FEB;&#x6307;&#x9488;&#x548C;&#x6162;&#x6307;&#x9488;&#x76F8;&#x9047;&#xFF0C;&#x5C31;&#x8BF4;&#x660E;&#x6709;&#x73AF;</p>
+<h3 id="follow-up"><a href="#follow-up" class="headerlink" title="follow up"></a>follow up</h3><blockquote>
+<p>&#x786E;&#x5B9A;&#x73AF;&#x5165;&#x53E3;&#x5165;&#x53E3;&#x7684;&#x4F4D;&#x7F6E;</p>
+</blockquote>
+<p>&#x548C;basic problem&#x4E00;&#x6837;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;hash&#x8868;&#x89E3;&#x51B3;&#x3002;&#x800C;follow up&#x7684;&#x76EE;&#x7684;&#x4ECD;&#x7136;&#x662F;&#x5E0C;&#x671B;O(1)&#x7684;space&#x89E3;&#x51B3;&#xFF1A;</p>
+<p>1.&#x91CD;&#x590D;&#x4E0A;&#x8FF0;&#x5224;&#x5B9A;&#x6709;&#x73AF;&#x65E0;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;<br>2.&#x7528;&#x4E00;&#x4E2A;&#x65B0;&#x6307;&#x9488;&#x6307;&#x5411;head&#xFF0C;&#x4E0E;slow&#x6307;&#x9488;&#x540C;&#x65F6;&#x4E00;&#x6B21;&#x79FB;&#x52A8;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;<br>3.&#x5F53;head&#x4E0E;slow&#x76F8;&#x9047;&#x65F6;&#xFF0C;&#x6307;&#x9488;&#x6240;&#x6307;&#x7684;&#x8282;&#x70B9;&#x5373;&#x5165;&#x53E3;&#x8282;&#x70B9;</p>
+<h2 id="&#x8BC1;&#x660E;"><a href="#&#x8BC1;&#x660E;" class="headerlink" title="&#x8BC1;&#x660E;"></a>&#x8BC1;&#x660E;</h2><h3 id="&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x6709;&#x73AF;"><a href="#&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x6709;&#x73AF;" class="headerlink" title="&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x6709;&#x73AF;"></a>&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x6709;&#x73AF;</h3><p>&#x53CD;&#x8BC1;&#x6CD5;&#xFF1A;<br>&#x5982;&#x679C;&#x65E0;&#x73AF;&#xFF0C;&#x5219;fast&#x4E00;&#x5B9A;&#x6BD4;slow&#x5148;&#x5230;&#x8FBE;null&#xFF0C;&#x4E0D;&#x4F1A;&#x76F8;&#x9047;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;fast&#x4E0E;slow&#x76F8;&#x9047;&#xFF0C;&#x5219;&#x4E00;&#x5B9A;&#x6709;&#x73AF;&#x3002;  </p>
+<p>&#x5F97;&#x8BC1;&#x3002;</p>
+<h3 id="&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;"><a href="#&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;" class="headerlink" title="&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;"></a>&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;</h3><p><strong>&#x8BE5;&#x7ED3;&#x8BBA;&#x662F;&#x4E0B;&#x4E00;&#x6B65;&#x63A8;&#x5BFC;&#x7684;&#x524D;&#x63D0;</strong>&#x3002;<br>&#x8BBE;&#x94FE;&#x8868;&#x5934;&#x8282;&#x70B9;&#x4E3A;head&#xFF0C;&#x73AF;&#x5165;&#x53E3;&#x8282;&#x70B9;&#x4E3A;entrance&#xFF0C;head&#x5230;entrance&#x5171;&#x6709;n&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x73AF;&#x4E0A;&#x5171;&#x6709;m&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x663E;&#x7136;&#xFF0C;fast&#x548C;slow&#x76F8;&#x9047;&#x7684;&#x8282;&#x70B9;&#x4E00;&#x5B9A;&#x5728;&#x73AF;&#x4E2D;&#xFF0C;&#x8BBE;&#x4ECE;entrance&#x5230;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x5171;k&#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+<blockquote>
+<p>PS&#xFF1A;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5173;&#x6CE8;m&#x3001;n&#x3001;k&#x7B49;&#x8BA1;&#x7B97;&#x65F6;&#x662F;&#x5426;&#x5305;&#x542B;head&#x3001;entrance&#x7B49;&#xFF0C;&#x4F46;&#x8BC1;&#x660E;&#x65F6;&#x65E0;&#x9700;&#x5173;&#x5FC3;&#xFF0C;&#x4EC5;&#x4EC5;&#x662F;&#x52A0;&#x51CF;&#x4E00;&#x4E2A;&#x5E38;&#x6570;&#x9879;&#x7684;&#x4E8B;&#x60C5;&#x3002;</p>
+</blockquote>
+<p><strong>fast&#x7684;&#x901F;&#x5EA6;&#x662F;slow&#x7684;&#x4E24;&#x500D;</strong>&#x3002;&#x5219;&#xFF0C;fast&#x7B2C;&#x4E00;&#x6B21;&#x5230;entrance&#x65F6;&#xFF0C;slow&#x5230;&#x8FBE;&#x94FE;&#x8868;&#x4E2D;&#x90E8;&#x8282;&#x70B9;mid&#xFF0C;&#x8BBE;head&#x5230;mid&#x5171;&#x6709;s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5219;&#x6B64;&#x65F6;&#xFF0C;slow&#x8D70;&#x4E86;s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;fast&#x8D70;&#x4E86;2s&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x6211;&#x4EEC;&#x8BA9;slow&#x518D;&#x8D70;s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;fast&#x518D;&#x8D70;2s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5206;&#x60C5;&#x51B5;&#x8BA8;&#x8BBA;&#xFF1A;</p>
+<h4 id="&#x5982;&#x679C;entrance&#x7B49;&#x4E8E;head"><a href="#&#x5982;&#x679C;entrance&#x7B49;&#x4E8E;head" class="headerlink" title="&#x5982;&#x679C;entrance&#x7B49;&#x4E8E;head"></a>&#x5982;&#x679C;entrance&#x7B49;&#x4E8E;head</h4><p>&#x6B64;&#x60C5;&#x51B5;&#x4E0B;&#x73AF;&#x6700;&#x957F;&#x3002;&#x7ECF;&#x8FC7;s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;slow&#x6070;&#x597D;&#x7B2C;&#x4E00;&#x6B21;&#x5230;&#x8FBE;entrance&#xFF1B;&#x7ECF;&#x8FC7;2s&#x4E2A;&#x8282;&#x70B9;&#xFF0C;fast&#x6070;&#x597D;&#x7B2C;&#x4E8C;&#x6B21;&#x5230;&#x8FBE;entrance&#x3002;&#x5728;&#x6B64;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;slow&#x6709;&#x4E14;&#x4EC5;&#x6709;&#x4E00;&#x6B21;&#x4ECE;mid&#x8D70;&#x5230;entrance&#xFF0C;fast&#x6709;&#x4E14;&#x4EC5;&#x6709;&#x4E00;&#x6B21;&#x4ECE;head&#x7ECF;&#x8FC7;mid&#x8D70;&#x5230;entrance&#xFF0C;&#x4ECE;&#x800C;&#xFF0C;fast&#x4E0E;slow&#x5FC5;&#x7136;&#x6709;&#x4E14;&#x4EC5;&#x6709;&#x4E00;&#x6B21;&#x5728;mid&#x4E8E;entrance&#x4E4B;&#x95F4;&#x76F8;&#x9047;&#xFF0C;&#x8FD9;&#x662F;&#x4E8C;&#x8005;&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x3002;&#x7531;&#x4E8E;&#x76F8;&#x9047;&#x70B9;&#x4E00;&#x5B9A;&#x5728;&#x73AF;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;<em>&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;</em>&#x3002;</p>
+<h4 id="&#x5982;&#x679C;entrance&#x4E0D;&#x7B49;&#x4E8E;head"><a href="#&#x5982;&#x679C;entrance&#x4E0D;&#x7B49;&#x4E8E;head" class="headerlink" title="&#x5982;&#x679C;entrance&#x4E0D;&#x7B49;&#x4E8E;head"></a>&#x5982;&#x679C;entrance&#x4E0D;&#x7B49;&#x4E8E;head</h4><p>&#x6B64;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x73AF;&#x5747;&#x6BD4;&#x7B2C;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#x77ED;&#x3002;&#x91CD;&#x590D;&#x4E0A;&#x8FF0;&#x8FC7;&#x7A0B;&#xFF0C;slow&#x4ECD;&#x7136;&#x6709;&#x4E14;&#x4EC5;&#x6709;&#x4E00;&#x6B21;&#x4ECE;mid&#x8D70;&#x5230;entrance&#xFF0C;&#x4F46;fast&#x5374;&#x7531;&#x4E8E;&#x73AF;&#x7684;&#x7F29;&#x77ED;&#xFF0C;&#x53EF;&#x80FD;&#x4E0D;&#x6B62;&#x4E00;&#x6B21;&#x4E0E;slow&#x76F8;&#x9047;&#x5E76;&#x8D70;&#x5230;entrance&#x3002;&#x6211;&#x4EEC;&#x53EA;&#x5173;&#x6CE8;&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#xFF0C;&#x663E;&#x7136;&#xFF0C;<em>&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4ECD;&#x7136;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;</em>&#x3002;  </p>
+<p>&#x5F97;&#x8BC1;&#x3002;</p>
+<h3 id="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x5165;&#x53E3;&#x8282;&#x70B9;"><a href="#&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x5165;&#x53E3;&#x8282;&#x70B9;" class="headerlink" title="&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x5165;&#x53E3;&#x8282;&#x70B9;"></a>&#x5982;&#x4F55;&#x5BFB;&#x627E;&#x5165;&#x53E3;&#x8282;&#x70B9;</h3><p>&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x77E5;&#x9053;&#xFF0C;<strong>&#x201C;&#x7B2C;&#x4E00;&#x6B21;&#x76F8;&#x9047;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;slow&#x7B2C;&#x4E00;&#x6B21;&#x5165;&#x73AF;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x201D;</strong>&#xFF0C;&#x90A3;&#x4E48;&#x6B64;&#x65F6;slow&#x5171;&#x8D70;&#x4E86;<code>n+k</code>&#x4E2A;&#x8282;&#x70B9;&#xFF0C;fast&#x5171;&#x79FB;&#x52A8;&#x4E86;<code>n+k + x*m</code>&#x4E2A;&#x8282;&#x70B9;&#x3002;fast&#x901F;&#x5EA6;&#x662F;slow&#x7684;2&#x500D;&#xFF0C;&#x5219;&#x6709;<code>2*(n+k) = n+k + x*m</code>&#xFF0C;&#x5176;&#x4E2D;x&#x8868;&#x793A;fast&#x5DF2;&#x7ECF;&#x5728;&#x73AF;&#x4E2D;&#x8D70;&#x7684;&#x5708;&#x6570;&#x3002;&#x7531;&#x6B64;&#x53EF;&#x5F97;&#xFF0C;<code>n+k = x*m</code>&#xFF0C;&#x4ECE;&#x800C;<code>n = (x-1)*m + m-k</code>(x&gt;=1, m&gt;=k)&#x3002;  </p>
+<p>&#x5728;&#x6709;&#x73AF;&#x94FE;&#x8868;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x80FD;&#x57FA;&#x4E8E;&#x79FB;&#x52A8;&#x548C;&#x76F8;&#x9047;&#x8FDB;&#x884C;&#x5224;&#x65AD;&#x3002;basic problem&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5E0C;&#x671B;&#x901A;&#x8FC7;&#x76F8;&#x9047;&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x73AF;&#xFF0C;follow up&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x8BD5;&#x7740;&#x7528;&#x76F8;&#x9047;&#x627E;&#x5230;entrance&#x8282;&#x70B9;&#x3002;  </p>
+<p>&#x89C2;&#x5BDF;&#x5F0F;<code>n = (x-1)*m + m-k</code>&#xFF1A;</p>
+<ul>
+<li><code>n</code>&#x4E3A;head&#x5230;entrance&#x7684;&#x8282;&#x70B9;&#x6570;</li>
+<li><code>m</code>&#x4E3A;&#x73AF;&#x7684;&#x957F;&#x5EA6;</li>
+<li><code>m-k</code>&#x4E3A;&#x4ECE;fast&#x3001;slow&#x7684;&#x76F8;&#x9047;&#x70B9;&#x5230;entrance&#x7684;&#x8282;&#x70B9;&#x6570;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x8BA9;slow&#x7EE7;&#x7EED;&#x8D70;<code>m-k</code>&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x6B64;&#x65F6;slow&#x5C06;&#x6070;&#x597D;&#x4F4D;&#x4E8E;entrance&#xFF1B;&#x518D;&#x5FAA;&#x73AF;<code>y = x-1</code>&#x5708;&#xFF0C;&#x4ECD;&#x7136;&#x5904;&#x4E8E;entrance&#x3002;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x6307;&#x9488;<code>p = head</code>&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x7406;&#x89E3;&#x4E0A;&#x5F0F;&#xFF1A;<strong>&#x4F7F;p&#x548C;slow&#x540C;&#x65F6;&#x5F00;&#x59CB;&#x79FB;&#x52A8;&#xFF08;slow&#x4ECE;&#x521A;&#x624D;&#x7684;&#x76F8;&#x9047;&#x70B9;&#x5F00;&#x59CB;&#xFF09;&#xFF0C;&#x90FD;&#x4E00;&#x6B21;&#x79FB;&#x52A8;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#xFF0C;&#x5219;&#x5F53;p&#x7B2C;&#x4E00;&#x6B21;&#x7ECF;&#x8FC7;n&#x4E2A;&#x8282;&#x70B9;&#x8D70;&#x5230;entrance&#x65F6;&#xFF0C;slow&#x6070;&#x597D;&#x5148;&#x7ECF;&#x8FC7;&#x4E86;<code>m-k</code>&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x518D;&#x8D70;&#x4E86;&#x6574;y&#x5708;&#x56DE;&#x5230;entrance</strong>&#x3002;<br>&#x6B64;&#x65F6;&#xFF0C;p&#x4E0E;slow&#x76F8;&#x9047;&#xFF0C;&#x76F8;&#x9047;&#x70B9;&#x5373;&#x4E3A;entrance&#x3002;</p>
+<h1 id="&#x4EE3;&#x7801;"><a href="#&#x4EE3;&#x7801;" class="headerlink" title="&#x4EE3;&#x7801;"></a>&#x4EE3;&#x7801;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for ListNode.</div><div class="line"> * public class ListNode {</div><div class="line"> *     int val;</div><div class="line"> *     ListNode next;</div><div class="line"> *     ListNode(int val) {</div><div class="line"> *         this.val = val;</div><div class="line"> *         this.next = null;</div><div class="line"> *     }</div><div class="line"> * }</div><div class="line"> */ </div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> head: The first node of linked list.</div><div class="line">     * <span class="doctag">@return</span>: The node where the cycle begins. </div><div class="line">     *           if there is no cycle, return null</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">detectCycle</span><span class="params">(ListNode head)</span> </span>{  </div><div class="line">        <span class="comment">// write your code here</span></div><div class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>) {</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        ListNode slow = head;</div><div class="line">        ListNode fast = head;</div><div class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) {</div><div class="line">            slow = slow.next;</div><div class="line">            fast = fast.next.next;</div><div class="line">            <span class="keyword">if</span> (slow == fast) {</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (fast == <span class="keyword">null</span> || fast.next == <span class="keyword">null</span>) {</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        ListNode p = head;</div><div class="line">        <span class="keyword">while</span> (p != slow) {</div><div class="line">            p = p.next;</div><div class="line">            slow = slow.next;</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> p;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/08/19/Linked-List-Cycle-II/">Linked List Cycle II</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/06/strStr-II-Rabin-Karp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">strStr II - Rabin Karp</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Linked-List-Cycle-II" data-title="Linked List Cycle II" data-url="https://monkeysayhi.github.io/2017/08/19/Linked-List-Cycle-II/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 14px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/书籍/" style="font-size: 10px;">书籍</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 16px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/科普/" style="font-size: 14px;">科普</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 12px;">随笔</a> <a href="/tags/面试/" style="font-size: 16px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.google.com/">Google大法好</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1">简书</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
