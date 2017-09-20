@@ -8,17 +8,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>从源码分析非线程安全集合类的不安全迭代器 | 程序猿说你好</title>
+  <title>源码|从源码分析非线程安全集合类的不安全迭代器 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;#x975E;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5B89;&amp;#x5168;&amp;#x96C6;&amp;#x5408;&amp;#x7C7B;&amp;#xFF08;&amp;#x8FD9;&amp;#x91CC;&amp;#x7684;&amp;#x96C6;&amp;#x5408;&amp;#x6307;&amp;#x5BB9;&amp;#x5668;Collection&amp;#xFF0C;&amp;#x975E;Set&amp;#xFF09;&amp;#x7684;&amp;#x8FED;&amp;#x4EE3;&amp;#x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从源码分析非线程安全集合类的不安全迭代器">
-<meta property="og:url" content="https://monkeysayhi.github.io/2016/11/30/从源码分析非线程安全集合类的不安全迭代器/index.html">
+<meta property="og:title" content="源码|从源码分析非线程安全集合类的不安全迭代器">
+<meta property="og:url" content="https://monkeysayhi.github.io/2016/11/30/源码|从源码分析非线程安全集合类的不安全迭代器/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x975E;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5B89;&amp;#x5168;&amp;#x96C6;&amp;#x5408;&amp;#x7C7B;&amp;#xFF08;&amp;#x8FD9;&amp;#x91CC;&amp;#x7684;&amp;#x96C6;&amp;#x5408;&amp;#x6307;&amp;#x5BB9;&amp;#x5668;Collection&amp;#xFF0C;&amp;#x975E;Set&amp;#xFF09;&amp;#x7684;&amp;#x8FED;&amp;#x4EE3;&amp;#x">
-<meta property="og:updated_time" content="2017-09-20T08:39:51.000Z">
+<meta property="og:updated_time" content="2017-09-20T10:16:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从源码分析非线程安全集合类的不安全迭代器">
+<meta name="twitter:title" content="源码|从源码分析非线程安全集合类的不安全迭代器">
 <meta name="twitter:description" content="&amp;#x975E;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5B89;&amp;#x5168;&amp;#x96C6;&amp;#x5408;&amp;#x7C7B;&amp;#xFF08;&amp;#x8FD9;&amp;#x91CC;&amp;#x7684;&amp;#x96C6;&amp;#x5408;&amp;#x6307;&amp;#x5BB9;&amp;#x5668;Collection&amp;#xFF0C;&amp;#x975E;Set&amp;#xFF09;&amp;#x7684;&amp;#x8FED;&amp;#x4EE3;&amp;#x">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
@@ -156,18 +156,18 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-从源码分析非线程安全集合类的不安全迭代器" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-源码|从源码分析非线程安全集合类的不安全迭代器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      从源码分析非线程安全集合类的不安全迭代器
+      源码|从源码分析非线程安全集合类的不安全迭代器
     </h1>
   
 
-        <a href="/2016/11/30/从源码分析非线程安全集合类的不安全迭代器/" class="archive-article-date">
+        <a href="/2016/11/30/源码|从源码分析非线程安全集合类的不安全迭代器/" class="archive-article-date">
   	<time datetime="2016-11-30T15:55:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-30</time>
 </a>
 
@@ -323,7 +323,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2016/11/30/从源码分析非线程安全集合类的不安全迭代器/">从源码分析非线程安全集合类的不安全迭代器</a><br/>
+		本文链接：<a href="/2016/11/30/源码|从源码分析非线程安全集合类的不安全迭代器/">源码|从源码分析非线程安全集合类的不安全迭代器</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -367,7 +367,7 @@ ga('send', 'pageview');
 	</div>
 	<!-- 多说热评文章 end -->
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="从源码分析非线程安全集合类的不安全迭代器" data-title="从源码分析非线程安全集合类的不安全迭代器" data-url="https://monkeysayhi.github.io/2016/11/30/从源码分析非线程安全集合类的不安全迭代器/"></div>
+	<div class="ds-thread" data-thread-key="源码|从源码分析非线程安全集合类的不安全迭代器" data-title="源码|从源码分析非线程安全集合类的不安全迭代器" data-url="https://monkeysayhi.github.io/2016/11/30/源码|从源码分析非线程安全集合类的不安全迭代器/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
