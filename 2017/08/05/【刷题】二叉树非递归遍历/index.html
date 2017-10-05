@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>【刷题】二叉树非递归遍历 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x539F;&amp;#x9898;&amp;#x94FE;&amp;#x63A5;&amp;#xFF1A;binary-tree-preorder-traversalbinary-tree-inorder-traversalbinary-tree-postorder-traversal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【刷题】二叉树非递归遍历">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/08/05/【刷题】二叉树非递归遍历/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x539F;&amp;#x9898;&amp;#x94FE;&amp;#x63A5;&amp;#xFF1A;binary-tree-preorder-traversalbinary-tree-inorder-traversalbinary-tree-postorder-traversal">
+<meta property="og:updated_time" content="2017-10-05T09:45:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【刷题】二叉树非递归遍历">
+<meta name="twitter:description" content="&amp;#x539F;&amp;#x9898;&amp;#x94FE;&amp;#x63A5;&amp;#xFF1A;binary-tree-preorder-traversalbinary-tree-inorder-traversalbinary-tree-postorder-traversal">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-【刷题】二叉树非递归遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【刷题】二叉树非递归遍历
+    </h1>
+  
+
+        <a href="/2017/08/05/【刷题】二叉树非递归遍历/" class="archive-article-date">
+  	<time datetime="2017-08-05T13:36:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x539F;&#x9898;&#x94FE;&#x63A5;&#xFF1A;<br><a href="http://www.lintcode.com/en/problem/binary-tree-preorder-traversal" target="_blank" rel="external">binary-tree-preorder-traversal</a><br><a href="http://www.lintcode.com/en/problem/binary-tree-inorder-traversal" target="_blank" rel="external">binary-tree-inorder-traversal</a><br><a href="http://www.lintcode.com/en/problem/binary-tree-postorder-traversal" target="_blank" rel="external">binary-tree-postorder-traversal</a></p>
+<a id="more"></a>
+<h1 id="&#x6574;&#x4F53;&#x601D;&#x8DEF;"><a href="#&#x6574;&#x4F53;&#x601D;&#x8DEF;" class="headerlink" title="&#x6574;&#x4F53;&#x601D;&#x8DEF;"></a>&#x6574;&#x4F53;&#x601D;&#x8DEF;</h1><p>&#x4E09;&#x9053;&#x9898;&#x7684;&#x89E3;&#x51B3;&#x601D;&#x8DEF;&#x53EF;&#x7EDF;&#x4E00;&#xFF0C;&#x6A21;&#x677F;&#x4E5F;&#x6781;&#x5176;&#x76F8;&#x4F3C;&#xFF0C;&#x6BD4;&#x4E5D;&#x7AE0;&#x63D0;&#x4F9B;&#x7684;&#x66F4;&#x6F02;&#x4EAE;&#x3002;  </p>
+<ol>
+<li>&#x5C06;&#x4E8C;&#x53C9;&#x6811;&#x5206;&#x4E3A;&#x201C;&#x5DE6;&#x201D;&#xFF08;&#x5305;&#x62EC;&#x4E00;&#x8DEF;&#x5411;&#x5DE6;&#xFF0C;&#x7ECF;&#x8FC7;&#x7684;&#x6240;&#x6709;&#x5B9E;&#x9645;&#x5DE6;+&#x6839;&#xFF09;&#x3001;&#x201C;&#x53F3;&#x201D;&#xFF08;&#x5305;&#x62EC;&#x5B9E;&#x9645;&#x7684;&#x53F3;&#xFF09;&#x4E24;&#x79CD;&#x8282;&#x70B9;  </li>
+<li>&#x4F7F;&#x7528;&#x540C;&#x6837;&#x7684;&#x987A;&#x5E8F;&#x5C06;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#x5165;&#x6808;  </li>
+<li>&#x5728;&#x5408;&#x9002;&#x7684;&#x65F6;&#x673A;&#x8F6C;&#x5411;&#xFF08;&#x8F6C;&#x5411;&#x540E;&#xFF0C;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x5373;&#x6210;&#x4E3A;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF09;&#x3001;&#x8BBF;&#x95EE;&#x8282;&#x70B9;&#x3001;&#x6216;&#x51FA;&#x6808;  </li>
+</ol>
+<p>&#x6BD4;&#x5982;{1,2,3}&#xFF0C;&#x5F53;cur&#x4F4D;&#x4E8E;&#x8282;&#x70B9;1&#x65F6;&#xFF0C;1&#x3001;2&#x5C5E;&#x4E8E;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;3&#x5C5E;&#x4E8E;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x3002;DFS&#x7684;&#x975E;&#x9012;&#x5F52;&#x5B9E;&#x73B0;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x5728;&#x534F;&#x8C03;&#x5165;&#x6808;&#x3001;&#x51FA;&#x6808;&#x548C;&#x8BBF;&#x95EE;&#xFF0C;&#x4E09;&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x987A;&#x5E8F;&#x3002;&#x4E0A;&#x8FF0;&#x7EDF;&#x4E00;&#x4F7F;&#x5F97;&#x6211;&#x4EEC;&#x4E0D;&#x518D;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x5165;&#x6808;&#x987A;&#x5E8F;&#xFF0C;&#x4EC5;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x51FA;&#x6808;&#x548C;&#x8BBF;&#x95EE;&#xFF08;&#x7B2C;3&#x70B9;&#xFF09;&#xFF0C;&#x968F;&#x7740;&#x66F4;&#x8BE6;&#x7EC6;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x4F60;&#x5C06;&#x66F4;&#x52A0;&#x4F53;&#x4F1A;&#x5230;&#x8FD9;&#x79CD;&#x7B80;&#x5316;&#x5E26;&#x6765;&#x7684;&#x597D;&#x5904;&#x3002;  </p>
+<p>&#x5C06;&#x5BF9;&#x8282;&#x70B9;&#x7684;&#x8BBF;&#x95EE;&#x5B9A;&#x4E49;&#x4E3A;<code>results.add(node.val);</code>&#xFF0C;&#x5206;&#x6790;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<h1 id="&#x5148;&#x5E8F;-amp-amp-&#x4E2D;&#x5E8F;&#xFF1A;"><a href="#&#x5148;&#x5E8F;-amp-amp-&#x4E2D;&#x5E8F;&#xFF1A;" class="headerlink" title="&#x5148;&#x5E8F;&amp;&amp;&#x4E2D;&#x5E8F;&#xFF1A;"></a>&#x5148;&#x5E8F;&amp;&amp;&#x4E2D;&#x5E8F;&#xFF1A;</h1><p>&#x5148;&#x5E8F;&#x548C;&#x4E2D;&#x5E8F;&#x7684;&#x60C5;&#x51B5;&#x662F;&#x6781;&#x5176;&#x76F8;&#x4F3C;&#x7684;&#x3002;  </p>
+<ul>
+<li>&#x5148;&#x5E8F;&#x7684;&#x5B9E;&#x9645;&#x987A;&#x5E8F;&#xFF1A;&#x6839;&#x5DE6;&#x53F3;  </li>
+<li>&#x4E2D;&#x5E8F;&#x7684;&#x5B9E;&#x9645;&#x987A;&#x5E8F;&#xFF1A;&#x5DE6;&#x6839;&#x53F3;  </li>
+</ul>
+<p>&#x4F7F;&#x7528;&#x4E0A;&#x8FF0;&#x601D;&#x8DEF;&#xFF0C;&#x5148;&#x5E8F;&#x548C;&#x4E2D;&#x5E8F;&#x7684;&#x904D;&#x5386;&#x987A;&#x5E8F;&#x53EF;&#x7EDF;&#x4E00;&#x4E3A;&#xFF1A;&#x201C;&#x5DE6;&#x201D;&#x201C;&#x53F3;&#x201D;&#x3002;<br>&#x7ED9;&#x6211;&#x4EEC;&#x7684;&#x76F4;&#x89C2;&#x611F;&#x89C9;&#x662F;&#x4EE3;&#x7801;&#x4E5F;&#x4F1A;&#x6BD4;&#x8F83;&#x76F8;&#x4F3C;&#x3002;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x6B63;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x5148;&#x5E8F;&#x4E0E;&#x4E2D;&#x5E8F;&#x7684;&#x533A;&#x522B;&#x53EA;&#x5728;&#x4E8E;&#x5BF9;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#x7684;&#x8BBF;&#x95EE;&#x4E0A;&#x3002;  </p>
+<h2 id="&#x5148;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;"><a href="#&#x5148;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x5148;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;"></a>&#x5148;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;</h2><p>&#x4E0D;&#x9700;&#x8981;&#x5165;&#x6808;&#xFF0C;&#x6BCF;&#x6B21;&#x904D;&#x5386;&#x5230;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x7ACB;&#x5373;&#x8F93;&#x51FA;&#x5373;&#x53EF;&#x3002;<br>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x904D;&#x5386;&#x5230;&#x6700;&#x5DE6;&#x4E0B;&#x7684;&#x8282;&#x70B9;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x8F93;&#x51FA;&#x7684;&#x5DF2;&#x7ECF;&#x4E0D;&#x518D;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x800C;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x5DE6;&#x8282;&#x70B9;&#x3002;&#x8FD9;&#x7B26;&#x5408;&#x5148;&#x5E8F;&#x7684;&#x5B9A;&#x4E49;&#x3002;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (cur != <span class="keyword">null</span>) {</div><div class="line">	results.add(cur.val);</div><div class="line">	stack.push(cur);</div><div class="line">	cur = cur.left;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x800C;&#x540E;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x8BBF;&#x95EE;&#x8FC7;&#x6240;&#x6709;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x73B0;&#x5728;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x8FD9;&#x4E9B;&#x6CA1;&#x7528;&#x7684;&#x8282;&#x70B9;&#x51FA;&#x6808;&#xFF0C;&#x7136;&#x540E;&#x8F6C;&#x5411;&#x5230;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x3002;&#x4E8E;&#x662F;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x4E5F;&#x53D8;&#x6210;&#x4E86;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x540E;&#x7EED;&#x5904;&#x7406;&#x540C;&#x4E0A;&#x3002;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!stack.empty()) {</div><div class="line">	cur = stack.pop();</div><div class="line">	<span class="comment">// &#x8F6C;&#x5411;</span></div><div class="line">	cur = cur.right;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">dfsPreOrder</span><span class="params">(TreeNode root)</span> </span>{</div><div class="line">	List&lt;Integer&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">	Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</div><div class="line"></div><div class="line">	TreeNode cur = root;</div><div class="line">	<span class="keyword">while</span> (cur != <span class="keyword">null</span> || !stack.empty()) {</div><div class="line">		<span class="keyword">while</span> (cur != <span class="keyword">null</span>) {</div><div class="line">			results.add(cur.val);</div><div class="line">			stack.push(cur);</div><div class="line">			cur = cur.left;</div><div class="line">		}</div><div class="line">		<span class="keyword">if</span> (!stack.empty()) {</div><div class="line">			cur = stack.pop();</div><div class="line">			<span class="comment">// &#x8F6C;&#x5411;</span></div><div class="line">			cur = cur.right;</div><div class="line">		}</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">return</span> results;</div><div class="line">}</div></pre></td></tr></table></figure>
+<h2 id="&#x4E2D;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;"><a href="#&#x4E2D;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x4E2D;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;"></a>&#x4E2D;&#x5E8F;&#x7684;&#x5B9E;&#x73B0;</h2><p>&#x57FA;&#x4E8E;&#x5BF9;&#x5148;&#x5E8F;&#x7684;&#x5206;&#x6790;&#xFF0C;<code>&#x5148;&#x5E8F;&#x4E0E;&#x4E2D;&#x5E8F;&#x7684;&#x533A;&#x522B;&#x53EA;&#x5728;&#x4E8E;&#x5BF9;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#x7684;&#x5904;&#x7406;&#x4E0A;</code>&#xFF0C;&#x6211;&#x4EEC;&#x8C03;&#x6574;&#x4E00;&#x884C;&#x4EE3;&#x7801;&#x5373;&#x53EF;&#x5B8C;&#x6210;&#x4E2D;&#x5E8F;&#x904D;&#x5386;&#x3002;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (cur != <span class="keyword">null</span>) {</div><div class="line">	stack.push(cur);</div><div class="line">	cur = cur.left;</div><div class="line">}</div><div class="line"><span class="keyword">if</span> (!stack.empty()) {</div><div class="line">	cur = stack.pop();</div><div class="line">	results.add(cur.val); <span class="comment">// &#x4EC5;&#x8C03;&#x6574;&#x8BE5;&#x884C;&#x4EE3;&#x7801;</span></div><div class="line">	<span class="comment">// &#x8F6C;&#x5411;</span></div><div class="line">	cur = cur.right;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6CE8;&#x610F;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x51FA;&#x6808;&#x4E4B;&#x540E;&#x624D;&#x8BBF;&#x95EE;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x3002;&#x56E0;&#x4E3A;&#x5148;&#x5E8F;&#x5148;&#x8BBF;&#x95EE;&#x5B9E;&#x9645;&#x6839;&#xFF0C;&#x540E;&#x8BBF;&#x95EE;&#x5B9E;&#x9645;&#x5DE6;&#xFF0C;&#x800C;&#x4E2D;&#x5E8F;&#x6070;&#x597D;&#x76F8;&#x53CD;&#x3002;&#x76F8;&#x540C;&#x7684;&#x662F;&#xFF0C;&#x8BBF;&#x95EE;&#x5B8C;&#x6839;+&#x5DE6;&#x5B50;&#x6811;&#xFF08;&#x5148;&#x5E8F;&#xFF09;&#x6216;&#x5DE6;&#x5B50;&#x6811;+&#x6839;&#xFF08;&#x4E2D;&#x5E8F;&#xFF09;&#x540E;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x8F6C;&#x5411;&#x5230;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x4F7F;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x79F0;&#x4E3A;&#x65B0;&#x7684;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#x3002;<br>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">dfsInOrder</span><span class="params">(TreeNode root)</span> </span>{</div><div class="line">    List&lt;Integer&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">    </div><div class="line">    TreeNode cur = root;</div><div class="line">    <span class="keyword">while</span> (cur != <span class="keyword">null</span> || !stack.empty()) {</div><div class="line">        <span class="keyword">while</span> (cur != <span class="keyword">null</span>) {</div><div class="line">            stack.push(cur);</div><div class="line">            cur = cur.left;</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (!stack.empty()) {</div><div class="line">            cur = stack.pop();</div><div class="line">            results.add(cur.val);</div><div class="line">            <span class="comment">// &#x8F6C;&#x5411;</span></div><div class="line">            cur = cur.right;</div><div class="line">        }</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> results;</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x540E;&#x5E8F;"><a href="#&#x540E;&#x5E8F;" class="headerlink" title="&#x540E;&#x5E8F;"></a>&#x540E;&#x5E8F;</h1><p>&#x540E;&#x5E8F;&#x7684;&#x60C5;&#x51B5;&#x7565;&#x6709;&#x4E0D;&#x540C;&#xFF0C;&#x4F46;&#x4ECD;&#x7136;&#x5341;&#x5206;&#x7B80;&#x6D01;&#x3002;  </p>
+<ul>
+<li>&#x540E;&#x5E8F;&#x7684;&#x5B9E;&#x9645;&#x987A;&#x5E8F;&#xFF1A;&#x5DE6;&#x53F3;&#x6839;  </li>
+</ul>
+<p>&#x5165;&#x6808;&#x987A;&#x5E8F;&#x4E0D;&#x53D8;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x8003;&#x8651;&#x7B2C;3&#x70B9;&#x7684;&#x53D8;&#x5316;&#x3002;&#x51FA;&#x6808;&#x7684;&#x5BF9;&#x8C61;&#x4E00;&#x5B9A;&#x90FD;&#x662F;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF08;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x4F1A;&#x5728;&#x8F6C;&#x5411;&#x540E;&#x79F0;&#x4E3A;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x5165;&#x6808;&#xFF09;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B9E;&#x9645;&#x7684;&#x5DE6;&#x6216;&#x6839;&#xFF1B;&#x5B9E;&#x9645;&#x7684;&#x5DE6;&#x53EF;&#x4EE5;&#x5F53;&#x505A;&#x5DE6;&#x53F3;&#x5B50;&#x6811;&#x90FD;&#x4E3A;null&#x7684;&#x6839;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5206;&#x6790;&#x5B9E;&#x9645;&#x7684;&#x6839;&#x3002;  </p>
+<p>&#x5BF9;&#x4E8E;&#x5B9E;&#x9645;&#x7684;&#x6839;&#xFF0C;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x5148;&#x540E;&#x8BBF;&#x95EE;&#x4E86;&#x5DE6;&#x5B50;&#x6811;&#x3001;&#x53F3;&#x5B50;&#x6811;&#x4E4B;&#x540E;&#xFF0C;&#x624D;&#x80FD;&#x8BBF;&#x95EE;&#x6839;&#x3002;&#x5B9E;&#x9645;&#x7684;&#x53F3;&#x8282;&#x70B9;&#x3001;&#x5DE6;&#x8282;&#x70B9;&#x3001;&#x6839;&#x8282;&#x70B9;&#x90FD;&#x4F1A;&#x6210;&#x4E3A;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#x5165;&#x6808;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;<strong>&#x5728;&#x51FA;&#x6808;&#x4E4B;&#x524D;&#xFF0C;&#x5C06;&#x8BE5;&#x8282;&#x70B9;&#x89C6;&#x4F5C;&#x5B9E;&#x9645;&#x7684;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x5E76;&#x68C0;&#x67E5;&#x5176;&#x53F3;&#x5B50;&#x6811;&#x662F;&#x5426;&#x5DF2;&#x88AB;&#x8BBF;&#x95EE;</strong>&#x5373;&#x53EF;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x5B58;&#x5728;&#x53F3;&#x5B50;&#x6811;&#xFF0C;&#x6216;&#x53F3;&#x5B50;&#x6811;&#x5DF2;&#x88AB;&#x8BBF;&#x95EE;&#x4E86;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x51FA;&#x6808;&#xFF0C;&#x5E76;&#x4E0D;&#x9700;&#x8981;&#x8F6C;&#x5411;&#xFF1B;&#x5982;&#x679C;&#x8FD8;&#x6CA1;&#x6709;&#x8BBF;&#x95EE;&#xFF0C;&#x5C31;&#x8F6C;&#x5411;&#xFF0C;&#x4F7F;&#x5176;&#x201C;&#x53F3;&#x201D;&#x8282;&#x70B9;&#x6210;&#x4E3A;&#x201C;&#x5DE6;&#x201D;&#x8282;&#x70B9;&#xFF0C;&#x7B49;&#x7740;&#x5B83;&#x5148;&#x88AB;&#x8BBF;&#x95EE;&#x4E4B;&#x540E;&#xFF0C;&#x518D;&#x6765;&#x8BBF;&#x95EE;&#x6839;&#x8282;&#x70B9;&#x3002;  </p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x6807;&#x5FD7;&#xFF0C;&#x8BB0;&#x5F55;&#x53F3;&#x5B50;&#x6811;&#x7684;&#x8BBF;&#x95EE;&#x60C5;&#x51B5;&#x3002;&#x7531;&#x4E8E;&#x8BBF;&#x95EE;&#x6839;&#x8282;&#x70B9;&#x524D;&#xFF0C;&#x4E00;&#x5B9A;&#x5148;&#x7D27;&#x6328;&#x7740;&#x8BBF;&#x95EE;&#x4E86;&#x5176;&#x53F3;&#x5B50;&#x6811;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x6807;&#x5FD7;&#x4F4D;&#x3002;<br>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">dfsPostOrder</span><span class="params">(TreeNode root)</span> </span>{</div><div class="line">	List&lt;Integer&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">	Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</div><div class="line"></div><div class="line">	TreeNode cur = root;</div><div class="line">	TreeNode last = <span class="keyword">null</span>;</div><div class="line">	<span class="keyword">while</span>(cur != <span class="keyword">null</span> || !stack.empty()){</div><div class="line">		<span class="keyword">while</span> (cur != <span class="keyword">null</span>) {</div><div class="line">			stack.push(cur);</div><div class="line">			cur = cur.left;</div><div class="line">		}</div><div class="line">		<span class="keyword">if</span> (!stack.empty()) {</div><div class="line">			cur = stack.peek();</div><div class="line">			<span class="comment">// &#x5982;&#x679C;&#x5DF2;&#x7ECF;&#x8BBF;&#x95EE;&#x4E86;&#x53F3;&#x5B50;&#x6811;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x6839;&#x8282;&#x70B9;&#xFF1B;&#x5426;&#x5219;&#x8F6C;&#x5411;&#xFF0C;&#x5148;&#x53BB;&#x8BBF;&#x95EE;&#x53F3;&#x5B50;&#x6811;</span></div><div class="line">			<span class="keyword">if</span> (cur.right == <span class="keyword">null</span> || cur.right == last) {</div><div class="line">				results.add(cur.val);</div><div class="line">				stack.pop();</div><div class="line">				last = cur; <span class="comment">// &#x8868;&#x793A;&#x5DF2;&#x8BBF;&#x95EE;&#x8FC7;</span></div><div class="line">				cur = <span class="keyword">null</span>; <span class="comment">// &#x8868;&#x793A;&#x4E0D;&#x9700;&#x8981;&#x8F6C;&#x5411;&#xFF0C;&#x7EE7;&#x7EED;&#x5F39;&#x6808;</span></div><div class="line">			} <span class="keyword">else</span> {</div><div class="line">				<span class="comment">// &#x8F6C;&#x5411;</span></div><div class="line">				cur = cur.right;</div><div class="line">			}</div><div class="line">		}</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="keyword">return</span> results;</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x601D;&#x8DEF;&#x7B80;&#x6D01;&#x4E07;&#x5C81;&#xFF01;&#x6A21;&#x677F;&#x5927;&#x6CD5;&#x4E07;&#x5C81;&#xFF01;  </p>
+<p>&#x6D88;&#x706D;&#x4EBA;&#x7C7B;&#x4FDD;&#x8BC1;&#xFF0C;&#x4E16;&#x754C;&#x5C5E;&#x4E8E;&#x4E09;&#x4F53;&#xFF01;  </p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/08/05/【刷题】二叉树非递归遍历/">【刷题】二叉树非递归遍历</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/08/06/【刷题】strStr-II-Rabin-Karp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【刷题】strStr II - Rabin Karp
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/04/【刷题】Search-in-a-Big-Sorted-Array/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【刷题】Search in a Big Sorted Array</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="【刷题】二叉树非递归遍历" data-title="【刷题】二叉树非递归遍历" data-url="https://monkeysayhi.github.io/2017/08/05/【刷题】二叉树非递归遍历/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 14.29px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/设计模式/" style="font-size: 15.71px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.google.com/">Google大法好</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1">简书</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

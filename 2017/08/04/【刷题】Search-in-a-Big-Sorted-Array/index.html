@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>【刷题】Search in a Big Sorted Array | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;&amp;#x3002;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【刷题】Search in a Big Sorted Array">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/08/04/【刷题】Search-in-a-Big-Sorted-Array/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;&amp;#x3002;">
+<meta property="og:updated_time" content="2017-10-05T09:45:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【刷题】Search in a Big Sorted Array">
+<meta name="twitter:description" content="&amp;#x539F;&amp;#x9898;&amp;#x6233;&amp;#x6211;&amp;#x3002;">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-【刷题】Search-in-a-Big-Sorted-Array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【刷题】Search in a Big Sorted Array
+    </h1>
+  
+
+        <a href="/2017/08/04/【刷题】Search-in-a-Big-Sorted-Array/" class="archive-article-date">
+  	<time datetime="2017-08-04T05:25:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www.lintcode.com/en/problem/search-in-a-big-sorted-array/" target="_blank" rel="external">&#x539F;&#x9898;&#x6233;&#x6211;</a>&#x3002;</p>
+<a id="more"></a>
+<h1 id="&#x9898;&#x76EE;"><a href="#&#x9898;&#x76EE;" class="headerlink" title="&#x9898;&#x76EE;"></a>&#x9898;&#x76EE;</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a big sorted array with positive integers sorted by ascending order. The array is so big so that you can not get the length of the whole array directly, and you can only access the kth number by <code>ArrayReader.get(k)</code> (or <code>ArrayReader-&gt;get(k)</code> for <code>C++</code>). Find the first index of a target number. Your algorithm should be in O(log k), where k is the first index of the target number.</p>
+<p>Return -1, if the number doesn&#x2019;t exist in the array.</p>
+<blockquote>
+<p>Notice:<br>If you accessed an inaccessible index (outside of the array), ArrayReader.get will return <code>2147483647</code>.</p>
+</blockquote>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><ul>
+<li>Given [1, 3, 6, 9, 21, &#x2026;], and target = 3, return 1.</li>
+<li>Given [1, 3, 6, 9, 21, &#x2026;], and target = 4, return -1.</li>
+</ul>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h2><p>O(log k), k is the first index of the given target number.</p>
+<h2 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h2><p><code>Sorted Array</code> <code>Binary Search</code></p>
+<h1 id="&#x5206;&#x6790;"><a href="#&#x5206;&#x6790;" class="headerlink" title="&#x5206;&#x6790;"></a>&#x5206;&#x6790;</h1><p>&#x8FD9;&#x9053;&#x9898;&#x6211;&#x662F;&#x770B;&#x9898;&#x89E3;&#x624D;&#x505A;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x601D;&#x8DEF;&#x975E;&#x5E38;&#x597D;&#xFF0C;&#x6709;&#x4E24;&#x4E2A;&#x91CD;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x53EF;&#x4EE5;O(logk)&#x7684;&#x65F6;&#x95F4;&#x7F29;&#x5C0F;&#x4E8C;&#x5206;&#x6CD5;&#x7684;&#x8303;&#x56F4;</li>
+<li>&#x4ECE;&#x800C;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;&#x4E8C;&#x5206;&#x7684;&#x6700;&#x574F;&#x65F6;&#x95F4;&#x4F18;&#x5316;&#x5230;O(logk)</li>
+</ol>
+<p>&#x7B2C;&#x4E8C;&#x70B9;&#x65E0;&#x9700;&#x8BC1;&#x660E;&#xFF0C;&#x4E0B;&#x9762;&#x8BB2;&#x89E3;&#x7B2C;&#x4E00;&#x70B9;&#x3002;  </p>
+<h2 id="&#x4EE5;O-logk-&#x7684;&#x65F6;&#x95F4;&#x7F29;&#x5C0F;&#x4E8C;&#x5206;&#x6CD5;&#x7684;&#x8303;&#x56F4;"><a href="#&#x4EE5;O-logk-&#x7684;&#x65F6;&#x95F4;&#x7F29;&#x5C0F;&#x4E8C;&#x5206;&#x6CD5;&#x7684;&#x8303;&#x56F4;" class="headerlink" title="&#x4EE5;O(logk)&#x7684;&#x65F6;&#x95F4;&#x7F29;&#x5C0F;&#x4E8C;&#x5206;&#x6CD5;&#x7684;&#x8303;&#x56F4;"></a>&#x4EE5;O(logk)&#x7684;&#x65F6;&#x95F4;&#x7F29;&#x5C0F;&#x4E8C;&#x5206;&#x6CD5;&#x7684;&#x8303;&#x56F4;</h2><p>&#x5982;&#x679C;&#x4ECE;0&#x904D;&#x5386;&#x5230;k&#xFF0C;&#x90A3;&#x4E48;&#x660E;&#x663E;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(k)&#xFF0C;&#x8D85;&#x8FC7;&#x4E86;&#x4E86;O(logk)&#x3002;<br>&#x8981;&#x8BB0;&#x5F97;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x76EE;&#x7684;&#x662F;&#x786E;&#x5B9A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x7684;&#x4E0A;&#x754C;r&#xFF0C;&#x4F7F;O(r)=O(k)&#xFF0C;&#x7EE7;&#x800C;&#x5728;&#x8FD9;&#x6BB5;&#x6570;&#x7EC4;&#x4E0A;&#x8FDB;&#x884C;&#x4E8C;&#x5206;&#x67E5;&#x627E;&#xFF0C;&#x590D;&#x6742;&#x5EA6;&#x4E3A;O(logk)&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5C06;&#x5728;O(logk)&#x7684;&#x65F6;&#x95F4;&#x5185;&#x627E;&#x5230;&#x8BE5;r&#x3002;<br>r&#x7684;&#x8981;&#x6C42;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<ol>
+<li>&#x6EE1;&#x8DB3;O(r)=O(k)</li>
+<li>&#x8BA1;&#x7B97;r&#x7684;&#x65F6;&#x95F4;&#x4E3A;O(logk)</li>
+</ol>
+<p>&#x5373;&#xFF0C;&#x5BFB;&#x627E;&#x4E00;&#x4E2A;&#x8FD0;&#x7B97;&#xFF0C;&#x8FDB;&#x884C;O(logk)&#x6B21;&#xFF0C;&#x7ED3;&#x679C;&#x4E3A;O(k)&#x3002;&#x4E8E;&#x662F;&#x60F3;&#x5230;&#x4E86;<strong>&#x4E58;&#x5E42;</strong>&#xFF1A;  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2 ** O(logk) = O(k)</div></pre></td></tr></table></figure>
+<p>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] computeRange(ArrayReader reader, <span class="keyword">int</span> target){</div><div class="line">    <span class="keyword">int</span> r = <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span> (reader.get(r) &lt; target) {</div><div class="line">        r &lt;&lt;= <span class="number">1</span>;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> l = r &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">while</span> (r &gt;= l &amp;&amp; reader.get(r) == <span class="number">2147483647</span>) {</div><div class="line">        r--;</div><div class="line">    }</div><div class="line">    <span class="keyword">if</span> (r &lt; l) {</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]{l, r};</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x5B8C;&#x6574;&#x4EE3;&#x7801;"><a href="#&#x5B8C;&#x6574;&#x4EE3;&#x7801;" class="headerlink" title="&#x5B8C;&#x6574;&#x4EE3;&#x7801;"></a>&#x5B8C;&#x6574;&#x4EE3;&#x7801;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition of ArrayReader:</div><div class="line"> * </div><div class="line"> * class ArrayReader {</div><div class="line"> *      // get the number at index, return -1 if index is less than zero.</div><div class="line"> *      public int get(int index);</div><div class="line"> * }</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>{</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> reader: An instance of ArrayReader.</div><div class="line">     * <span class="doctag">@param</span> target: An integer</div><div class="line">     * <span class="doctag">@return</span> : An integer which is the index of the target number</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">searchBigSortedArray</span><span class="params">(ArrayReader reader, <span class="keyword">int</span> target)</span> </span>{</div><div class="line">        <span class="comment">// write your code here</span></div><div class="line">        <span class="keyword">if</span> (reader == <span class="keyword">null</span>) {</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (reader.get(<span class="number">0</span>) &gt; target) {</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">int</span>[] range = computeRange(reader, target);</div><div class="line">        <span class="keyword">if</span> (range == <span class="keyword">null</span>) {</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> k = bsearchLowerBound(reader, range[<span class="number">0</span>], range[<span class="number">1</span>], target);</div><div class="line">        <span class="keyword">if</span> (reader.get(k) != target) {</div><div class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> k;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] computeRange(ArrayReader reader, <span class="keyword">int</span> target){</div><div class="line">        <span class="keyword">int</span> r = <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (reader.get(r) &lt; target) {</div><div class="line">            r &lt;&lt;= <span class="number">1</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> l = r &gt;&gt; <span class="number">1</span>;</div><div class="line">        <span class="keyword">while</span> (r &gt;= l &amp;&amp; reader.get(r) == <span class="number">2147483647</span>) {</div><div class="line">            r--;</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (r &lt; l) {</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        }</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]{l, r};</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">bsearchLowerBound</span><span class="params">(ArrayReader reader, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> v)</span> </span>{</div><div class="line">        <span class="keyword">while</span> (l &lt; r) {</div><div class="line">            <span class="keyword">int</span> m = l + (r - l) / <span class="number">2</span>;</div><div class="line">            <span class="keyword">if</span> (reader.get(m) &gt;= v) {</div><div class="line">                r = m;</div><div class="line">            } <span class="keyword">else</span> {</div><div class="line">                l = m + <span class="number">1</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> l;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LintCode/">LintCode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/08/04/【刷题】Search-in-a-Big-Sorted-Array/">【刷题】Search in a Big Sorted Array</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/08/05/【刷题】二叉树非递归遍历/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【刷题】二叉树非递归遍历
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/31/Java高并发综合/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java高并发综合</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="【刷题】Search-in-a-Big-Sorted-Array" data-title="【刷题】Search in a Big Sorted Array" data-url="https://monkeysayhi.github.io/2017/08/04/【刷题】Search-in-a-Big-Sorted-Array/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 14.29px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/设计模式/" style="font-size: 15.71px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.google.com/">Google大法好</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1">简书</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
