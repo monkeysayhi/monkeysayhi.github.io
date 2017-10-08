@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>Java实现生产者-消费者模型 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x8003;&amp;#x67E5;Java&amp;#x7684;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x65F6;&amp;#xFF0C;&amp;#x624B;&amp;#x5199;&amp;#x201C;&amp;#x751F;&amp;#x4EA7;&amp;#x8005;-&amp;#x6D88;&amp;#x8D39;&amp;#x8005;&amp;#x6A21;&amp;#x578B;&amp;#x201D;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java实现生产者-消费者模型">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/10/08/Java实现生产者-消费者模型/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x8003;&amp;#x67E5;Java&amp;#x7684;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x65F6;&amp;#xFF0C;&amp;#x624B;&amp;#x5199;&amp;#x201C;&amp;#x751F;&amp;#x4EA7;&amp;#x8005;-&amp;#x6D88;&amp;#x8D39;&amp;#x8005;&amp;#x6A21;&amp;#x578B;&amp;#x201D;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x">
+<meta property="og:updated_time" content="2017-10-08T09:40:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java实现生产者-消费者模型">
+<meta name="twitter:description" content="&amp;#x8003;&amp;#x67E5;Java&amp;#x7684;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x65F6;&amp;#xFF0C;&amp;#x624B;&amp;#x5199;&amp;#x201C;&amp;#x751F;&amp;#x4EA7;&amp;#x8005;-&amp;#x6D88;&amp;#x8D39;&amp;#x8005;&amp;#x6A21;&amp;#x578B;&amp;#x201D;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Java实现生产者-消费者模型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java实现生产者-消费者模型
+    </h1>
+  
+
+        <a href="/2017/10/08/Java实现生产者-消费者模型/" class="archive-article-date">
+  	<time datetime="2017-10-08T09:36:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-08</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x8003;&#x67E5;Java&#x7684;&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x65F6;&#xFF0C;&#x624B;&#x5199;&#x201C;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#x201D;&#x662F;&#x4E00;&#x4E2A;&#x7ECF;&#x5178;&#x95EE;&#x9898;&#x3002;&#x6709;&#x5982;&#x4E0B;&#x51E0;&#x4E2A;&#x8003;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x5BF9;Java&#x5E76;&#x53D1;&#x6A21;&#x578B;&#x7684;&#x7406;&#x89E3;</li>
+<li>&#x5BF9;Java&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x63A5;&#x53E3;&#x7684;&#x719F;&#x7EC3;&#x7A0B;&#x5EA6;</li>
+<li>bug free</li>
+<li>coding style</li>
+</ul>
+<a id="more"></a>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5F52;&#x7EB3;&#x4E86;4&#x79CD;&#x5199;&#x6CD5;&#xFF0C;&#x9605;&#x8BFB;&#x540E;&#xFF0C;&#x6700;&#x597D;&#x5728;&#x767D;&#x677F;&#x4E0A;&#x7EC3;&#x4E60;&#x51E0;&#x904D;&#xFF0C;&#x68C0;&#x67E5;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x638C;&#x63E1;&#x3002;&#x8FD9;4&#x79CD;&#x5199;&#x6CD5;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x79CD;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x4F7F;&#x7528;&#x7684;&#x7F16;&#x7A0B;&#x63A5;&#x53E3;&#x4E0D;&#x540C;&#xFF0C;&#x6216;&#x5E76;&#x53D1;&#x7C92;&#x5EA6;&#x4E0D;&#x540C;&#x3002;</p>
+<h1 id="&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;"><a href="#&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;" class="headerlink" title="&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;"></a>&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</h1><p>&#x7F51;&#x4E0A;&#x6709;&#x5F88;&#x591A;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#x7684;&#x5B9A;&#x4E49;&#x548C;&#x5B9E;&#x73B0;&#x3002;&#x672C;&#x6587;&#x7814;&#x7A76;&#x6700;&#x5E38;&#x7528;&#x7684;<strong>&#x6709;&#x754C;</strong>&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#xFF0C;&#x7B80;&#x5355;&#x6982;&#x62EC;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x751F;&#x4EA7;&#x8005;&#x6301;&#x7EED;&#x751F;&#x4EA7;&#xFF0C;&#x76F4;&#x5230;&#x7F13;&#x51B2;&#x533A;&#x6EE1;&#xFF0C;&#x963B;&#x585E;&#xFF1B;&#x7F13;&#x51B2;&#x533A;&#x4E0D;&#x6EE1;&#x540E;&#xFF0C;&#x7EE7;&#x7EED;&#x751F;&#x4EA7;</li>
+<li>&#x6D88;&#x8D39;&#x8005;&#x6301;&#x7EED;&#x6D88;&#x8D39;&#xFF0C;&#x76F4;&#x5230;&#x7F13;&#x51B2;&#x533A;&#x7A7A;&#xFF0C;&#x963B;&#x585E;&#xFF1B;&#x7F13;&#x51B2;&#x533A;&#x4E0D;&#x7A7A;&#x540E;&#xFF0C;&#x7EE7;&#x7EED;&#x6D88;&#x8D39;</li>
+<li>&#x751F;&#x4EA7;&#x8005;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#xFF0C;&#x6D88;&#x8D39;&#x8005;&#x4E5F;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;</li>
+</ul>
+<p>&#x53EF;&#x901A;&#x8FC7;&#x5982;&#x4E0B;&#x6761;&#x4EF6;&#x9A8C;&#x8BC1;&#x6A21;&#x578B;&#x5B9E;&#x73B0;&#x7684;&#x6B63;&#x786E;&#x6027;&#xFF1A;</p>
+<ul>
+<li>&#x540C;&#x4E00;&#x4EA7;&#x54C1;&#x7684;&#x6D88;&#x8D39;&#x884C;&#x4E3A;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;&#x751F;&#x4EA7;&#x884C;&#x4E3A;&#x4E4B;&#x540E;</li>
+<li>&#x4EFB;&#x610F;&#x65F6;&#x523B;&#xFF0C;&#x7F13;&#x51B2;&#x533A;&#x5927;&#x5C0F;&#x4E0D;&#x5C0F;&#x4E8E;0&#xFF0C;&#x4E0D;&#x5927;&#x4E8E;&#x9650;&#x5236;&#x5BB9;&#x91CF;</li>
+</ul>
+<p>&#x8BE5;&#x6A21;&#x578B;&#x7684;&#x5E94;&#x7528;&#x548C;&#x53D8;&#x79CD;&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x4E0D;&#x8D58;&#x8FF0;&#x3002;</p>
+<h1 id="&#x51E0;&#x79CD;&#x5199;&#x6CD5;"><a href="#&#x51E0;&#x79CD;&#x5199;&#x6CD5;" class="headerlink" title="&#x51E0;&#x79CD;&#x5199;&#x6CD5;"></a>&#x51E0;&#x79CD;&#x5199;&#x6CD5;</h1><h2 id="&#x51C6;&#x5907;"><a href="#&#x51C6;&#x5907;" class="headerlink" title="&#x51C6;&#x5907;"></a>&#x51C6;&#x5907;</h2><blockquote>
+<p>&#x9762;&#x8BD5;&#x65F6;&#x53EF;&#x8BED;&#x8A00;&#x8BF4;&#x660E;&#x4EE5;&#x4E0B;&#x51C6;&#x5907;&#x4EE3;&#x7801;&#x3002;&#x5173;&#x952E;&#x90E8;&#x5206;&#x9700;&#x8981;&#x5B9E;&#x73B0;&#xFF0C;&#x5982;AbstractConsumer&#x3002;</p>
+</blockquote>
+<p>&#x4E0B;&#x9762;&#x4F1A;&#x6D89;&#x53CA;&#x591A;&#x79CD;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x62BD;&#x8C61;&#x51FA;&#x5173;&#x952E;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x5B9E;&#x73B0;&#x4E00;&#x4E9B;&#x62BD;&#x8C61;&#x7C7B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Consumer</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Producer</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        consume();</div><div class="line">      } <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">        e.printStackTrace();</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) {</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        produce();</div><div class="line">      } <span class="keyword">catch</span> (InterruptedException e) {</div><div class="line">        e.printStackTrace();</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x578B;&#x5B9E;&#x73B0;&#x4E2D;&#xFF0C;&#x751F;&#x4EA7;&#x8005;&#x3001;&#x6D88;&#x8D39;&#x8005;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x4E5F;&#x4E0D;&#x540C;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x4E3A;&#x6A21;&#x578B;&#x5B9A;&#x4E49;&#x62BD;&#x8C61;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="function">Runnable <span class="title">newRunnableConsumer</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">  <span class="function">Runnable <span class="title">newRunnableProducer</span><span class="params">()</span></span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x5C06;Task&#x4F5C;&#x4E3A;&#x751F;&#x4EA7;&#x548C;&#x6D88;&#x8D39;&#x7684;&#x5355;&#x4F4D;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Task</span> </span>{</div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span> no;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Task</span><span class="params">(<span class="keyword">int</span> no)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.no = no;</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x5982;&#x679C;&#x9700;&#x6C42;&#x8FD8;&#x4E0D;&#x660E;&#x786E;&#xFF08;&#x8FD9;&#x7B26;&#x5408;&#x5927;&#x90E8;&#x5206;&#x5DE5;&#x7A0B;&#x5DE5;&#x4F5C;&#x7684;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#xFF09;&#xFF0C;&#x5EFA;&#x8BAE;&#x8FB9;&#x5B9E;&#x73B0;&#x8FB9;&#x62BD;&#x8C61;&#xFF0C;<strong>&#x4E0D;&#x8981;&#x201C;&#x9762;&#x5411;&#x672A;&#x6765;&#x7F16;&#x7A0B;&#x201D;</strong>&#x3002;</p>
+</blockquote>
+<h2 id="&#x5B9E;&#x73B0;&#x4E00;&#xFF1A;BlockingQueue"><a href="#&#x5B9E;&#x73B0;&#x4E00;&#xFF1A;BlockingQueue" class="headerlink" title="&#x5B9E;&#x73B0;&#x4E00;&#xFF1A;BlockingQueue"></a>&#x5B9E;&#x73B0;&#x4E00;&#xFF1A;BlockingQueue</h2><p>BlockingQueue&#x7684;&#x5199;&#x6CD5;&#x6700;&#x7B80;&#x5355;&#x3002;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#xFF0C;<strong>&#x628A;&#x5E76;&#x53D1;&#x548C;&#x5BB9;&#x91CF;&#x63A7;&#x5236;&#x5C01;&#x88C5;&#x5728;&#x7F13;&#x51B2;&#x533A;&#x4E2D;</strong>&#x3002;&#x800C;BlockingQueue&#x7684;&#x6027;&#x8D28;&#x5929;&#x751F;&#x6EE1;&#x8DB3;&#x8FD9;&#x4E2A;&#x8981;&#x6C42;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockingQueueModel</span> <span class="keyword">implements</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue&lt;Task&gt; queue;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger increTaskNo = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">BlockingQueueModel</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>{</div><div class="line">    <span class="comment">// LinkedBlockingQueue &#x7684;&#x961F;&#x5217;&#x662F; lazy-init &#x7684;&#xFF0C;&#x4F46; ArrayBlockingQueue &#x5728;&#x521B;&#x5EFA;&#x65F6;&#x5C31;&#x5DF2;&#x7ECF; init</span></div><div class="line">    <span class="keyword">this</span>.queue = <span class="keyword">new</span> LinkedBlockingQueue&lt;&gt;(cap);</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableConsumer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConsumerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableProducer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ProducerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      Task task = queue.take();</div><div class="line">      <span class="comment">// &#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x8303;&#x56F4;&#x7684;&#x6D88;&#x8D39;&#xFF0C;&#x6A21;&#x62DF;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</span></div><div class="line">      Thread.sleep(<span class="number">500</span> + (<span class="keyword">long</span>) (Math.random() * <span class="number">500</span>));</div><div class="line">      System.out.println(<span class="string">&quot;consume: &quot;</span> + task.no);</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="comment">// &#x4E0D;&#x5B9A;&#x671F;&#x751F;&#x4EA7;&#xFF0C;&#x6A21;&#x62DF;&#x968F;&#x673A;&#x7684;&#x7528;&#x6237;&#x8BF7;&#x6C42;</span></div><div class="line">      Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line">      Task task = <span class="keyword">new</span> Task(increTaskNo.getAndIncrement());</div><div class="line">      queue.put(task);</div><div class="line">      System.out.println(<span class="string">&quot;produce: &quot;</span> + task.no);</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    Model model = <span class="keyword">new</span> BlockingQueueModel(<span class="number">3</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableConsumer()).start();</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableProducer()).start();</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x622A;&#x53D6;&#x524D;&#x9762;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">produce: 0</div><div class="line">produce: 4</div><div class="line">produce: 2</div><div class="line">produce: 3</div><div class="line">produce: 5</div><div class="line">consume: 0</div><div class="line">produce: 1</div><div class="line">consume: 4</div><div class="line">produce: 7</div><div class="line">consume: 2</div><div class="line">produce: 8</div><div class="line">consume: 3</div><div class="line">produce: 6</div><div class="line">consume: 5</div><div class="line">produce: 9</div><div class="line">consume: 1</div><div class="line">produce: 10</div><div class="line">consume: 7</div></pre></td></tr></table></figure>
+<p>&#x7531;&#x4E8E;&#x64CD;&#x4F5C;&#x201C;&#x51FA;&#x961F;/&#x5165;&#x961F;+&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x201D;&#x4E0D;&#x662F;&#x539F;&#x5B50;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E0A;&#x8FF0;&#x65E5;&#x5FD7;&#x7684;&#x7EDD;&#x5BF9;&#x987A;&#x5E8F;&#x4E0E;&#x5B9E;&#x9645;&#x7684;&#x51FA;&#x961F;/&#x5165;&#x961F;&#x987A;&#x5E8F;&#x6709;&#x51FA;&#x5165;&#xFF0C;&#x4F46;&#x5BF9;&#x4E8E;&#x540C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x53F7;<code>task.no</code>&#xFF0C;&#x5176;consume&#x65E5;&#x5FD7;&#x4E00;&#x5B9A;&#x51FA;&#x73B0;&#x5728;&#x5176;produce&#x65E5;&#x5FD7;&#x4E4B;&#x540E;&#xFF0C;&#x5373;&#xFF1A;&#x540C;&#x4E00;&#x4EFB;&#x52A1;&#x7684;&#x6D88;&#x8D39;&#x884C;&#x4E3A;&#x4E00;&#x5B9A;&#x53D1;&#x751F;&#x5728;&#x751F;&#x4EA7;&#x884C;&#x4E3A;&#x4E4B;&#x540E;&#x3002;&#x7F13;&#x51B2;&#x533A;&#x7684;&#x5BB9;&#x91CF;&#x7559;&#x7ED9;&#x8BFB;&#x8005;&#x9A8C;&#x8BC1;&#x3002;&#x7B26;&#x5408;&#x4E24;&#x4E2A;&#x9A8C;&#x8BC1;&#x6761;&#x4EF6;&#x3002;</p>
+<p>BlockingQueue&#x5199;&#x6CD5;&#x7684;&#x6838;&#x5FC3;&#x53EA;&#x6709;&#x4E24;&#x884C;&#x4EE3;&#x7801;&#xFF0C;&#x5E76;&#x53D1;&#x548C;&#x5BB9;&#x91CF;&#x63A7;&#x5236;&#x90FD;&#x5C01;&#x88C5;&#x5728;&#x4E86;BlockingQueue&#x4E2D;&#xFF0C;&#x6B63;&#x786E;&#x6027;&#x7531;BlockingQueue&#x4FDD;&#x8BC1;&#x3002;&#x9762;&#x8BD5;&#x4E2D;&#x9996;&#x9009;&#x8BE5;&#x5199;&#x6CD5;&#xFF0C;&#x81EA;&#x7136;&#x7F8E;&#x89C2;&#x7B80;&#x5355;&#x3002;</p>
+<h2 id="&#x5B9E;&#x73B0;&#x4E8C;&#xFF1A;wait-amp-amp-notify"><a href="#&#x5B9E;&#x73B0;&#x4E8C;&#xFF1A;wait-amp-amp-notify" class="headerlink" title="&#x5B9E;&#x73B0;&#x4E8C;&#xFF1A;wait &amp;&amp; notify"></a>&#x5B9E;&#x73B0;&#x4E8C;&#xFF1A;wait &amp;&amp; notify</h2><p>&#x5982;&#x679C;&#x4E0D;&#x80FD;&#x5C06;&#x5E76;&#x53D1;&#x4E0E;&#x5BB9;&#x91CF;&#x63A7;&#x5236;&#x90FD;&#x5C01;&#x88C5;&#x5728;&#x7F13;&#x51B2;&#x533A;&#x4E2D;&#xFF0C;&#x5C31;&#x53EA;&#x80FD;&#x7531;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#x5B8C;&#x6210;&#x3002;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6848;&#x662F;&#x4F7F;&#x7528;&#x6734;&#x7D20;&#x7684;<code>wait &amp;&amp; notify</code>&#x673A;&#x5236;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WaitNotifyModel</span> <span class="keyword">implements</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Object BUFFER_LOCK = <span class="keyword">new</span> Object();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Queue&lt;Task&gt; buffer = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> cap;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger increTaskNo = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">WaitNotifyModel</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.cap = cap;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableConsumer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConsumerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableProducer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ProducerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="keyword">synchronized</span> (BUFFER_LOCK) {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == <span class="number">0</span>) {</div><div class="line">          BUFFER_LOCK.wait();</div><div class="line">        }</div><div class="line">        Task task = buffer.poll();</div><div class="line">        <span class="keyword">assert</span> task != <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// &#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x8303;&#x56F4;&#x7684;&#x6D88;&#x8D39;&#xFF0C;&#x6A21;&#x62DF;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</span></div><div class="line">        Thread.sleep(<span class="number">500</span> + (<span class="keyword">long</span>) (Math.random() * <span class="number">500</span>));</div><div class="line">        System.out.println(<span class="string">&quot;consume: &quot;</span> + task.no);</div><div class="line">        BUFFER_LOCK.notifyAll();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="comment">// &#x4E0D;&#x5B9A;&#x671F;&#x751F;&#x4EA7;&#xFF0C;&#x6A21;&#x62DF;&#x968F;&#x673A;&#x7684;&#x7528;&#x6237;&#x8BF7;&#x6C42;</span></div><div class="line">      Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line">      <span class="keyword">synchronized</span> (BUFFER_LOCK) {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == cap) {</div><div class="line">          BUFFER_LOCK.wait();</div><div class="line">        }</div><div class="line">        Task task = <span class="keyword">new</span> Task(increTaskNo.getAndIncrement());</div><div class="line">        buffer.offer(task);</div><div class="line">        System.out.println(<span class="string">&quot;produce: &quot;</span> + task.no);</div><div class="line">        BUFFER_LOCK.notifyAll();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    Model model = <span class="keyword">new</span> WaitNotifyModel(<span class="number">3</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableConsumer()).start();</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableProducer()).start();</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x9A8C;&#x8BC1;&#x65B9;&#x6CD5;&#x540C;&#x4E0A;&#x3002;</p>
+<p>&#x6734;&#x7D20;&#x7684;<code>wait &amp;&amp; notify</code>&#x673A;&#x5236;&#x4E0D;&#x90A3;&#x4E48;&#x7075;&#x6D3B;&#xFF0C;&#x4F46;&#x8DB3;&#x591F;&#x7B80;&#x5355;&#x3002;synchronized&#x3001;wait&#x3001;notifyAll&#x7684;&#x7528;&#x6CD5;&#x53EF;&#x53C2;&#x8003;<a href="http://blog.csdn.net/ns_code/article/details/17225469" target="_blank" rel="external">&#x3010;Java&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x3011;&#x4E4B;&#x5341;&#xFF1A;&#x4F7F;&#x7528;wait/notify/notifyAll&#x5B9E;&#x73B0;&#x7EBF;&#x7A0B;&#x95F4;&#x901A;&#x4FE1;&#x7684;&#x51E0;&#x70B9;&#x91CD;&#x8981;&#x8BF4;&#x660E;</a>&#xFF0C;<strong>&#x7740;&#x91CD;&#x7406;&#x89E3;&#x5524;&#x9192;&#x4E0E;&#x9501;&#x7ADE;&#x4E89;&#x7684;&#x533A;&#x522B;</strong>&#x3002;</p>
+<h2 id="&#x5B9E;&#x73B0;&#x4E09;&#xFF1A;&#x7B80;&#x5355;&#x7684;Lock-amp-amp-Condition"><a href="#&#x5B9E;&#x73B0;&#x4E09;&#xFF1A;&#x7B80;&#x5355;&#x7684;Lock-amp-amp-Condition" class="headerlink" title="&#x5B9E;&#x73B0;&#x4E09;&#xFF1A;&#x7B80;&#x5355;&#x7684;Lock &amp;&amp; Condition"></a>&#x5B9E;&#x73B0;&#x4E09;&#xFF1A;&#x7B80;&#x5355;&#x7684;Lock &amp;&amp; Condition</h2><p>&#x6211;&#x4EEC;&#x8981;&#x4FDD;&#x8BC1;&#x7406;&#x89E3;<code>wait &amp;&amp; notify</code>&#x673A;&#x5236;&#x3002;&#x5B9E;&#x73B0;&#x65F6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Object&#x7C7B;&#x63D0;&#x4F9B;&#x7684;wait()&#x65B9;&#x6CD5;&#x4E0E;notifyAll()&#x65B9;&#x6CD5;&#xFF0C;&#x4F46;&#x66F4;&#x63A8;&#x8350;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x4F7F;&#x7528;java.util.concurrent&#x5305;&#x63D0;&#x4F9B;&#x7684;<code>Lock &amp;&amp; Condition</code>&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockConditionModel1</span> <span class="keyword">implements</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Lock BUFFER_LOCK = <span class="keyword">new</span> ReentrantLock();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Condition BUFFER_COND = BUFFER_LOCK.newCondition();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Queue&lt;Task&gt; buffer = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> cap;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger increTaskNo = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LockConditionModel1</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.cap = cap;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableConsumer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConsumerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableProducer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ProducerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      BUFFER_LOCK.lockInterruptibly();</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == <span class="number">0</span>) {</div><div class="line">          BUFFER_COND.await();</div><div class="line">        }</div><div class="line">        Task task = buffer.poll();</div><div class="line">        <span class="keyword">assert</span> task != <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// &#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x8303;&#x56F4;&#x7684;&#x6D88;&#x8D39;&#xFF0C;&#x6A21;&#x62DF;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</span></div><div class="line">        Thread.sleep(<span class="number">500</span> + (<span class="keyword">long</span>) (Math.random() * <span class="number">500</span>));</div><div class="line">        System.out.println(<span class="string">&quot;consume: &quot;</span> + task.no);</div><div class="line">        BUFFER_COND.signalAll();</div><div class="line">      } <span class="keyword">finally</span> {</div><div class="line">        BUFFER_LOCK.unlock();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="comment">// &#x4E0D;&#x5B9A;&#x671F;&#x751F;&#x4EA7;&#xFF0C;&#x6A21;&#x62DF;&#x968F;&#x673A;&#x7684;&#x7528;&#x6237;&#x8BF7;&#x6C42;</span></div><div class="line">      Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line">      BUFFER_LOCK.lockInterruptibly();</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == cap) {</div><div class="line">          BUFFER_COND.await();</div><div class="line">        }</div><div class="line">        Task task = <span class="keyword">new</span> Task(increTaskNo.getAndIncrement());</div><div class="line">        buffer.offer(task);</div><div class="line">        System.out.println(<span class="string">&quot;produce: &quot;</span> + task.no);</div><div class="line">        BUFFER_COND.signalAll();</div><div class="line">      } <span class="keyword">finally</span> {</div><div class="line">        BUFFER_LOCK.unlock();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    Model model = <span class="keyword">new</span> LockConditionModel1(<span class="number">3</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableConsumer()).start();</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableProducer()).start();</div><div class="line">    }</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BE5;&#x5199;&#x6CD5;&#x7684;&#x601D;&#x8DEF;&#x4E0E;&#x5B9E;&#x73B0;&#x4E8C;&#x7684;&#x601D;&#x8DEF;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#xFF0C;&#x4EC5;&#x4EC5;&#x5C06;&#x9501;&#x4E0E;&#x6761;&#x4EF6;&#x53D8;&#x91CF;&#x6362;&#x6210;&#x4E86;Lock&#x548C;Condition&#x3002;</p>
+<h2 id="&#x5B9E;&#x73B0;&#x56DB;&#xFF1A;&#x66F4;&#x9AD8;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x7684;Lock-amp-amp-Condition"><a href="#&#x5B9E;&#x73B0;&#x56DB;&#xFF1A;&#x66F4;&#x9AD8;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x7684;Lock-amp-amp-Condition" class="headerlink" title="&#x5B9E;&#x73B0;&#x56DB;&#xFF1A;&#x66F4;&#x9AD8;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x7684;Lock &amp;&amp; Condition"></a>&#x5B9E;&#x73B0;&#x56DB;&#xFF1A;&#x66F4;&#x9AD8;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x7684;Lock &amp;&amp; Condition</h2><p>&#x73B0;&#x5728;&#xFF0C;&#x5982;&#x679C;&#x505A;&#x4E00;&#x4E9B;&#x5B9E;&#x9A8C;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;<strong>&#x5B9E;&#x73B0;&#x4E00;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x9AD8;&#x4E8E;&#x5B9E;&#x73B0;&#x4E8C;&#x3001;&#x4E09;</strong>&#x3002;&#x6682;&#x4E14;&#x4E0D;&#x5173;&#x5FC3;BlockingQueue&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF0C;&#x6765;&#x5206;&#x6790;&#x770B;&#x5982;&#x4F55;&#x4F18;&#x5316;&#x5B9E;&#x73B0;&#x4E09;&#xFF08;&#x4E0E;&#x5B9E;&#x73B0;&#x4E8C;&#x7684;&#x601D;&#x8DEF;&#x76F8;&#x540C;&#xFF0C;&#x6027;&#x80FD;&#x76F8;&#x5F53;&#xFF09;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<h3 id="&#x5206;&#x6790;&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x74F6;&#x9888;"><a href="#&#x5206;&#x6790;&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x74F6;&#x9888;" class="headerlink" title="&#x5206;&#x6790;&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x74F6;&#x9888;"></a>&#x5206;&#x6790;&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x74F6;&#x9888;</h3><blockquote>
+<p>&#x6700;&#x597D;&#x7684;&#x67E5;&#x8BC1;&#x65B9;&#x6CD5;&#x662F;&#x8BB0;&#x5F55;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x65F6;&#x95F4;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5B9A;&#x4F4D;&#x5230;&#x771F;&#x6B63;&#x7684;&#x74F6;&#x9888;&#x3002;&#x4F46;&#x6B64;&#x95EE;&#x9898;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x7528;&#x201C;&#x77AA;&#x773C;&#x6CD5;&#x201D;&#x5206;&#x6790;&#x3002;</p>
+</blockquote>
+<p>&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x5E76;&#x53D1;&#x74F6;&#x9888;&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x56E0;&#x4E3A;&#x5728;&#x9501; <code>BUFFER_LOCK</code> &#x770B;&#x6765;&#xFF0C;&#x4EFB;&#x4F55;&#x6D88;&#x8D39;&#x8005;&#x7EBF;&#x7A0B;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#x7EBF;&#x7A0B;&#x90FD;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;&#x540C;&#x4E00;&#x65F6;&#x523B;&#xFF0C;&#x6700;&#x591A;&#x53EA;&#x5141;&#x8BB8;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF08;&#x751F;&#x4EA7;&#x8005;&#x6216;&#x6D88;&#x8D39;&#x8005;&#xFF0C;&#x4E8C;&#x9009;&#x4E00;&#xFF09;&#x64CD;&#x4F5C;&#x7F13;&#x51B2;&#x533A; buffer&#x3002;</p>
+<p>&#x800C;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5982;&#x679C;&#x7F13;&#x51B2;&#x533A;&#x662F;&#x4E00;&#x4E2A;&#x961F;&#x5217;&#x7684;&#x8BDD;&#xFF0C;&#x201C;&#x751F;&#x4EA7;&#x8005;&#x5C06;&#x4EA7;&#x54C1;&#x5165;&#x961F;&#x201D;&#x4E0E;&#x201C;&#x6D88;&#x8D39;&#x8005;&#x5C06;&#x4EA7;&#x54C1;&#x51FA;&#x961F;&#x201D;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x4E4B;&#x95F4;&#x6CA1;&#x6709;&#x540C;&#x6B65;&#x5173;&#x7CFB;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x961F;&#x9996;&#x51FA;&#x961F;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x5728;&#x961F;&#x5C3E;&#x5165;&#x961F;&#x3002;<strong>&#x7406;&#x60F3;&#x6027;&#x80FD;&#x53EF;&#x63D0;&#x5347;&#x81F3;&#x5B9E;&#x73B0;&#x4E09;&#x7684;&#x4E24;&#x500D;</strong>&#x3002;</p>
+<h3 id="&#x53BB;&#x6389;&#x8FD9;&#x4E2A;&#x74F6;&#x9888;"><a href="#&#x53BB;&#x6389;&#x8FD9;&#x4E2A;&#x74F6;&#x9888;" class="headerlink" title="&#x53BB;&#x6389;&#x8FD9;&#x4E2A;&#x74F6;&#x9888;"></a>&#x53BB;&#x6389;&#x8FD9;&#x4E2A;&#x74F6;&#x9888;</h3><p>&#x90A3;&#x4E48;&#x601D;&#x8DEF;&#x5C31;&#x7B80;&#x5355;&#x4E86;&#xFF1A;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x9501; <code>CONSUME_LOCK</code>&#x4E0E;<code>PRODUCE_LOCK</code>&#xFF0C;<code>CONSUME_LOCK</code>&#x63A7;&#x5236;&#x6D88;&#x8D39;&#x8005;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x51FA;&#x961F;&#xFF0C;<code>PRODUCE_LOCK</code>&#x63A7;&#x5236;&#x751F;&#x4EA7;&#x8005;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5165;&#x961F;&#xFF1B;&#x76F8;&#x5E94;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x6761;&#x4EF6;&#x53D8;&#x91CF;<code>NOT_EMPTY</code>&#x4E0E;<code>NOT_FULL</code>&#xFF0C;<code>NOT_EMPTY</code>&#x8D1F;&#x8D23;&#x63A7;&#x5236;&#x6D88;&#x8D39;&#x8005;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#xFF08;&#x963B;&#x585E;&#x3001;&#x8FD0;&#x884C;&#xFF09;&#xFF0C;<code>NOT_FULL</code>&#x8D1F;&#x8D23;&#x63A7;&#x5236;&#x751F;&#x4EA7;&#x8005;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#xFF08;&#x963B;&#x585E;&#x3001;&#x8FD0;&#x884C;&#xFF09;&#x3002;&#x4EE5;&#x6B64;&#x8BA9;&#x4F18;&#x5316;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x6D88;&#x8D39;&#x8005;&#xFF08;&#x6216;&#x751F;&#x4EA7;&#x8005;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#xFF09;&#x4E4B;&#x95F4;&#x662F;&#x4E32;&#x884C;&#x7684;&#xFF1B;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#x4E4B;&#x95F4;&#x662F;&#x5E76;&#x884C;&#x7684;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockConditionModel2</span> <span class="keyword">implements</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Lock CONSUME_LOCK = <span class="keyword">new</span> ReentrantLock();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Condition NOT_EMPTY = CONSUME_LOCK.newCondition();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Lock PRODUCE_LOCK = <span class="keyword">new</span> ReentrantLock();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Condition NOT_FULL = PRODUCE_LOCK.newCondition();</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Buffer&lt;Task&gt; buffer = <span class="keyword">new</span> Buffer&lt;&gt;();</div><div class="line">  <span class="keyword">private</span> AtomicInteger bufLen = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> cap;</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger increTaskNo = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LockConditionModel2</span><span class="params">(<span class="keyword">int</span> cap)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.cap = cap;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableConsumer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConsumerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> Runnable <span class="title">newRunnableProducer</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ProducerImpl();</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="keyword">int</span> newBufSize = -<span class="number">1</span>;</div><div class="line"></div><div class="line">      CONSUME_LOCK.lockInterruptibly();</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="keyword">while</span> (bufLen.get() == <span class="number">0</span>) {</div><div class="line">          System.out.println(<span class="string">&quot;buffer is empty...&quot;</span>);</div><div class="line">          NOT_EMPTY.await();</div><div class="line">        }</div><div class="line">        Task task = buffer.poll();</div><div class="line">        newBufSize = bufLen.decrementAndGet();</div><div class="line">        <span class="keyword">assert</span> task != <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// &#x56FA;&#x5B9A;&#x65F6;&#x95F4;&#x8303;&#x56F4;&#x7684;&#x6D88;&#x8D39;&#xFF0C;&#x6A21;&#x62DF;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#x7684;&#x670D;&#x52A1;&#x5668;&#x5904;&#x7406;&#x8FC7;&#x7A0B;</span></div><div class="line">        Thread.sleep(<span class="number">500</span> + (<span class="keyword">long</span>) (Math.random() * <span class="number">500</span>));</div><div class="line">        System.out.println(<span class="string">&quot;consume: &quot;</span> + task.no);</div><div class="line">        <span class="keyword">if</span> (newBufSize &gt; <span class="number">0</span>) {</div><div class="line">          NOT_EMPTY.signalAll();</div><div class="line">        }</div><div class="line">      } <span class="keyword">finally</span> {</div><div class="line">        CONSUME_LOCK.unlock();</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (newBufSize &lt; cap) {</div><div class="line">        PRODUCE_LOCK.lockInterruptibly();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">          NOT_FULL.signalAll();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">          PRODUCE_LOCK.unlock();</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="comment">// &#x4E0D;&#x5B9A;&#x671F;&#x751F;&#x4EA7;&#xFF0C;&#x6A21;&#x62DF;&#x968F;&#x673A;&#x7684;&#x7528;&#x6237;&#x8BF7;&#x6C42;</span></div><div class="line">      Thread.sleep((<span class="keyword">long</span>) (Math.random() * <span class="number">1000</span>));</div><div class="line"></div><div class="line">      <span class="keyword">int</span> newBufSize = -<span class="number">1</span>;</div><div class="line"></div><div class="line">      PRODUCE_LOCK.lockInterruptibly();</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="keyword">while</span> (bufLen.get() == cap) {</div><div class="line">          System.out.println(<span class="string">&quot;buffer is full...&quot;</span>);</div><div class="line">          NOT_FULL.await();</div><div class="line">        }</div><div class="line">        Task task = <span class="keyword">new</span> Task(increTaskNo.getAndIncrement());</div><div class="line">        buffer.offer(task);</div><div class="line">        newBufSize = bufLen.incrementAndGet();</div><div class="line">        System.out.println(<span class="string">&quot;produce: &quot;</span> + task.no);</div><div class="line">        <span class="keyword">if</span> (newBufSize &lt; cap) {</div><div class="line">          NOT_FULL.signalAll();</div><div class="line">        }</div><div class="line">      } <span class="keyword">finally</span> {</div><div class="line">        PRODUCE_LOCK.unlock();</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="keyword">if</span> (newBufSize &gt; <span class="number">0</span>) {</div><div class="line">        CONSUME_LOCK.lockInterruptibly();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">          NOT_EMPTY.signalAll();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">          CONSUME_LOCK.unlock();</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Buffer</span>&lt;<span class="title">E</span>&gt; </span>{</div><div class="line">    <span class="keyword">private</span> Node head;</div><div class="line">    <span class="keyword">private</span> Node tail;</div><div class="line"></div><div class="line">    Buffer() {</div><div class="line">      <span class="comment">// dummy node</span></div><div class="line">      head = tail = <span class="keyword">new</span> Node(<span class="keyword">null</span>);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">offer</span><span class="params">(E e)</span> </span>{</div><div class="line">      tail.next = <span class="keyword">new</span> Node(e);</div><div class="line">      tail = tail.next;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">poll</span><span class="params">()</span> </span>{</div><div class="line">      head = head.next;</div><div class="line">      E e = head.item;</div><div class="line">      head.item = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">return</span> e;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>{</div><div class="line">      E item;</div><div class="line">      Node next;</div><div class="line"></div><div class="line">      Node(E item) {</div><div class="line">        <span class="keyword">this</span>.item = item;</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    Model model = <span class="keyword">new</span> LockConditionModel2(<span class="number">3</span>);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableConsumer()).start();</div><div class="line">    }</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {</div><div class="line">      <span class="keyword">new</span> Thread(model.newRunnableProducer()).start();</div><div class="line">    }</div><div class="line">  }</div></pre></td></tr></table></figure>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x7531;&#x4E8E;&#x9700;&#x8981;&#x540C;&#x65F6;&#x5728;UnThreadSafe&#x7684;&#x7F13;&#x51B2;&#x533A; buffer &#x4E0A;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#x4E0E;&#x751F;&#x4EA7;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x80FD;&#x4F7F;&#x7528;&#x5B9E;&#x73B0;&#x4E8C;&#x3001;&#x4E09;&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x961F;&#x5217;&#x4E86;&#xFF0C;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x7F13;&#x51B2;&#x533A; Buffer&#x3002;Buffer&#x8981;&#x6EE1;&#x8DB3;&#x4EE5;&#x4E0B;&#x6761;&#x4EF6;&#xFF1A;</p>
+<ul>
+<li>&#x5728;&#x5934;&#x90E8;&#x51FA;&#x961F;&#xFF0C;&#x5C3E;&#x90E8;&#x5165;&#x961F;</li>
+<li>&#x5728;poll()&#x65B9;&#x6CD5;&#x4E2D;&#x53EA;&#x64CD;&#x4F5C;head</li>
+<li>&#x5728;offer()&#x65B9;&#x6CD5;&#x4E2D;&#x53EA;&#x64CD;&#x4F5C;tail</li>
+</ul>
+<h3 id="&#x8FD8;&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5417;"><a href="#&#x8FD8;&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5417;" class="headerlink" title="&#x8FD8;&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5417;"></a>&#x8FD8;&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5417;</h3><p>&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x4F18;&#x5316;&#x6389;&#x4E86;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x74F6;&#x9888;&#xFF0C;&#x8FD8;&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x4F18;&#x5316;&#x5417;&#xFF1F;</p>
+<p>&#x5982;&#x679C;&#x53EF;&#x4EE5;&#xFF0C;&#x5FC5;&#x7136;&#x662F;&#x7EE7;&#x7EED;&#x4F18;&#x5316;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x6D88;&#x8D39;&#x8005;&#xFF08;&#x6216;&#x751F;&#x4EA7;&#x8005;&#x4E0E;&#x751F;&#x4EA7;&#x8005;&#xFF09;&#x4E4B;&#x95F4;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x6D88;&#x8D39;&#x8005;&#x4E0E;&#x6D88;&#x8D39;&#x8005;&#x4E4B;&#x95F4;&#x5FC5;&#x987B;&#x662F;&#x4E32;&#x884C;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5E76;&#x53D1;&#x6A21;&#x578B;&#x4E0A;&#x5DF2;&#x7ECF;&#x6CA1;&#x6709;&#x5730;&#x65B9;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x4F18;&#x5316;&#x4E86;&#x3002;</p>
+<p>&#x4E0D;&#x8FC7;&#x5728;&#x5177;&#x4F53;&#x7684;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x4E00;&#x822C;&#x8FD8;&#x80FD;&#x591F;&#x7EE7;&#x7EED;&#x4F18;&#x5316;&#x3002;&#x5982;&#xFF1A;</p>
+<ul>
+<li>&#x5E76;&#x53D1;&#x89C4;&#x6A21;&#x4E2D;&#x7B49;&#xFF0C;&#x53EF;&#x8003;&#x8651;&#x4F7F;&#x7528;CAS&#x4EE3;&#x66FF;&#x91CD;&#x5165;&#x9501;</li>
+<li>&#x6A21;&#x578B;&#x4E0A;&#x4E0D;&#x80FD;&#x4F18;&#x5316;&#xFF0C;&#x4F46;&#x4E00;&#x4E2A;&#x6D88;&#x8D39;&#x884C;&#x4E3A;&#x6216;&#x8BB8;&#x53EF;&#x4EE5;&#x8FDB;&#x4E00;&#x6B65;&#x62C6;&#x89E3;&#x3001;&#x4F18;&#x5316;&#xFF0C;&#x4ECE;&#x800C;&#x964D;&#x4F4E;&#x6D88;&#x8D39;&#x7684;&#x5EF6;&#x8FDF;</li>
+<li>&#x4E00;&#x4E2A;&#x961F;&#x5217;&#x7684;&#x5E76;&#x53D1;&#x6027;&#x80FD;&#x8FBE;&#x5230;&#x4E86;&#x6781;&#x9650;&#xFF0C;&#x53EF;&#x91C7;&#x7528;&#x201C;&#x591A;&#x4E2A;&#x961F;&#x5217;&#x201D;&#xFF08;&#x5982;&#x5206;&#x5E03;&#x5F0F;&#x6D88;&#x606F;&#x961F;&#x5217;&#x7B49;&#xFF09;</li>
+</ul>
+<h1 id="4&#x79CD;&#x5B9E;&#x73B0;&#x7684;&#x672C;&#x8D28;"><a href="#4&#x79CD;&#x5B9E;&#x73B0;&#x7684;&#x672C;&#x8D28;" class="headerlink" title="4&#x79CD;&#x5B9E;&#x73B0;&#x7684;&#x672C;&#x8D28;"></a>4&#x79CD;&#x5B9E;&#x73B0;&#x7684;&#x672C;&#x8D28;</h1><p>&#x6587;&#x7AE0;&#x5F00;&#x5934;&#x8BF4;&#xFF1A;<strong>&#x8FD9;4&#x79CD;&#x5199;&#x6CD5;&#x7684;&#x672C;&#x8D28;&#x76F8;&#x540C;&#x2014;&#x2014;&#x90FD;&#x662F;&#x5728;&#x4F7F;&#x7528;&#x6216;&#x5B9E;&#x73B0;BlockingQueue</strong>&#x3002;&#x5B9E;&#x73B0;&#x4E00;&#x76F4;&#x63A5;&#x4F7F;&#x7528;BlockingQueue&#xFF0C;&#x5B9E;&#x73B0;&#x56DB;&#x5B9E;&#x73B0;&#x4E86;&#x7B80;&#x5355;&#x7684;BlockingQueue&#xFF0C;&#x800C;&#x5B9E;&#x73B0;&#x4E8C;&#x3001;&#x4E09;&#x5219;&#x5B9E;&#x73B0;&#x4E86;&#x9000;&#x5316;&#x7248;&#x7684;BlockingQueue&#xFF08;&#x6027;&#x80FD;&#x964D;&#x4F4E;&#x4E00;&#x534A;&#xFF09;&#x3002;</p>
+<p>&#x5B9E;&#x73B0;&#x4E00;&#x4F7F;&#x7528;&#x7684;BlockingQueue&#x5B9E;&#x73B0;&#x7C7B;&#x662F;LinkedBlockingQueue&#xFF0C;&#x7ED9;&#x51FA;&#x5176;&#x6E90;&#x7801;&#x9605;&#x8BFB;&#x5BF9;&#x7167;&#xFF0C;&#x5199;&#x7684;&#x4E0D;&#x96BE;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedBlockingQueue</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractQueue</span>&lt;<span class="title">E</span>&gt;</span></div><div class="line">        <span class="keyword">implements</span> <span class="title">BlockingQueue</span>&lt;<span class="title">E</span>&gt;, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> {</div><div class="line">...</div><div class="line"><span class="comment">/** Lock held by take, poll, etc */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">new</span> ReentrantLock();</div><div class="line">    <span class="comment">/** Wait queue for waiting takes */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Condition notEmpty = takeLock.newCondition();</div><div class="line">    <span class="comment">/** Lock held by put, offer, etc */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">new</span> ReentrantLock();</div><div class="line">    <span class="comment">/** Wait queue for waiting puts */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Condition notFull = putLock.newCondition();</div><div class="line">...</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Signals a waiting take. Called only from put/offer (which do not</div><div class="line">     * otherwise ordinarily lock takeLock.)</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">signalNotEmpty</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">this</span>.takeLock;</div><div class="line">        takeLock.lock();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            notEmpty.signal();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            takeLock.unlock();</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Signals a waiting put. Called only from take/poll.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">signalNotFull</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">this</span>.putLock;</div><div class="line">        putLock.lock();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            notFull.signal();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            putLock.unlock();</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Links node at end of queue.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> node the node</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(Node&lt;E&gt; node)</span> </span>{</div><div class="line">        <span class="comment">// assert putLock.isHeldByCurrentThread();</span></div><div class="line">        <span class="comment">// assert last.next == null;</span></div><div class="line">        last = last.next = node;</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Removes a node from head of queue.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@return</span> the node</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> E <span class="title">dequeue</span><span class="params">()</span> </span>{</div><div class="line">        <span class="comment">// assert takeLock.isHeldByCurrentThread();</span></div><div class="line">        <span class="comment">// assert head.item == null;</span></div><div class="line">        Node&lt;E&gt; h = head;</div><div class="line">        Node&lt;E&gt; first = h.next;</div><div class="line">        h.next = h; <span class="comment">// help GC</span></div><div class="line">        head = first;</div><div class="line">        E x = first.item;</div><div class="line">        first.item = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">return</span> x;</div><div class="line">    }</div><div class="line">...</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Creates a {<span class="doctag">@code</span> LinkedBlockingQueue} with the given (fixed) capacity.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> capacity the capacity of this queue</div><div class="line">     * <span class="doctag">@throws</span> IllegalArgumentException if {<span class="doctag">@code</span> capacity} is not greater</div><div class="line">     *         than zero</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedBlockingQueue</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (capacity &lt;= <span class="number">0</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</div><div class="line">        <span class="keyword">this</span>.capacity = capacity;</div><div class="line">        last = head = <span class="keyword">new</span> Node&lt;E&gt;(<span class="keyword">null</span>);</div><div class="line">    }</div><div class="line">...</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Inserts the specified element at the tail of this queue, waiting if</div><div class="line">     * necessary for space to become available.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@throws</span> InterruptedException {<span class="doctag">@inheritDoc</span>}</div><div class="line">     * <span class="doctag">@throws</span> NullPointerException {<span class="doctag">@inheritDoc</span>}</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(E e)</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">        <span class="keyword">if</span> (e == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        <span class="comment">// Note: convention in all put/take/etc is to preset local var</span></div><div class="line">        <span class="comment">// holding count negative to indicate failure unless set.</span></div><div class="line">        <span class="keyword">int</span> c = -<span class="number">1</span>;</div><div class="line">        Node&lt;E&gt; node = <span class="keyword">new</span> Node&lt;E&gt;(e);</div><div class="line">        <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">this</span>.putLock;</div><div class="line">        <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;</div><div class="line">        putLock.lockInterruptibly();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            <span class="comment">/*</span></div><div class="line">             * Note that count is used in wait guard even though it is</div><div class="line">             * not protected by lock. This works because count can</div><div class="line">             * only decrease at this point (all other puts are shut</div><div class="line">             * out by lock), and we (or some other waiting put) are</div><div class="line">             * signalled if it ever changes from capacity. Similarly</div><div class="line">             * for all other uses of count in other wait guards.</div><div class="line">             */</div><div class="line">            <span class="keyword">while</span> (count.get() == capacity) {</div><div class="line">                notFull.await();</div><div class="line">            }</div><div class="line">            enqueue(node);</div><div class="line">            c = count.getAndIncrement();</div><div class="line">            <span class="keyword">if</span> (c + <span class="number">1</span> &lt; capacity)</div><div class="line">                notFull.signal();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            putLock.unlock();</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (c == <span class="number">0</span>)</div><div class="line">            signalNotEmpty();</div><div class="line">    }</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">        E x;</div><div class="line">        <span class="keyword">int</span> c = -<span class="number">1</span>;</div><div class="line">        <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;</div><div class="line">        <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">this</span>.takeLock;</div><div class="line">        takeLock.lockInterruptibly();</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            <span class="keyword">while</span> (count.get() == <span class="number">0</span>) {</div><div class="line">                notEmpty.await();</div><div class="line">            }</div><div class="line">            x = dequeue();</div><div class="line">            c = count.getAndDecrement();</div><div class="line">            <span class="keyword">if</span> (c &gt; <span class="number">1</span>)</div><div class="line">                notEmpty.signal();</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            takeLock.unlock();</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (c == capacity)</div><div class="line">            signalNotFull();</div><div class="line">        <span class="keyword">return</span> x;</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x5B9E;&#x73B0;&#x4E00;&#x5FC5;&#x987B;&#x638C;&#x63E1;&#xFF0C;&#x5B9E;&#x73B0;&#x56DB;&#x81F3;&#x5C11;&#x8981;&#x80FD;&#x6E05;&#x695A;&#x8868;&#x8FF0;&#xFF1B;&#x5B9E;&#x73B0;&#x4E8C;&#x3001;&#x4E09;&#x638C;&#x63E1;&#x4E00;&#x4E2A;&#x5373;&#x53EF;&#x3002;</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/10/08/Java实现生产者-消费者模型/">Java实现生产者-消费者模型</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/10/08/Java模拟赛跑过程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Java模拟赛跑过程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/04/Java常用异常整理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java常用异常整理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Java实现生产者-消费者模型" data-title="Java实现生产者-消费者模型" data-url="https://monkeysayhi.github.io/2017/10/08/Java实现生产者-消费者模型/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15.71px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/设计模式/" style="font-size: 14.29px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://www.google.com/">Google大法好</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1">简书</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
