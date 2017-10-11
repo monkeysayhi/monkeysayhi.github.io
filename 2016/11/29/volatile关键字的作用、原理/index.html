@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2016/11/29/volatile关键字的作用、原理/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x5728;&amp;#x53EA;&amp;#x6709;&amp;#x53CC;&amp;#x91CD;&amp;#x68C0;&amp;#x67E5;&amp;#x9501;&amp;#xFF0C;&amp;#x6CA1;&amp;#x6709;volatile&amp;#x7684;&amp;#x61D2;&amp;#x52A0;&amp;#x8F7D;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;&amp;#x6307;">
-<meta property="og:updated_time" content="2017-09-30T15:02:25.000Z">
+<meta property="og:updated_time" content="2017-10-09T08:42:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile关键字的作用、原理">
 <meta name="twitter:description" content="&amp;#x5728;&amp;#x53EA;&amp;#x6709;&amp;#x53CC;&amp;#x91CD;&amp;#x68C0;&amp;#x67E5;&amp;#x9501;&amp;#xFF0C;&amp;#x6CA1;&amp;#x6709;volatile&amp;#x7684;&amp;#x61D2;&amp;#x52A0;&amp;#x8F7D;&amp;#x5355;&amp;#x4F8B;&amp;#x6A21;&amp;#x5F0F;&amp;#x4E2D;&amp;#xFF0C;&amp;#x7531;&amp;#x4E8E;&amp;#x6307;">
@@ -263,8 +263,12 @@ ga('send', 'pageview');
 </ul>
 <p>&#x5982;&#x679C;&#x5E0C;&#x671B;&#x4E0A;&#x8FF0;&#x64CD;&#x4F5C;&#x4E5F;&#x5177;&#x6709;&#x539F;&#x5B50;&#x6027;&#xFF0C;&#x90A3;&#x4E48;&#x53EA;&#x80FD;&#x91C7;&#x53D6;&#x9501;&#x3001;&#x539F;&#x5B50;&#x53D8;&#x91CF;&#x66F4;&#x591A;&#x7684;&#x63AA;&#x65BD;&#x3002;</p>
 <h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x7EFC;&#x4E0A;&#xFF0C;&#x5176;&#x5B9E;volatile&#x4FDD;&#x6301;&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x548C;&#x9632;&#x6B62;&#x6307;&#x4EE4;&#x91CD;&#x6392;&#x5E8F;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4E5F;&#x90FD;&#x4F9D;&#x9760;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x5F97;&#x5230;&#x89E3;&#x51B3;&#x3002;&#x66F4;&#x591A;&#x5185;&#x5BB9;&#x8BF7;&#x53C2;&#x89C1;JVM&#x76F8;&#x5173;&#x4E66;&#x7C4D;&#x3002;</p>
+<hr>
 <blockquote>
-<p>&#x53C2;&#x8003;&#xFF1A;<br><a href="http://blog.csdn.net/jiyiqinlovexx/article/details/50989328" target="_blank" rel="external">Java&#x5E76;&#x53D1;&#xFF1A;volatile&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x548C;&#x6307;&#x4EE4;&#x91CD;&#x6392;</a>  </p>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://blog.csdn.net/jiyiqinlovexx/article/details/50989328" target="_blank" rel="external">Java&#x5E76;&#x53D1;&#xFF1A;volatile&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x548C;&#x6307;&#x4EE4;&#x91CD;&#x6392;</a></li>
+</ul>
 </blockquote>
 
       
@@ -497,7 +501,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15.71px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/设计模式/" style="font-size: 14.29px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
+    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15.71px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 14.29px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
     			</div>
     	</section>
     

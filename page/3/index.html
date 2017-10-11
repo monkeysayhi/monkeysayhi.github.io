@@ -552,18 +552,18 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-Exchager数据交换的时机" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-从Exchager数据交换到基于trade-off的系统设计" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/05/Exchager数据交换的时机/">Exchager数据交换的时机</a>
+      <a class="article-title" href="/2016/12/05/从Exchager数据交换到基于trade-off的系统设计/">从Exchager数据交换到基于trade-off的系统设计</a>
     </h1>
   
 
-        <a href="/2016/12/05/Exchager数据交换的时机/" class="archive-article-date">
+        <a href="/2016/12/05/从Exchager数据交换到基于trade-off的系统设计/" class="archive-article-date">
   	<time datetime="2016-12-05T12:34:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-05</time>
 </a>
 
@@ -571,10 +571,9 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;JDK&#x63D0;&#x4F9B;&#x7684;Exchager&#x7C7B;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x4EA4;&#x6362;&#xFF1A;<em>&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x53CC;&#x65B9;&#x5C06;&#x4E92;&#x76F8;&#x7B49;&#x5F85;&#x5BF9;&#x65B9;&#xFF0C;&#x76F4;&#x5230;&#x53CC;&#x65B9;&#x7684;&#x6570;&#x636E;&#x90FD;&#x51C6;&#x5907;&#x5B8C;&#x6BD5;&#xFF0C;&#x624D;&#x8FDB;&#x884C;&#x4EA4;&#x6362;&#x3002;</em></p>
-<p>Exchager&#x7684;&#x4F7F;&#x7528;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x7406;&#x89E3;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65F6;&#x673A;&#x5374;&#x9700;&#x8981;&#x52A8;&#x52A8;&#x8111;&#x5B50;&#x3002;&#x300A;Java&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x5B9E;&#x6218;&#x300B;&#x4E2D;&#x4ECB;&#x7ECD;&#x4E86;&#x5224;&#x5B9A;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x65F6;&#x673A;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x6848;&#xFF0C;&#x5374;&#x4E0D;&#x751A;&#x6E05;&#x6670;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x4ECE;<strong>&#x201C;&#x65F6;&#x673A;&#x9009;&#x62E9;&#x7684;&#x76EE;&#x7684;&#x201D;</strong>&#x51FA;&#x53D1;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5B58;&#x5728;&#x7740;&#x4E09;&#x79CD;&#x65B9;&#x6848;&#x3002;&#x672C;&#x6587;&#x6BD4;&#x8F83;&#x4E86;&#x8FD9;&#x4E09;&#x79CD;&#x65B9;&#x6848;&#xFF0C;&#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x52A0;&#x6DF1;&#x5BF9;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x65F6;&#x673A;&#x7684;&#x7406;&#x89E3;&#x3002;</p>
+        <p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;JDK&#x63D0;&#x4F9B;&#x7684;Exchager&#x7C7B;&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x4EA4;&#x6362;&#xFF1A;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x53CC;&#x65B9;&#x5C06;&#x4E92;&#x76F8;&#x7B49;&#x5F85;&#x5BF9;&#x65B9;&#xFF0C;&#x76F4;&#x5230;&#x53CC;&#x65B9;&#x7684;&#x6570;&#x636E;&#x90FD;&#x51C6;&#x5907;&#x5B8C;&#x6BD5;&#xFF0C;&#x624D;&#x8FDB;&#x884C;&#x4EA4;&#x6362;&#x3002;Exchager&#x7C7B;&#x5F88;&#x5C11;&#x7528;&#x5230;&#xFF0C;&#x4F46;<strong>&#x7406;&#x89E3;&#x6570;&#x636E;&#x4EA4;&#x6362;&#x7684;&#x65F6;&#x673A;&#x5374;&#x5341;&#x5206;&#x91CD;&#x8981;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E;trade-off&#x7684;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;</strong>&#x3002;&#x4E0B;&#x8FF0;&#x5206;&#x6790;&#x65B9;&#x6CD5;&#x80FD;&#x6269;&#x5C55;&#x5230;&#x8BF8;&#x591A;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#x7684;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x66F4;&#x597D;&#x7684;&#x8FDB;&#x884C;trade-off&#x3002;</p>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2016/12/05/Exchager数据交换的时机/#more">more >></a>
+          <a class="article-more-a"  href="/2016/12/05/从Exchager数据交换到基于trade-off的系统设计/#more">more >></a>
         </p>
       
 
@@ -585,7 +584,7 @@ ga('send', 'pageview');
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统设计/">系统设计</a></li></ul>
 	</div>
 
       
@@ -630,7 +629,7 @@ ga('send', 'pageview');
 <blockquote>
 <p>&#x7A0B;&#x5E8F;&#x733F;&#x8FFD;&#x6C42;&#x4E00;&#x7F8E;&#x5973;&#x3002;<br>&#x7F8E;&#x5973;&#xFF1A;&#x4F60;&#x80FD;&#x8BA9;&#x8FD9;&#x4E2A;&#x8BBA;&#x575B;&#x7684;&#x4EBA;&#x90FD;&#x5435;&#x8D77;&#x6765;&#xFF0C;&#x6211;&#x4ECA;&#x665A;&#x5C31;&#x8DDF;&#x4F60;&#x8D70;&#x3002;<br>&#x4E8E;&#x662F;&#xFF0C;&#x7A0B;&#x5E8F;&#x733F;&#x5728;&#x8BBA;&#x575B;&#x4E0A;&#x8BF4;&#x9053;&#xFF1A;PHP&#x662F;&#x6700;&#x597D;&#x7684;&#x8BED;&#x8A00;&#xFF01;<br>&#x8BBA;&#x575B;&#x70B8;&#x9505;&#x4E86;&#xFF0C;&#x5404;&#x79CD;&#x5435;&#x67B6;&#x3002;&#x3002;&#x3002;<br>&#x7F8E;&#x5973;&#xFF1A;&#x670D;&#x4E86;&#x4F60;&#x4E86;&#xFF0C;&#x6211;&#x4EEC;&#x8D70;&#x5427;&#x3002;&#x4ECA;&#x5929;&#x4F60;&#x60F3;&#x5E72;&#x5565;&#x90FD;&#x884C;&#x3002;<br>&#x7A0B;&#x5E8F;&#x733F;&#xFF1A;&#x4ECA;&#x5929;&#x4E0D;&#x884C;&#xFF0C;&#x6211;&#x4E00;&#x5B9A;&#x8981;&#x8BF4;&#x670D;&#x4ED6;&#x4EEC;&#xFF01;</p>
 </blockquote>
-<p>PHP&#x662F;&#x4E0D;&#x662F;&#x4E16;&#x754C;&#x4E0A;&#x6700;&#x597D;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x6216;&#x8BB8;&#x6CA1;&#x6709;&#x7B54;&#x6848;&#x2014;&#x2014;&#x5F53;&#x7136;&#xFF0C;&#x7A0B;&#x5E8F;&#x733F;&#x80FD;&#x4E0D;&#x80FD;&#x8FFD;&#x5230;&#x5973;&#x5B69;&#x53EF;&#x80FD;&#x4E5F;&#x6CA1;&#x6709;&#x7B54;&#x6848;&#x3002;&#x4F46;&#x662F;&#xFF0C;<strong>&#x5982;&#x679C;&#x8BF4;&#x7A0B;&#x5E8F;&#x733F;&#x516C;&#x8BA4;&#x6700;&#x68D2;&#x7684;&#x4E2D;&#x6587;&#x79D1;&#x5E7B;&#x5C0F;&#x8BF4;&#xFF0C;&#x90A3;&#x5C31;&#x975E;&#x300A;&#x4E09;&#x4F53;&#x300B;&#x83AB;&#x5C5E;&#x4E86;</strong>&#x3002;  </p>
+<p>PHP&#x662F;&#x4E0D;&#x662F;&#x4E16;&#x754C;&#x4E0A;&#x6700;&#x597D;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x6216;&#x8BB8;&#x6CA1;&#x6709;&#x7B54;&#x6848;&#x2014;&#x2014;&#x5F53;&#x7136;&#xFF0C;&#x7A0B;&#x5E8F;&#x733F;&#x80FD;&#x4E0D;&#x80FD;&#x8FFD;&#x5230;&#x5973;&#x5B69;&#x53EF;&#x80FD;&#x4E5F;&#x6CA1;&#x6709;&#x7B54;&#x6848;&#x3002;&#x4F46;&#x662F;&#xFF0C;<strong>&#x5982;&#x679C;&#x8BF4;&#x7A0B;&#x5E8F;&#x733F;&#x516C;&#x8BA4;&#x6700;&#x68D2;&#x7684;&#x4E2D;&#x6587;&#x79D1;&#x5E7B;&#x5C0F;&#x8BF4;&#xFF0C;&#x90A3;&#x5C31;&#x975E;&#x300A;&#x4E09;&#x4F53;&#x300B;&#x83AB;&#x5C5E;&#x4E86;</strong>&#x3002;</p>
         <p class="article-more-link">
           <a class="article-more-a"  href="/2016/12/01/消灭人类暴政，世界属于三体/#more">more >></a>
         </p>
@@ -787,7 +786,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15.71px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/设计模式/" style="font-size: 14.29px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
+    				<a href="/tags/JVM/" style="font-size: 11.43px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.57px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.86px;">LintCode</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 15.71px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.86px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.43px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 12.86px;">科普</a> <a href="/tags/算法/" style="font-size: 12.86px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 14.29px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.43px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.14px;">面试</a>
     			</div>
     	</section>
     
