@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>源码|从串行线程封闭到对象池、线程池 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8BB2;&amp;#x4E00;&amp;#x4E2A;&amp;#x725B;&amp;#x903C;&amp;#x800C;&amp;#x5B9E;&amp;#x7528;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4E32;&amp;#x884C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C01;&amp;#x95ED;&amp;#x3002;&amp;#x5BF9;&amp;#x8C61;&amp;#x6C60;&amp;#x662F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码|从串行线程封闭到对象池、线程池">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/10/26/源码|从串行线程封闭到对象池、线程池/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8BB2;&amp;#x4E00;&amp;#x4E2A;&amp;#x725B;&amp;#x903C;&amp;#x800C;&amp;#x5B9E;&amp;#x7528;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4E32;&amp;#x884C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C01;&amp;#x95ED;&amp;#x3002;&amp;#x5BF9;&amp;#x8C61;&amp;#x6C60;&amp;#x662F;">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPool-structure.png">
+<meta property="og:updated_time" content="2017-10-26T05:04:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码|从串行线程封闭到对象池、线程池">
+<meta name="twitter:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8BB2;&amp;#x4E00;&amp;#x4E2A;&amp;#x725B;&amp;#x903C;&amp;#x800C;&amp;#x5B9E;&amp;#x7528;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4E32;&amp;#x884C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C01;&amp;#x95ED;&amp;#x3002;&amp;#x5BF9;&amp;#x8C61;&amp;#x6C60;&amp;#x662F;">
+<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-源码|从串行线程封闭到对象池、线程池" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      源码|从串行线程封闭到对象池、线程池
+    </h1>
+  
+
+        <a href="/2017/10/26/源码|从串行线程封闭到对象池、线程池/" class="archive-article-date">
+  	<time datetime="2017-10-25T16:10:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-26</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x4ECA;&#x5929;&#x8BB2;&#x4E00;&#x4E2A;&#x725B;&#x903C;&#x800C;&#x5B9E;&#x7528;&#x7684;&#x6982;&#x5FF5;&#xFF0C;<code>&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</code>&#x3002;<code>&#x5BF9;&#x8C61;&#x6C60;</code>&#x662F;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x7684;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1B;<code>&#x7EBF;&#x7A0B;&#x6C60;</code>&#x7CC5;&#x5408;&#x4E86;&#x5BF9;&#x8C61;&#x6C60;&#x6280;&#x672F;&#xFF0C;&#x4F46;&#x6838;&#x5FC3;&#x5B9E;&#x73B0;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x4EA7;&#x751F;&#x8BEF;&#x4F1A;&#x3002;&#x672C;&#x6587;&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x548C;&#x5BF9;&#x8C61;&#x6C60;&#x5165;&#x624B;&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7;&#x6E90;&#x7801;&#x5206;&#x6790;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#xFF0C;&#x5398;&#x6E05;&#x5BF9;&#x8C61;&#x6C60;&#x4E0E;&#x7EBF;&#x7A0B;&#x6C60;&#x4E4B;&#x95F4;&#x7684;&#x8BEF;&#x4F1A;&#x3002;</p>
+<a id="more"></a>
+<h1 id="&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x4E0E;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"><a href="#&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x4E0E;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x4E0E;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"></a>&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x4E0E;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</h1><h2 id="&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"><a href="#&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"></a>&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</h2><p>&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x662F;&#x4E00;&#x79CD;&#x5E38;&#x89C1;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x8BBE;&#x8BA1;&#x7B56;&#x7565;&#xFF1A;<em>&#x4EC5;&#x5728;&#x56FA;&#x5B9A;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5185;&#x8BBF;&#x95EE;&#x5BF9;&#x8C61;&#xFF0C;&#x4E0D;&#x5BF9;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x5171;&#x4EAB;</em>&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x6280;&#x672F;&#xFF0C;&#x5BF9;&#x8C61;O&#x59CB;&#x7EC8;&#x53EA;&#x5BF9;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;T1&#x53EF;&#x89C1;&#xFF0C;&#x201C;&#x5355;&#x7EBF;&#x7A0B;&#x201D;&#x4E2D;&#x81EA;&#x7136;&#x4E0D;&#x5B58;&#x5728;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<p>ThreadLocal&#x662F;&#x5E38;&#x7528;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x5DE5;&#x5177;&#xFF0C;&#x89C1;<a href="/2016/11/27/&#x6E90;&#x7801;%7CThreadLocal&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;/">&#x6E90;&#x7801;|ThreadLocal&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;</a>&#x3002;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5728;Servlet&#x53CA;&#x9AD8;&#x5C42;&#x7684;web&#x6846;&#x67B6;Spring&#x7B49;&#x4E2D;&#x5E94;&#x7528;&#x4E0D;&#x5C11;&#x3002;</p>
+<h2 id="&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"><a href="#&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;" class="headerlink" title="&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;"></a>&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</h2><p>&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x867D;&#x7136;&#x597D;&#x7528;&#xFF0C;&#x5374;&#x9650;&#x5236;&#x4E86;&#x5BF9;&#x8C61;&#x7684;&#x5171;&#x4EAB;&#x3002;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x6539;&#x8FDB;&#x4E86;&#x8FD9;&#x4E00;&#x70B9;&#xFF1A;<em>&#x5BF9;&#x8C61;O&#x53EA;&#x80FD;&#x7531;&#x5355;&#x4E2A;&#x7EBF;&#x7A0B;T1&#x62E5;&#x6709;&#xFF0C;&#x4F46;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B89;&#x5168;&#x7684;&#x53D1;&#x5E03;&#x5BF9;&#x8C61;O&#x6765;&#x8F6C;&#x79FB;O&#x7684;&#x6240;&#x6709;&#x6743;&#xFF1B;&#x5728;&#x8F6C;&#x79FB;&#x6240;&#x6709;&#x6743;&#x540E;&#xFF0C;&#x4E5F;&#x53EA;&#x6709;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;T2&#x80FD;&#x83B7;&#x5F97;&#x8FD9;&#x4E2A;O&#x7684;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x5E76;&#x4E14;&#x53D1;&#x5E03;O&#x7684;T1&#x4E0D;&#x4F1A;&#x518D;&#x8BBF;&#x95EE;O</em>&#x3002;</p>
+<blockquote>
+<p>&#x6240;&#x8C13;&#x201C;&#x6240;&#x6709;&#x6743;&#x201D;&#xFF0C;&#x6307;&#x4FEE;&#x6539;&#x5BF9;&#x8C61;&#x7684;&#x6743;&#x5229;&#x3002;</p>
+</blockquote>
+<p>&#x76F8;&#x5BF9;&#x4E8E;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#xFF0C;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x4F7F;&#x5F97;&#x4EFB;&#x610F;&#x65F6;&#x523B;&#xFF0C;&#x6700;&#x591A;&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x62E5;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x6743;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x8FD9;&#x4E0D;&#x662F;&#x7EDD;&#x5BF9;&#x7684;&#xFF0C;&#x53EA;&#x8981;&#x7EBF;&#x7A0B;T1&#x4E8B;&#x5B9E;&#x4E0D;&#x4F1A;&#x518D;&#x4FEE;&#x6539;&#x5BF9;&#x8C61;O&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x4EC5;&#x6709;T2&#x62E5;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x6743;&#x3002;&#x4E32;&#x884C;&#x7EBF;&#x5C42;&#x5C01;&#x95ED;&#x8BA9;&#x5BF9;&#x8C61;&#x53D8;&#x5F97;&#x53EF;&#x4EE5;&#x5171;&#x4EAB;&#xFF08;&#x867D;&#x7136;&#x53EA;&#x80FD;&#x4E32;&#x884C;&#x7684;&#x62E5;&#x6709;&#x6240;&#x6709;&#x6743;&#xFF09;&#xFF0C;&#x7075;&#x6D3B;&#x6027;&#x5F97;&#x5230;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#xFF1B;&#x76F8;&#x5BF9;&#x7684;&#xFF0C;&#x8981;&#x5171;&#x4EAB;&#x5BF9;&#x8C61;&#x5C31;&#x6D89;&#x53CA;&#x5B89;&#x5168;&#x53D1;&#x5E03;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F9D;&#x9760;BlockingQueue&#x7B49;&#x540C;&#x6B65;&#x5DE5;&#x5177;&#x5F88;&#x5BB9;&#x6613;&#x5B9E;&#x73B0;&#x8FD9;&#x4E00;&#x70B9;&#x3002;</p>
+<p>&#x5BF9;&#x8C61;&#x6C60;&#x662F;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x7684;&#x7ECF;&#x5178;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF0C;&#x5982;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#x6C60;&#x7B49;&#x3002;</p>
+<h1 id="&#x5BF9;&#x8C61;&#x6C60;"><a href="#&#x5BF9;&#x8C61;&#x6C60;" class="headerlink" title="&#x5BF9;&#x8C61;&#x6C60;"></a>&#x5BF9;&#x8C61;&#x6C60;</h1><p>&#x5BF9;&#x8C61;&#x6C60;&#x5229;&#x7528;&#x4E86;&#x4E32;&#x884C;&#x5C01;&#x95ED;&#xFF1A;<em>&#x5C06;&#x5BF9;&#x8C61;O&#x201C;&#x501F;&#x7ED9;&#x201D;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x7EBF;&#x7A0B;T1&#xFF0C;T1&#x4F7F;&#x7528;&#x5B8C;&#x518D;&#x4EA4;&#x8FD8;&#x7ED9;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x5E76;&#x4FDD;&#x8BC1;&#x201C;&#x672A;&#x64C5;&#x81EA;&#x53D1;&#x5E03;&#x8BE5;&#x5BF9;&#x8C61;&#x201D;&#x4E14;&#x201C;&#x4EE5;&#x540E;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x201D;&#xFF1B;&#x5BF9;&#x8C61;&#x6C60;&#x6536;&#x56DE;O&#x540E;&#xFF0C;&#x7B49;T2&#x6765;&#x501F;&#x7684;&#x65F6;&#x5019;&#x518D;&#x628A;&#x5B83;&#x501F;&#x7ED9;T2&#xFF0C;&#x5B8C;&#x6210;&#x5BF9;&#x8C61;&#x6240;&#x6709;&#x6743;&#x7684;&#x4F20;&#x9012;</em>&#x3002;</p>
+<p>&#x7334;&#x5B50;&#x64B8;&#x4E86;&#x4E00;&#x4E2A;&#x7B80;&#x5316;&#x7248;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x7528;&#x6237;&#x53EA;&#x9700;&#x8981;&#x8986;&#x5199;newObject()&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractObjectPool</span>&lt;<span class="title">T</span>&gt; </span>{</div><div class="line">  <span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">int</span> min;</div><div class="line">  <span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">int</span> max;</div><div class="line">  <span class="keyword">protected</span> <span class="keyword">final</span> List&lt;T&gt; usings = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">  <span class="keyword">protected</span> <span class="keyword">final</span> List&lt;T&gt; buffer = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> inited = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">AbstractObjectPool</span><span class="params">(<span class="keyword">int</span> min, <span class="keyword">int</span> max)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.min = min;</div><div class="line">    <span class="keyword">this</span>.max = max;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.min &lt; <span class="number">0</span> || <span class="keyword">this</span>.min &gt; <span class="keyword">this</span>.max) {</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(</div><div class="line">          <span class="string">&quot;need 0 &lt;= min &lt;= max &lt;= Integer.MAX_VALUE, given min: %s, max: %s&quot;</span>, <span class="keyword">this</span>.min, <span class="keyword">this</span>.max));</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; min; i++) {</div><div class="line">      buffer.add(newObject());</div><div class="line">    }</div><div class="line">    inited = <span class="keyword">true</span>;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">checkInited</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">if</span> (!inited) {</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;not inited&quot;</span>);</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">abstract</span> <span class="keyword">protected</span> T <span class="title">newObject</span><span class="params">()</span></span>;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> T <span class="title">getObject</span><span class="params">()</span> </span>{</div><div class="line">    checkInited();</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (usings.size() == max) {</div><div class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">    <span class="keyword">if</span> (buffer.size() == <span class="number">0</span>) {</div><div class="line">      T newObj = newObject();</div><div class="line">      usings.add(newObj);</div><div class="line">      <span class="keyword">return</span> newObj;</div><div class="line">    }</div><div class="line">    T oldObj = buffer.remove(<span class="number">0</span>);</div><div class="line">    usings.add(oldObj);</div><div class="line">    <span class="keyword">return</span> oldObj;</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">freeObject</span><span class="params">(T obj)</span> </span>{</div><div class="line">    checkInited();</div><div class="line">    <span class="keyword">if</span> (!usings.contains(obj)) {</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(String.format(<span class="string">&quot;obj not in using queue: %s&quot;</span>, obj));</div><div class="line">    }</div><div class="line"></div><div class="line">    usings.remove(usings.indexOf(obj));</div><div class="line">    buffer.add(obj);</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>AbstractObjectPool&#x5177;&#x6709;&#x4EE5;&#x4E0B;&#x7279;&#x6027;&#xFF1A;</p>
+<ul>
+<li>&#x652F;&#x6301;&#x8BBE;&#x7F6E;&#x6700;&#x5C0F;&#x3001;&#x6700;&#x5927;&#x5BB9;&#x91CF;</li>
+<li>&#x5BF9;&#x8C61;&#x4E00;&#x65E6;&#x7533;&#x8BF7;&#x5C31;&#x4E0D;&#x518D;&#x91CA;&#x653E;&#xFF0C;&#x907F;&#x514D;&#x4E86;GC</li>
+</ul>
+<p>&#x867D;&#x7136;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x5927;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x4E00;&#x4E9B;&#x65F6;&#x95F4;&#x654F;&#x611F;&#x3001;&#x8D44;&#x6E90;&#x5145;&#x88D5;&#x7684;&#x573A;&#x666F;&#x3002;&#x5982;&#x679C;&#x65F6;&#x95F4;&#x8FDB;&#x4E00;&#x6B65;&#x654F;&#x611F;&#xFF0C;&#x53EF;&#x5C06;getObject()&#x3001;freeObject()&#x6539;&#x5199;&#x4E3A;&#x5E76;&#x53D1;&#x7A0B;&#x5EA6;&#x66F4;&#x9AD8;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4F46;&#x8BB0;&#x5F97;&#x4FDD;&#x8BC1;&#x5B89;&#x5168;&#x53D1;&#x5E03;&#x5B89;&#x5168;&#x56DE;&#x6536;&#xFF1B;&#x5982;&#x679C;&#x8D44;&#x6E90;&#x4E0D;&#x90A3;&#x4E48;&#x5145;&#x88D5;&#xFF0C;&#x53EF;&#x4EE5;&#x9002;&#x5F53;&#x589E;&#x52A0;&#x5BF9;&#x8C61;&#x56DE;&#x6536;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x6C60;&#x7684;&#x57FA;&#x672C;&#x884C;&#x4E3A;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>&#x521B;&#x5EFA;&#x5BF9;&#x8C61;newObject()</li>
+<li>&#x501F;&#x53D6;&#x5BF9;&#x8C61;getObject()</li>
+<li>&#x5F52;&#x8FD8;&#x5BF9;&#x8C61;freeObject()</li>
+</ul>
+<p>&#x5178;&#x578B;&#x7684;&#x5BF9;&#x8C61;&#x6C60;&#x6709;&#x5404;&#x79CD;&#x8FDE;&#x63A5;&#x6C60;&#x3001;&#x5E38;&#x91CF;&#x6C60;&#x7B49;&#xFF0C;&#x5E94;&#x7528;&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x6A21;&#x578B;&#x4E5F;&#x5927;&#x540C;&#x5C0F;&#x5F02;&#xFF0C;&#x4E0D;&#x505A;&#x89E3;&#x6790;&#x3002;&#x4EE4;&#x4EBA;&#x8FF7;&#x60D1;&#x7684;&#x662F;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x8BA9;&#x4EBA;&#x8BEF;&#x4EE5;&#x4E3A;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x4E0B;&#x9762;&#x6765;&#x8FFD;&#x4E00;&#x904D;&#x6E90;&#x7801;&#x3002;</p>
+<h1 id="&#x7EBF;&#x7A0B;&#x6C60;"><a href="#&#x7EBF;&#x7A0B;&#x6C60;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x6C60;"></a>&#x7EBF;&#x7A0B;&#x6C60;</h1><p>&#x9996;&#x5148;&#x6446;&#x51FA;&#x7ED3;&#x8BBA;&#xFF1A;<strong>&#x7EBF;&#x7A0B;&#x6C60;&#x7CC5;&#x5408;&#x4E86;&#x5BF9;&#x8C61;&#x6C60;&#x6A21;&#x578B;&#xFF0C;&#x4F46;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x662F;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</strong>&#x3002;</p>
+<p>&#x7EE7;&#x627F;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPoolExecetor-extend-relationship.png" alt="ThreadPoolExecetor-extend-relationship"></p>
+<p>&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5C06;Runnable&#xFF08;&#x6216;Callables&#xFF09;&#x5B9E;&#x4F8B;&#x63D0;&#x4EA4;&#x7ED9;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4F1A;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x8BE5;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD4;&#x56DE;&#x54CD;&#x5E94;&#x7684;&#x7ED3;&#x679C;&#xFF08;&#x5B8C;&#x6210;/&#x8FD4;&#x56DE;&#x503C;&#xFF09;&#x3002;</p>
+<p>&#x7334;&#x5B50;&#x6700;&#x559C;&#x6B22;&#x7684;&#x662F;<code>submit(Callable&lt;T&gt; task)</code>&#x65B9;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x4ECE;&#x8BE5;&#x65B9;&#x6CD5;&#x5165;&#x624B;&#xFF0C;&#x9010;&#x6B65;&#x6DF1;&#x5165;&#x51FD;&#x6570;&#x6808;&#xFF0C;&#x63A2;&#x7A76;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x3002;</p>
+<h2 id="submit"><a href="#submit" class="headerlink" title="submit()"></a>submit()</h2><p>submit()&#x65B9;&#x6CD5;&#x5728;ExecutorService&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#xFF0C;AbstractExecutorService&#x5B9E;&#x73B0;&#xFF0C;ThreadPoolExecutor&#x76F4;&#x63A5;&#x7EE7;&#x627F;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractExecutorService</span> <span class="keyword">implements</span> <span class="title">ExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">Future&lt;T&gt; <span class="title">submit</span><span class="params">(Callable&lt;T&gt; task)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (task == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        RunnableFuture&lt;T&gt; ftask = newTaskFor(task);</div><div class="line">        execute(ftask);</div><div class="line">        <span class="keyword">return</span> ftask;</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>AbstractExecutorService#newTaskFor()&#x521B;&#x5EFA;&#x4E00;&#x4E2A;RunnableFuture&#x7C7B;&#x578B;&#x7684;FutureTask&#x3002;</p>
+<p>&#x6838;&#x5FC3;&#x662F;execute()&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="execute"><a href="#execute" class="headerlink" title="execute()"></a>execute()</h2><p>execute()&#x65B9;&#x6CD5;&#x5728;Executor&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#xFF0C;ThreadPoolExecutor&#x5B9E;&#x73B0;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">AbstractExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable command)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (command == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        <span class="keyword">int</span> c = ctl.get();</div><div class="line">        <span class="keyword">if</span> (workerCountOf(c) &lt; corePoolSize) {</div><div class="line">            <span class="keyword">if</span> (addWorker(command, <span class="keyword">true</span>))</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            c = ctl.get();</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) {</div><div class="line">            <span class="keyword">int</span> recheck = ctl.get();</div><div class="line">            <span class="keyword">if</span> (! isRunning(recheck) &amp;&amp; remove(command))</div><div class="line">                reject(command);</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (workerCountOf(recheck) == <span class="number">0</span>)</div><div class="line">                addWorker(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">        }</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!addWorker(command, <span class="keyword">false</span>))</div><div class="line">            reject(command);</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x6682;&#x4E14;&#x5FFD;&#x7565;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6C60;&#x5316;&#x7B56;&#x7565;&#x3002;&#x5173;&#x6CE8;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x770B;&#x80FD;&#x4E0D;&#x80FD;&#x5148;&#x56DE;&#x7B54;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x5982;&#x4F55;&#x6267;&#x884C;&#xFF1F;</p>
+<p>&#x6838;&#x5FC3;&#x662F;addWorker()&#x65B9;&#x6CD5;&#x3002;&#x4EE5;8&#x884C;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#x4F8B;&#xFF0C;&#x6B64;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x672A;&#x8FBE;&#x5230;&#x6700;&#x5C0F;&#x7EBF;&#x7A0B;&#x6C60;&#x5927;&#x5C0F;corePoolSize&#xFF0C;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;9&#x884C;&#x8FD4;&#x56DE;&#x3002;</p>
+<h2 id="addWorker"><a href="#addWorker" class="headerlink" title="addWorker()"></a>addWorker()</h2><p>&#x7B80;&#x5316;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">AbstractExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">addWorker</span><span class="params">(Runnable firstTask, <span class="keyword">boolean</span> core)</span> </span>{</div><div class="line">        <span class="keyword">boolean</span> workerStarted = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">boolean</span> workerAdded = <span class="keyword">false</span>;</div><div class="line">        Worker w = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            w = <span class="keyword">new</span> Worker(firstTask);</div><div class="line">            <span class="keyword">final</span> Thread t = w.thread;</div><div class="line">            <span class="keyword">if</span> (t != <span class="keyword">null</span>) {</div><div class="line">                <span class="keyword">final</span> ReentrantLock mainLock = <span class="keyword">this</span>.mainLock;</div><div class="line">                mainLock.lock();</div><div class="line">                <span class="keyword">try</span> {</div><div class="line">                    <span class="keyword">int</span> rs = runStateOf(ctl.get());</div><div class="line">                    <span class="keyword">if</span> (rs &lt; SHUTDOWN) {</div><div class="line">                        workers.add(w);</div><div class="line">                        workerAdded = <span class="keyword">true</span>;</div><div class="line">                    }</div><div class="line">                } <span class="keyword">finally</span> {</div><div class="line">                    mainLock.unlock();</div><div class="line">                }</div><div class="line">                <span class="keyword">if</span> (workerAdded) {</div><div class="line">                    t.start();</div><div class="line">                    workerStarted = <span class="keyword">true</span>;</div><div class="line">                }</div><div class="line">            }</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            <span class="keyword">if</span> (! workerStarted)</div><div class="line">                addWorkerFailed(w);</div><div class="line">        }</div><div class="line">        <span class="keyword">return</span> workerStarted;</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x53BB;&#x6389;&#x4E86;&#x5F88;&#x591A;&#x7528;&#x4E8E;&#x7BA1;&#x7406;&#x7EBF;&#x7A0B;&#x6C60;&#x3001;&#x7EF4;&#x62A4;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x5047;&#x8BBE;&#x7EBF;&#x7A0B;&#x6C60;&#x672A;&#x5173;&#x95ED;&#xFF0C;worker&#xFF08;&#x5373;w&#xFF0C;&#x4E0B;&#x540C;&#xFF09;&#x6DFB;&#x52A0;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x5FC5;&#x7136;&#x80FD;&#x591F;&#x5C06;worker&#x6DFB;&#x52A0;&#x81F3;workers&#x4E2D;&#x3002;workers&#x662F;&#x4E00;&#x4E2A;HashSet&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> HashSet&lt;Worker&gt; workers = <span class="keyword">new</span> HashSet&lt;Worker&gt;();</div></pre></td></tr></table></figure>
+<h3 id="&#x54EA;&#x91CC;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF1F;"><a href="#&#x54EA;&#x91CC;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF1F;" class="headerlink" title="&#x54EA;&#x91CC;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF1F;"></a>&#x54EA;&#x91CC;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF1F;</h3><p><strong>&#x5982;&#x679C;&#x8BF4;&#x4E0E;&#x5BF9;&#x8C61;&#x6C60;&#x6709;&#x5173;&#xFF0C;&#x90A3;&#x4E48;workers&#x5373;&#x76F8;&#x5F53;&#x4E8E;&#x793A;&#x4F8B;&#x4EE3;&#x7801;&#x4E2D;&#x7684;using&#xFF0C;&#x5E94;&#x7528;&#x4E86;&#x5BF9;&#x8C61;&#x6C60;&#x6A21;&#x578B;</strong>;&#x53EA;&#x4E0D;&#x8FC7;&#x8FD9;&#x91CC;&#x7684;using&#x662F;&#x4E00;&#x76F4;&#x589E;&#x957F;&#x7684;&#xFF0C;&#x76F4;&#x5230;&#x8FBE;&#x5230;&#x6700;&#x5927;&#x7EBF;&#x7A0B;&#x6C60;&#x5927;&#x5C0F;maximumPoolSize&#x3002;</p>
+<p>&#x4F46;&#x662F;&#x5F88;&#x660E;&#x663E;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x5E76;&#x6CA1;&#x6709;&#x5C06;&#x7EBF;&#x7A0B;&#x53D1;&#x5E03;&#x51FA;&#x53BB;&#xFF0C;workers&#x4E5F;&#x4EC5;&#x4EC5;&#x5B8C;&#x6210;using&#x201C;&#x4FDD;&#x5B58;&#x7EBF;&#x7A0B;&#x201D;&#x7684;&#x529F;&#x80FD;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;&#x4EFB;&#x52A1;&#x5982;&#x4F55;&#x6267;&#x884C;&#x5462;&#xFF1F;&#x8DDF;&#x7EBF;&#x7A0B;&#x6C60;&#x6709;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#xFF1F;</p>
+<h3 id="&#x54EA;&#x91CC;&#x53C8;&#x4E0D;&#x662F;&#xFF1F;"><a href="#&#x54EA;&#x91CC;&#x53C8;&#x4E0D;&#x662F;&#xFF1F;" class="headerlink" title="&#x54EA;&#x91CC;&#x53C8;&#x4E0D;&#x662F;&#xFF1F;"></a>&#x54EA;&#x91CC;&#x53C8;&#x4E0D;&#x662F;&#xFF1F;</h3><p>&#x6CE8;&#x610F;9&#x3001;17&#x3001;24&#x884C;&#xFF1A;</p>
+<ul>
+<li>9&#x884C;&#x5C06;&#x6211;&#x4EEC;&#x63D0;&#x4EA4;&#x5230;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;firstTask&#x5C01;&#x88C5;&#x5165;&#x4E00;&#x4E2A;worker&#x3002;</li>
+<li>17&#x884C;&#x5C06;worker&#x52A0;&#x5165;workers&#xFF0C;&#x7EF4;&#x62A4;&#x8D77;&#x6765;</li>
+<li>24&#x884C;&#x5219;&#x542F;&#x52A8;&#x4E86;worker&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;t</li>
+</ul>
+<p>&#x6838;&#x5FC3;&#x5728;&#x4E0E;&#x8FD9;&#x4E09;&#x884C;&#xFF0C;&#x4F46;&#x7EBF;&#x7A0B;&#x6C60;&#x5E76;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x5728;addWorker()&#x4E2D;&#x542F;&#x52A8;&#x4EFB;&#x52A1;firstTask&#xFF0C;&#x4EE3;&#x4E4B;&#x4EE5;&#x542F;&#x52A8;&#x4E00;&#x4E2A;worker&#x3002;&#x6700;&#x7EC8;&#x4EFB;&#x52A1;&#x5FC5;&#x7136;&#x88AB;&#x542F;&#x52A8;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x7EE7;&#x7EED;&#x770B;Worker&#x5982;&#x4F55;&#x542F;&#x52A8;&#x8FD9;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;</p>
+<h2 id="Worker"><a href="#Worker" class="headerlink" title="Worker"></a>Worker</h2><p>Worker&#x5B9E;&#x73B0;&#x4E86;Runnable&#x63A5;&#x53E3;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Worker</span></span></div><div class="line">    <span class="keyword">extends</span> <span class="title">AbstractQueuedSynchronizer</span></div><div class="line">    <span class="keyword">implements</span> <span class="title">Runnable</span></div><div class="line">{</div><div class="line">...</div><div class="line">    Worker(Runnable firstTask) {</div><div class="line">        setState(-<span class="number">1</span>); <span class="comment">// inhibit interrupts until runWorker</span></div><div class="line">        <span class="keyword">this</span>.firstTask = firstTask;</div><div class="line">        <span class="keyword">this</span>.thread = getThreadFactory().newThread(<span class="keyword">this</span>);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">/** Delegates main run loop to outer runWorker  */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">        runWorker(<span class="keyword">this</span>);</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5C06;&#x6784;&#x9020;Worker&#x65F6;&#x7684;&#x53C2;&#x6570;&#x547D;&#x540D;&#x4E3A;firstTask&#xFF1F;&#x56E0;&#x4E3A;&#x5F53;&#x4E14;&#x4EC5;&#x5F53;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x65B0;&#x7684;Worker&#x4EE5;&#x6267;&#x884C;&#x4EFB;&#x52A1;task&#x65F6;&#xFF0C;&#x624D;&#x4F1A;&#x8C03;&#x7528;&#x6784;&#x9020;&#x51FD;&#x6570;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x4EFB;&#x52A1;task&#x5BF9;&#x4E8E;&#x65B0;Worker&#x800C;&#x8A00;&#xFF0C;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;firstTask&#x3002;</p>
+</blockquote>
+<p>Worker&#x7684;&#x5B9E;&#x73B0;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF1A;&#x5C06;&#x81EA;&#x5DF1;&#x4F5C;&#x4E3A;Runable&#x5B9E;&#x4F8B;&#xFF0C;&#x6784;&#x9020;&#x65F6;&#x5728;&#x5185;&#x90E8;&#x521B;&#x5EFA;&#x5E76;&#x6301;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;thread&#x3002;Thread&#x548C;Runable&#x7684;&#x4F7F;&#x7528;&#x5927;&#x5BB6;&#x5F88;&#x719F;&#x6089;&#x4E86;&#xFF0C;&#x6838;&#x5FC3;&#x662F;Worker&#x7684;run&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86;runWorker()&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="runWorker"><a href="#runWorker" class="headerlink" title="runWorker()"></a>runWorker()</h2><p><strong>&#x6572;&#x9ED1;&#x677F;&#xFF01;&#xFF01;&#xFF01;</strong></p>
+<p>&#x91CD;&#x5934;&#x620F;&#x6765;&#x4E86;&#x3002;&#x7B80;&#x5316;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">AbstractExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">runWorker</span><span class="params">(Worker w)</span> </span>{</div><div class="line">        Thread wt = Thread.currentThread();</div><div class="line">        Runnable task = w.firstTask;</div><div class="line">        w.firstTask = <span class="keyword">null</span>;</div><div class="line">        w.unlock(); <span class="comment">// allow interrupts</span></div><div class="line">        <span class="keyword">boolean</span> completedAbruptly = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            <span class="keyword">while</span> (task != <span class="keyword">null</span> || (task = getTask()) != <span class="keyword">null</span>) {</div><div class="line">                w.lock();</div><div class="line">                <span class="keyword">try</span> {</div><div class="line">                    beforeExecute(wt, task);</div><div class="line">                    Throwable thrown = <span class="keyword">null</span>;</div><div class="line">                    <span class="keyword">try</span> {</div><div class="line">                        task.run();</div><div class="line">                    } <span class="keyword">catch</span> (RuntimeException x) {</div><div class="line">                        thrown = x; <span class="keyword">throw</span> x;</div><div class="line">                    } <span class="keyword">catch</span> (Error x) {</div><div class="line">                        thrown = x; <span class="keyword">throw</span> x;</div><div class="line">                    } <span class="keyword">catch</span> (Throwable x) {</div><div class="line">                        thrown = x; <span class="keyword">throw</span> <span class="keyword">new</span> Error(x);</div><div class="line">                    } <span class="keyword">finally</span> {</div><div class="line">                        afterExecute(task, thrown);</div><div class="line">                    }</div><div class="line">                } <span class="keyword">finally</span> {</div><div class="line">                    task = <span class="keyword">null</span>;</div><div class="line">                    w.completedTasks++;</div><div class="line">                    w.unlock();</div><div class="line">                }</div><div class="line">            }</div><div class="line">            completedAbruptly = <span class="keyword">false</span>;</div><div class="line">        } <span class="keyword">finally</span> {</div><div class="line">            processWorkerExit(w, completedAbruptly);</div><div class="line">        }</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x5728;&#x524D;&#x9762;&#x5C06;&#x8981;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x8D4B;&#x503C;&#x7ED9;firstTask&#xFF0C;5-6&#x884C;&#x9996;&#x5148;&#x53D6;&#x51FA;&#x4EFB;&#x52A1;task&#xFF0C;&#x5E76;&#x5C06;firstTask&#x7F6E;&#x4E3A;null&#x3002;&#x56E0;&#x4E3A;&#x63A5;&#x4E0B;&#x6765;&#x8981;&#x6267;&#x884C;task&#xFF0C;firstTask&#x5B57;&#x6BB5;&#x5C31;&#x6CA1;&#x6709;&#x7528;&#x4E86;&#x3002;</p>
+<p>&#x91CD;&#x70B9;&#x662F;10-31&#x884C;&#x7684;while&#x5FAA;&#x73AF;&#x3002;&#x4E0B;&#x9762;&#x5206;&#x60C5;&#x51B5;&#x8BA8;&#x8BBA;&#x3002;</p>
+<h3 id="case1&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E0D;&#x4E3A;null"><a href="#case1&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E0D;&#x4E3A;null" class="headerlink" title="case1&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E0D;&#x4E3A;null"></a>case1&#xFF1A;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E0D;&#x4E3A;null</h3><p>case1&#x5BF9;&#x5E94;&#x524D;&#x9762;&#x4F5C;&#x51FA;&#x7684;&#x8BF8;&#x591A;&#x5047;&#x8BBE;&#x3002;</p>
+<p>&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#x65F6;&#xFF0C;task==firstTask&#xFF0C;&#x4E0D;&#x4E3A;null&#xFF0C;&#x4F7F;10&#x884C;&#x5E03;&#x5C14;&#x77ED;&#x8DEF;&#x76F4;&#x63A5;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF1B;&#x4ECE;&#x800C;16&#x884C;&#x6267;&#x884C;&#x7684;&#x662F;firstTask&#x7684;run()&#x65B9;&#x6CD5;&#xFF1B;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x4E0D;&#x8868;&#xFF1B;&#x6700;&#x540E;&#xFF0C;finally&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#xFF0C;task&#x4F1A;&#x88AB;&#x7F6E;&#x4E3A;null&#xFF0C;&#x5BFC;&#x81F4;&#x4E0B;&#x4E00;&#x8F6E;&#x5FAA;&#x73AF;&#x4F1A;&#x8FDB;&#x5165;case2&#x3002;</p>
+<h3 id="case2&#xFF1A;&#x975E;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E3A;null"><a href="#case2&#xFF1A;&#x975E;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E3A;null" class="headerlink" title="case2&#xFF1A;&#x975E;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E3A;null"></a>case2&#xFF1A;&#x975E;&#x7B2C;&#x4E00;&#x6B21;&#x8FDB;&#x5165;&#x5FAA;&#x73AF;&#xFF0C;task&#x4E3A;null</h3><p>case2&#x662F;&#x66F4;&#x666E;&#x904D;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x3002;</p>
+<p>case1&#x4E2D;&#xFF0C;task&#x88AB;&#x7F6E;&#x4E3A;&#x4E86;null&#xFF0C;&#x4F7F;10&#x884C;&#x5E03;&#x5C14;&#x8868;&#x8FBE;&#x5F0F;&#x6267;&#x884C;&#x7B2C;&#x4E8C;&#x90E8;&#x5206;<code>(task = getTask()) != null</code>(getTask()&#x7A0D;&#x540E;&#x518D;&#x8BB2;&#xFF0C;&#x5B83;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x5DF2;&#x63D0;&#x4EA4;&#x7684;&#x4EFB;&#x52A1;)&#x3002;&#x5047;&#x8BBE;task&#x5F97;&#x5230;&#x4E86;&#x4E00;&#x4E2A;&#x5DF2;&#x63D0;&#x4EA4;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x4ECE;&#x800C;16&#x884C;&#x6267;&#x884C;&#x7684;&#x662F;&#x65B0;&#x83B7;&#x5F97;&#x7684;&#x4EFB;&#x52A1;task&#x7684;run()&#x65B9;&#x6CD5;&#x3002;&#x540E;&#x540C;case1&#xFF0C;&#x6700;&#x540E;task&#x4ECD;&#x7136;&#x4F1A;&#x88AB;&#x7F6E;&#x4E3A;null&#xFF0C;&#x4EE5;&#x540E;&#x5FAA;&#x73AF;&#x90FD;&#x5C06;&#x8FDB;&#x5165;case2&#x3002;</p>
+<h4 id="getTask"><a href="#getTask" class="headerlink" title="getTask()"></a>getTask()</h4><p>&#x4EFB;&#x52A1;&#x4ECE;&#x54EA;&#x6765;&#x5462;&#xFF1F;&#x7B80;&#x5316;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">AbstractExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">private</span> Runnable <span class="title">getTask</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">boolean</span> timedOut = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (;;) {</div><div class="line">            <span class="keyword">try</span> {</div><div class="line">                Runnable r = timed ?</div><div class="line">                    workQueue.poll(keepAliveTime, TimeUnit.NANOSECONDS) :</div><div class="line">                    workQueue.take();</div><div class="line">                <span class="keyword">if</span> (r != <span class="keyword">null</span>)</div><div class="line">                    <span class="keyword">return</span> r;</div><div class="line">                timedOut = <span class="keyword">true</span>;</div><div class="line">            } <span class="keyword">catch</span> (InterruptedException retry) {</div><div class="line">                timedOut = <span class="keyword">false</span>;</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6211;&#x4EEC;&#x5148;&#x770B;&#x6700;&#x7B80;&#x5355;&#x7684;&#xFF0C;19-28&#x884C;&#x3002;</p>
+<p>&#x9996;&#x5148;&#xFF0C;workQueue&#x662F;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;BlockingQueue&#xFF0C;&#x5927;&#x90E8;&#x5206;&#x65F6;&#x5019;&#x4F7F;&#x7528;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x662F;LinkedBlockingQueue&#xFF0C;&#x89C1;<a href="/2017/10/18/&#x6E90;&#x7801;%7C&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;BlockingQueue/">&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;BlockingQueue</a>&#xFF1A; </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue&lt;Runnable&gt; workQueue;</div></pre></td></tr></table></figure>
+<p>&#x5047;&#x8BBE;timed&#x4E3A;false&#xFF0C;&#x5219;&#x8C03;&#x7528;&#x963B;&#x585E;&#x7684;take()&#x65B9;&#x6CD5;&#xFF0C;&#x8FD4;&#x56DE;&#x7684;r&#x4E00;&#x5B9A;&#x4E0D;&#x662F;null&#xFF0C;&#x4ECE;&#x800C;12&#x884C;&#x9000;&#x51FA;&#xFF0C;&#x5C06;&#x4EFB;&#x52A1;&#x4EA4;&#x7ED9;&#x4E86;&#x67D0;&#x4E2A;worker&#x7EBF;&#x7A0B;&#x3002;</p>
+<blockquote>
+<p>&#x4E00;&#x4E2A;&#x5C0F;&#x7EC6;&#x8282;&#x6709;&#x70B9;&#x610F;&#x601D;&#xFF1A;&#x524D;&#x9762;&#x6BCF;&#x4E2A;worker&#x7EBF;&#x7A0B;runWorker()&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5728;&#x5FAA;&#x73AF;&#x4E2D;&#x52A0;&#x9501;&#x7C92;&#x5EA6;&#x5728;worker&#x7EA7;&#x522B;&#xFF0C;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7684;lock&#x540C;&#x6B65;&#xFF1B;&#x4F46;&#x56E0;&#x4E3A;&#x6BCF;&#x4E00;&#x4E2A;woker&#x90FD;&#x4F1A;&#x8C03;&#x7528;getTask()&#xFF0C;&#x8003;&#x8651;&#x5230;&#x6027;&#x80FD;&#x56E0;&#x7D20;&#xFF0C;&#x6E90;&#x7801;&#x4E2D;getTask()&#x4E2D;&#x4F7F;&#x7528;&#x4E50;&#x89C2;&#x7684;CAS+SPIN&#x5B9E;&#x73B0;&#x65E0;&#x9501;&#x540C;&#x6B65;&#x3002;&#x5173;&#x4E8E;&#x4E50;&#x89C2;&#x9501;&#x548C;CAS&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x6211;&#x7684;&#x53E6;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;<a href="/2017/10/22/&#x6E90;&#x7801;%7C&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ConcurrentLinkedQueue&#x3010;&#x4F2A;&#x3011;/">&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ConcurrentLinkedQueue&#x3010;&#x4F2A;&#x3011;</a>&#x3002;</p>
+</blockquote>
+<p>workQueue&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x4ECE;&#x54EA;&#x6765;&#x5462;&#xFF1F;&#x8FD9;&#x5C31;&#x8981;&#x56DE;&#x987E;execute()&#x65B9;&#x6CD5;&#x4E86;&#x3002;</p>
+<h4 id="execute-1"><a href="#execute-1" class="headerlink" title="execute()"></a>execute()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolExecutor</span> <span class="keyword">extends</span> <span class="title">AbstractExecutorService</span> </span>{</div><div class="line">...</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Runnable command)</span> </span>{</div><div class="line">        <span class="keyword">if</span> (command == <span class="keyword">null</span>)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">        <span class="keyword">int</span> c = ctl.get();</div><div class="line">        <span class="keyword">if</span> (workerCountOf(c) &lt; corePoolSize) {</div><div class="line">            <span class="keyword">if</span> (addWorker(command, <span class="keyword">true</span>))</div><div class="line">                <span class="keyword">return</span>;</div><div class="line">            c = ctl.get();</div><div class="line">        }</div><div class="line">        <span class="keyword">if</span> (isRunning(c) &amp;&amp; workQueue.offer(command)) {</div><div class="line">            <span class="keyword">int</span> recheck = ctl.get();</div><div class="line">            <span class="keyword">if</span> (! isRunning(recheck) &amp;&amp; remove(command))</div><div class="line">                reject(command);</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (workerCountOf(recheck) == <span class="number">0</span>)</div><div class="line">                addWorker(<span class="keyword">null</span>, <span class="keyword">false</span>);</div><div class="line">        }</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!addWorker(command, <span class="keyword">false</span>))</div><div class="line">            reject(command);</div><div class="line">    }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
+<!--TODO 分析12-20行，入队-->
+<p>&#x524D;&#x9762;&#x4EE5;8&#x884C;&#x7684;&#x53C2;&#x6570;&#x4E3A;&#x4F8B;&#xFF0C;&#x6B64;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x672A;&#x8FBE;&#x5230;&#x6700;&#x5C0F;&#x7EBF;&#x7A0B;&#x6C60;&#x5927;&#x5C0F;corePoolSize&#xFF0C;&#x901A;&#x5E38;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x5728;9&#x884C;&#x8FD4;&#x56DE;&#x3002;&#x8FDB;&#x5165;8&#x884C;&#x7684;&#x6761;&#x4EF6;&#x662F;<code>&#x201C;&#x5F53;&#x524D;worker&#x6570;&#x5C0F;&#x4E8E;&#x6700;&#x5C0F;&#x7EBF;&#x7A0B;&#x6C60;&#x5927;&#x5C0F;corePoolSize&#x201D;</code>&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x4F1A;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x5230;12&#x884C;&#x3002;<code>isRunning(c)</code>&#x5224;&#x65AD;&#x7EBF;&#x7A0B;&#x6C60;&#x662F;&#x5426;&#x672A;&#x5173;&#x95ED;&#xFF0C;&#x6211;&#x4EEC;&#x5173;&#x6CE8;&#x672A;&#x5173;&#x95ED;&#x7684;&#x60C5;&#x51B5;&#xFF1B;&#x5219;&#x4F1A;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x5E03;&#x5C14;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x7B2C;&#x4E8C;&#x90E8;&#x5206;<code>workQueue.offer(command)</code>&#xFF0C;&#x5C1D;&#x8BD5;&#x5C06;&#x4EFB;&#x52A1;command&#x653E;&#x5165;&#x961F;&#x5217;workQueue&#x3002;</p>
+<p>workQueue.offer()&#x7684;&#x884C;&#x4E3A;&#x53D6;&#x51B3;&#x4E8E;&#x7EBF;&#x7A0B;&#x6C60;&#x6301;&#x6709;&#x7684;BlockingQueue&#x5B9E;&#x4F8B;&#x3002;Executors.newFixedThreadPool()&#x3001;Executors.newSingleThreadExecutor()&#x521B;&#x5EFA;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x4F7F;&#x7528;LinkedBlockingQueue&#xFF0C;&#x800C;Executors.newCachedThreadPool()&#x521B;&#x5EFA;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x5219;&#x4F7F;&#x7528;SynchronousQueue&#x3002;&#x4EE5;LinkedBlockingQueue&#x4E3A;&#x4F8B;&#xFF0C;&#x521B;&#x5EFA;&#x65F6;&#x4E0D;&#x914D;&#x7F6E;&#x5BB9;&#x91CF;&#xFF0C;&#x5373;&#x521B;&#x5EFA;&#x4E3A;&#x65E0;&#x754C;&#x961F;&#x5217;&#xFF0C;&#x5219;LinkedBlockingQueue#offer()&#x6C38;&#x8FDC;&#x8FD4;&#x56DE;true&#xFF0C;&#x4ECE;&#x800C;&#x8FDB;&#x5165;12-18&#x884C;&#x3002;</p>
+<p>&#x66F4;&#x7EC6;&#x8282;&#x7684;&#x5185;&#x5BB9;&#x4E0D;&#x5FC5;&#x5173;&#x5FC3;&#x4E86;&#xFF0C;&#x5F53;workQueue.offer()&#x8FD4;&#x56DE;true&#x65F6;&#xFF0C;&#x5DF2;&#x7ECF;&#x5C06;&#x4EFB;&#x52A1;command&#x653E;&#x5165;&#x4E86;&#x961F;&#x5217;workQueue&#x3002;&#x5F53;&#x672A;&#x6765;&#x7684;&#x67D0;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;<strong>&#x67D0;worker&#x6267;&#x884C;&#x5B8C;&#x67D0;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x4ECE;workQueue&#x4E2D;&#x518D;&#x53D6;&#x51FA;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x7EE7;&#x7EED;&#x6267;&#x884C;</strong>&#xFF0C;&#x76F4;&#x5230;&#x7EBF;&#x7A0B;&#x6C60;&#x5173;&#x95ED;&#xFF0C;&#x76F4;&#x5230;&#x6D77;&#x67AF;&#x77F3;&#x70C2;&#x3002;</p>
+<blockquote>
+<p>CachedThreadPool&#x662F;&#x4E00;&#x79CD;&#x65E0;&#x754C;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x4F7F;&#x7528;SynchronousQueue&#x80FD;&#x8FDB;&#x4E00;&#x6B65;&#x63D0;&#x5347;&#x6027;&#x80FD;&#xFF0C;&#x7B80;&#x5316;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x3002;&#x7559;&#x7ED9;&#x8BFB;&#x8005;&#x5206;&#x6790;&#x3002;</p>
+</blockquote>
+<h4 id="case2&#x5C0F;&#x7ED3;"><a href="#case2&#x5C0F;&#x7ED3;" class="headerlink" title="case2&#x5C0F;&#x7ED3;"></a>case2&#x5C0F;&#x7ED3;</h4><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;<strong>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x4E0E;&#x5BF9;&#x8C61;&#x6C60;&#x6A21;&#x578B;&#x65E0;&#x5173;&#xFF0C;&#x800C;&#x662F;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</strong>&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPool-structure.png" alt="ThreadPool-structure"></p>
+<ul>
+<li>&#x751F;&#x4EA7;&#x8005;&#xFF08;&#x8C03;&#x7528;submit()&#x6216;execute()&#x65B9;&#x6CD5;&#xFF09;&#x5C06;&#x4EFB;&#x52A1;task&#x653E;&#x5165;&#x961F;&#x5217;</li>
+<li>&#x6D88;&#x8D39;&#x8005;&#xFF08;worker&#x7EBF;&#x7A0B;&#xFF09;&#x5FAA;&#x73AF;&#x4ECE;&#x961F;&#x5217;&#x4E2D;&#x53D6;&#x51FA;&#x4EFB;&#x52A1;&#x5904;&#x7406;&#x4EFB;&#x52A1;&#xFF08;&#x6267;&#x884C;task.run()&#xFF09;&#x3002;</li>
+</ul>
+<h3 id="&#x94A9;&#x5B50;&#x65B9;&#x6CD5;"><a href="#&#x94A9;&#x5B50;&#x65B9;&#x6CD5;" class="headerlink" title="&#x94A9;&#x5B50;&#x65B9;&#x6CD5;"></a>&#x94A9;&#x5B50;&#x65B9;&#x6CD5;</h3><p>&#x56DE;&#x5230;runWorker()&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4FDD;&#x7559;&#x4E86;&#x4E00;&#x4E9B;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;beforeExecute()&#x3001;afterExecute()&#x3002;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5728;&#x5B9E;&#x73B0;&#x81EA;&#x5DF1;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8986;&#x5199;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#x4E3A;&#x7EBF;&#x7A0B;&#x6C60;&#x6DFB;&#x52A0;&#x529F;&#x80FD;&#x3002;</p>
+<blockquote>
+<p>&#x4F46;<strong>&#x7334;&#x5B50;&#x4E0D;&#x8BA4;&#x4E3A;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x79CD;&#x597D;&#x7684;&#x8BBE;&#x8BA1;</strong>&#x3002;&#x56E0;&#x4E3A;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#x5927;&#x591A;&#x4F9D;&#x8D56;&#x4E8E;&#x6E90;&#x7801;&#x5B9E;&#x73B0;&#xFF0C;&#x90A3;&#x4E48;&#x9664;&#x975E;&#x4E86;&#x89E3;&#x6E90;&#x7801;&#x6216;API&#x58F0;&#x660E;&#x7EDD;&#x5BF9;&#x7684;&#x4E25;&#x8C28;&#x6B63;&#x786E;&#xFF0C;&#x5426;&#x5219;&#x5F88;&#x96BE;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#x3002;&#x7B49;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x65F6;&#x518D;&#x53BB;&#x4E86;&#x89E3;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x80FD;&#x5C31;&#x592A;&#x665A;&#x4E86;&#x3002;&#x8BF4;&#x5230;&#x5E95;&#xFF0C;&#x8FD8;&#x662F;<strong>&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#x7C7B;&#x4F3C;extends&#x8FD9;&#x79CD;&#x8868;&#x8FBE;&#x201C;&#x6269;&#x5C55;&#x201D;&#x8BED;&#x4E49;&#x7684;&#x8BED;&#x6CD5;&#x6765;&#x5B9E;&#x73B0;&#x7EE7;&#x627F;</strong>&#xFF0C;&#x8BE6;&#x89C1;<a href="/2017/09/20/Java&#x4E2D;&#x5982;&#x4F55;&#x6070;&#x5F53;&#x7684;&#x8868;&#x8FBE;&#x201C;&#x7EE7;&#x627F;&#x201D;&#x4E0E;&#x201C;&#x6269;&#x5C55;&#x201D;&#x7684;&#x8BED;&#x4E49;&#xFF1F;/">Java&#x4E2D;&#x5982;&#x4F55;&#x6070;&#x5F53;&#x7684;&#x8868;&#x8FBE;&#x201C;&#x7EE7;&#x627F;&#x201D;&#x4E0E;&#x201C;&#x6269;&#x5C55;&#x201D;&#x7684;&#x8BED;&#x4E49;&#xFF1F;</a>&#x3002;</p>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x94A9;&#x5B50;&#x65B9;&#x6CD5;&#x4E5F;&#x662F;&#x6781;&#x5176;&#x65B9;&#x4FBF;&#x7684;&#x3002;&#x6743;&#x8861;&#x770B;&#x5F85;&#x3002;</p>
+</blockquote>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x76F8;&#x5BF9;&#x4E8E;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#xFF0C;<strong>&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x79BB;&#x7528;&#x6237;&#x7684;&#x8DDD;&#x79BB;&#x66F4;&#x8FD1;&#x4E00;&#x4E9B;&#xFF0C;&#x7B80;&#x5355;&#x7075;&#x6D3B;&#xFF0C;&#x5B9E;&#x7528;&#x6027;&#x5F3A;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x638C;&#x63E1;</strong>&#x3002;&#x800C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x66F4;&#x591A;&#x6CA6;&#x4E3A;&#x5355;&#x7EAF;&#x7684;&#x8BBE;&#x8BA1;&#x7B56;&#x7565;&#xFF0C;&#x5355;&#x7EAF;&#x4F7F;&#x7528;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x7684;&#x573A;&#x666F;&#x4E0D;&#x591A;&#x3002;</p>
+<p>&#x7EBF;&#x7A0B;&#x6C60;&#x4E0E;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x3001;&#x5BF9;&#x8C61;&#x6C60;&#x7684;&#x5173;&#x7CFB;&#x4E0D;&#x5927;&#xFF0C;&#x4F46;&#x7ECF;&#x5E38;&#x88AB;&#x6DF7;&#x4E3A;&#x4E00;&#x8C08;&#xFF1B;&#x6CA1;&#x770B;&#x8FC7;&#x6E90;&#x7801;&#x7684;&#x5F88;&#x96BE;&#x60F3;&#x5230;&#x5176;&#x5B9E;&#x73B0;&#x65B9;&#x6848;&#xFF0C;&#x9762;&#x8BD5;&#x65F6;&#x4E5F;&#x80FD;&#x7ACB;&#x5206;&#x9AD8;&#x4E0B;&#x3002;</p>
+<blockquote>
+<p>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x5F88;&#x6709;&#x610F;&#x601D;&#x3002;&#x5728;&#x8FFD;&#x6E90;&#x7801;&#x4E4B;&#x524D;&#xFF0C;&#x7334;&#x5B50;&#x4E00;&#x76F4;&#x4EE5;&#x4E3A;&#x7EBF;&#x7A0B;&#x6C60;&#x5C31;&#x662F;&#x628A;&#x7EBF;&#x7A0B;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x7528;&#x7684;&#x65F6;&#x5019;&#x53D6;&#x51FA;&#x6765;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#xFF1B;&#x770B;&#x4E86;&#x6E90;&#x7801;&#x624D;&#x77E5;&#x9053;&#x5B9E;&#x73B0;&#x5982;&#x6B64;&#x4E4B;&#x5999;&#xFF0C;&#x7B80;&#x6D01;&#x4F18;&#x96C5;&#x6548;&#x7387;&#x9AD8;&#x3002;&#x6E90;&#x7801;&#x624D;&#x662F;&#x6700;&#x597D;&#x7684;&#x8001;&#x5E08;&#x3002;</p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/10/26/源码|从串行线程封闭到对象池、线程池/">源码|从串行线程封闭到对象池、线程池</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/24/源码|并发一枝花之CopyOnWriteArrayList/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码|并发一枝花之CopyOnWriteArrayList</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="源码|从串行线程封闭到对象池、线程池" data-title="源码|从串行线程封闭到对象池、线程池" data-url="https://monkeysayhi.github.io/2017/10/26/源码|从串行线程封闭到对象池、线程池/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 12.5px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12.5px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.75px;">LintCode</a> <a href="/tags/Yarn/" style="font-size: 12.5px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 16.25px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.75px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.25px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 13.75px;">科普</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12.5px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.25px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.5px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.cnblogs.com/monkeysayhi/">博客园</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
