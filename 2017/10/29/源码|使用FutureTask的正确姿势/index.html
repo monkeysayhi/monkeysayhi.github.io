@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/10/29/源码|使用FutureTask的正确姿势/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x6C60;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x6838;&amp;#x5FC3;&amp;#x4E4B;&amp;#x4E00;&amp;#x662F;FutureTask&amp;#x3002;&amp;#x5728;&amp;#x63D0;&amp;#x4EA4;&amp;#x4EFB;&amp;#x52A1;&amp;#x65F6;&amp;#xFF0C;&amp;#x7528;&amp;#x6237;&amp;#x5B9E;&amp;#x73B0;&amp;#x768">
-<meta property="og:updated_time" content="2017-10-29T12:40:41.000Z">
+<meta property="og:updated_time" content="2017-10-29T12:52:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|使用FutureTask的正确姿势">
 <meta name="twitter:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x6C60;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x6838;&amp;#x5FC3;&amp;#x4E4B;&amp;#x4E00;&amp;#x662F;FutureTask&amp;#x3002;&amp;#x5728;&amp;#x63D0;&amp;#x4EA4;&amp;#x4EFB;&amp;#x52A1;&amp;#x65F6;&amp;#xFF0C;&amp;#x7528;&amp;#x6237;&amp;#x5B9E;&amp;#x73B0;&amp;#x768">
@@ -235,7 +235,7 @@ ga('send', 'pageview');
 <li>&#x5982;&#x679C;&#x4E0D;&#x662F;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#xFF0C;&#x5C31;&#x662F;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;task&#x81EA;&#x5DF1;&#x629B;&#x51FA;&#x4E86;&#x5F02;&#x5E38;&#xFF0C;&#x5219;outcome&#x4FDD;&#x5B58;&#x4E86;&#x8BE5;&#x5F02;&#x5E38;t&#xFF0C;&#x5305;&#x88C5;&#x8FD4;&#x56DE;ExecutionException&#x3002;</li>
 </ul>
 <blockquote>
-<p>&#x5C06;&#x5F02;&#x5E38;t&#x4F5C;&#x4E3A;ExecutionException&#x7684;cause&#x5305;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5F02;&#x5E38;&#x9605;&#x8BFB;&#x65B9;&#x6CD5;&#x53C2;&#x8003;<a href="https://monkeysayhi.github.io/2017/10/02/&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;/">&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;</a>&#x3002;</p>
+<p>&#x5C06;&#x5F02;&#x5E38;t&#x4F5C;&#x4E3A;ExecutionException&#x7684;cause&#x5305;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5F02;&#x5E38;&#x9605;&#x8BFB;&#x65B9;&#x6CD5;&#x53C2;&#x8003;<a href="/2017/10/02/&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;/">&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;</a>&#x3002;</p>
 </blockquote>
 <h4 id="CancellationException&#x548C;ExecutionException"><a href="#CancellationException&#x548C;ExecutionException" class="headerlink" title="CancellationException&#x548C;ExecutionException"></a>CancellationException&#x548C;ExecutionException</h4><ul>
 <li>CancellationException&#x662F;&#x975E;&#x53D7;&#x68C0;&#x5F02;&#x5E38;&#xFF0C;&#x539F;&#x5219;&#x4E0A;&#x53EF;&#x4EE5;&#x4E0D;&#x5904;&#x7406;&#xFF0C;&#x4F46;&#x4ECD;&#x7136;&#x5EFA;&#x8BAE;&#x5904;&#x7406;&#x3002;</li>

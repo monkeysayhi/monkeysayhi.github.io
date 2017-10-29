@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2017-10-29T12:40:41.000Z</updated>
+  <updated>2017-10-29T12:52:51.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2017/10/29/%E6%BA%90%E7%A0%81%7C%E4%BD%BF%E7%94%A8FutureTask%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/"/>
     <id>https://monkeysayhi.github.io/2017/10/29/源码|使用FutureTask的正确姿势/</id>
     <published>2017-10-29T12:40:26.000Z</published>
-    <updated>2017-10-29T12:40:41.000Z</updated>
+    <updated>2017-10-29T12:52:51.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x6838;&#x5FC3;&#x4E4B;&#x4E00;&#x662F;FutureTask&#x3002;&#x5728;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x5B9E;&#x73B0;&#x7684;Callable&#x5B9E;&#x4F8B;task&#x4F1A;&#x88AB;&#x5305;&#x88C5;&#x4E3A;FutureTask&#x5B9E;&#x4F8B;ftask&#xFF1B;&#x63D0;&#x4EA4;&#x540E;&#x4EFB;&#x52A1;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x65E0;&#x9700;&#x7528;&#x6237;&#x5173;&#x5FC3;&#xFF1B;&#x5F53;&#x7528;&#x6237;&#x9700;&#x8981;&#x65F6;&#xFF0C;&#x518D;&#x8C03;&#x7528;FutureTask#get()&#x83B7;&#x53D6;&#x7ED3;&#x679C;&#x2014;&#x2014;&#x6216;&#x5F02;&#x5E38;&#x3002;</p>
 <p>&#x968F;&#x4E4B;&#x800C;&#x6765;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;<strong>&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x7684;&#x83B7;&#x53D6;ftask&#x7684;&#x7ED3;&#x679C;&#x5E76;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF1F;</strong>&#x672C;&#x6587;&#x8BA8;&#x8BBA;&#x4F7F;&#x7528;FutureTask&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x3002;</p>
@@ -82,7 +82,7 @@
 <li>&#x5982;&#x679C;&#x4E0D;&#x662F;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#xFF0C;&#x5C31;&#x662F;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;task&#x81EA;&#x5DF1;&#x629B;&#x51FA;&#x4E86;&#x5F02;&#x5E38;&#xFF0C;&#x5219;outcome&#x4FDD;&#x5B58;&#x4E86;&#x8BE5;&#x5F02;&#x5E38;t&#xFF0C;&#x5305;&#x88C5;&#x8FD4;&#x56DE;ExecutionException&#x3002;</li>
 </ul>
 <blockquote>
-<p>&#x5C06;&#x5F02;&#x5E38;t&#x4F5C;&#x4E3A;ExecutionException&#x7684;cause&#x5305;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5F02;&#x5E38;&#x9605;&#x8BFB;&#x65B9;&#x6CD5;&#x53C2;&#x8003;<a href="https://monkeysayhi.github.io/2017/10/02/&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;/">&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;</a>&#x3002;</p>
+<p>&#x5C06;&#x5F02;&#x5E38;t&#x4F5C;&#x4E3A;ExecutionException&#x7684;cause&#x5305;&#x88C5;&#x8D77;&#x6765;&#xFF0C;&#x5F02;&#x5E38;&#x9605;&#x8BFB;&#x65B9;&#x6CD5;&#x53C2;&#x8003;<a href="/2017/10/02/&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;/">&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;</a>&#x3002;</p>
 </blockquote>
 <h4 id="CancellationException&#x548C;ExecutionException"><a href="#CancellationException&#x548C;ExecutionException" class="headerlink" title="CancellationException&#x548C;ExecutionException"></a>CancellationException&#x548C;ExecutionException</h4><ul>
 <li>CancellationException&#x662F;&#x975E;&#x53D7;&#x68C0;&#x5F02;&#x5E38;&#xFF0C;&#x539F;&#x5219;&#x4E0A;&#x53EF;&#x4EE5;&#x4E0D;&#x5904;&#x7406;&#xFF0C;&#x4F46;&#x4ECD;&#x7136;&#x5EFA;&#x8BAE;&#x5904;&#x7406;&#x3002;</li>
@@ -135,7 +135,7 @@
     <link href="https://monkeysayhi.github.io/2017/10/26/%E6%BA%90%E7%A0%81%7C%E4%BB%8E%E4%B8%B2%E8%A1%8C%E7%BA%BF%E7%A8%8B%E5%B0%81%E9%97%AD%E5%88%B0%E5%AF%B9%E8%B1%A1%E6%B1%A0%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     <id>https://monkeysayhi.github.io/2017/10/26/源码|从串行线程封闭到对象池、线程池/</id>
     <published>2017-10-25T16:10:24.000Z</published>
-    <updated>2017-10-28T16:09:33.000Z</updated>
+    <updated>2017-10-29T12:50:05.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x4ECA;&#x5929;&#x8BB2;&#x4E00;&#x4E2A;&#x725B;&#x903C;&#x800C;&#x5B9E;&#x7528;&#x7684;&#x6982;&#x5FF5;&#xFF0C;<code>&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</code>&#x3002;<code>&#x5BF9;&#x8C61;&#x6C60;</code>&#x662F;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x7684;&#x5178;&#x578B;&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1B;<code>&#x7EBF;&#x7A0B;&#x6C60;</code>&#x7CC5;&#x5408;&#x4E86;&#x5BF9;&#x8C61;&#x6C60;&#x6280;&#x672F;&#xFF0C;&#x4F46;&#x6838;&#x5FC3;&#x5B9E;&#x73B0;&#x4E0D;&#x4F9D;&#x8D56;&#x4E8E;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x4EA7;&#x751F;&#x8BEF;&#x4F1A;&#x3002;&#x672C;&#x6587;&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x548C;&#x5BF9;&#x8C61;&#x6C60;&#x5165;&#x624B;&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7;&#x6E90;&#x7801;&#x5206;&#x6790;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#xFF0C;&#x5398;&#x6E05;&#x5BF9;&#x8C61;&#x6C60;&#x4E0E;&#x7EBF;&#x7A0B;&#x6C60;&#x4E4B;&#x95F4;&#x7684;&#x8BEF;&#x4F1A;&#x3002;</p>
 <a id="more"></a>
