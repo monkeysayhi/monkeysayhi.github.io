@@ -4,6 +4,52 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2017/09/20/%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%AF%E7%94%A8%E5%90%8D%E7%A7%B0%EF%BC%9F%E4%B8%BE%E4%BE%8B%EF%BC%9F/</loc>
+    <lastmod>2017-10-29T12:44:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>静态工厂方法的一些惯用名称？举例？</title>
+        <pubTime>2017-09-20T10:26:22.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>设计模式</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>猿格</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2017/09/20/Builder%E6%A8%A1%E5%BC%8F%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%AF%B9%E8%B1%A1%E5%9F%9F%E8%80%8C%E4%B8%8D%E6%98%AFbuilder%E5%9F%9F%E4%B8%AD%E6%A3%80%E6%9F%A5%E5%8F%82%E6%95%B0%EF%BC%9F/</loc>
+    <lastmod>2017-10-29T12:43:54.000Z</lastmod>
+    <data>
+        <display>
+        <title>Builder模式中，为什么必须在对象域而不是builder域中检查参数？</title>
+        <pubTime>2017-09-20T10:50:50.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>设计模式</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2017/10/29/%E6%BA%90%E7%A0%81%7C%E4%BD%BF%E7%94%A8FutureTask%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/</loc>
     <lastmod>2017-10-29T12:40:41.000Z</lastmod>
     <data>
@@ -13,13 +59,13 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
          
         <tag>猿格</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -38,11 +84,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -71,27 +117,6 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2017/09/20/%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%AF%E7%94%A8%E5%90%8D%E7%A7%B0%EF%BC%9F%E4%B8%BE%E4%BE%8B%EF%BC%9F/</loc>
-    <lastmod>2017-10-25T16:27:32.000Z</lastmod>
-    <data>
-        <display>
-        <title>静态工厂方法的一些惯用名称？举例？</title>
-        <pubTime>2017-09-20T10:26:22.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>设计模式</tag>
-         
-        <tag>原创</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://monkeysayhi.github.io/2017/10/22/%E6%BA%90%E7%A0%81%7C%E5%B9%B6%E5%8F%91%E4%B8%80%E6%9E%9D%E8%8A%B1%E4%B9%8BConcurrentLinkedQueue%E3%80%90%E4%BC%AA%E3%80%91/</loc>
     <lastmod>2017-10-25T14:53:10.000Z</lastmod>
     <data>
@@ -101,11 +126,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -124,11 +149,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -193,11 +218,11 @@
         <title>【面经】头条-2017年8月30日，散招实习生</title>
         <pubTime>2017-08-31T09:04:53.000Z</pubTime>
         
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
         <tag>算法</tag>
          
@@ -274,11 +299,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -297,11 +322,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -362,9 +387,9 @@
         
         <tag>Java</tag>
          
-        <tag>原创</tag>
-         
         <tag>并发</tag>
+         
+        <tag>原创</tag>
          
         <tag>系统设计</tag>
          
@@ -385,11 +410,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -467,11 +492,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -490,11 +515,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -555,11 +580,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -662,11 +687,11 @@
         
         <tag>Java</tag>
          
+        <tag>并发</tag>
+         
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-        <tag>并发</tag>
          
          
            
@@ -865,27 +890,6 @@
         <display>
         <title>实现不可变类时如何禁止子类化？</title>
         <pubTime>2017-09-20T11:16:39.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>设计模式</tag>
-         
-        <tag>原创</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/09/20/Builder%E6%A8%A1%E5%BC%8F%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%9C%A8%E5%AF%B9%E8%B1%A1%E5%9F%9F%E8%80%8C%E4%B8%8D%E6%98%AFbuilder%E5%9F%9F%E4%B8%AD%E6%A3%80%E6%9F%A5%E5%8F%82%E6%95%B0%EF%BC%9F/</loc>
-    <lastmod>2017-09-20T10:52:55.000Z</lastmod>
-    <data>
-        <display>
-        <title>Builder模式中，为什么必须在对象域而不是builder域中检查参数？</title>
-        <pubTime>2017-09-20T10:50:50.000Z</pubTime>
         
         <tag>Java</tag>
          
