@@ -157,6 +157,61 @@ ga('send', 'pageview');
       <div class="body-wrap">
         
   
+    <article id="post-源码|使用FutureTask的正确姿势" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/29/源码|使用FutureTask的正确姿势/">源码|使用FutureTask的正确姿势</a>
+    </h1>
+  
+
+        <a href="/2017/10/29/源码|使用FutureTask的正确姿势/" class="archive-article-date">
+  	<time datetime="2017-10-29T12:40:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-29</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x6838;&#x5FC3;&#x4E4B;&#x4E00;&#x662F;FutureTask&#x3002;&#x5728;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x5B9E;&#x73B0;&#x7684;Callable&#x5B9E;&#x4F8B;task&#x4F1A;&#x88AB;&#x5305;&#x88C5;&#x4E3A;FutureTask&#x5B9E;&#x4F8B;ftask&#xFF1B;&#x63D0;&#x4EA4;&#x540E;&#x4EFB;&#x52A1;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x65E0;&#x9700;&#x7528;&#x6237;&#x5173;&#x5FC3;&#xFF1B;&#x5F53;&#x7528;&#x6237;&#x9700;&#x8981;&#x65F6;&#xFF0C;&#x518D;&#x8C03;&#x7528;FutureTask#get()&#x83B7;&#x53D6;&#x7ED3;&#x679C;&#x2014;&#x2014;&#x6216;&#x5F02;&#x5E38;&#x3002;</p>
+<p>&#x968F;&#x4E4B;&#x800C;&#x6765;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;<strong>&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x7684;&#x83B7;&#x53D6;ftask&#x7684;&#x7ED3;&#x679C;&#x5E76;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF1F;</strong>&#x672C;&#x6587;&#x8BA8;&#x8BBA;&#x4F7F;&#x7528;FutureTask&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x3002;</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2017/10/29/源码|使用FutureTask的正确姿势/#more">more >></a>
+        </p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/猿格/">猿格</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-源码|从串行线程封闭到对象池、线程池" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -664,61 +719,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-源码|String拼接操作”-”的优化？" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/23/源码|String拼接操作”-”的优化？/">源码|String拼接操作”+”的优化？</a>
-    </h1>
-  
-
-        <a href="/2017/09/23/源码|String拼接操作”-”的优化？/" class="archive-article-date">
-  	<time datetime="2017-09-23T07:54:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-23</time>
-</a>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>&#x5F88;&#x591A;&#x8BB2;Java&#x4F18;&#x5316;&#x7684;&#x6587;&#x7AE0;&#x90FD;&#x4F1A;&#x5F3A;&#x8C03;&#x5BF9;String&#x62FC;&#x63A5;&#x7684;&#x4F18;&#x5316;&#x3002;&#x5012;&#x4E0D;&#x7528;&#x7279;&#x610F;&#x8BB0;&#xFF0C;&#x672C;&#x8D28;&#x4E0A;&#x5728;&#x4E8E;&#x5BF9;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#x4F18;&#x52BF;&#x548C;&#x52A3;&#x52BF;&#x7684;&#x7406;&#x89E3;&#x4E0A;&#x3002;</p>
-<p>&#x9700;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x662F;&#x7F16;&#x8BD1;&#x5668;&#x5BF9;String&#x62FC;&#x63A5;&#x505A;&#x51FA;&#x7684;&#x4F18;&#x5316;&#xFF0C;&#x5728;&#x7B80;&#x5355;&#x573A;&#x666F;&#x4E0B;&#x7684;&#x6027;&#x80FD;&#x80FD;&#x591F;&#x4E0E;StringBuilder&#x76F8;&#x5F53;&#xFF0C;&#x590D;&#x6742;&#x573A;&#x666F;&#x4E0B;&#x4ECD;&#x7136;&#x6709;&#x8F83;&#x5927;&#x7684;&#x6027;&#x80FD;&#x95EE;&#x9898;&#x3002;&#x7F51;&#x4E0A;&#x5173;&#x4E8E;&#x8FD9;&#x4E00;&#x95EE;&#x9898;&#x8BB2;&#x7684;&#x975E;&#x5E38;&#x4E71;&#xFF1B;&#x5982;&#x679C;&#x6211;&#x8BB2;&#x7684;&#x6709;&#x4EC0;&#x4E48;&#x7EB0;&#x6F0F;&#xFF0C;&#x4E5F;&#x6B22;&#x8FCE;&#x6307;&#x6B63;&#x3002;</p>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2017/09/23/源码|String拼接操作”-”的优化？/#more">more >></a>
-        </p>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-      
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -787,7 +787,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 12.5px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12.5px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.75px;">LintCode</a> <a href="/tags/Yarn/" style="font-size: 12.5px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 16.25px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.75px;">猿工</a> <a href="/tags/猿格/" style="font-size: 11.25px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 13.75px;">科普</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12.5px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.25px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.5px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 12.5px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12.5px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 11.25px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.75px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.75px;">LintCode</a> <a href="/tags/Yarn/" style="font-size: 12.5px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 16.25px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.75px;">猿工</a> <a href="/tags/猿格/" style="font-size: 12.5px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 13.75px;">科普</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12.5px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.25px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.5px;">面试</a>
     			</div>
     	</section>
     
