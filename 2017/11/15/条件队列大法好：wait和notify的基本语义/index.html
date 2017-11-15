@@ -8,23 +8,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>wait+notify：条件队列大法好(一) | 程序猿说你好</title>
+  <title>条件队列大法好：wait和notify的基本语义 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;#x6761;&amp;#x4EF6;&amp;#x961F;&amp;#x5217;&amp;#x662F;&amp;#x6211;&amp;#x4EEC;&amp;#x5E38;&amp;#x7528;&amp;#x7684;&amp;#x8F7B;&amp;#x91CF;&amp;#x7EA7;&amp;#x540C;&amp;#x6B65;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x4E5F;&amp;#x88AB;&amp;#x79F0;&amp;#x4E3A;&amp;#x201C;wait+notify&amp;#x20">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wait+notify：条件队列大法好(一)">
-<meta property="og:url" content="https://monkeysayhi.github.io/2017/11/15/wait-notify：条件队列大法好-一/index.html">
+<meta property="og:title" content="条件队列大法好：wait和notify的基本语义">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/11/15/条件队列大法好：wait和notify的基本语义/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x6761;&amp;#x4EF6;&amp;#x961F;&amp;#x5217;&amp;#x662F;&amp;#x6211;&amp;#x4EEC;&amp;#x5E38;&amp;#x7528;&amp;#x7684;&amp;#x8F7B;&amp;#x91CF;&amp;#x7EA7;&amp;#x540C;&amp;#x6B65;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x4E5F;&amp;#x88AB;&amp;#x79F0;&amp;#x4E3A;&amp;#x201C;wait+notify&amp;#x20">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify：条件队列大法好-一/wait+notify的配合过程-2.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify：条件队列大法好-一/wait+notify的配合过程-1.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify：条件队列大法好-一/wait+notify的配合过程-2.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify：条件队列大法好-一/wait+notify的配合过程-1.png">
-<meta property="og:updated_time" content="2017-11-15T15:15:56.000Z">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/条件队列大法好：wait和notify的基本语义/wait+notify的配合过程-2.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/条件队列大法好：wait和notify的基本语义/wait+notify的配合过程-1.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/条件队列大法好：wait和notify的基本语义/wait+notify的配合过程-2.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/条件队列大法好：wait和notify的基本语义/wait+notify的配合过程-1.png">
+<meta property="og:updated_time" content="2017-11-15T15:30:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wait+notify：条件队列大法好(一)">
+<meta name="twitter:title" content="条件队列大法好：wait和notify的基本语义">
 <meta name="twitter:description" content="&amp;#x6761;&amp;#x4EF6;&amp;#x961F;&amp;#x5217;&amp;#x662F;&amp;#x6211;&amp;#x4EEC;&amp;#x5E38;&amp;#x7528;&amp;#x7684;&amp;#x8F7B;&amp;#x91CF;&amp;#x7EA7;&amp;#x540C;&amp;#x6B65;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x4E5F;&amp;#x88AB;&amp;#x79F0;&amp;#x4E3A;&amp;#x201C;wait+notify&amp;#x20">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify：条件队列大法好-一/wait+notify的配合过程-2.png">
+<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/条件队列大法好：wait和notify的基本语义/wait+notify的配合过程-2.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -161,18 +161,18 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-wait-notify：条件队列大法好-一" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-条件队列大法好：wait和notify的基本语义" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      wait+notify：条件队列大法好(一)
+      条件队列大法好：wait和notify的基本语义
     </h1>
   
 
-        <a href="/2017/11/15/wait-notify：条件队列大法好-一/" class="archive-article-date">
+        <a href="/2017/11/15/条件队列大法好：wait和notify的基本语义/" class="archive-article-date">
   	<time datetime="2017-11-15T15:15:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-15</time>
 </a>
 
@@ -221,7 +221,7 @@ ga('send', 'pageview');
 <p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x7236;&#x7EBF;&#x7A0B;t1&#x4E2D;&#x8C03;&#x7528;s.join()&#xFF0C;&#x8FDB;&#x800C;&#x8C03;&#x7528;s.wait()&#xFF0C;&#x8FDB;&#x5165;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#x7684;&#x5374;&#x662F;Thread&#x5B9E;&#x4F8B;f&#x5BF9;&#x5E94;&#x7684;&#x7236;&#x7EBF;&#x7A0B;t1&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5B50;&#x7EBF;&#x7A0B;t2&#x5462;&#xFF1F;</strong></p>
 <p>&#x8BE5;&#x8868;&#x8FF0;&#x540C;&#x65F6;&#x4E5F;&#x662F;&#x56DE;&#x7B54;&#x3002;&#x56E0;&#x4E3A;wait()&#x5F71;&#x54CD;&#x7684;&#x662F;&#x8C03;&#x7528;wait()&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x662F;wait()&#x6240;&#x5C5E;&#x7684;Object&#x5B9E;&#x4F8B;&#x3002;&#x5177;&#x4F53;&#x8BF4;&#xFF0C;wait()&#x7684;&#x8BED;&#x4E49;&#x662F;&#x201C;<strong>&#x5C06;&#x8C03;&#x7528;s.wait()&#x7684;&#x7EBF;&#x7A0B;t1&#x653E;&#x5165;Object&#x5B9E;&#x4F8B;s&#x7684;&#x7B49;&#x5F85;&#x96C6;&#x5408;</strong>&#x201D;&#x3002;&#x8FD9;&#x4E0E;s&#x662F;&#x5426;&#x540C;&#x65F6;&#x662F;Thread&#x5B9E;&#x4F8B;&#x5E76;&#x65E0;&#x5173;&#x7CFB;&#x2014;&#x2014;&#x5982;&#x679C;s&#x6070;&#x597D;&#x662F;&#x4E00;&#x4E2A;Thread&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x7EBF;&#x7A0B;t2&#x53EF;&#x4EE5;&#x7167;&#x5E38;&#x8FD0;&#x884C;&#xFF0C;&#x6BEB;&#x65E0;&#x5F71;&#x54CD;&#x3002;</p>
 <p>&#x867D;&#x7136;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x4E0E;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4E0D;&#x80FD;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x4F46;&#x7528;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4EE3;&#x66FF;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x53C8;&#x4E0D;&#x5F71;&#x54CD;&#x6838;&#x5FC3;&#x7684;&#x6B63;&#x786E;&#x6027;&#x3002;&#x5728;&#x4E8B;&#x4EF6;6&#xFF08;&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;14&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF09;&#x4E2D;&#xFF0C;&#x5404;&#x89D2;&#x8272;&#x7684;&#x5173;&#x7CFB;&#x5982;&#x56FE;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify&#xFF1A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;-&#x4E00;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
 <h2 id="&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;"><a href="#&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;" class="headerlink" title="&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;"></a>&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;</h2><blockquote>
 <p>&#x6211;&#x4EEC;&#x4E4B;&#x6240;&#x4EE5;&#x4F1A;&#x5728;join()&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x4E0A;&#x4EA7;&#x751F;&#x56F0;&#x60D1;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x4EE5;&#x4E00;&#x79CD;&#x96BE;&#x4EE5;&#x7406;&#x89E3;&#x7684;&#x59FF;&#x52BF;&#x4F7F;&#x7528;wait+notify&#x673A;&#x5236;&#x3002;</p>
 </blockquote>
@@ -250,11 +250,11 @@ ga('send', 'pageview');
 <p>&#x540C;&#x65F6;&#xFF0C;<strong>&#x8FD9;&#x79CD;&#x5E2E;&#x52A9;&#x5728;JVM&#x89C4;&#x8303;&#x4E0B;&#x6CA1;&#x6709;&#x526F;&#x4F5C;&#x7528;</strong>&#x3002;&#x56E0;&#x4E3A;JVM&#x8981;&#x6C42;&#x7528;&#x6237;&#x4ECE;wait()&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x540E;&#x68C0;&#x67E5;&#x6761;&#x4EF6;&#x662F;&#x5426;&#x5F97;&#x5230;&#x6EE1;&#x8DB3;&#x3002;&#x5982;&#x679C;&#x7528;&#x6237;&#x7F16;&#x5199;&#x4E86;&#x9519;&#x8BEF;&#x7684;&#x540C;&#x6B65;&#x903B;&#x8F91;&#xFF0C;&#x4F7F;&#x5F97;&#x7EBF;&#x7A0B;t2&#x6B63;&#x5E38;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x6761;&#x4EF6;&#x4ECD;&#x4E0D;&#x80FD;&#x5F97;&#x5230;&#x6EE1;&#x8DB3;&#xFF0C;&#x90A3;&#x4E48;&#x867D;&#x7136;JVM&#x7684;&#x201C;&#x5E2E;&#x52A9;&#x201D;&#x4F7F;&#x5F97;&#x7EBF;&#x7A0B;t1&#x63D0;&#x524D;&#x5524;&#x9192;&#xFF0C;&#x4F46;wait()&#x8FD4;&#x56DE;&#x540E;&#x7684;&#x68C0;&#x67E5;&#x4F7F;&#x7EBF;&#x7A0B;t1&#x518D;&#x6B21;&#x8FDB;&#x5165;&#x963B;&#x585E;&#x72B6;&#x6001;&#xFF0C;&#x7B26;&#x5408;&#x7528;&#x6237;&#x7F16;&#x5199;&#x7684;&#x540C;&#x6B65;&#x903B;&#x8F91;&#xFF08;&#x5C3D;&#x7BA1;&#x662F;&#x9519;&#x8BEF;&#x7684;&#xFF09;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7EBF;&#x7A0B;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF0C;&#x90A3;&#x4E48;notify&#x4E5F;&#x4E0D;&#x4F1A;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#x3002;</p>
 <h1 id="wait-notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;"><a href="#wait-notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;" class="headerlink" title="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;"></a>wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;</h1><p>&#x4ECD;&#x7136;&#x7528;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4EE3;&#x66FF;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
 <h2 id="1-&#x8C03;&#x7528;wait-&#x524D;"><a href="#1-&#x8C03;&#x7528;wait-&#x524D;" class="headerlink" title="1. &#x8C03;&#x7528;wait()&#x524D;"></a>1. &#x8C03;&#x7528;wait()&#x524D;</h2><p>&#x8C03;&#x7528;wait()&#x524D;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x5BF9;&#x5E94;&#x7684;Thread&#x5B9E;&#x4F8B;f&#x3001;t2&#x5BF9;&#x5E94;&#x7684;s&#x90FD;&#x5904;&#x4E8E;RUNNABLE&#x72B6;&#x6001;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify&#xFF1A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;-&#x4E00;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
 <h2 id="2-&#x8C03;&#x7528;wait-&#x540E;&#xFF0C;&#x8C03;&#x7528;notify-&#x524D;"><a href="#2-&#x8C03;&#x7528;wait-&#x540E;&#xFF0C;&#x8C03;&#x7528;notify-&#x524D;" class="headerlink" title="2. &#x8C03;&#x7528;wait()&#x540E;&#xFF0C;&#x8C03;&#x7528;notify()&#x524D;"></a>2. &#x8C03;&#x7528;wait()&#x540E;&#xFF0C;&#x8C03;&#x7528;notify()&#x524D;</h2><p>&#x5728;&#x7EBF;&#x7A0B;t1&#x4E2D;&#x8C03;&#x7528;s.wait()&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;s.notify()&#x524D;&#xFF0C;t1&#x5BF9;&#x5E94;&#x7684;f&#x8F6C;&#x5165;WAITING&#x72B6;&#x6001;&#xFF0C;&#x8FDB;&#x5165;&#x5BF9;&#x8C61;s&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF08;&#x5373;&#xFF0C;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF09;&#xFF1B;s&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#xFF0C;&#x4ECD;&#x5904;&#x4E8E;RUNNABLE&#x72B6;&#x6001;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify&#xFF1A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;-&#x4E00;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
 <h2 id="3-&#x8C03;&#x7528;notify-&#x540E;"><a href="#3-&#x8C03;&#x7528;notify-&#x540E;" class="headerlink" title="3. &#x8C03;&#x7528;notify()&#x540E;"></a>3. &#x8C03;&#x7528;notify()&#x540E;</h2><p>&#x5047;&#x8BBE;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;t0&#x4E2D;&#x4E3B;&#x52A8;&#x8C03;&#x7528;s.notify()&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6B64;&#x4E4B;&#x540E;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x5BF9;&#x5E94;&#x7684;Thread&#x5B9E;&#x4F8B;f&#x8F6C;&#x5165;RUNNABLE&#x72B6;&#x6001;&#xFF1B;s&#x4ECD;&#x7136;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/wait-notify&#xFF1A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;-&#x4E00;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
 
       
 
@@ -360,7 +360,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2017/11/15/wait-notify：条件队列大法好-一/">wait+notify：条件队列大法好(一)</a><br/>
+		本文链接：<a href="/2017/11/15/条件队列大法好：wait和notify的基本语义/">条件队列大法好：wait和notify的基本语义</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -395,7 +395,7 @@ ga('send', 'pageview');
 	</div>
 	<!-- 多说热评文章 end -->
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="wait-notify：条件队列大法好-一" data-title="wait+notify：条件队列大法好(一)" data-url="https://monkeysayhi.github.io/2017/11/15/wait-notify：条件队列大法好-一/"></div>
+	<div class="ds-thread" data-thread-key="条件队列大法好：wait和notify的基本语义" data-title="条件队列大法好：wait和notify的基本语义" data-url="https://monkeysayhi.github.io/2017/11/15/条件队列大法好：wait和notify的基本语义/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

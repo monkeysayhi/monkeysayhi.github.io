@@ -4,11 +4,11 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2017/11/15/wait-notify%EF%BC%9A%E6%9D%A1%E4%BB%B6%E9%98%9F%E5%88%97%E5%A4%A7%E6%B3%95%E5%A5%BD-%E4%B8%80/</loc>
-    <lastmod>2017-11-15T15:15:56.000Z</lastmod>
+    <loc>https://monkeysayhi.github.io/2017/11/15/%E6%9D%A1%E4%BB%B6%E9%98%9F%E5%88%97%E5%A4%A7%E6%B3%95%E5%A5%BD%EF%BC%9Await%E5%92%8Cnotify%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E4%B9%89/</loc>
+    <lastmod>2017-11-15T15:30:26.000Z</lastmod>
     <data>
         <display>
-        <title>wait+notify：条件队列大法好(一)</title>
+        <title>条件队列大法好：wait和notify的基本语义</title>
         <pubTime>2017-11-15T15:15:56.000Z</pubTime>
         
         <tag>Java</tag>
