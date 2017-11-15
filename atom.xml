@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2017-11-15T15:30:26.000Z</updated>
+  <updated>2017-11-15T15:42:01.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2017/11/15/%E6%9D%A1%E4%BB%B6%E9%98%9F%E5%88%97%E5%A4%A7%E6%B3%95%E5%A5%BD%EF%BC%9Await%E5%92%8Cnotify%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E4%B9%89/"/>
     <id>https://monkeysayhi.github.io/2017/11/15/条件队列大法好：wait和notify的基本语义/</id>
     <published>2017-11-15T15:15:56.000Z</published>
-    <updated>2017-11-15T15:30:26.000Z</updated>
+    <updated>2017-11-15T15:42:01.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x6761;&#x4EF6;&#x961F;&#x5217;&#x662F;&#x6211;&#x4EEC;&#x5E38;&#x7528;&#x7684;&#x8F7B;&#x91CF;&#x7EA7;&#x540C;&#x6B65;&#x673A;&#x5236;&#xFF0C;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x201C;wait+notify&#x201D;&#x673A;&#x5236;&#x3002;&#x4F46;&#x5F88;&#x591A;&#x521A;&#x521A;&#x63A5;&#x89E6;&#x5E76;&#x53D1;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x80FD;&#x4F1A;&#x5BF9;wait&#x548C;notify&#x7684;&#x8BED;&#x4E49;&#x548C;&#x914D;&#x5408;&#x8FC7;&#x7A0B;&#x611F;&#x5230;&#x8FF7;&#x60D1;&#x3002;</p>
 <p>&#x4ECA;&#x5929;&#x4ECE;join()&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x5207;&#x5165;&#xFF0C;&#x91CD;&#x70B9;&#x8BB2;&#x89E3;wait()&#x65B9;&#x6CD5;&#x7684;&#x8BED;&#x4E49;&#xFF0C;&#x7B80;&#x7565;&#x63D0;&#x53CA;notify()&#x4E0E;notifyAll()&#x7684;&#x8BED;&#x4E49;&#xFF0C;&#x6700;&#x540E;&#x603B;&#x7ED3;&#x4E8C;&#x8005;&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;&#x3002;</p>
