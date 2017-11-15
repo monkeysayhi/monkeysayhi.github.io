@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/10/08/Java实现生产者-消费者模型/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x8003;&amp;#x67E5;Java&amp;#x7684;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x65F6;&amp;#xFF0C;&amp;#x624B;&amp;#x5199;&amp;#x201C;&amp;#x751F;&amp;#x4EA7;&amp;#x8005;-&amp;#x6D88;&amp;#x8D39;&amp;#x8005;&amp;#x6A21;&amp;#x578B;&amp;#x201D;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x">
-<meta property="og:updated_time" content="2017-10-15T06:14:28.000Z">
+<meta property="og:updated_time" content="2017-11-14T16:21:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java实现生产者-消费者模型">
 <meta name="twitter:description" content="&amp;#x8003;&amp;#x67E5;Java&amp;#x7684;&amp;#x5E76;&amp;#x53D1;&amp;#x7F16;&amp;#x7A0B;&amp;#x65F6;&amp;#xFF0C;&amp;#x624B;&amp;#x5199;&amp;#x201C;&amp;#x751F;&amp;#x4EA7;&amp;#x8005;-&amp;#x6D88;&amp;#x8D39;&amp;#x8005;&amp;#x6A21;&amp;#x578B;&amp;#x201D;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x">
@@ -183,6 +183,9 @@ ga('send', 'pageview');
 <li>coding style</li>
 </ul>
 <a id="more"></a>
+<blockquote>
+<p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
+</blockquote>
 <p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5F52;&#x7EB3;&#x4E86;4&#x79CD;&#x5199;&#x6CD5;&#xFF0C;&#x9605;&#x8BFB;&#x540E;&#xFF0C;&#x6700;&#x597D;&#x5728;&#x767D;&#x677F;&#x4E0A;&#x7EC3;&#x4E60;&#x51E0;&#x904D;&#xFF0C;&#x68C0;&#x67E5;&#x81EA;&#x5DF1;&#x662F;&#x5426;&#x638C;&#x63E1;&#x3002;&#x8FD9;4&#x79CD;&#x5199;&#x6CD5;&#x6216;&#x8005;&#x7F16;&#x7A0B;&#x63A5;&#x53E3;&#x4E0D;&#x540C;&#xFF0C;&#x6216;&#x8005;&#x5E76;&#x53D1;&#x7C92;&#x5EA6;&#x4E0D;&#x540C;&#xFF0C;&#x4F46;&#x672C;&#x8D28;&#x662F;&#x76F8;&#x540C;&#x7684;&#x2014;&#x2014;&#x90FD;&#x662F;&#x5728;&#x4F7F;&#x7528;&#x6216;&#x5B9E;&#x73B0;BlockingQueue&#x3002;</p>
 <h1 id="&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;"><a href="#&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;" class="headerlink" title="&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;"></a>&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</h1><p>&#x7F51;&#x4E0A;&#x6709;&#x5F88;&#x591A;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#x7684;&#x5B9A;&#x4E49;&#x548C;&#x5B9E;&#x73B0;&#x3002;&#x672C;&#x6587;&#x7814;&#x7A76;&#x6700;&#x5E38;&#x7528;&#x7684;<strong>&#x6709;&#x754C;</strong>&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;&#xFF0C;&#x7B80;&#x5355;&#x6982;&#x62EC;&#x5982;&#x4E0B;&#xFF1A;</p>
 <ul>

@@ -22,7 +22,7 @@
 
 &amp;#x6709;&amp;#x540D;&amp;#x79F0;
 &amp;#x4E">
-<meta property="og:updated_time" content="2017-09-20T10:22:12.000Z">
+<meta property="og:updated_time" content="2017-11-14T16:23:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|静态工厂返回声明的返回类型的子类型的实例">
 <meta name="twitter:description" content="&amp;#x4E0E;&amp;#x6784;&amp;#x9020;&amp;#x65B9;&amp;#x6CD5;&amp;#x76F8;&amp;#x6BD4;&amp;#xFF0C;&amp;#x9759;&amp;#x6001;&amp;#x5DE5;&amp;#x5382;&amp;#x65B9;&amp;#x6CD5;&amp;#x62E5;&amp;#x6709;&amp;#x4E09;&amp;#x5927;&amp;#x4F18;&amp;#x52BF;&amp;#xFF1A;
@@ -192,6 +192,9 @@ ga('send', 'pageview');
 </ol>
 <p>&#x4F18;&#x52BF;1&#x3001;2&#x663E;&#x7136;&#x3002;&#x8FD9;&#x91CC;&#x5728;Java8&#x6E90;&#x7801;&#x91CC;&#x627E;&#x4E00;&#x4E2A;&#x8BC1;&#x660E;&#x4F18;&#x52BF;3&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x5907;&#x5FD8;&#x3002;</p>
 <a id="more"></a>
+<blockquote>
+<p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
+</blockquote>
 <h1 id="&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x58F0;&#x660E;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x7684;&#x5B50;&#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;"><a href="#&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x58F0;&#x660E;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x7684;&#x5B50;&#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;" class="headerlink" title="&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x58F0;&#x660E;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x7684;&#x5B50;&#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;"></a>&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x58F0;&#x660E;&#x7684;&#x8FD4;&#x56DE;&#x7C7B;&#x578B;&#x7684;&#x5B50;&#x7C7B;&#x578B;&#x7684;&#x5B9E;&#x4F8B;</h1><p>&#x89C1;Java8&#x7684;Collections&#x7C7B;&#xFF1A;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Set&lt;T&gt; <span class="title">unmodifiableSet</span><span class="params">(Set&lt;? extends T&gt; s)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> UnmodifiableSet&lt;&gt;(s);</div><div class="line">}</div></pre></td></tr></table></figure>
 <p>&#x89C2;&#x5BDF;UnmodifiableSet&#x7C7B;&#xFF1A;</p>

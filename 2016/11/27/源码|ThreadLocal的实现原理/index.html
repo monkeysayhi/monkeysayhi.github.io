@@ -20,7 +20,7 @@
 <meta property="og:description" content="ThreadLocal&amp;#x4E5F;&amp;#x53EB;&amp;#x201C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x672C;&amp;#x5730;&amp;#x53D8;&amp;#x91CF;&amp;#x201D;&amp;#x3001;&amp;#x201C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C40;&amp;#x90E8;&amp;#x53D8;&amp;#x91CF;&amp;#x201D;&amp;#xFF1A;
 
 &amp;#x5176;&amp;#x4F5C;&amp;#x7528;&amp;#x">
-<meta property="og:updated_time" content="2017-10-09T08:38:20.000Z">
+<meta property="og:updated_time" content="2017-11-14T16:20:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|ThreadLocal的实现原理">
 <meta name="twitter:description" content="ThreadLocal&amp;#x4E5F;&amp;#x53EB;&amp;#x201C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x672C;&amp;#x5730;&amp;#x53D8;&amp;#x91CF;&amp;#x201D;&amp;#x3001;&amp;#x201C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C40;&amp;#x90E8;&amp;#x53D8;&amp;#x91CF;&amp;#x201D;&amp;#xFF1A;
@@ -188,6 +188,9 @@ ga('send', 'pageview');
 </ul>
 <p>ThreadLocal&#x4EE3;&#x8868;&#x4E86;&#x4E00;&#x79CD;<strong>&#x7EBF;&#x7A0B;&#x4E0E;&#x4EFB;&#x52A1;&#x5265;&#x79BB;</strong>&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x4ECE;&#x800C;&#x8FBE;&#x5230;<code>&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;</code>&#x7684;&#x76EE;&#x7684;&#xFF0C;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x8BBE;&#x8BA1;&#x51FA;&#x66F4;&#x201C;&#x5065;&#x5EB7;&#x201D;&#xFF08;&#x7B80;&#x5355;&#xFF0C;&#x7F8E;&#x89C2;&#xFF0C;&#x6613;&#x7EF4;&#x62A4;&#xFF09;&#x7684;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7C7B;&#x3002; </p>
 <a id="more"></a>
+<blockquote>
+<p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
+</blockquote>
 <h1 id="&#x4E00;&#x79CD;&#x5047;&#x8C61;"><a href="#&#x4E00;&#x79CD;&#x5047;&#x8C61;" class="headerlink" title="&#x4E00;&#x79CD;&#x5047;&#x8C61;"></a>&#x4E00;&#x79CD;&#x5047;&#x8C61;</h1><p>ThreadLocal&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x5F80;&#x5F80;&#x7ED9;&#x6211;&#x4EEC;&#x9020;&#x6210;&#x4E00;&#x79CD;&#x5047;&#x8C61;&#x2014;&#x2014;&#x53D8;&#x91CF;&#x5C01;&#x88C5;&#x5728;&#x4EFB;&#x52A1;&#x5BF9;&#x8C61;&#x5185;&#x90E8;&#x3002;</p>
 <h2 id="&#x6839;&#x636E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x63A8;&#x6D4B;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;"><a href="#&#x6839;&#x636E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x63A8;&#x6D4B;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;" class="headerlink" title="&#x6839;&#x636E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x63A8;&#x6D4B;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;"></a>&#x6839;&#x636E;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x63A8;&#x6D4B;&#x5B9E;&#x73B0;&#x601D;&#x8DEF;</h2><p>&#x6211;&#x4EEC;&#x5728;&#x4F7F;&#x7528;ThreadLocal&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5F80;&#x5F80;&#x662F;&#x5728;&#x4EFB;&#x52A1;&#x5BF9;&#x8C61;&#x5185;&#x90E8;&#x58F0;&#x660E;ThreadLocal&#x53D8;&#x91CF;&#xFF0C;&#x5982;&#xFF1A;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ThreedLocal&lt;List&gt; onlineUserList = &#x2026;;</div></pre></td></tr></table></figure>

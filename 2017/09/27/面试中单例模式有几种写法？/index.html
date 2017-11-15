@@ -20,7 +20,7 @@
 <meta property="og:description" content="&amp;#x201C;&amp;#x4F60;&amp;#x77E5;&amp;#x9053;&amp;#x8334;&amp;#x9999;&amp;#x8C46;&amp;#x7684;&amp;#x2018;&amp;#x8334;&amp;#x2019;&amp;#x5B57;&amp;#x6709;&amp;#x51E0;&amp;#x79CD;&amp;#x5199;&amp;#x6CD5;&amp;#x5417;&amp;#xFF1F;&amp;#x201D;
 
 &amp;#x7EA0;&amp;#x7ED3;&amp;#x5355;&amp;#x4F8B;&amp;#x6A">
-<meta property="og:updated_time" content="2017-10-02T06:33:42.000Z">
+<meta property="og:updated_time" content="2017-11-14T16:21:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试中单例模式有几种写法？">
 <meta name="twitter:description" content="&amp;#x201C;&amp;#x4F60;&amp;#x77E5;&amp;#x9053;&amp;#x8334;&amp;#x9999;&amp;#x8C46;&amp;#x7684;&amp;#x2018;&amp;#x8334;&amp;#x2019;&amp;#x5B57;&amp;#x6709;&amp;#x51E0;&amp;#x79CD;&amp;#x5199;&amp;#x6CD5;&amp;#x5417;&amp;#xFF1F;&amp;#x201D;
@@ -186,6 +186,9 @@ ga('send', 'pageview');
 </blockquote>
 <p>&#x7EA0;&#x7ED3;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x6709;&#x51E0;&#x79CD;&#x5199;&#x6CD5;&#x6709;&#x7528;&#x5417;&#xFF1F;&#x6709;&#x70B9;&#x7528;&#xFF0C;&#x9762;&#x8BD5;&#x4E2D;&#x7ECF;&#x5E38;&#x9009;&#x62E9;&#x5176;&#x4E2D;&#x4E00;&#x79CD;&#x6216;&#x51E0;&#x79CD;&#x5199;&#x6CD5;&#x4F5C;&#x4E3A;&#x8BDD;&#x5934;&#xFF0C;&#x8003;&#x67E5;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x548C;coding style&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x8FD8;&#x5F88;&#x5BB9;&#x6613;&#x6269;&#x5C55;&#x5230;&#x5176;&#x4ED6;&#x95EE;&#x9898;&#x3002;&#x8FD9;&#x91CC;&#x8BB2;&#x89E3;&#x51E0;&#x79CD;&#x7334;&#x54E5;&#x5E38;&#x7528;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x4F46;&#x5207;&#x5FCC;&#x751F;&#x642C;&#x786C;&#x5957;&#xFF0C;&#x53BB;&#x8BB0;&#x201C;&#x8334;&#x9999;&#x8C46;&#x7684;&#x5199;&#x6CD5;&#x201D;&#x3002;<strong>&#x7F16;&#x7A0B;&#x6700;&#x5927;&#x7684;&#x4E50;&#x8DA3;&#x5728;&#x4E8E;<code>&#x201C;know everything, control everything&#x201D;</code>&#x3002;</strong></p>
 <a id="more"></a>
+<blockquote>
+<p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
+</blockquote>
 <p>&#x5927;&#x4F53;&#x53EF;&#x5206;&#x4E3A;4&#x7C7B;&#xFF0C;&#x4E0B;&#x9762;&#x5206;&#x522B;&#x4ECB;&#x7ECD;&#x4ED6;&#x4EEC;&#x7684;&#x57FA;&#x672C;&#x5F62;&#x5F0F;&#x3001;&#x53D8;&#x79CD;&#x53CA;&#x7279;&#x70B9;&#x3002;</p>
 <h1 id="&#x9971;&#x6C49;&#x6A21;&#x5F0F;"><a href="#&#x9971;&#x6C49;&#x6A21;&#x5F0F;" class="headerlink" title="&#x9971;&#x6C49;&#x6A21;&#x5F0F;"></a>&#x9971;&#x6C49;&#x6A21;&#x5F0F;</h1><p>&#x9971;&#x6C49;&#x662F;&#x53D8;&#x79CD;&#x6700;&#x591A;&#x7684;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x3002;&#x6211;&#x4EEC;&#x4ECE;&#x9971;&#x6C49;&#x51FA;&#x53D1;&#xFF0C;&#x901A;&#x8FC7;&#x5176;&#x53D8;&#x79CD;&#x9010;&#x6E10;&#x4E86;&#x89E3;&#x5B9E;&#x73B0;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x65F6;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
 <h2 id="&#x57FA;&#x7840;&#x7684;&#x9971;&#x6C49;"><a href="#&#x57FA;&#x7840;&#x7684;&#x9971;&#x6C49;" class="headerlink" title="&#x57FA;&#x7840;&#x7684;&#x9971;&#x6C49;"></a>&#x57FA;&#x7840;&#x7684;&#x9971;&#x6C49;</h2><p>&#x9971;&#x6C49;&#xFF0C;&#x5373;&#x5DF2;&#x7ECF;&#x5403;&#x9971;&#xFF0C;&#x4E0D;&#x7740;&#x6025;&#x518D;&#x5403;&#xFF0C;&#x997F;&#x7684;&#x65F6;&#x5019;&#x518D;&#x5403;&#x3002;&#x6240;&#x4EE5;&#x4ED6;&#x5C31;&#x5148;&#x4E0D;&#x521D;&#x59CB;&#x5316;&#x5355;&#x4F8B;&#xFF0C;&#x7B49;&#x7B2C;&#x4E00;&#x6B21;&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#x518D;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5373;<code>&#x201C;&#x61D2;&#x52A0;&#x8F7D;&#x201D;</code>&#x3002;</p>

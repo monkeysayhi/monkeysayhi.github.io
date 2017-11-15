@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/10/29/源码|使用FutureTask的正确姿势/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x6C60;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x6838;&amp;#x5FC3;&amp;#x4E4B;&amp;#x4E00;&amp;#x662F;FutureTask&amp;#x3002;&amp;#x5728;&amp;#x63D0;&amp;#x4EA4;&amp;#x4EFB;&amp;#x52A1;&amp;#x65F6;&amp;#xFF0C;&amp;#x7528;&amp;#x6237;&amp;#x5B9E;&amp;#x73B0;&amp;#x768">
-<meta property="og:updated_time" content="2017-10-29T12:52:51.000Z">
+<meta property="og:updated_time" content="2017-11-14T16:19:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|使用FutureTask的正确姿势">
 <meta name="twitter:description" content="&amp;#x7EBF;&amp;#x7A0B;&amp;#x6C60;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x6838;&amp;#x5FC3;&amp;#x4E4B;&amp;#x4E00;&amp;#x662F;FutureTask&amp;#x3002;&amp;#x5728;&amp;#x63D0;&amp;#x4EA4;&amp;#x4EFB;&amp;#x52A1;&amp;#x65F6;&amp;#xFF0C;&amp;#x7528;&amp;#x6237;&amp;#x5B9E;&amp;#x73B0;&amp;#x768">
@@ -178,6 +178,9 @@ ga('send', 'pageview');
         <p>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x6838;&#x5FC3;&#x4E4B;&#x4E00;&#x662F;FutureTask&#x3002;&#x5728;&#x63D0;&#x4EA4;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x5B9E;&#x73B0;&#x7684;Callable&#x5B9E;&#x4F8B;task&#x4F1A;&#x88AB;&#x5305;&#x88C5;&#x4E3A;FutureTask&#x5B9E;&#x4F8B;ftask&#xFF1B;&#x63D0;&#x4EA4;&#x540E;&#x4EFB;&#x52A1;&#x5F02;&#x6B65;&#x6267;&#x884C;&#xFF0C;&#x65E0;&#x9700;&#x7528;&#x6237;&#x5173;&#x5FC3;&#xFF1B;&#x5F53;&#x7528;&#x6237;&#x9700;&#x8981;&#x65F6;&#xFF0C;&#x518D;&#x8C03;&#x7528;FutureTask#get()&#x83B7;&#x53D6;&#x7ED3;&#x679C;&#x2014;&#x2014;&#x6216;&#x5F02;&#x5E38;&#x3002;</p>
 <p>&#x968F;&#x4E4B;&#x800C;&#x6765;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF0C;<strong>&#x5982;&#x4F55;&#x4F18;&#x96C5;&#x7684;&#x83B7;&#x53D6;ftask&#x7684;&#x7ED3;&#x679C;&#x5E76;&#x5904;&#x7406;&#x5F02;&#x5E38;&#xFF1F;</strong>&#x672C;&#x6587;&#x8BA8;&#x8BBA;&#x4F7F;&#x7528;FutureTask&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x3002;</p>
 <a id="more"></a>
+<blockquote>
+<p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
+</blockquote>
 <p>&#x4ECA;&#x5929;&#x6362;&#x4E2A;&#x98CE;&#x683C;&#x3002;</p>
 <h1 id="&#x6E90;&#x7801;&#x5206;&#x6790;"><a href="#&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="&#x6E90;&#x7801;&#x5206;&#x6790;"></a>&#x6E90;&#x7801;&#x5206;&#x6790;</h1><p>&#x4ECE;&#x63D0;&#x4EA4;&#x4E00;&#x4E2A;Callable&#x5B9E;&#x4F8B;task&#x5F00;&#x59CB;&#x3002;</p>
 <h2 id="submit"><a href="#submit" class="headerlink" title="submit()"></a>submit()</h2><p>ThreadPoolExecutor&#x76F4;&#x63A5;&#x7EE7;&#x627F;AbstractExecutorService&#x7684;&#x5B9E;&#x73B0;&#x3002;</p>
@@ -377,6 +380,15 @@ ga('send', 'pageview');
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/11/15/wait-notify：条件队列大法好-一/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          wait+notify：条件队列大法好(一)
+        
+      </div>
+    </a>
   
   
     <a href="/2017/10/26/源码|从串行线程封闭到对象池、线程池/" id="article-nav-older" class="article-nav-link-wrap">
