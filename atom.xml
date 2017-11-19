@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2017-11-19T13:46:40.000Z</updated>
+  <updated>2017-11-19T14:11:31.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -14,6 +14,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>源码|newTaskFor()和适配器模式</title>
+    <link href="https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7CnewTaskFor()%E5%92%8C%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://monkeysayhi.github.io/2017/11/19/源码|newTaskFor()和适配器模式/</id>
+    <published>2017-11-19T14:11:12.000Z</published>
+    <updated>2017-11-19T14:11:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>AbstractExecutorService&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x521B;&#x5EFA;&#x4EFB;&#x52A1;&#x7684;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x2014;&#x2014;newTaskFor()&#x3002;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x5927;&#x5BB6;&#x5F88;&#x719F;&#x6089;&#x4E86;&#xFF0C;&#x4F46;newTaskFor()&#x4E2D;&#x7528;&#x5230;&#x7684;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x5374;&#x5C11;&#x6709;&#x4EBA;&#x63D0;&#x5230;&#x3002;</p>
+<a id="more"></a>
+<blockquote>
+<p>&#x9AD8;&#x80FD;&#x9884;&#x8B66;&#xFF01;&#x8FD9;&#x7BC7;&#xFF0C;&#x53C8;&#xFF01;&#x77ED;&#xFF01;&#x53C8;&#xFF01;&#x6CA1;&#xFF01;&#x7528;&#xFF01;</p>
+</blockquote>
+<h1 id="newTaskFor-&#x548C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;"><a href="#newTaskFor-&#x548C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;" class="headerlink" title="newTaskFor()&#x548C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;"></a>newTaskFor()&#x548C;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;</h1><p>&#x5728;AbstractExecutorService&#x4E2D;&#xFF0C;&#x53EF;&#x4EE5;&#x63D0;&#x4EA4;&#x4E09;&#x79CD;&#x5F62;&#x5F0F;&#x7684;task&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> Future&lt;?&gt; submit(Runnable task) {</div><div class="line">    <span class="keyword">if</span> (task == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    RunnableFuture&lt;Void&gt; ftask = newTaskFor(task, <span class="keyword">null</span>);</div><div class="line">    execute(ftask);</div><div class="line">    <span class="keyword">return</span> ftask;</div><div class="line">}</div><div class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Future&lt;T&gt; <span class="title">submit</span><span class="params">(Runnable task, T result)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (task == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    RunnableFuture&lt;T&gt; ftask = newTaskFor(task, result);</div><div class="line">    execute(ftask);</div><div class="line">    <span class="keyword">return</span> ftask;</div><div class="line">}</div><div class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Future&lt;T&gt; <span class="title">submit</span><span class="params">(Callable&lt;T&gt; task)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (task == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    RunnableFuture&lt;T&gt; ftask = newTaskFor(task);</div><div class="line">    execute(ftask);</div><div class="line">    <span class="keyword">return</span> ftask;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E09;&#x79CD;&#x5F62;&#x5F0F;&#x7C7B;&#x4F3C;&#xFF0C;&#x4E3B;&#x8981;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;AbstractExecutorService#newTaskFor()&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">RunnableFuture&lt;T&gt; <span class="title">newTaskFor</span><span class="params">(Runnable runnable, T value)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FutureTask&lt;T&gt;(runnable, value);</div><div class="line">}</div><div class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">RunnableFuture&lt;T&gt; <span class="title">newTaskFor</span><span class="params">(Callable&lt;T&gt; callable)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FutureTask&lt;T&gt;(callable);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x76F4;&#x63A5;&#x8C03;&#x7528;&#x4E86;FutureTask&#x7684;&#x6709;&#x53C2;&#x6784;&#x9020;&#x51FD;&#x6570;&#x3002;</p>
+<p>FutureTask&#x5B9E;&#x73B0;&#x4E86;RunnableFuture&#x63A5;&#x53E3;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FutureTask</span>&lt;<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">RunnableFuture</span>&lt;<span class="title">V</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>&#x8BE5;&#x63A5;&#x53E3;&#x7EE7;&#x627F;&#x4E86;Runnable&#x3001;Future&#x63A5;&#x53E3;&#xFF0C;&#x5E76;&#x53EA;&#x6709;&#x4E00;&#x4E2A;run&#x65B9;&#x6CD5;&#x3002;&#x770B;&#x4E0B;FutureTask&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FutureTask</span><span class="params">(Callable&lt;V&gt; callable)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (callable == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    <span class="keyword">this</span>.callable = callable;</div><div class="line">    <span class="keyword">this</span>.state = NEW;       <span class="comment">// ensure visibility of callable</span></div><div class="line">}</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">FutureTask</span><span class="params">(Runnable runnable, V result)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.callable = Executors.callable(runnable, result);</div><div class="line">    <span class="keyword">this</span>.state = NEW;       <span class="comment">// ensure visibility of callable</span></div><div class="line">}</div></pre></td></tr></table></figure>
+<p>8&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.callable = Executors.callable(runnable, result);</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;&#x9759;&#x6001;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x517C;&#x9002;&#x914D;&#x5668;Executors.callable()&#x5C06;Runnbale&#x5B9E;&#x4F8B;&#x548C;result&#x9002;&#x914D;&#x4E3A;Callable&#x5B9E;&#x4F8B;&#x3002;</p>
+<h1 id="callable-&#x548C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;"><a href="#callable-&#x548C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;" class="headerlink" title="callable()&#x548C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;"></a>callable()&#x548C;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Callable&lt;T&gt; <span class="title">callable</span><span class="params">(Runnable task, T result)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (task == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> RunnableAdapter&lt;T&gt;(task, result);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>RunnableAdapter&#x5B8C;&#x6210;&#x5B9E;&#x9645;&#x7684;&#x9002;&#x914D;&#x5DE5;&#x4F5C;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableAdapter</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">T</span>&gt; </span>{</div><div class="line">    <span class="keyword">final</span> Runnable task;</div><div class="line">    <span class="keyword">final</span> T result;</div><div class="line">    RunnableAdapter(Runnable task, T result) {</div><div class="line">        <span class="keyword">this</span>.task = task;</div><div class="line">        <span class="keyword">this</span>.result = result;</div><div class="line">    }</div><div class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">call</span><span class="params">()</span> </span>{</div><div class="line">        task.run();</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x901A;&#x8FC7;RunnableAdapter&#x5B9E;&#x4F8B;&#x8C03;&#x7528;Callable#call()&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;RunnableAdapter&#x4EC5;&#x4EC5;&#x5148;&#x8C03;&#x7528;Runnable#run()&#xFF0C;&#x518D;&#x8FD4;&#x56DE;result&#x3002;&#x6846;&#x67B6;&#x5E76;&#x6CA1;&#x6709;&#x4EC0;&#x4E48;&#x5730;&#x65B9;&#x4F1A;&#x64CD;&#x4F5C;result&#x2014;&#x2014;&#x6362;&#x53E5;&#x8BDD;&#x8BF4;&#xFF0C;<strong>&#x8FD9;&#x4E2A;&#x9002;&#x914D;&#x5668;&#x4EC5;&#x4EC5;&#x662F;&#x8BA9;Runable&#x5B9E;&#x4F8B;&#x80FD;&#x591F;&#x88AB;&#x63D0;&#x4EA4;&#x5230;ExecutorService&#x4E2D;&#xFF0C;&#x4E0E;&#x8FD4;&#x56DE;&#x503C;&#x5E76;&#x6CA1;&#x6709;&#x534A;&#x5206;&#x94B1;&#x7684;&#x5173;&#x7CFB;</strong>&#x3002;</p>
+<blockquote>
+<p>&#x5BF9;&#xFF0C;&#x5C31;&#x662F;&#x8FD9;&#x4E48;&#x6CA1;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x6765;&#x8BB2;&#x9002;&#x914D;&#x5668;&#x8FD8;&#x662F;&#x9614;&#x4EE5;&#x7684;&#x3002;</p>
+</blockquote>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x901A;&#x8FC7;AbstractExecutorService#newTaskFor()&#x5B66;&#x4E60;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#x6A21;&#x5F0F;&#xFF0C;&#x901A;&#x8FC7;Executors.callable()&#x5B66;&#x4E60;&#x9002;&#x914D;&#x5668;&#x6A21;&#x5F0F;&#x2014;&#x2014;&#x55EF;&#xFF0C;&#xFF0C;&#xFF0C;&#x867D;&#x7136;&#x8FD9;&#x4E2A;&#x9002;&#x914D;&#x5668;&#x6CA1;&#x4EC0;&#x4E48;&#x7528;&#x3002;</p>
+<blockquote>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x6CE8;&#x610F;&#x5230;AbstractExecutorService#newTaskFor()&#x7684;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x4E3A;protected&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x6269;&#x5C55;&#x7C7B;&#x4E2D;&#x8986;&#x5199;&#x6216;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x8BE5;&#x65B9;&#x6CD5;&#x3002;&#x5982;ForkJoinPool&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">RunnableFuture&lt;T&gt; <span class="title">newTaskFor</span><span class="params">(Runnable runnable, T value)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ForkJoinTask.AdaptedRunnable&lt;T&gt;(runnable, value);</div><div class="line">}</div><div class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">RunnableFuture&lt;T&gt; <span class="title">newTaskFor</span><span class="params">(Callable&lt;T&gt; callable)</span> </span>{</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ForkJoinTask.AdaptedCallable&lt;T&gt;(callable);</div><div class="line">}</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>&#x9002;&#x914D;&#x5668;&#x8D70;&#x8D77;&#x3002;</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AbstractExecutorService&amp;#x63D0;&amp;#x4F9B;&amp;#x4E86;&amp;#x4E00;&amp;#x4E2A;&amp;#x521B;&amp;#x5EFA;&amp;#x4EFB;&amp;#x52A1;&amp;#x7684;&amp;#x5DE5;&amp;#x5382;&amp;#x65B9;&amp;#x6CD5;&amp;#x2014;&amp;#x2014;newTaskFor()&amp;#x3002;&amp;#x5DE5;&amp;#x5382;&amp;#x65B9;&amp;#x6CD5;&amp;#x5927;&amp;#x5BB6;&amp;#x5F88;&amp;#x719F;&amp;#x6089;&amp;#x4E86;&amp;#xFF0C;&amp;#x4F46;newTaskFor()&amp;#x4E2D;&amp;#x7528;&amp;#x5230;&amp;#x7684;&amp;#x9002;&amp;#x914D;&amp;#x5668;&amp;#x6A21;&amp;#x5F0F;&amp;#x5374;&amp;#x5C11;&amp;#x6709;&amp;#x4EBA;&amp;#x63D0;&amp;#x5230;&amp;#x3002;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>源码|批量执行invokeAll()&amp;&amp;多选一invokeAny()</title>
@@ -1927,69 +1988,6 @@
       <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>程序猿应该记住的几条基本规则</title>
-    <link href="https://monkeysayhi.github.io/2017/09/20/%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%BA%94%E8%AF%A5%E8%AE%B0%E4%BD%8F%E7%9A%84%E5%87%A0%E6%9D%A1%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99/"/>
-    <id>https://monkeysayhi.github.io/2017/09/20/程序猿应该记住的几条基本规则/</id>
-    <published>2017-09-20T09:37:35.000Z</published>
-    <updated>2017-09-21T00:38:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>&#x7B80;&#x7B80;&#x5355;&#x5355;&#x51E0;&#x6761;&#x539F;&#x5219;&#xFF1A;</p>
-<ol>
-<li>&#x6A21;&#x5757;&#x7684;&#x7528;&#x6237;&#x6C38;&#x8FDC;&#x4E5F;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x6A21;&#x5757;&#x7684;&#x884C;&#x4E3A;&#x6240;&#x8FF7;&#x60D1;</li>
-<li>&#x6A21;&#x5757;&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5C0F;&#xFF0C;&#x4F46;&#x53C8;&#x4E0D;&#x80FD;&#x592A;&#x5C0F;</li>
-<li>&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x88AB;&#x91CD;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x88AB;&#x62F7;&#x8D1D;</li>
-<li>&#x6A21;&#x5757;&#x4E4B;&#x95F4;&#x7684;&#x4F9D;&#x8D56;&#x6027;&#x5E94;&#x8BE5;&#x5C3D;&#x53EF;&#x80FD;&#x964D;&#x5230;&#x6700;&#x5C0F;</li>
-<li>&#x9519;&#x8BEF;&#x5E94;&#x8BE5;&#x5C3D;&#x65E9;&#x88AB;&#x68C0;&#x6D4B;&#x51FA;&#x6765;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x523B;</li>
-</ol>
-<a id="more"></a>
-<p>&#x91CD;&#x70B9;&#x8BB2;&#x4E24;&#x4E2A;&#x3002;</p>
-<h1 id="&#x6A21;&#x5757;&#x7684;&#x7528;&#x6237;&#x6C38;&#x8FDC;&#x4E5F;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x6A21;&#x5757;&#x7684;&#x884C;&#x4E3A;&#x6240;&#x8FF7;&#x60D1;"><a href="#&#x6A21;&#x5757;&#x7684;&#x7528;&#x6237;&#x6C38;&#x8FDC;&#x4E5F;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x6A21;&#x5757;&#x7684;&#x884C;&#x4E3A;&#x6240;&#x8FF7;&#x60D1;" class="headerlink" title="&#x6A21;&#x5757;&#x7684;&#x7528;&#x6237;&#x6C38;&#x8FDC;&#x4E5F;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x6A21;&#x5757;&#x7684;&#x884C;&#x4E3A;&#x6240;&#x8FF7;&#x60D1;"></a>&#x6A21;&#x5757;&#x7684;&#x7528;&#x6237;&#x6C38;&#x8FDC;&#x4E5F;&#x4E0D;&#x5E94;&#x8BE5;&#x88AB;&#x6A21;&#x5757;&#x7684;&#x884C;&#x4E3A;&#x6240;&#x8FF7;&#x60D1;</h1><p>&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x5199;&#x4E0B;&#x591A;&#x4E14;&#x51C6;&#x786E;&#x7684;&#x6CE8;&#x91CA;&#xFF0C;&#x4E0D;&#x8FC7;&#x6211;&#x76F8;&#x4FE1;&#x5927;&#x90E8;&#x5206;&#x5F88;&#x96BE;&#x505A;&#x5230;&#x201C;&#x51C6;&#x786E;&#x201D;&#x3002;&#x6211;&#x4E60;&#x60EF;&#x5F15;&#x7528;&#x6D9B;&#x795E;&#x7684;&#x8BDD;&#xFF0C;&#x5C06;&#x8BE5;&#x6761;&#x89C4;&#x5219;&#x8868;&#x8FF0;&#x4E3A;&#x8981;&#x6C42;&#x201C;<strong>&#x4EE3;&#x7801;&#x80FD;&#x591F;&#x81EA;&#x89E3;&#x91CA;</strong>&#x201D;&#x3002;</p>
-<p>&#x770B;&#x8D77;&#x6765;&#x7B80;&#x5355;&#x505A;&#x8D77;&#x6765;&#x96BE;&#x3002;&#x5BF9;&#x4E8E;Java&#x7A0B;&#x5E8F;&#x733F;&#xFF0C;&#x6709;&#x51E0;&#x79CD;&#x5FC5;&#x8981;&#x7684;&#x65B9;&#x5F0F;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x4F60;<strong>&#x5C3D;&#x53EF;&#x80FD;</strong>&#x7684;&#x505A;&#x5230;&#x8FD9;&#x4E00;&#x70B9;&#xFF1A;</p>
-<ul>
-<li>&#x9664;&#x4E86;&#x5BF9;&#x5916;&#x516C;&#x5E03;&#x7684;API&#x548C;&#x90E8;&#x5206;&#x91CD;&#x8981;&#x6A21;&#x5757;&#xFF0C;<strong>&#x8981;&#x6C42;&#x81EA;&#x5DF1;&#x4E0D;&#x52A0;&#x4EFB;&#x4F55;&#x6CE8;&#x91CA;</strong></li>
-<li>&#x4F7F;&#x7528;<strong>&#x6E05;&#x6670;&#x660E;&#x786E;&#x7684;&#x547D;&#x540D;</strong>&#xFF0C;&#x5305;&#x62EC;&#x53D8;&#x91CF;&#x3001;&#x51FD;&#x6570;&#x3001;&#x7C7B;</li>
-<li>&#x88AB;&#x786E;&#x5B9A;&#x547D;&#x540D;&#x7684;&#x7C7B;&#x3001;&#x51FD;&#x6570;&#x3001;&#x53D8;&#x91CF;&#xFF0C;&#x5176;<strong>&#x529F;&#x80FD;&#x5E94;&#x5355;&#x4E00;&#x3001;&#x786E;&#x5B9A;</strong></li>
-<li><strong>&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#x518D;&#x58F0;&#x660E;/&#x521B;&#x5EFA;</strong>&#xFF0C;&#x5E76;&#x5C3D;&#x53EF;&#x80FD;&#x8FDB;&#x884C;<strong>&#x663E;&#x793A;&#x7684;&#x521D;&#x59CB;&#x5316;</strong></li>
-<li>&#x4E25;&#x683C;<strong>&#x660E;&#x786E;&#x5BF9;&#x5916;&#x4FDD;&#x8BC1;&#x7684;&#x8FB9;&#x754C;</strong>&#xFF0C;&#x5C06;&#x7CBE;&#x529B;&#x653E;&#x5728;&#x4FDD;&#x8BC1;&#x516C;&#x5F00;&#x63A5;&#x53E3;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x79C1;&#x6709;&#x5B9E;&#x73B0;</li>
-<li><strong>&#x6070;&#x5F53;&#x7684;&#x4F7F;&#x7528;&#x5F02;&#x5E38;&#x548C;&#x65E5;&#x5FD7;</strong>&#xFF0C;&#x4E0D;&#x8981;&#x7528;&#x65E5;&#x5FD7;&#x4EE3;&#x66FF;&#x6240;&#x6709;&#x5F02;&#x5E38;&#xFF0C;&#x4F46;&#x6216;&#x8BB8;&#x5F88;&#x591A;ERROR&#x7EA7;&#x522B;&#x7684;&#x65E5;&#x5FD7;&#x90FD;&#x53EF;&#x4EE5;&#x7528;&#x5F02;&#x5E38;&#x6765;&#x4EE3;&#x66FF;</li>
-<li>&#x867D;&#x7136;&#x4E0E;&#x539F;&#x5219;2&#x76F8;&#x6096;&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x5408;&#x5E76;&#x6A21;&#x5757;&#x4E0D;&#x4F1A;&#x4F7F;&#x7CFB;&#x7EDF;&#x53D8;&#x7684;&#x96BE;&#x4EE5;&#x7406;&#x89E3;&#xFF0C;<strong>&#x4E3A;&#x4E86;&#x7B80;&#x5316;&#x7CFB;&#x7EDF;&#x7ED3;&#x6784;&#x6211;&#x4EEC;&#x5EFA;&#x8BAE;&#x5408;&#x5E76;&#x90E8;&#x5206;&#x6A21;&#x5757;</strong></li>
-<li>&#x9664;&#x975E;&#x5BF9;&#x5916;&#x53D1;&#x5E03;&#x540E;&#x4E0D;&#x53EF;&#x66F4;&#x6539;&#xFF08;&#x6BD4;&#x5982;java.util.Set&#x63A5;&#x53E3;&#xFF09;&#xFF0C;&#x5426;&#x5219;&#xFF0C;&#x5728;&#x80FD;&#x4FDD;&#x6301;&#x826F;&#x597D;&#x7CFB;&#x7EDF;&#x7ED3;&#x6784;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF0C;<strong>&#x4E0D;&#x8981;&#x9762;&#x5411;&#x672A;&#x6765;&#x5F00;&#x53D1;</strong>&#xFF08;&#x8FD9;&#x4E00;&#x70B9;&#x53EF;&#x80FD;&#x5F88;&#x96BE;&#x63A5;&#x53D7;&#xFF0C;&#x4E0D;&#x8FC7;&#x60F3;&#x60F3;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x624D;&#x5E94;&#x8BE5;&#x5E94;&#x7528;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x5462;&#xFF1F;&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x65F6;&#x5019;&#x624D;&#x5E94;&#x8BE5;&#x4F18;&#x5316;&#x6027;&#x80FD;&#x5462;&#xFF1F;&#x6709;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x3002;&#x5982;&#x679C;&#x73B0;&#x5728;&#x4E0D;&#x9700;&#x8981;&#xFF0C;&#x5C31;&#x4E0D;&#x8981;&#x9762;&#x5411;&#x672A;&#x6765;&#x5F00;&#x53D1;&#x3002;&#xFF09;</li>
-</ul>
-<p>&#x4E0A;&#x8FF0;&#x65B9;&#x5F0F;&#x5E76;&#x4E0D;&#x662F;&#x5145;&#x5206;&#x7684;&#xFF0C;&#x6211;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x4EE5;&#x540E;&#x7684;&#x5F00;&#x53D1;&#x4E2D;&#x7EE7;&#x7EED;&#x8865;&#x5145;&#x91CD;&#x8981;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x3002;&#x56E0;&#x4E3A;<strong>&#x4F60;&#x9700;&#x8981;&#x638C;&#x63E1;&#x7684;&#x662F;&#x5982;&#x4F55;&#x601D;&#x8003;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x8BB0;&#x4F4F;&#x8FD9;&#x4E9B;&#x6B7B;&#x77E5;&#x8BC6;</strong>&#x3002;</p>
-<blockquote>
-<p>&#x4E0A;&#x8FF0;&#x539F;&#x5219;&#x90E8;&#x5206;&#x53C2;&#x8003;&#x81EA;<a href="https://google.github.io/styleguide/javaguide.html" target="_blank" rel="external">Google Java Style Guide</a>&#xFF0C;&#x5EFA;&#x8BAE;&#x4E8C;&#x8005;&#x7ED3;&#x5408;&#x9605;&#x8BFB;&#x3002;</p>
-</blockquote>
-<h1 id="&#x9519;&#x8BEF;&#x5E94;&#x8BE5;&#x5C3D;&#x65E9;&#x88AB;&#x68C0;&#x6D4B;&#x51FA;&#x6765;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x523B;"><a href="#&#x9519;&#x8BEF;&#x5E94;&#x8BE5;&#x5C3D;&#x65E9;&#x88AB;&#x68C0;&#x6D4B;&#x51FA;&#x6765;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x523B;" class="headerlink" title="&#x9519;&#x8BEF;&#x5E94;&#x8BE5;&#x5C3D;&#x65E9;&#x88AB;&#x68C0;&#x6D4B;&#x51FA;&#x6765;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x523B;"></a>&#x9519;&#x8BEF;&#x5E94;&#x8BE5;&#x5C3D;&#x65E9;&#x88AB;&#x68C0;&#x6D4B;&#x51FA;&#x6765;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x523B;</h1><p>&#x5237;&#x9898;&#x7684;&#x65F6;&#x5019;&#x8981;&#x65F6;&#x523B;&#x7262;&#x8BB0;&#xFF1A;</p>
-<p><strong>&#x5982;&#x679C;&#x53EF;&#x80FD;&#xFF0C;&#x5C3D;&#x65E9;&#x7684;&#x5904;&#x7406;&#x8FB9;&#x754C;&#x6761;&#x4EF6;</strong>&#x3002;</p>
-<p>&#x5BF9;&#x4E8E;&#x5DE5;&#x7A0B;&#x5F00;&#x53D1;&#xFF0C;&#x53EF;&#x4EE5;&#x6539;&#x7F16;&#x5982;&#x4E0B;&#xFF1A;</p>
-<p><strong>&#x5982;&#x679C;&#x53EF;&#x80FD;&#xFF0C;&#x5C3D;&#x65E9;&#x7684;&#x53D1;&#x73B0;&#x5E76;&#x5904;&#x7406;&#x9519;&#x8BEF;</strong>&#x3002;</p>
-<p>&#x8FD9;&#x91CC;&#x7684;&#x9519;&#x8BEF;&#x5305;&#x62EC;&#x5F02;&#x5E38;&#x3001;&#x903B;&#x8F91;&#x9519;&#x8BEF;&#x7B49;&#x3002;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x65B9;&#x9762;&#xFF0C;&#x53D1;&#x73B0;&#x3001;&#x5904;&#x7406;&#xFF1A;</p>
-<ul>
-<li>&#x53D1;&#x73B0;&#xFF1A;&#x8981;&#x6C42;&#x6211;&#x4EEC;&#x5C3D;&#x65E9;&#x7684;&#x53D1;&#x73B0;&#x9519;&#x8BEF;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x7F16;&#x8BD1;&#x671F;&#xFF1B;&#x5982;&#x679C;&#x5728;&#x8FD0;&#x884C;&#x671F;&#xFF0C;&#x5C31;&#x8981;&#x5728;&#x5904;&#x7406;&#x6B63;&#x5E38;&#x903B;&#x8F91;&#x4E4B;&#x524D;&#xFF0C;&#x5C3D;&#x65E9;&#x7684;&#x68C0;&#x6D4B;&#x51FA;&#x9519;&#x8BEF;&#x3002;&#x7279;&#x522B;&#x7684;&#xFF0C;&#x5728;&#x5F00;&#x53D1;&#x671F;&#x95F4;&#xFF0C;&#x7F16;&#x5199;&#x5B8C;&#x5907;&#x7684;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;&#x5C3D;&#x65E9;&#x53D1;&#x73B0;&#x903B;&#x8F91;&#x9519;&#x8BEF;&#x3002;</li>
-<li>&#x5904;&#x7406;&#xFF1A;&#x53D1;&#x73B0;&#x9519;&#x8BEF;&#x8FD8;&#x4E0D;&#x591F;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x5904;&#x7406;&#x9519;&#x8BEF;&#x3002;&#x5982;&#x679C;&#x662F;&#x7F16;&#x8BD1;&#x6216;&#x5F00;&#x53D1;&#x671F;&#x95F4;&#x53D1;&#x751F;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#x5373;&#x53EF;&#xFF1B;&#x5982;&#x679C;&#x662F;&#x8FD0;&#x884C;&#x671F;&#x53D1;&#x751F;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x8BB0;&#x5F55;&#x65E5;&#x5FD7;&#x3001;&#x63D0;&#x524D;&#x9000;&#x51FA;&#x3001;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x90FD;&#x662F;&#x503C;&#x5F97;&#x8003;&#x8651;&#x7684;&#x9009;&#x62E9;&#xFF0C;&#x9009;&#x62E9;&#x5F53;&#x524D;&#x4FDD;&#x8BC1;&#x548C;&#x5F53;&#x524D;&#x573A;&#x666F;&#x4E0B;&#x6700;&#x5408;&#x9002;&#x7684;&#x3002;</li>
-</ul>
-<p>&#x8BE5;&#x539F;&#x5219;&#x8981;&#x548C;&#x539F;&#x5219;1&#x7ED3;&#x5408;&#x8D77;&#x6765;&#xFF08;&#x4EFB;&#x4F55;&#x539F;&#x5219;&#x90FD;&#x8981;&#x548C;&#x539F;&#x5219;1&#x7ED3;&#x5408;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x8BB0;&#x5F97;&#x8BA9;&#x4F60;&#x53D1;&#x73B0;&#x3001;&#x5904;&#x7406;&#x9519;&#x8BEF;&#x7684;&#x4EE3;&#x7801;&#x4E5F;&#x662F;&#x81EA;&#x89E3;&#x91CA;&#x7684;&#x3002;</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;#x7B80;&amp;#x7B80;&amp;#x5355;&amp;#x5355;&amp;#x51E0;&amp;#x6761;&amp;#x539F;&amp;#x5219;&amp;#xFF1A;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&amp;#x6A21;&amp;#x5757;&amp;#x7684;&amp;#x7528;&amp;#x6237;&amp;#x6C38;&amp;#x8FDC;&amp;#x4E5F;&amp;#x4E0D;&amp;#x5E94;&amp;#x8BE5;&amp;#x88AB;&amp;#x6A21;&amp;#x5757;&amp;#x7684;&amp;#x884C;&amp;#x4E3A;&amp;#x6240;&amp;#x8FF7;&amp;#x60D1;&lt;/li&gt;
-&lt;li&gt;&amp;#x6A21;&amp;#x5757;&amp;#x8981;&amp;#x5C3D;&amp;#x53EF;&amp;#x80FD;&amp;#x5C0F;&amp;#xFF0C;&amp;#x4F46;&amp;#x53C8;&amp;#x4E0D;&amp;#x80FD;&amp;#x592A;&amp;#x5C0F;&lt;/li&gt;
-&lt;li&gt;&amp;#x4EE3;&amp;#x7801;&amp;#x5E94;&amp;#x8BE5;&amp;#x88AB;&amp;#x91CD;&amp;#x7528;&amp;#xFF0C;&amp;#x800C;&amp;#x4E0D;&amp;#x662F;&amp;#x88AB;&amp;#x62F7;&amp;#x8D1D;&lt;/li&gt;
-&lt;li&gt;&amp;#x6A21;&amp;#x5757;&amp;#x4E4B;&amp;#x95F4;&amp;#x7684;&amp;#x4F9D;&amp;#x8D56;&amp;#x6027;&amp;#x5E94;&amp;#x8BE5;&amp;#x5C3D;&amp;#x53EF;&amp;#x80FD;&amp;#x964D;&amp;#x5230;&amp;#x6700;&amp;#x5C0F;&lt;/li&gt;
-&lt;li&gt;&amp;#x9519;&amp;#x8BEF;&amp;#x5E94;&amp;#x8BE5;&amp;#x5C3D;&amp;#x65E9;&amp;#x88AB;&amp;#x68C0;&amp;#x6D4B;&amp;#x51FA;&amp;#x6765;&amp;#xFF0C;&amp;#x6700;&amp;#x597D;&amp;#x662F;&amp;#x5728;&amp;#x7F16;&amp;#x8BD1;&amp;#x65F6;&amp;#x523B;&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-      <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
   </entry>
   
