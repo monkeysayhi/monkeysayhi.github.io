@@ -4,8 +4,8 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81-%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8CinvokeAll-%E5%A4%9A%E9%80%89%E4%B8%80invokeAny/</loc>
-    <lastmod>2017-11-19T13:40:13.000Z</lastmod>
+    <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7C%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8CinvokeAll()&&%E5%A4%9A%E9%80%89%E4%B8%80invokeAny()/</loc>
+    <lastmod>2017-11-19T13:46:40.000Z</lastmod>
     <data>
         <display>
         <title>源码|批量执行invokeAll()&&多选一invokeAny()</title>
@@ -622,13 +622,13 @@
          
         <tag>算法</tag>
          
-        <tag>系统设计</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
          
         <tag>Yarn</tag>
+         
+        <tag>系统设计</tag>
          
          
            
