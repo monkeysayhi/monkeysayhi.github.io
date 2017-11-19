@@ -4,8 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7C%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8CinvokeAll()&&%E5%A4%9A%E9%80%89%E4%B8%80invokeAny()/</loc>
+    <lastmod>2017-11-19T14:19:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>源码|批量执行invokeAll()&&多选一invokeAny()</title>
+        <pubTime>2017-11-19T13:40:13.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7CnewTaskFor()%E5%92%8C%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2017-11-19T14:11:31.000Z</lastmod>
+    <lastmod>2017-11-19T14:18:30.000Z</lastmod>
     <data>
         <display>
         <title>源码|newTaskFor()和适配器模式</title>
@@ -20,27 +41,6 @@
         <tag>原创</tag>
          
         <tag>面试</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7C%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8CinvokeAll()&&%E5%A4%9A%E9%80%89%E4%B8%80invokeAny()/</loc>
-    <lastmod>2017-11-19T13:46:40.000Z</lastmod>
-    <data>
-        <display>
-        <title>源码|批量执行invokeAll()&&多选一invokeAny()</title>
-        <pubTime>2017-11-19T13:40:13.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>并发</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -647,13 +647,13 @@
          
         <tag>算法</tag>
          
-        <tag>系统设计</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
          
         <tag>Yarn</tag>
+         
+        <tag>系统设计</tag>
          
          
            
