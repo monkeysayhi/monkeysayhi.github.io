@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2017/09/27/%E9%9D%A2%E8%AF%95%E4%B8%AD%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95%EF%BC%9F/</loc>
+    <lastmod>2017-11-21T02:28:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>面试中单例模式有几种写法？</title>
+        <pubTime>2017-09-27T05:38:10.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>设计模式</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>面试</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2017/11/19/%E6%BA%90%E7%A0%81%7C%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8CinvokeAll()&&%E5%A4%9A%E9%80%89%E4%B8%80invokeAny()/</loc>
     <lastmod>2017-11-19T14:19:59.000Z</lastmod>
     <data>
@@ -165,29 +188,6 @@
         <tag>Java</tag>
          
         <tag>原创</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/09/27/%E9%9D%A2%E8%AF%95%E4%B8%AD%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95%EF%BC%9F/</loc>
-    <lastmod>2017-11-14T16:21:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>面试中单例模式有几种写法？</title>
-        <pubTime>2017-09-27T05:38:10.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>设计模式</tag>
-         
-        <tag>原创</tag>
-         
-        <tag>面试</tag>
          
          
            
@@ -890,9 +890,9 @@
         
         <tag>Java</tag>
          
-        <tag>面试</tag>
-         
         <tag>JVM</tag>
+         
+        <tag>面试</tag>
          
          
            
