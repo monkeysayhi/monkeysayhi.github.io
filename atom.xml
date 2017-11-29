@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2017-11-29T06:38:04.000Z</updated>
+  <updated>2017-11-29T06:48:21.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2017/11/29/%E6%9D%A1%E4%BB%B6%E9%98%9F%E5%88%97%E5%A4%A7%E6%B3%95%E5%A5%BD%EF%BC%9A%E4%BD%BF%E7%94%A8wait%E3%80%81notify%E5%92%8CnotifyAll%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/"/>
     <id>https://monkeysayhi.github.io/2017/11/29/条件队列大法好：使用wait、notify和notifyAll的正确姿势/</id>
     <published>2017-11-29T06:38:04.000Z</published>
-    <updated>2017-11-29T06:38:04.000Z</updated>
+    <updated>2017-11-29T06:48:21.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x524D;&#x9762;&#x4ECB;&#x7ECD;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;&#xFF0C;&#x53C2;&#x8003;<a href="/2017/11/15/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/">&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;</a>&#x3002;&#x8FD9;&#x7BC7;&#x8BB2;&#x8BB2;&#x4F7F;&#x7528;wait&#x3001;notify&#x3001;notifyAll&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x3002;</p>
 <a id="more"></a>
@@ -134,7 +134,7 @@
     <link href="https://monkeysayhi.github.io/2017/11/29/%E6%B5%85%E8%B0%88linux%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2/"/>
     <id>https://monkeysayhi.github.io/2017/11/29/浅谈linux线程模型和线程切换/</id>
     <published>2017-11-29T03:18:06.000Z</published>
-    <updated>2017-11-29T03:19:05.000Z</updated>
+    <updated>2017-11-29T06:45:46.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x521A;&#x5F00;&#x59CB;&#x5B66;&#x4E60;&#xFF0C;&#x4E0D;&#x4E00;&#x5B9A;&#x5BF9;&#xFF0C;&#x597D;&#x5FC3;&#x4EBA;&#x4EEC;&#x5FEB;&#x6765;&#x6307;&#x6B63;&#x6211;&#x554A;&#x554A;&#x554A;&#xFF01;&#xFF01;&#xFF01;</p>
 <a id="more"></a>
@@ -271,6 +271,14 @@
 <h3 id="&#x95F4;&#x63A5;&#x5F00;&#x9500;"><a href="#&#x95F4;&#x63A5;&#x5F00;&#x9500;" class="headerlink" title="&#x95F4;&#x63A5;&#x5F00;&#x9500;"></a>&#x95F4;&#x63A5;&#x5F00;&#x9500;</h3><p>&#x95F4;&#x63A5;&#x5F00;&#x9500;&#x662F;&#x76F4;&#x63A5;&#x5F00;&#x9500;&#x7684;&#x526F;&#x4F5C;&#x7528;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x7CFB;&#x7EDF;&#x5B9E;&#x73B0;&#x548C;&#x7528;&#x6237;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x3002;</p>
 <h4 id="&#x7F13;&#x5B58;&#x7F3A;&#x5931;"><a href="#&#x7F13;&#x5B58;&#x7F3A;&#x5931;" class="headerlink" title="&#x7F13;&#x5B58;&#x7F3A;&#x5931;"></a>&#x7F13;&#x5B58;&#x7F3A;&#x5931;</h4><p>&#x5207;&#x6362;&#x8FDB;&#x7A0B;&#xFF0C;&#x9700;&#x8981;&#x6267;&#x884C;&#x65B0;&#x903B;&#x8F91;&#x3002;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E8C;&#x8005;&#x7684;&#x8BBF;&#x95EE;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x4E0D;&#x76F8;&#x8FD1;&#xFF0C;&#x5219;&#x4F1A;&#x5F15;&#x8D77;&#x7F13;&#x5B58;&#x7F3A;&#x5931;&#xFF0C;&#x5177;&#x4F53;&#x5F71;&#x54CD;&#x8303;&#x56F4;&#x53D6;&#x51B3;&#x4E8E;&#x7CFB;&#x7EDF;&#x5B9E;&#x73B0;&#x548C;&#x7528;&#x6237;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x3002;&#x5982;&#x679C;&#x7CFB;&#x7EDF;&#x7684;L1&#x3001;L2&#x7F13;&#x5B58;&#x8F83;&#x5927;&#xFF0C;&#x5219;&#x80FD;&#x51CF;&#x5C11;&#x8BFB;L3&#x7F13;&#x5B58;&#x7684;&#x53EF;&#x80FD;&#xFF0C;&#x4ECE;&#x800C;&#x51CF;&#x5C0F;&#x7F13;&#x5B58;&#x7F3A;&#x5931;&#x7684;&#x5F71;&#x54CD;&#xFF1B;&#x5982;&#x679C;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#x63A5;&#x8FD1;&#xFF0C;&#x5219;&#x7F13;&#x5B58;&#x672C;&#x8EAB;&#x7684;&#x7F3A;&#x5931;&#x7387;&#x5C31;&#x66F4;&#x4F4E;&#x3002;</p>
 <p>&#x5BF9;&#x9875;&#x8868;&#x7B49;&#x5FEB;&#x6162;&#x8868;&#x5F0F;&#x7ED3;&#x6784;&#x540C;&#x7406;&#x3002;</p>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/linux/kernel/l-thread/" target="_blank" rel="external">Linux &#x7EBF;&#x7A0B;&#x5B9E;&#x73B0;&#x673A;&#x5236;&#x5206;&#x6790;</a></li>
+<li><a href="https://www.cnblogs.com/yuuyuu/p/5139620.html" target="_blank" rel="external">&#x5386;&#x53F2;&#x4E0A;&#x7EBF;&#x7A0B;&#x7684;3&#x79CD;&#x5B9E;&#x73B0;&#x6A21;&#x578B;</a></li>
+</ul>
+</blockquote>
 ]]></content>
     
     <summary type="html">
