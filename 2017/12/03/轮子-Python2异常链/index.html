@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>轮子|Python2异常链 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x6162;&amp;#x6162;&amp;#x6574;&amp;#x7406;&amp;#x4E0B;&amp;#x81EA;&amp;#x5DF1;&amp;#x5B9E;&amp;#x4E60;&amp;#x548C;&amp;#x5B66;&amp;#x4E60;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x7684;&amp;#x8F6E;&amp;#x5B50;&amp;#x3002;
+&amp;#x4ECA;&amp;#x5929;&amp;#x4ECB;&amp;#x7ECD;Python2&amp;#x7684;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="轮子|Python2异常链">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/12/03/轮子-Python2异常链/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x6162;&amp;#x6162;&amp;#x6574;&amp;#x7406;&amp;#x4E0B;&amp;#x81EA;&amp;#x5DF1;&amp;#x5B9E;&amp;#x4E60;&amp;#x548C;&amp;#x5B66;&amp;#x4E60;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x7684;&amp;#x8F6E;&amp;#x5B50;&amp;#x3002;
+&amp;#x4ECA;&amp;#x5929;&amp;#x4ECB;&amp;#x7ECD;Python2&amp;#x7684;">
+<meta property="og:updated_time" content="2017-12-03T08:35:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="轮子|Python2异常链">
+<meta name="twitter:description" content="&amp;#x6162;&amp;#x6162;&amp;#x6574;&amp;#x7406;&amp;#x4E0B;&amp;#x81EA;&amp;#x5DF1;&amp;#x5B9E;&amp;#x4E60;&amp;#x548C;&amp;#x5B66;&amp;#x4E60;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x7684;&amp;#x8F6E;&amp;#x5B50;&amp;#x3002;
+&amp;#x4ECA;&amp;#x5929;&amp;#x4ECB;&amp;#x7ECD;Python2&amp;#x7684;">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-轮子-Python2异常链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      轮子|Python2异常链
+    </h1>
+  
+
+        <a href="/2017/12/03/轮子-Python2异常链/" class="archive-article-date">
+  	<time datetime="2017-12-03T08:35:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x6162;&#x6162;&#x6574;&#x7406;&#x4E0B;&#x81EA;&#x5DF1;&#x5B9E;&#x4E60;&#x548C;&#x5B66;&#x4E60;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x8F6E;&#x5B50;&#x3002;</p>
+<p>&#x4ECA;&#x5929;&#x4ECB;&#x7ECD;Python2&#x7684;&#x5F02;&#x5E38;&#x94FE;&#x3002;</p>
+<a id="more"></a>
+<h1 id="&#x9700;&#x6C42;"><a href="#&#x9700;&#x6C42;" class="headerlink" title="&#x9700;&#x6C42;"></a>&#x9700;&#x6C42;</h1><blockquote>
+<p>&#x4E60;&#x60EF;&#x4E86;&#x7528;java&#x64B8;&#x7801;&#xFF0C;&#x867D;&#x8BF4;&#x80F6;&#x6C34;&#x4EE3;&#x7801;&#x591A;&#xFF0C;&#x4F46;&#x80FD;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x7528;&#x4EE3;&#x7801;&#x8868;&#x8FBE;&#x601D;&#x8DEF;&#xFF1B;&#x800C;Python&#x5219;&#x7B80;&#x6D01;&#x5230;&#x4E86;&#x7B80;&#x964B;&#x7684;&#x5730;&#x6B65;&#x2014;&#x2014;&#x5404;&#x79CD;&#x9E21;&#x808B;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5404;&#x79CD;&#x4E0D;&#x5B8C;&#x5584;&#x7684;&#x673A;&#x5236;&#x3002;&#x6BD4;&#x5982;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x3002;</p>
+</blockquote>
+<p><strong>Python2&#x6CA1;&#x6709;&#x5F02;&#x5E38;&#x94FE;&#xFF0C;&#x8BA9;&#x95EE;&#x9898;&#x6392;&#x67E5;&#x53D8;&#x5F97;&#x975E;&#x5E38;&#x56F0;&#x96BE;</strong>&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding=utf-8</span></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnexpectedError</span><span class="params">(StandardError)</span>:</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">divide</span><span class="params">(division, divided)</span>:</span></div><div class="line">    <span class="keyword">if</span> division == <span class="number">0</span>:</div><div class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&quot;illegal input: %s, %s&quot;</span> % (division, divided))</div><div class="line">    ans = division / divided</div><div class="line">    <span class="keyword">return</span> ans</div><div class="line"></div><div class="line"></div><div class="line">a = <span class="number">0</span></div><div class="line">b = <span class="number">0</span></div><div class="line"><span class="keyword">try</span>:</div><div class="line">    <span class="keyword">print</span> divide(a, b)</div><div class="line"><span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</div><div class="line">    <span class="comment"># m_counter.inc(&quot;err&quot;, 1)</span></div><div class="line">    <span class="keyword">raise</span> UnexpectedError(<span class="string">&quot;illegal input: %s, %s&quot;</span> % (a, b))</div><div class="line"><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> e:</div><div class="line">    <span class="comment"># m_counter.inc(&quot;err&quot;, 1)</span></div><div class="line">    <span class="keyword">raise</span> UnexpectedError(<span class="string">&quot;divide by zero&quot;</span>)</div><div class="line"><span class="keyword">except</span> StandardError <span class="keyword">as</span> e:</div><div class="line">    <span class="comment"># m_counter.inc(&quot;err&quot;, 1)</span></div><div class="line">    <span class="keyword">raise</span> UnexpectedError(<span class="string">&quot;other error...&quot;</span>)</div></pre></td></tr></table></figure>
+<p>&#x6253;&#x5370;&#x5F02;&#x5E38;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/monkeysayhi/PycharmProjects/Wheel/utils/tmp/tmp.py&quot;, line 22, in &lt;module&gt;</div><div class="line">    raise UnexpectedError(&quot;illegal input: %s, %s&quot; % (a, b))</div><div class="line">__main__.UnexpectedError: illegal input: 0, 0</div></pre></td></tr></table></figure>
+<p>&#x4E0D;&#x8003;&#x8651;&#x4EE3;&#x7801;&#x98CE;&#x683C;&#xFF0C;&#x662F;&#x6807;&#x51C6;&#x7684;Python2&#x5F02;&#x5E38;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#xFF1A;<strong>&#x5206;&#x522B;&#x6355;&#x83B7;&#x5F02;&#x5E38;&#xFF0C;&#x518D;&#x7EDF;&#x4E00;&#x6210;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#xFF0C;&#x53EA;&#x6709;msg&#x4E0D;&#x540C;&#xFF0C;&#x91CD;&#x65B0;&#x629B;&#x51FA;</strong>&#x3002;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x53C8;&#x4E11;&#x53C8;&#x5197;&#x4F59;&#xFF0C;&#x9876;&#x591A;&#x53EF;&#x4EE5;&#x6539;&#x6210;&#x8FD9;&#x6837;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">    <span class="keyword">print</span> divide(a, b)</div><div class="line"><span class="keyword">except</span> StandardError <span class="keyword">as</span> e:</div><div class="line">    <span class="comment"># m_counter.inc(&quot;err&quot;, 1)</span></div><div class="line">    <span class="keyword">raise</span> UnexpectedError(e.message)</div></pre></td></tr></table></figure>
+<p>&#x5373;&#x4FBF;&#x5982;&#x6B64;&#xFF0C;&#x4E5F;&#x65E0;&#x6CD5;&#x89E3;&#x51B3;&#x4E00;&#x4E2A;&#x6700;&#x4E25;&#x91CD;&#x7684;&#x95EE;&#x9898;&#xFF1A;<strong>&#x660E;&#x660E;&#x662F;11&#x884C;&#x629B;&#x51FA;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x4F46;&#x6253;&#x5370;&#x51FA;&#x6765;&#x7684;&#x5F02;&#x5E38;&#x6808;&#x5374;&#x53EA;&#x80FD;&#x8FFD;&#x8E2A;&#x5230;22&#x884C;&#x91CD;&#x65B0;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x7684;<code>raise</code>&#x8BED;&#x53E5;</strong>&#x3002;&#x91CD;&#x70B9;&#x5728;&#x4E8E;&#x6CA1;&#x6709;&#x8BB0;&#x5F55;cause&#xFF0C;&#x4F7F;&#x6211;&#x4EEC;&#x8FFD;&#x8E2A;&#x5230;22&#x884C;&#x4E4B;&#x540E;&#xFF0C;&#x4E0D;&#x77E5;&#x9053;&#x4E3A;&#x4EC0;&#x4E48;&#x4F1A;&#x629B;&#x51FA;cause&#xFF0C;&#x4E5F;&#x5C31;&#x65E0;&#x6CD5;&#x5B9A;&#x4F4D;&#x5230;&#x5B9E;&#x9645;&#x53D1;&#x751F;&#x95EE;&#x9898;&#x7684;&#x4EE3;&#x7801;&#x3002;</p>
+<h2 id="&#x5F02;&#x5E38;&#x94FE;"><a href="#&#x5F02;&#x5E38;&#x94FE;" class="headerlink" title="&#x5F02;&#x5E38;&#x94FE;"></a>&#x5F02;&#x5E38;&#x94FE;</h2><p>&#x6700;&#x7406;&#x60F3;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x8FD8;&#x662F;&#x5728;&#x5F02;&#x5E38;&#x6808;&#x4E2D;&#x6253;&#x5370;&#x5F02;&#x5E38;&#x94FE;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">    <span class="keyword">print</span> divide(a, b)</div><div class="line"><span class="keyword">except</span> StandardError <span class="keyword">as</span> cause:</div><div class="line">    <span class="comment"># m_counter.inc(&quot;err&quot;, 1)</span></div><div class="line">    <span class="keyword">raise</span> UnexpectedError(<span class="string">&quot;some msg&quot;</span>, cause)</div></pre></td></tr></table></figure>
+<p>&#x5C31;&#x50CF;Java&#x7684;&#x5F02;&#x5E38;&#x6808;&#xFF0C;&#x533A;&#x5206;&#x201C;&#x8981;&#x629B;&#x51FA;&#x7684;&#x5F02;&#x5E38;UnexpectedError&#x548C;&#x5F15;&#x8D77;&#x8BE5;&#x5F02;&#x5E38;&#x7684;&#x539F;&#x56E0;cause&#x201D;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">java.lang.RuntimeException: level 2 exception</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun2(Test.java:17)</div><div class="line">	at com.msh.demo.exceptionStack.Test.main(Test.java:24)</div><div class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</div><div class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</div><div class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</div><div class="line">	at java.lang.reflect.Method.invoke(Method.java:498)</div><div class="line">	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)</div><div class="line">Caused by: java.io.IOException: level 1 exception</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun1(Test.java:10)</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun2(Test.java:15)</div><div class="line">	... 6 more</div></pre></td></tr></table></figure>
+<p>&#x4E0A;&#x8FF0;&#x5F02;&#x5E38;&#x6808;&#x8868;&#x793A;&#xFF0C;RuntimeException&#x7531;IOException&#x5BFC;&#x81F4;&#xFF1B;1&#x884C;&#x4E0E;9&#x884C;&#x4E0B;&#x662F;&#x5404;&#x5F02;&#x5E38;&#x7684;&#x8C03;&#x7528;&#x8DEF;&#x5F84;trace&#x3002;&#x4E0D;&#x719F;&#x6089;Java&#x5F02;&#x5E38;&#x6808;&#x7684;&#x53EF;&#x53C2;&#x8003;<a href="/2017/10/02/&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;/">&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;</a>&#x3002;</p>
+<h1 id="&#x8F6E;&#x5B50;"><a href="#&#x8F6E;&#x5B50;" class="headerlink" title="&#x8F6E;&#x5B50;"></a>&#x8F6E;&#x5B50;</h1><h2 id="&#x8C03;&#x7814;&#x8BA9;&#x6211;&#x4EEC;&#x62D2;&#x7EDD;&#x91CD;&#x590D;&#x9020;&#x8F6E;&#x5B50;"><a href="#&#x8C03;&#x7814;&#x8BA9;&#x6211;&#x4EEC;&#x62D2;&#x7EDD;&#x91CD;&#x590D;&#x9020;&#x8F6E;&#x5B50;" class="headerlink" title="&#x8C03;&#x7814;&#x8BA9;&#x6211;&#x4EEC;&#x62D2;&#x7EDD;&#x91CD;&#x590D;&#x9020;&#x8F6E;&#x5B50;"></a>&#x8C03;&#x7814;&#x8BA9;&#x6211;&#x4EEC;&#x62D2;&#x7EDD;&#x91CD;&#x590D;&#x9020;&#x8F6E;&#x5B50;</h2><p>Python3&#x5DF2;&#x7ECF;&#x652F;&#x6301;&#x4E86;&#x5F02;&#x5E38;&#x94FE;&#xFF0C;&#x901A;&#x8FC7;from&#x5173;&#x952E;&#x5B57;&#x5373;&#x53EF;&#x8BB0;&#x5F55;cause&#x3002;</p>
+<p>Python2 future&#x5305;&#x63D0;&#x4F9B;&#x7684;&#x6240;&#x8C13;&#x5F02;&#x5E38;&#x94FE;<code>raise_from</code>&#x6211;&#x662F;&#x5B8C;&#x5168;&#x6CA1;&#x660E;&#x767D;&#x5230;&#x54EA;&#x91CC;&#x6253;&#x5370;&#x4E86;cause:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> future.utils <span class="keyword">import</span> raise_from</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatabaseError</span><span class="params">(Exception)</span>:</span></div><div class="line">    <span class="keyword">pass</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileDatabase</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, filename)</span>:</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            self.file = open(filename)</div><div class="line">        <span class="keyword">except</span> IOError <span class="keyword">as</span> exc:</div><div class="line">            raise_from(DatabaseError(<span class="string">&apos;failed to open&apos;</span>), exc)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># test</span></div><div class="line">fd = FileDatabase(<span class="string">&apos;non_existent_file.txt&apos;</span>)</div></pre></td></tr></table></figure>
+<p>&#x90A3;&#x4E48;&#xFF0C;11&#x884C;&#x629B;&#x51FA;&#x7684;IOError&#x5462;&#xFF1F;&#xFF1F;&#xFF1F;&#x4F3C;&#x4E4E;&#x4EC5;&#x4EC5;&#x591A;&#x4E86;&#x4E00;&#x53E5;&#x65E0;&#x6548;&#x4FE1;&#x606F;&#xFF08;future&#x5305;&#x91CC;&#x7684;<code>raise e</code>&#xFF09;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/mobkeysayhi/PycharmProjects/Wheel/utils/tmp/tmp.py&quot;, line 17, in &lt;module&gt;</div><div class="line">    fd = FileDatabase(&apos;non_existent_file.txt&apos;)</div><div class="line">  File &quot;/Users/mobkeysayhi/PycharmProjects/Wheel/utils/tmp/tmp.py&quot;, line 13, in __init__</div><div class="line">    raise_from(DatabaseError(&apos;failed to open&apos;), exc)</div><div class="line">  File &quot;/Library/Python/2.7/site-packages/future/utils/__init__.py&quot;, line 454, in raise_from</div><div class="line">    raise e</div><div class="line">__main__.DatabaseError: failed to open</div></pre></td></tr></table></figure>
+<p>&#x6709;&#x77E5;&#x9053;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x7684;&#x6C42;&#x70B9;&#x7834;&#x3002;</p>
+<h2 id="&#x6CA1;&#x627E;&#x5230;&#x91CD;&#x590D;&#x8F6E;&#x5B50;&#x771F;&#x662F;&#x6781;&#x597D;&#x7684;"><a href="#&#x6CA1;&#x627E;&#x5230;&#x91CD;&#x590D;&#x8F6E;&#x5B50;&#x771F;&#x662F;&#x6781;&#x597D;&#x7684;" class="headerlink" title="&#x6CA1;&#x627E;&#x5230;&#x91CD;&#x590D;&#x8F6E;&#x5B50;&#x771F;&#x662F;&#x6781;&#x597D;&#x7684;"></a>&#x6CA1;&#x627E;&#x5230;&#x91CD;&#x590D;&#x8F6E;&#x5B50;&#x771F;&#x662F;&#x6781;&#x597D;&#x7684;</h2><p>&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> traceback</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TracedError</span><span class="params">(BaseException)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg=<span class="string">&quot;&quot;</span>, cause=None)</span>:</span></div><div class="line">        trace_msg = msg</div><div class="line">        <span class="keyword">if</span> cause <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">            _spfile = SimpleFile()</div><div class="line">            traceback.print_exc(file=_spfile)</div><div class="line">            _cause_tm = _spfile.read()</div><div class="line">            trace_msg += <span class="string">&quot;\n&quot;</span> \</div><div class="line">                         + <span class="string">&quot;\nCaused by:\n\n&quot;</span> \</div><div class="line">                         + _cause_tm</div><div class="line">        super(TracedError, self).__init__(trace_msg)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorWrapper</span><span class="params">(TracedError)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, cause)</span>:</span></div><div class="line">        super(ErrorWrapper, self).__init__(<span class="string">&quot;Just wrapping cause&quot;</span>, cause)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleFile</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, )</span>:</span></div><div class="line">        super(SimpleFile, self).__init__()</div><div class="line">        self.buffer = <span class="string">&quot;&quot;</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">write</span><span class="params">(self, str)</span>:</span></div><div class="line">        self.buffer += str</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.buffer</div></pre></td></tr></table></figure>
+<p><strong>&#x76EE;&#x524D;&#x53EA;&#x652F;&#x6301;&#x5355;&#x7EBF;&#x7A0B;&#x6A21;&#x578B;</strong>&#xFF0C;github&#x4E0A;&#x6709;doc&#x548C;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;<a href="https://github.com/monkeysayhi/utils/blob/master/common/traced_error.py" target="_blank" rel="external">&#x6233;&#x6211;&#x6233;&#x6211;</a>&#x3002;</p>
+<p>&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x8F93;&#x51FA;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/monkeysayhi/PycharmProjects/Wheel/utils/exception_chain/traced_error.py&quot;, line 68, in &lt;module&gt;</div><div class="line">    __test()</div><div class="line">  File &quot;/Users/monkeysayhi/PycharmProjects/Wheel/utils/exception_chain/traced_error.py&quot;, line 64, in __test</div><div class="line">    raise MyError(&quot;test MyError&quot;, e)</div><div class="line">__main__.MyError: test MyError</div><div class="line"></div><div class="line">Caused by:</div><div class="line"></div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/monkeysayhi/PycharmProjects/Wheel/utils/exception_chain/traced_error.py&quot;, line 62, in __test</div><div class="line">    zero_division()</div><div class="line">  File &quot;/Users/monkeysayhi/PycharmProjects/Wheel/utils/exception_chain/traced_error.py&quot;, line 58, in zero_division</div><div class="line">    a = 1 / 0</div><div class="line">ZeroDivisionError: integer division or modulo by zero</div></pre></td></tr></table></figure>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x4E3A;&#x65B9;&#x4FBF;&#x5904;&#x7406;&#x540E;&#x91CD;&#x65B0;&#x629B;&#x51FA;&#x67D0;&#x4E9B;&#x5F02;&#x5E38;&#xFF0C;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;ErrorWrapper&#xFF0C;&#x4EC5;&#x63A5;&#x6536;&#x4E00;&#x4E2A;cause&#x4F5C;&#x4E3A;&#x53C2;&#x6570;&#x3002;&#x7528;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> pid <span class="keyword">in</span> pids:</div><div class="line">    <span class="comment"># process might have died before getting to this line</span></div><div class="line">    <span class="comment"># so wrap to avoid OSError: no such process</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        os.kill(pid, signal.SIGKILL)</div><div class="line">    <span class="keyword">except</span> OSError <span class="keyword">as</span> os_e:</div><div class="line">        <span class="keyword">if</span> os.path.isdir(<span class="string">&quot;/proc/%d&quot;</span> % int(pid)):</div><div class="line">            logging.warn(<span class="string">&quot;Timeout but fail to kill process, still exist: %d, &quot;</span> % int(pid))</div><div class="line">            <span class="keyword">raise</span> ErrorWrapper(os_e)</div><div class="line">        logging.debug(<span class="string">&quot;Timeout but no need to kill process, already no such process: %d&quot;</span> % int(pid))</div></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://python-future.org/compatible_idioms.html" target="_blank" rel="external">Cheat Sheet: Writing Python 2-3 compatible code</a></li>
+</ul>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/轮子/">轮子</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/12/03/轮子-Python2异常链/">轮子|Python2异常链</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/29/条件队列大法好：使用wait、notify和notifyAll的正确姿势/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">条件队列大法好：使用wait、notify和notifyAll的正确姿势</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="轮子-Python2异常链" data-title="轮子|Python2异常链" data-url="https://monkeysayhi.github.io/2017/12/03/轮子-Python2异常链/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 12.22px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12.22px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 11.11px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.89px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.33px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Yarn/" style="font-size: 12.22px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 16.67px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.33px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.33px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 13.33px;">科普</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12.22px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 15.56px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11.11px;">随笔</a> <a href="/tags/面试/" style="font-size: 17.78px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
