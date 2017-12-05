@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/12/04/AQS的基本原理/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="AQS&amp;#xFF08;AbstractQueuedSynchronizer&amp;#xFF09;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x7528;&amp;#x4E8E;&amp;#x6784;&amp;#x5EFA;&amp;#x9501;&amp;#x548C;&amp;#x540C;&amp;#x6B65;&amp;#x5668;&amp;#x7684;&amp;#x6846;&amp;#x67B6;&amp;#xFF0C;&amp;#x8BB8;&amp;#x591A;&amp;#x540C;&amp;#x">
-<meta property="og:updated_time" content="2017-12-04T12:38:10.000Z">
+<meta property="og:updated_time" content="2017-12-05T06:59:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AQS的基本原理">
 <meta name="twitter:description" content="AQS&amp;#xFF08;AbstractQueuedSynchronizer&amp;#xFF09;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x7528;&amp;#x4E8E;&amp;#x6784;&amp;#x5EFA;&amp;#x9501;&amp;#x548C;&amp;#x540C;&amp;#x6B65;&amp;#x5668;&amp;#x7684;&amp;#x6846;&amp;#x67B6;&amp;#xFF0C;&amp;#x8BB8;&amp;#x591A;&amp;#x540C;&amp;#x">
@@ -210,7 +210,7 @@ ga('send', 'pageview');
 <ul>
 <li>&#x5BF9;&#x4E8E;tryAcquire&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;true&#xFF0C;&#x5219;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x6210;&#x529F;&#xFF1B;&#x5426;&#x5219;&#x8FD4;&#x56DE;false&#x3002;</li>
 <li>&#x5BF9;&#x4E8E;tryAcquireShared&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8D1F;&#x503C;&#xFF0C;&#x90A3;&#x4E48;&#x8868;&#x793A;&#x83B7;&#x53D6;&#x64CD;&#x4F5C;&#x5931;&#x8D25;&#xFF0C;&#x8FD4;&#x56DE;&#x96F6;&#x503C;&#x8868;&#x793A;&#x540C;&#x6B65;&#x5668;&#x901A;&#x8FC7;&#x72EC;&#x5360;&#x65B9;&#x5F0F;&#x88AB;&#x83B7;&#x53D6;&#xFF0C;&#x8FD4;&#x56DE;&#x6B63;&#x503C;&#x8868;&#x793A;&#x540C;&#x6B65;&#x5668;&#x901A;&#x8FC7;&#x975E;&#x72EC;&#x5360;&#x65B9;&#x5F0F;&#x88AB;&#x83B7;&#x53D6;&#x3002;</li>
-<li>&#x5BF9;&#x4E8E;tryRelease&#x4E0E;tryReleaseShared&#x65B9;&#x6CD5;&#x6765;&#x8BF4;&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;true&#xFF0C;&#x5219;&#x8868;&#x793A;&#x91CA;&#x653E;&#x5B8C;&#x5168;&#x6210;&#x529F;&#xFF0C;&#x6240;&#x6709;&#x5728;&#x83B7;&#x53D6;&#x540C;&#x6B65;&#x5668;&#x65F6;&#x88AB;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x53EF;&#x4EE5;&#x88AB;&#x6062;&#x590D;&#x6267;&#x884C;&#xFF1B;&#x5426;&#x5219;&#x8FD4;&#x56DE;false&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;tryRelease&#x4E0E;tryReleaseShared&#x65B9;&#x6CD5;&#x6765;&#x8BF4;&#xFF0C;&#x5982;&#x679C;&#x8FD4;&#x56DE;true&#xFF0C;&#x5219;&#x8868;&#x793A;&#x5DF2;&#x5B8C;&#x5168;&#x91CA;&#x653E;&#xFF0C;&#x6240;&#x6709;&#x5728;&#x83B7;&#x53D6;&#x540C;&#x6B65;&#x5668;&#x65F6;&#x88AB;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x53EF;&#x4EE5;&#x88AB;&#x6062;&#x590D;&#x6267;&#x884C;&#xFF1B;&#x5426;&#x5219;&#x8FD4;&#x56DE;false&#x3002;</li>
 </ul>
 <p>&#x8981;&#x60F3;&#x57FA;&#x4E8E;AQS&#x6784;&#x5EFA;&#x540C;&#x6B65;&#x5668;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x5BF9;&#x4E0A;&#x8FF0;&#x56DB;&#x4E2A;&#x65B9;&#x6CD5;&#x70C2;&#x719F;&#x4E8E;&#x5FC3;&#x3002;</p>
 <h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><ul>
@@ -337,6 +337,15 @@ ga('send', 'pageview');
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/12/05/源码|并发一枝花之ReentrantLock与AQS(1)：lock、unlock/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          源码|并发一枝花之ReentrantLock与AQS(1)：lock、unlock
+        
+      </div>
+    </a>
   
   
     <a href="/2017/12/03/轮子|Python2异常链/" id="article-nav-older" class="article-nav-link-wrap">
