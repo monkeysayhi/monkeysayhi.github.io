@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/AQS@enq弱一致状态.png">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/AQS.shouldParkAfterFailedAcquire弱一致状态.png">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/unlock稳定状态.png">
-<meta property="og:updated_time" content="2017-12-05T13:59:47.000Z">
+<meta property="og:updated_time" content="2017-12-05T14:41:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock">
 <meta name="twitter:description" content="&amp;#x663E;&amp;#x793A;&amp;#x9501;ReentrantLock&amp;#x7684;&amp;#x5185;&amp;#x90E8;&amp;#x540C;&amp;#x6B65;&amp;#x4F9D;&amp;#x8D56;&amp;#x4E8E;AQS&amp;#xFF08;AbstractQueuedSynchronizer&amp;#xFF09;&amp;#xFF0C;&amp;#x56E0;&amp;#x6B64;&amp;#xFF0C;&amp;#x5206;&amp;#x6790;Reentr">
@@ -266,7 +266,7 @@ ga('send', 'pageview');
 <p>AQS#parkAndCheckInterrupt()&#x501F;&#x52A9;LockSupport.park()&#x5B9E;&#x73B0;&#x963B;&#x585E;&#x7B49;&#x5F85;&#x3002;&#x6700;&#x540E;&#x8C03;&#x7528;Thread.interrupted()&#x68C0;&#x67E5;&#x662F;&#x5426;&#x88AB;&#x4E2D;&#x65AD;&#xFF0C;&#x5E76;&#x6E05;&#x9664;&#x4E2D;&#x65AD;&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E2D;&#x65AD;&#x6807;&#x5FD7;&#x3002;</p>
 <p>&#x5982;&#x679C;&#x662F;&#x88AB;&#x4E2D;&#x65AD;&#x7684;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5728;&#x5916;&#x5C42;AQS#acquireQueued()&#x4E2D;&#x91CD;&#x65B0;&#x8BBE;&#x7F6E;&#x4E2D;&#x65AD;&#x6807;&#x5FD7;interrupted&#xFF0C;&#x5E76;&#x5728;&#x4E0B;&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#x4E2D;&#x8FD4;&#x56DE;&#x3002;&#x7136;&#x540E;&#x5728;&#x66F4;&#x5916;&#x5C42;&#x7684;AQS#acquire()&#x4E2D;&#x8C03;&#x7528;AQS.selfInterrupt()&#x91CD;&#x653E;&#x4E2D;&#x65AD;&#x3002;</p>
 <blockquote>
-<p>&#x7334;&#x5B50;&#x6CA1;&#x6709;&#x7406;&#x89E3;&#x8FD9;&#x4E00;&#x5757;&#x5BF9;&#x4E2D;&#x65AD;&#x7684;&#x4F7F;&#x7528;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5728;&#x4E0B;&#x4E00;&#x8282;&#x70B9;&#x83B7;&#x53D6;&#x6210;&#x529F;&#x4E4B;&#x540E;&#x518D;&#x8FD4;&#x56DE;&#x4E2D;&#x65AD;&#x6807;&#x5FD7;&#xFF1F;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x5728;AQS#parkAndCheckInterrupt()&#x8FD4;&#x56DE;&#x540E;&#x4E2D;&#x65AD;&#x5417;&#xFF1F;</p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x5728;AQS#parkAndCheckInterrupt()&#x8FD4;&#x56DE;&#x540E;&#x4E2D;&#x65AD;&#xFF1F;&#x56E0;&#x4E3A;&#x8FD4;&#x56DE;&#x4E2D;&#x8F6C;&#x6807;&#x5FD7;&#x80FD;&#x63D0;&#x4F9B;&#x66F4;&#x5927;&#x7684;&#x7075;&#x6D3B;&#x6027;&#xFF0C;&#x5916;&#x754C;&#x53EF;&#x4EE5;&#x81EA;&#x884C;&#x51B3;&#x5B9A;&#x662F;&#x5373;&#x65F6;&#x91CD;&#x653E;&#x3001;&#x7A0D;&#x540E;&#x91CD;&#x653E;&#x8FD8;&#x662F;&#x538B;&#x6839;&#x4E0D;&#x91CD;&#x653E;&#x3002;Condition&#x5728;&#x5F97;&#x77E5;AQS#acquireQueued()&#x662F;&#x88AB;&#x4E2D;&#x65AD;&#x7684;&#x4E4B;&#x540E;&#xFF0C;&#x4FBF;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x590D;&#x73B0;&#x4E2D;&#x65AD;&#xFF0C;&#x800C;&#x662F;&#x6839;&#x636E;<code>REINTERRUPT</code>&#x914D;&#x7F6E;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x91CD;&#x653E;&#x3002;</p>
 </blockquote>
 <h5 id="cancelAcquire"><a href="#cancelAcquire" class="headerlink" title="cancelAcquire"></a>cancelAcquire</h5><p>&#x6700;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x6267;&#x884C;AQS#acquire()&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x629B;&#x51FA;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;&#xFF0C;&#x5219;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#xFF1A;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractQueuedSynchronizer</span></span></div><div class="line">    <span class="keyword">extends</span> <span class="title">AbstractOwnableSynchronizer</span></div><div class="line">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span> {</div><div class="line">    ...</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">cancelAcquire</span><span class="params">(Node node)</span> </span>{</div><div class="line">        ...</div><div class="line">        node.waitStatus = Node.CANCELLED;</div><div class="line">        ...</div><div class="line">    }</div><div class="line">    ...</div><div class="line">}</div></pre></td></tr></table></figure>
@@ -458,6 +458,15 @@ ga('send', 'pageview');
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/12/05/源码-并发一枝花之ReentrantLock与AQS（2）：lockInterruptibly/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          源码|并发一枝花之ReentrantLock与AQS（2）：lockInterruptibly
+        
+      </div>
+    </a>
   
   
     <a href="/2017/12/04/AQS的基本原理/" id="article-nav-older" class="article-nav-link-wrap">
