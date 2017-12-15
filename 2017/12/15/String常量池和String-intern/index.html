@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>String常量池和String#intern() | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="String&amp;#x662F;Java&amp;#x57FA;&amp;#x7840;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x8003;&amp;#x70B9;&amp;#x3002;&amp;#x53EF;&amp;#x95EE;&amp;#x7684;&amp;#x70B9;&amp;#x591A;&amp;#xFF0C;&amp;#x800C;&amp;#x4E14;&amp;#x5F88;&amp;#x591A;&amp;#x70B9;&amp;#x53EF;&amp;#x4EE5;&amp;#x6A2A;&amp;#x541">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String常量池和String#intern()">
+<meta property="og:url" content="https://monkeysayhi.github.io/2017/12/15/String常量池和String-intern/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="String&amp;#x662F;Java&amp;#x57FA;&amp;#x7840;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x8003;&amp;#x70B9;&amp;#x3002;&amp;#x53EF;&amp;#x95EE;&amp;#x7684;&amp;#x70B9;&amp;#x591A;&amp;#xFF0C;&amp;#x800C;&amp;#x4E14;&amp;#x5F88;&amp;#x591A;&amp;#x70B9;&amp;#x53EF;&amp;#x4EE5;&amp;#x6A2A;&amp;#x541">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/String常量池和String-intern/jdk6代码.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/String常量池和String-intern/jdk7代码-1.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/String常量池和String-intern/jdk7代码-2.png">
+<meta property="og:updated_time" content="2017-12-15T12:34:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String常量池和String#intern()">
+<meta name="twitter:description" content="String&amp;#x662F;Java&amp;#x57FA;&amp;#x7840;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x8003;&amp;#x70B9;&amp;#x3002;&amp;#x53EF;&amp;#x95EE;&amp;#x7684;&amp;#x70B9;&amp;#x591A;&amp;#xFF0C;&amp;#x800C;&amp;#x4E14;&amp;#x5F88;&amp;#x591A;&amp;#x70B9;&amp;#x53EF;&amp;#x4EE5;&amp;#x6A2A;&amp;#x541">
+<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/String常量池和String-intern/jdk6代码.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-String常量池和String-intern" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      String常量池和String#intern()
+    </h1>
+  
+
+        <a href="/2017/12/15/String常量池和String-intern/" class="archive-article-date">
+  	<time datetime="2017-12-15T12:23:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>String&#x662F;Java&#x57FA;&#x7840;&#x7684;&#x91CD;&#x8981;&#x8003;&#x70B9;&#x3002;&#x53EF;&#x95EE;&#x7684;&#x70B9;&#x591A;&#xFF0C;&#x800C;&#x4E14;&#x5F88;&#x591A;&#x70B9;&#x53EF;&#x4EE5;&#x6A2A;&#x5411;&#x5207;&#x5230;&#x5176;&#x4ED6;&#x8003;&#x70B9;&#xFF0C;&#x6216;&#x7EB5;&#x5411;&#x6DF1;&#x5165;JVM&#x3002;</p>
+<blockquote>
+<p>&#x672C;&#x6587;&#x7565;&#x8FC7;&#x4E86;String&#x7684;&#x57FA;&#x672C;&#x5185;&#x5BB9;&#xFF0C;&#x91CD;&#x70B9;&#x5728;&#x4E8E;String#intern()&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="String&#x5E38;&#x91CF;&#x6C60;"><a href="#String&#x5E38;&#x91CF;&#x6C60;" class="headerlink" title="String&#x5E38;&#x91CF;&#x6C60;"></a>String&#x5E38;&#x91CF;&#x6C60;</h1><p>String&#x5E38;&#x91CF;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x4E24;&#x79CD;&#x65F6;&#x673A;&#x8FDB;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#xFF1A;</p>
+<ol>
+<li><strong>&#x7F16;&#x8BD1;&#x671F;&#xFF1A;&#x901A;&#x8FC7;&#x53CC;&#x5F15;&#x53F7;&#x58F0;&#x660E;</strong>&#x7684;&#x5E38;&#x91CF;&#xFF08;&#x5305;&#x62EC;<em>&#x663E;&#x793A;&#x58F0;&#x660E;</em>&#x3001;<em>&#x9759;&#x6001;&#x7F16;&#x8BD1;&#x4F18;&#x5316;</em>&#x540E;&#x7684;&#x5E38;&#x91CF;&#xFF0C;&#x5982;&#x201D;1&#x201D;+&#x201D;2&#x201D;&#x4F18;&#x5316;&#x4E3A;&#x5E38;&#x91CF;&#x201D;12&#x201D;&#xFF09;&#xFF0C;&#x5728;&#x524D;&#x7AEF;&#x7F16;&#x8BD1;&#x671F;&#x5C06;&#x88AB;&#x9759;&#x6001;&#x7684;&#x5199;&#x5165;class&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x201C;&#x5E38;&#x91CF;&#x6C60;&#x201D;&#x3002;&#x8BE5;&#x201C;&#x5E38;&#x91CF;&#x6C60;&#x201D;&#x4F1A;&#x5728;&#x7C7B;&#x52A0;&#x8F7D;&#x540E;&#x88AB;&#x8F7D;&#x5165;&#x201C;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x201D;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x5E73;&#x65F6;&#x6240;&#x8BF4;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x3002;&#x540C;&#x65F6;&#xFF0C;<em>JIT&#x4F18;&#x5316;</em>&#x4E5F;&#x53EF;&#x80FD;&#x4EA7;&#x751F;&#x7C7B;&#x4F3C;&#x7684;&#x5E38;&#x91CF;&#x3002;</li>
+</ol>
+<ul>
+<li><strong>&#x8FD0;&#x884C;&#x671F;&#xFF1A;&#x8C03;&#x7528;String#intern()&#x65B9;&#x6CD5;</strong>&#xFF0C;&#x53EF;&#x80FD;&#x5C06;&#x8BE5;String&#x5BF9;&#x8C61;&#x52A8;&#x6001;&#x7684;&#x5199;&#x5165;&#x4E0A;&#x8FF0;&#x201C;&#x5185;&#x5B58;&#x4E2D;&#x5E38;&#x91CF;&#x6C60;&#x201D;&#x3002;</li>
+</ul>
+<p>&#x65F6;&#x673A;1&#x7684;&#x884C;&#x4E3A;&#x662F;&#x660E;&#x786E;&#x7684;&#x3002;&#x539F;&#x7406;&#x53EF;&#x9605;&#x8BFB;class&#x6587;&#x4EF6;&#x7ED3;&#x6784;&#x3001;&#x7C7B;&#x52A0;&#x8F7D;&#x3001;&#x7F16;&#x8BD1;&#x671F;&#x5373;&#x8FD0;&#x884C;&#x671F;&#x4F18;&#x5316;&#x7B49;&#x5185;&#x5BB9;&#x3002;</p>
+<p>&#x65F6;&#x673A;2&#x5728;jdk6&#x548C;jdk7&#x4E2D;&#x7684;&#x884C;&#x4E3A;&#x4E0D;&#x540C;&#xFF0C;&#x4E0B;&#x9762;&#x8BA8;&#x8BBA;&#x3002;</p>
+<h1 id="String-intern"><a href="#String-intern" class="headerlink" title="String#intern()"></a>String#intern()</h1><blockquote>
+<p>&#x8BFB;&#x8005;&#x53EF;&#x76F4;&#x63A5;&#x9605;&#x8BFB;&#x53C2;&#x8003;&#x8D44;&#x6599;&#x3002;&#x4E0B;&#x8FF0;&#x603B;&#x7ED3;&#x4EC5;&#x4E3A;&#x4E86;&#x7334;&#x5B50;&#x81EA;&#x5DF1;&#x590D;&#x4E60;&#x65B9;&#x4FBF;&#x3002;</p>
+</blockquote>
+<h2 id="&#x58F0;&#x660E;"><a href="#&#x58F0;&#x660E;" class="headerlink" title="&#x58F0;&#x660E;"></a>&#x58F0;&#x660E;</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** </span></div><div class="line"> * Returns a canonical representation for the string object. </div><div class="line"> * &lt;p&gt; </div><div class="line"> * A pool of strings, initially empty, is maintained privately by the </div><div class="line"> * class &lt;code&gt;String&lt;/code&gt;. </div><div class="line"> * &lt;p&gt; </div><div class="line"> * When the intern method is invoked, if the pool already contains a </div><div class="line"> * string equal to this &lt;code&gt;String&lt;/code&gt; object as determined by </div><div class="line"> * the {<span class="doctag">@link</span> #equals(Object)} method, then the string from the pool is </div><div class="line"> * returned. Otherwise, this &lt;code&gt;String&lt;/code&gt; object is added to the </div><div class="line"> * pool and a reference to this &lt;code&gt;String&lt;/code&gt; object is returned. </div><div class="line"> * &lt;p&gt; </div><div class="line"> * It follows that for any two strings &lt;code&gt;s&lt;/code&gt; and &lt;code&gt;t&lt;/code&gt;, </div><div class="line"> * &lt;code&gt;s.intern()&amp;nbsp;==&amp;nbsp;t.intern()&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt; </div><div class="line"> * if and only if &lt;code&gt;s.equals(t)&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;. </div><div class="line"> * &lt;p&gt; </div><div class="line"> * All literal strings and string-valued constant expressions are </div><div class="line"> * interned. String literals are defined in section 3.10.5 of the </div><div class="line"> * &lt;cite&gt;The Java&amp;trade; Language Specification&lt;/cite&gt;. </div><div class="line"> * </div><div class="line"> * <span class="doctag">@return</span>  a string that has the same contents as this string, but is </div><div class="line"> *          guaranteed to be from a pool of unique strings. </div><div class="line"> */  </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>String#intern()&#x662F;&#x4E00;&#x4E2A;native&#x65B9;&#x6CD5;&#x3002;&#x6839;&#x636E;Javadoc&#xFF0C;&#x5982;&#x679C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x5728;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x4E32;, &#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x4E32;. &#x5982;&#x679C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6CA1;&#x6709;&#x6B64;&#x5B57;&#x7B26;&#x4E32;, &#x4F1A;&#x5C06;&#x6B64;&#x5B57;&#x7B26;&#x4E32;&#x653E;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x540E;, &#x518D;&#x8FD4;&#x56DE;&#x3002;</p>
+<h2 id="&#x5B9E;&#x73B0;&#x539F;&#x7406;"><a href="#&#x5B9E;&#x73B0;&#x539F;&#x7406;" class="headerlink" title="&#x5B9E;&#x73B0;&#x539F;&#x7406;"></a>&#x5B9E;&#x73B0;&#x539F;&#x7406;</h2><p>JNI&#x6700;&#x540E;&#x8C03;&#x7528;&#x4E86;c++&#x5B9E;&#x73B0;&#x7684;StringTable::intern()&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">oop StringTable::intern(Handle string_or_null, jchar* name,  </div><div class="line">                        <span class="keyword">int</span> len, TRAPS) {  </div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> hashValue = java_lang_String::hash_string(name, len);  </div><div class="line">  <span class="keyword">int</span> index = the_table()-&gt;hash_to_index(hashValue);  </div><div class="line">  oop <span class="built_in">string</span> = the_table()-&gt;lookup(index, name, len, hashValue);  </div><div class="line">  <span class="comment">// Found  </span></div><div class="line">  <span class="keyword">if</span> (<span class="built_in">string</span> != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="built_in">string</span>;  </div><div class="line">  <span class="comment">// Otherwise, add to symbol to table  </span></div><div class="line">  <span class="keyword">return</span> the_table()-&gt;basic_add(index, string_or_null, name, len,  </div><div class="line">                                hashValue, CHECK_NULL);  </div><div class="line">}</div><div class="line">oop StringTable::lookup(<span class="keyword">int</span> index, jchar* name,  </div><div class="line">                        <span class="keyword">int</span> len, <span class="keyword">unsigned</span> <span class="keyword">int</span> hash) {  </div><div class="line">  <span class="keyword">for</span> (HashtableEntry&lt;oop&gt;* l = bucket(index); l != <span class="literal">NULL</span>; l = l-&gt;next()) {  </div><div class="line">    <span class="keyword">if</span> (l-&gt;hash() == hash) {  </div><div class="line">      <span class="keyword">if</span> (java_lang_String::equals(l-&gt;literal(), name, len)) {  </div><div class="line">        <span class="keyword">return</span> l-&gt;literal();  </div><div class="line">      }  </div><div class="line">    }  </div><div class="line">  }  </div><div class="line">  <span class="keyword">return</span> <span class="literal">NULL</span>;  </div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x5728;the_table()&#x8FD4;&#x56DE;&#x7684;hash&#x8868;&#x4E2D;&#x67E5;&#x627E;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5982;&#x679C;&#x5B58;&#x5728;&#x5C31;&#x8FD4;&#x56DE;&#xFF0C;&#x5426;&#x5219;&#x52A0;&#x5165;&#x8868;&#x3002;</p>
+<p>StringTable&#x662F;&#x4E00;&#x4E2A;<strong>&#x56FA;&#x5B9A;&#x5927;&#x5C0F;</strong>&#x7684;<strong>Hashtable</strong>&#xFF0C;&#x9ED8;&#x8BA4;&#x5927;&#x5C0F;&#x662F;1009&#x3002;&#x57FA;&#x672C;&#x903B;&#x8F91;&#x4E0E;Java&#x4E2D;HashMap&#x76F8;&#x540C;&#xFF0C;&#x4E5F;&#x4F7F;&#x7528;&#x62C9;&#x94FE;&#x6CD5;&#x89E3;&#x51B3;&#x78B0;&#x649E;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x65E2;&#x7136;&#x662F;&#x62C9;&#x94FE;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;&#x5982;&#x679C;&#x653E;&#x8FDB;&#x7684;String&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x5C31;&#x4F1A;&#x52A0;&#x5267;&#x78B0;&#x649E;&#xFF0C;&#x5BFC;&#x81F4;&#x94FE;&#x8868;&#x975E;&#x5E38;&#x957F;&#x3002;&#x6700;&#x574F;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;String#intern()&#x7684;&#x6027;&#x80FD;&#x7531;O(1)&#x9000;&#x5316;&#x5230;O(n)&#x3002;</p>
+<blockquote>
+<ul>
+<li>jdk6&#x4E2D;StringTable&#x7684;&#x957F;&#x5EA6;&#x56FA;&#x5B9A;&#x4E3A;1009&#x3002;</li>
+<li>jdk7&#x4E2D;&#xFF0C;StringTable&#x7684;&#x957F;&#x5EA6;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x53C2;&#x6570;<code>-XX:StringTableSize</code>&#x6307;&#x5B9A;&#xFF0C;&#x9ED8;&#x8BA4;1009&#x3002;</li>
+</ul>
+</blockquote>
+<h2 id="jdk6&#x548C;jdk7&#x4E0B;String-intern-&#x7684;&#x533A;&#x522B;"><a href="#jdk6&#x548C;jdk7&#x4E0B;String-intern-&#x7684;&#x533A;&#x522B;" class="headerlink" title="jdk6&#x548C;jdk7&#x4E0B;String#intern()&#x7684;&#x533A;&#x522B;"></a>jdk6&#x548C;jdk7&#x4E0B;String#intern()&#x7684;&#x533A;&#x522B;</h2><h3 id="&#x5F15;&#x8A00;"><a href="#&#x5F15;&#x8A00;" class="headerlink" title="&#x5F15;&#x8A00;"></a>&#x5F15;&#x8A00;</h3><p>&#x76F8;&#x4FE1;&#x5F88;&#x591A;Java&#x7A0B;&#x5E8F;&#x5458;&#x90FD;&#x505A;&#x7C7B;&#x4F3C;<code>String s = new String(&quot;abc&quot;);</code>&#x8FD9;&#x4E2A;&#x8BED;&#x53E5;&#x521B;&#x5EFA;&#x4E86;&#x51E0;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x9898;&#x76EE;&#x3002;&#x8FD9;&#x79CD;&#x9898;&#x76EE;&#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x8003;&#x5BDF;&#x7A0B;&#x5E8F;&#x5458;&#x5BF9;&#x5B57;&#x7B26;&#x4E32;&#x5BF9;&#x8C61;&#x5E38;&#x91CF;&#x6C60;&#x7684;&#x638C;&#x63E1;&#x3002;&#x4E0A;&#x8FF0;&#x7684;&#x8BED;&#x53E5;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;2&#x4E2A;&#x5BF9;&#x8C61;&#xFF1A;</p>
+<ul>
+<li>&#x7B2C;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5185;&#x5BB9;&#x201D;abc&#x201D;&#xFF0C;&#x5B58;&#x50A8;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x3002;</li>
+<li>&#x7B2C;&#x4E8C;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5185;&#x5BB9;&#x201D;abc&#x201D;&#xFF0C;&#x5B58;&#x50A8;&#x5728;&#x5806;&#x4E2D;&#x3002;</li>
+</ul>
+<h3 id="&#x95EE;&#x9898;"><a href="#&#x95EE;&#x9898;" class="headerlink" title="&#x95EE;&#x9898;"></a>&#x95EE;&#x9898;</h3><p>&#x6765;&#x770B;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>);</div><div class="line">    s.intern();</div><div class="line">    String s2 = <span class="string">&quot;1&quot;</span>;</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>) + <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>);</div><div class="line">    s3.intern();</div><div class="line">    String s4 = <span class="string">&quot;11&quot;</span>;</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6253;&#x5370;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># jdk6&#x4E0B;</span></div><div class="line"><span class="literal">false</span> <span class="literal">false</span></div><div class="line"><span class="comment"># jdk7&#x4E0B;</span></div><div class="line"><span class="literal">false</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
+<p>&#x5177;&#x4F53;&#x4E3A;&#x4EC0;&#x4E48;&#x7A0D;&#x540E;&#x518D;&#x89E3;&#x91CA;&#xFF0C;&#x7136;&#x540E;&#x5C06;<code>s3.intern();</code>&#x8BED;&#x53E5;&#x4E0B;&#x8C03;&#x4E00;&#x884C;&#xFF0C;&#x653E;&#x5230;<code>String s4 = &quot;11&quot;;</code>&#x540E;&#x9762;&#x3002;&#x5C06;<code>s.intern();</code>&#x653E;&#x5230;<code>String s2 = &quot;1&quot;;</code>&#x540E;&#x9762;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">    String s = <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>);</div><div class="line">    String s2 = <span class="string">&quot;1&quot;</span>;</div><div class="line">    s.intern();</div><div class="line">    System.out.println(s == s2);</div><div class="line"></div><div class="line">    String s3 = <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>) + <span class="keyword">new</span> String(<span class="string">&quot;1&quot;</span>);</div><div class="line">    String s4 = <span class="string">&quot;11&quot;</span>;</div><div class="line">    s3.intern();</div><div class="line">    System.out.println(s3 == s4);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x6253;&#x5370;&#x7ED3;&#x679C;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># jdk6&#x4E0B;</span></div><div class="line"><span class="literal">false</span> <span class="literal">false</span></div><div class="line"><span class="comment"># jdk7&#x4E0B;</span></div><div class="line"><span class="literal">false</span> <span class="literal">false</span></div></pre></td></tr></table></figure>
+<h3 id="jdk6&#x7684;&#x89E3;&#x91CA;"><a href="#jdk6&#x7684;&#x89E3;&#x91CA;" class="headerlink" title="jdk6&#x7684;&#x89E3;&#x91CA;"></a>jdk6&#x7684;&#x89E3;&#x91CA;</h3><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/String&#x5E38;&#x91CF;&#x6C60;&#x548C;String-intern/jdk6&#x4EE3;&#x7801;.png" alt="jdk6&#x4EE3;&#x7801;"></p>
+<blockquote>
+<p>&#x6CE8;&#xFF1A;&#x56FE;&#x4E2D;&#x7EFF;&#x8272;&#x7EBF;&#x6761;&#x4EE3;&#x8868;String&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5BB9;&#x6307;&#x5411;&#xFF1B;&#x9ED1;&#x8272;&#x7EBF;&#x6761;&#x4EE3;&#x8868;&#x5730;&#x5740;&#x6307;&#x5411;&#x3002;</p>
+</blockquote>
+<p>jdk6&#x4E2D;&#xFF0C;&#x4E0A;&#x8FF0;&#x7684;&#x6240;&#x6709;&#x6253;&#x5370;&#x90FD;&#x662F;false&#x3002;</p>
+<p>&#x56E0;&#x4E3A;jdk6&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x653E;&#x5728;Perm&#x533A;&#x4E2D;&#xFF0C;&#x548C;&#x6B63;&#x5E38;&#x7684;Heap&#xFF08;&#x6307;Eden&#x3001;Surviver&#x3001;Old&#x533A;&#xFF09;&#x5B8C;&#x5168;&#x5206;&#x5F00;&#x3002;&#x5177;&#x4F53;&#x6765;&#x8BF4;&#xFF1A;&#x4F7F;&#x7528;&#x5F15;&#x53F7;&#x58F0;&#x660E;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x90FD;&#x662F;&#x901A;&#x8FC7;&#x7F16;&#x8BD1;&#x548C;&#x7C7B;&#x52A0;&#x8F7D;&#x76F4;&#x63A5;&#x8F7D;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#xFF0C;&#x4F4D;&#x4E8E;Perm&#x533A;&#xFF1B;new&#x51FA;&#x6765;&#x7684;String&#x5BF9;&#x8C61;&#x4F4D;&#x4E8E;Heap&#xFF08;E&#x3001;S&#x3001;O&#xFF09;&#x4E2D;&#x3002;&#x62FF;&#x4E00;&#x4E2A;Perm&#x533A;&#x7684;&#x5BF9;&#x8C61;&#x5730;&#x5740;&#x548C;Heap&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x5730;&#x5740;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x80AF;&#x5B9A;&#x662F;&#x4E0D;&#x76F8;&#x540C;&#x7684;&#x3002;</p>
+<blockquote>
+<p>Perm&#x533A;&#x4E3B;&#x8981;&#x5B58;&#x50A8;&#x4E00;&#x4E9B;&#x52A0;&#x8F7D;&#x7C7B;&#x7684;&#x4FE1;&#x606F;&#x3001;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x3001;&#x65B9;&#x6CD5;&#x7247;&#x6BB5;&#x3001;&#x5E38;&#x91CF;&#x6C60;&#x7B49;&#x3002;</p>
+</blockquote>
+<h3 id="jdk7&#x7684;&#x89E3;&#x91CA;"><a href="#jdk7&#x7684;&#x89E3;&#x91CA;" class="headerlink" title="jdk7&#x7684;&#x89E3;&#x91CA;"></a>jdk7&#x7684;&#x89E3;&#x91CA;</h3><p>&#x5728;jdk6&#x53CA;&#x4E4B;&#x524D;&#x7684;&#x7248;&#x672C;&#x4E2D;&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x90FD;&#x662F;&#x653E;&#x5728;Perm&#x533A;&#x7684;&#x3002;Perm&#x533A;&#x7684;&#x9ED8;&#x8BA4;&#x5927;&#x5C0F;&#x53EA;&#x6709;4M&#xFF0C;&#x5982;&#x679C;&#x591A;&#x653E;&#x4E00;&#x4E9B;&#x5927;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x629B;&#x51FA;<code>OutOfMemoryError: PermGen space</code>&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;jdk7&#x5DF2;&#x7ECF;&#x5C06;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x4ECE;Perm&#x533A;&#x79FB;&#x5230;&#x6B63;&#x5E38;&#x7684;Heap&#xFF08;E&#x3001;S&#x3001;O&#xFF09;&#x4E2D;&#x4E86;&#x3002;</p>
+<blockquote>
+<p>Perm&#x533A;&#x5373;&#x6C38;&#x4E45;&#x4EE3;&#x3002;&#x672C;&#x8EAB;&#x7528;&#x6C38;&#x4E45;&#x4EE3;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x533A;&#x5C31;&#x5BB9;&#x6613;&#x9047;&#x5230;&#x5185;&#x5B58;&#x6EA2;&#x51FA;&#xFF1B;&#x800C;&#x4E14;&#x65B9;&#x6CD5;&#x533A;&#x5B58;&#x653E;&#x7684;&#x5185;&#x5BB9;&#x4E5F;&#x5F88;&#x96BE;&#x4F30;&#x8BA1;&#x5927;&#x5C0F;&#xFF0C;&#x6CA1;&#x5FC5;&#x8981;&#x653E;&#x5728;&#x5806;&#x4E2D;&#x7BA1;&#x7406;&#x3002;jdk8&#x5DF2;&#x7ECF;&#x53D6;&#x6D88;&#x4E86;&#x6C38;&#x4E45;&#x4EE3;&#xFF0C;&#x5728;&#x5806;&#x5916;&#x65B0;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;Metaspace&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x533A;&#x3002;</p>
+</blockquote>
+<p>&#x6B63;&#x662F;&#x56E0;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;&#x5E38;&#x91CF;&#x6C60;&#x79FB;&#x5230;&#x4E86;Heap&#x4E2D;&#xFF0C;&#x624D;&#x4EA7;&#x751F;&#x4E86;&#x4E0A;&#x8FF0;&#x53D8;&#x5316;&#x3002;</p>
+<h4 id="&#x7B2C;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;"><a href="#&#x7B2C;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;" class="headerlink" title="&#x7B2C;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;"></a>&#x7B2C;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;</h4><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/String&#x5E38;&#x91CF;&#x6C60;&#x548C;String-intern/jdk7&#x4EE3;&#x7801;-1.png" alt="jdk7&#x4EE3;&#x7801;-1"></p>
+<p>&#x5148;&#x770B;s3&#x548C;s4&#xFF1A;</p>
+<ul>
+<li>&#x9996;&#x5148;&#xFF0C;<code>String s3 = new String(&quot;1&quot;) + new String(&quot;1&quot;);</code>&#xFF0C;&#x751F;&#x6210;&#x4E86;&#x591A;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;<strong>s3&#x6700;&#x7EC8;&#x6307;&#x5411;&#x5806;&#x4E2D;&#x7684;&#x201D;11&#x201D;</strong>&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x6B64;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x662F;&#x6CA1;&#x6709;&#x5B57;&#x7B26;&#x4E32;&#x201D;11&#x201D;&#x7684;&#x3002;</li>
+<li>&#x7136;&#x540E;&#xFF0C;<code>s3.intern();</code>&#xFF0C;&#x5C06;s3&#x4E2D;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x201D;11&#x201D;&#x653E;&#x5165;&#x4E86;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#xFF0C;&#x56E0;&#x4E3A;&#x6B64;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x201D;11&#x201D;&#xFF0C;&#x56E0;&#x6B64;&#x5E38;&#x89C4;&#x505A;&#x6CD5;&#x4E0E;&#x8DDF;jdk6&#x76F8;&#x540C;&#xFF0C;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x751F;&#x6210;&#x4E00;&#x4E2A;String&#x5BF9;&#x8C61;&#x201D;11&#x201D;&#x2014;&#x2014;&#x7136;&#x800C;&#xFF0C;jdk7&#x4E2D;&#x5E38;&#x91CF;&#x6C60;&#x4E0D;&#x5728;Perm&#x533A;&#x4E2D;&#x4E86;&#xFF0C;&#x76F8;&#x5E94;&#x505A;&#x4E86;&#x8C03;&#x6574;&#xFF1A;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x4E0D;&#x9700;&#x8981;&#x518D;&#x5B58;&#x50A8;&#x4E00;&#x4EFD;&#x5BF9;&#x8C61;&#x4E86;&#xFF0C;&#x800C;&#x662F;&#x76F4;&#x63A5;&#x5B58;&#x50A8;&#x5806;&#x4E2D;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;s3&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#x3002;</li>
+<li>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;<code>String s4 = &quot;11&quot;;</code>&#xFF0C;&#x201D;11&#x201D;&#x901A;&#x8FC7;&#x53CC;&#x5F15;&#x53F7;&#x663E;&#x793A;&#x58F0;&#x660E;&#xFF0C;&#x56E0;&#x6B64;&#x4F1A;&#x76F4;&#x63A5;&#x53BB;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x67E5;&#x627E;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x518D;&#x521B;&#x5EFA;&#x3002;&#x53D1;&#x73B0;&#x5DF2;&#x7ECF;&#x6709;&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x4E86;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x521A;&#x624D;&#x901A;&#x8FC7;<code>s3.intern();</code>&#x5B58;&#x50A8;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;s3&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#x3002;&#x4E8E;&#x662F;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;s3&#x7684;&#x5F15;&#x7528;&#x5730;&#x5740;&#xFF0C;<strong>s4&#x8D4B;&#x503C;&#x4E3A;s3&#x7684;&#x5F15;&#x7528;&#xFF0C;s4&#x6307;&#x5411;&#x5806;&#x4E2D;&#x7684;&#x201D;11&#x201D;</strong>&#x3002;</li>
+<li>&#x6700;&#x540E;&#xFF0C;s3&#x3001;s4&#x6307;&#x5411;&#x7684;&#x5806;&#x4E2D;&#x7684;&#x201D;11&#x201D;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x50A8;s3&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x6EE1;&#x8DB3;<code>s3 == s4</code>&#x3002;</li>
+</ul>
+<p>&#x518D;&#x770B;s&#x548C;s2&#xFF1A;</p>
+<ul>
+<li>&#x9996;&#x5148;&#xFF0C;<code>String s = new String(&quot;1&quot;);</code>&#xFF0C;&#x751F;&#x6210;&#x4E86;2&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#x548C;&#x5806;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#xFF0C;<strong>s&#x6307;&#x5411;&#x5806;&#x4E2D;&#x7684;&#x201D;1&#x201D;</strong>&#x3002;</li>
+<li>&#x7136;&#x540E;&#xFF0C;<code>s.intern();</code>&#xFF0C;&#x4E0A;&#x4E00;&#x53E5;&#x5DF2;&#x7ECF;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;&#x201D;1&#x201D;&#xFF0C;&#x6240;&#x4EE5;&#x6B64;&#x5904;&#x4EC0;&#x4E48;&#x90FD;&#x4E0D;&#x505A;&#x3002;</li>
+<li>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#xFF0C;<code>String s2 = &quot;1&quot;;</code>&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6709;&#x201D;1&#x201D;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;<strong>s2&#x76F4;&#x63A5;&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;1&#x201D;</strong>&#x3002;</li>
+<li>&#x6700;&#x540E;&#xFF0C;s&#x6307;&#x5411;&#x7684;&#x5806;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#xFF0C;s2&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x50A8;&#x5B57;&#x7B26;&#x4E32;&#x201D;1&#x201D;&#xFF0C;&#x4E0D;&#x6EE1;&#x8DB3;<code>s == s2</code>&#x3002;</li>
+</ul>
+<h4 id="&#x7B2C;&#x4E8C;&#x6BB5;&#x4EE3;&#x7801;"><a href="#&#x7B2C;&#x4E8C;&#x6BB5;&#x4EE3;&#x7801;" class="headerlink" title="&#x7B2C;&#x4E8C;&#x6BB5;&#x4EE3;&#x7801;"></a>&#x7B2C;&#x4E8C;&#x6BB5;&#x4EE3;&#x7801;</h4><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/String&#x5E38;&#x91CF;&#x6C60;&#x548C;String-intern/jdk7&#x4EE3;&#x7801;-2.png" alt="jdk7&#x4EE3;&#x7801;-2"></p>
+<p>&#x5148;&#x770B;s3&#x548C;s4&#xFF0C;&#x5C06;<code>s3.intern();</code>&#x653E;&#x5728;&#x4E86;<code>String s4 = &quot;11&quot;;</code>&#x540E;&#xFF1A;</p>
+<ul>
+<li>&#x5148;&#x6267;&#x884C;<code>String s4 = &quot;11&quot;;</code>&#xFF0C;&#x6B64;&#x65F6;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#x201D;11&#x201D;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5C06;&#x201D;11&#x201D;&#x653E;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#xFF0C;&#x7136;&#x540E;<strong>s4&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;11&#x201D;</strong>&#x3002;</li>
+<li>&#x518D;&#x6267;&#x884C;<code>s3.intern();</code>&#xFF0C;&#x4E0A;&#x4E00;&#x53E5;&#x5DF2;&#x7ECF;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;&#x201D;11&#x201D;&#xFF0C;&#x6240;&#x4EE5;&#x6B64;&#x5904;&#x4EC0;&#x4E48;&#x90FD;&#x4E0D;&#x505A;&#x3002;</li>
+<li>&#x6700;&#x540E;&#xFF0C;s3&#x4ECD;&#x6307;&#x5411;&#x7684;&#x5806;&#x4E2D;&#x7684;&#x201D;11&#x201D;&#xFF0C;s4&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;11&#x201D;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x50A8;&#x5B57;&#x7B26;&#x4E32;&#x201D;11&#x201D;&#xFF0C;&#x4E0D;&#x518D;&#x6EE1;&#x8DB3;<code>s3 == s4</code>&#x3002;</li>
+</ul>
+<p>&#x518D;&#x770B;s&#x548C;s2&#xFF0C;&#x5C06;<code>s.intern();</code>&#x653E;&#x5230;<code>String s2 = &quot;1&quot;;</code>&#x540E;&#xFF1A;</p>
+<ul>
+<li>&#x5148;&#x6267;&#x884C;<code>String s2 = &quot;1&quot;;</code>&#xFF0C;&#x4E4B;&#x524D;&#x5DF2;&#x901A;&#x8FC7;<code>String s = new String(&quot;1&quot;);</code>&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;&#x201D;1&#x201D;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;<strong>s2&#x76F4;&#x63A5;&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;1&#x201D;</strong>&#x3002;</li>
+<li>&#x518D;&#x6267;&#x884C;<code>s.intern();</code>&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6709;&#x201D;1&#x201D;&#xFF0C;&#x6240;&#x4EE5;&#x6B64;&#x5904;&#x4EC0;&#x4E48;&#x90FD;&#x4E0D;&#x505A;&#x3002;</li>
+<li>&#x6700;&#x540E;&#xFF0C;s&#x6307;&#x5411;&#x7684;&#x5806;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#xFF0C;s2&#x6307;&#x5411;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x201D;1&#x201D;&#xFF0C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x5B58;&#x50A8;&#x5B57;&#x7B26;&#x4E32;&#x201D;1&#x201D;&#xFF0C;&#x4ECD;&#x4E0D;&#x6EE1;&#x8DB3;<code>s == s2</code>&#x3002;</li>
+</ul>
+<h3 id="&#x533A;&#x522B;&#x5C0F;&#x7ED3;"><a href="#&#x533A;&#x522B;&#x5C0F;&#x7ED3;" class="headerlink" title="&#x533A;&#x522B;&#x5C0F;&#x7ED3;"></a>&#x533A;&#x522B;&#x5C0F;&#x7ED3;</h3><p>jdk7&#x4E0E;jdk6&#x76F8;&#x6BD4;&#xFF0C;&#x5BF9;String&#x5E38;&#x91CF;&#x6C60;&#x7684;&#x4F4D;&#x7F6E;&#x3001;String#intern()&#x7684;&#x8BED;&#x4E49;&#x90FD;&#x505A;&#x4E86;&#x4FEE;&#x6539;&#xFF1A;</p>
+<ul>
+<li>&#x5C06;String&#x5E38;&#x91CF;&#x6C60;&#x4ECE;Perm&#x533A;&#x79FB;&#x5230;&#x4E86;Heap&#x533A;&#x3002;</li>
+<li>&#x8C03;&#x7528;String#intern()&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5806;&#x4E2D;&#x6709;&#x8BE5;&#x5B57;&#x7B26;&#x4E32;&#x800C;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6CA1;&#x6709;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x4FDD;&#x5B58;&#x5806;&#x4E2D;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x5728;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x91CD;&#x65B0;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;</li>
+</ul>
+<h2 id="&#x4F7F;&#x7528;&#x59FF;&#x52BF;"><a href="#&#x4F7F;&#x7528;&#x59FF;&#x52BF;" class="headerlink" title="&#x4F7F;&#x7528;&#x59FF;&#x52BF;"></a>&#x4F7F;&#x7528;&#x59FF;&#x52BF;</h2><blockquote>
+<p>&#x5EFA;&#x8BAE;&#x76F4;&#x63A5;&#x9605;&#x8BFB;&#x53C2;&#x8003;&#x8D44;&#x6599;&#x3002;</p>
+</blockquote>
+<h1 id="&#x989D;&#x5916;&#x7684;&#x95EE;&#x9898;"><a href="#&#x989D;&#x5916;&#x7684;&#x95EE;&#x9898;" class="headerlink" title="&#x989D;&#x5916;&#x7684;&#x95EE;&#x9898;"></a>&#x989D;&#x5916;&#x7684;&#x95EE;&#x9898;</h1><p>String#intern()&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String s1 = xxx1.toString().intern();</div><div class="line">String s2 = xxx2.toString().intern();</div><div class="line"><span class="keyword">assert</span> s1 == s2;</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x800C;&#xFF0C;<code>xxx1.toString()</code>&#x3001;<code>xxx2.toString()</code>&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x4E86;&#x4E24;&#x4E2A;&#x533F;&#x540D;String&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E4B;&#x540E;&#x518D;&#x8C03;&#x7528;String#intern()&#x3002;&#x90A3;&#x4E48;&#xFF0C;<strong>&#x8FD9;&#x4E24;&#x4E2A;&#x533F;&#x540D;&#x5BF9;&#x8C61;&#x53BB;&#x54EA;&#x4E86;</strong>&#xFF1F;</p>
+<blockquote>
+<p>&#x4F30;&#x8BA1;&#x7334;&#x5B50;&#x5BF9;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x7684;&#x8FC7;&#x7A0B;&#x7406;&#x89E3;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x6216;&#x8BB8;<code>xxx1.toString()</code>&#x8FD4;&#x56DE;&#x65F6;&#x8FD8;&#x6CA1;&#x6709;&#x5C06;&#x5BF9;&#x8C61;&#x4FDD;&#x5B58;&#x5230;&#x5806;&#x4E0A;&#xFF1F;&#x6216;&#x8BB8;String#intern()&#x4E0A;&#x505A;&#x4E86;&#x4EC0;&#x4E48;&#x8BED;&#x6CD5;&#x7CD6;&#xFF1F;</p>
+<p>&#x540E;&#x9762;&#x6709;&#x65F6;&#x95F4;&#x518D;&#x89E3;&#x51B3;&#x5427;&#x3002;&#x3002;&#x3002;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://tech.meituan.com/in_depth_understanding_string_intern.html" target="_blank" rel="external">&#x6DF1;&#x5165;&#x89E3;&#x6790;String#intern</a></li>
+</ul>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2017/12/15/String常量池和String-intern/">String常量池和String#intern()</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/07/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码|并发一枝花之ReentrantLock与AQS（3）：Condition</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说热评文章 start -->
+	<div>
+		<br>
+		<p>热评文章:</p>
+		<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+		<br>
+	</div>
+	<!-- 多说热评文章 end -->
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="String常量池和String-intern" data-title="String常量池和String#intern()" data-url="https://monkeysayhi.github.io/2017/12/15/String常量池和String-intern/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"monkeysayhi"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 12px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 12px;">JVM</a> <a href="/tags/Java/" style="font-size: 19px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Yarn/" style="font-size: 12px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13px;">猿工</a> <a href="/tags/猿格/" style="font-size: 14px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/科普/" style="font-size: 13px;">科普</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11px;">随笔</a> <a href="/tags/面试/" style="font-size: 18px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
