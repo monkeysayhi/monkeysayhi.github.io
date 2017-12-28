@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2017-12-28T05:11:07.000Z</updated>
+  <updated>2017-12-28T09:09:41.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/"/>
     <id>https://monkeysayhi.github.io/2017/12/28/一文解决内存屏障/</id>
     <published>2017-12-28T05:08:49.000Z</published>
-    <updated>2017-12-28T05:11:07.000Z</updated>
+    <updated>2017-12-28T09:09:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x662F;&#x786C;&#x4EF6;&#x4E4B;&#x4E0A;&#x3001;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6216;JVM&#x4E4B;&#x4E0B;&#xFF0C;&#x5BF9;&#x5E76;&#x53D1;&#x4F5C;&#x51FA;&#x7684;&#x6700;&#x540E;&#x4E00;&#x5C42;&#x652F;&#x6301;&#x3002;&#x518D;&#x5411;&#x4E0B;&#x662F;&#x662F;&#x786C;&#x4EF6;&#x63D0;&#x4F9B;&#x7684;&#x652F;&#x6301;&#xFF1B;&#x5411;&#x4E0A;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6216;JVM&#x5BF9;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x4F5C;&#x51FA;&#x7684;&#x5404;&#x79CD;&#x5C01;&#x88C5;&#x3002;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x662F;&#x4E00;&#x79CD;&#x6807;&#x51C6;&#xFF0C;&#x5404;&#x5382;&#x5546;&#x53EF;&#x80FD;&#x91C7;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x5B9E;&#x73B0;&#x3002;</p>
 <p>&#x672C;&#x6587;&#x4EC5;&#x4E3A;&#x4E86;&#x5E2E;&#x52A9;&#x7406;&#x89E3;JVM&#x63D0;&#x4F9B;&#x7684;&#x5E76;&#x53D1;&#x673A;&#x5236;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x4ECE;volatile&#x7684;&#x8BED;&#x4E49;&#x5F15;&#x51FA;&#x53EF;&#x89C1;&#x6027;&#x4E0E;&#x91CD;&#x6392;&#x5E8F;&#x95EE;&#x9898;&#xFF1B;&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x9610;&#x8FF0;&#x95EE;&#x9898;&#x7684;&#x4EA7;&#x751F;&#x539F;&#x7406;&#xFF0C;&#x4E86;&#x89E3;&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#xFF1B;&#x7136;&#x540E;&#xFF0C;&#x6D45;&#x8C08;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x7684;&#x6807;&#x51C6;&#x3001;&#x5382;&#x5546;&#x5BF9;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x5E76;&#x4EE5;volatile&#x4E3A;&#x4F8B;&#x8BA8;&#x8BBA;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x8FD9;&#x4E9B;&#x95EE;&#x9898;&#xFF1B;&#x6700;&#x540E;&#xFF0C;&#x8865;&#x5145;&#x4ECB;&#x7ECD;JVM&#x5728;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x4E4B;&#x4E0A;&#x4F5C;&#x51FA;&#x7684;&#x51E0;&#x4E2A;&#x5C01;&#x88C5;&#x3002;&#x4E3A;&#x4E86;&#x5E2E;&#x52A9;&#x7406;&#x89E3;&#xFF0C;&#x4F1A;&#x7B80;&#x8981;&#x8BA8;&#x8BBA;&#x786C;&#x4EF6;&#x67B6;&#x6784;&#x5C42;&#x9762;&#x7684;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x539F;&#x7406;&#xFF08;&#x7279;&#x522B;&#x662F;CPU&#x67B6;&#x6784;&#xFF09;&#xFF0C;&#x4F46;&#x4E0D;&#x4F1A;&#x6DF1;&#x5165;&#x5B9E;&#x73B0;&#x673A;&#x5236;&#x3002;</p>
@@ -75,11 +75,9 @@
 <p>&#x5355;&#x6838;&#x65F6;&#x4EE3;&#x7684;&#x4E00;&#x5207;&#x90FD;&#x662F;&#x90A3;&#x4E48;&#x5B8C;&#x7F8E;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x591A;&#x6838;&#x65F6;&#x4EE3;&#x51FA;&#x73B0;&#x4E86;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x3002;&#x4E00;&#x4E2A;badcase&#x5982;&#x4E0B;&#xFF1A;</p>
 <ol>
 <li>Core0&#x4E0E;Core1&#x547D;&#x4E2D;&#x4E86;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x540C;&#x4E00;&#x4E2A;&#x5730;&#x5740;&#xFF0C;&#x90A3;&#x4E48;&#x5404;&#x81EA;&#x7684;L1 Cache&#x4F1A;&#x7F13;&#x5B58;&#x540C;&#x4E00;&#x4EFD;&#x6570;&#x636E;&#x7684;&#x526F;&#x672C;&#x3002;</li>
-</ol>
-<ul>
 <li>&#x6700;&#x5F00;&#x59CB;&#xFF0C;Core0&#x4E0E;Core1&#x90FD;&#x5728;&#x53CB;&#x5584;&#x7684;&#x8BFB;&#x53D6;&#x8FD9;&#x4EFD;&#x6570;&#x636E;&#x3002;</li>
 <li>&#x7A81;&#x7136;&#xFF0C;Core0&#x8981;&#x4F7F;&#x574F;&#x4E86;&#xFF0C;&#x5B83;&#x4FEE;&#x6539;&#x4E86;&#x8FD9;&#x4EFD;&#x6570;&#x636E;&#xFF0C;&#x4F7F;&#x5F97;&#x4E24;&#x4EFD;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x540C;&#x4E86;&#xFF0C;&#x66F4;&#x786E;&#x5207;&#x7684;&#x8BF4;&#xFF0C;Core1 L1 Cache&#x4E2D;&#x7684;&#x6570;&#x636E;<code>&#x5931;&#x6548;</code>&#x4E86;&#x3002;</li>
-</ul>
+</ol>
 <p>&#x5355;&#x6838;&#x65F6;&#x4EE3;&#x53EA;&#x6709;Core0&#xFF0C;Core0&#x4FEE;&#x6539;Core0&#x8BFB;&#xFF0C;&#x6CA1;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF1B;&#x4F46;&#x662F;&#xFF0C;&#x73B0;&#x5728;<em>Core0&#x4FEE;&#x6539;&#x540E;&#xFF0C;Core1&#x5E76;&#x4E0D;&#x77E5;&#x9053;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x5931;&#x6548;&#xFF0C;&#x7EE7;&#x7EED;&#x50BB;&#x50BB;&#x7684;&#x4F7F;&#x7528;</em>&#xFF0C;&#x8F7B;&#x5219;&#x6570;&#x636E;&#x8BA1;&#x7B97;&#x9519;&#x8BEF;&#xFF0C;&#x91CD;&#x5219;&#x5BFC;&#x81F4;&#x6B7B;&#x5FAA;&#x73AF;&#x3001;&#x7A0B;&#x5E8F;&#x5D29;&#x6E83;&#x7B49;&#x3002;</p>
 <p>&#x5B9E;&#x9645;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x8FD8;&#x8981;&#x6269;&#x5C55;&#x5230;&#x4E24;&#x4E2A;&#x65B9;&#x5411;&#xFF1A;</p>
 <ul>
@@ -102,22 +100,18 @@
 <h3 id="&#x95EE;&#x9898;&#x6765;&#x6E90;-1"><a href="#&#x95EE;&#x9898;&#x6765;&#x6E90;-1" class="headerlink" title="&#x95EE;&#x9898;&#x6765;&#x6E90;"></a>&#x95EE;&#x9898;&#x6765;&#x6E90;</h3><p>&#x91CD;&#x6392;&#x5E8F;&#x95EE;&#x9898;&#x65E0;&#x65F6;&#x65E0;&#x523B;&#x4E0D;&#x5728;&#x53D1;&#x751F;&#xFF0C;&#x6E90;&#x81EA;&#x4E09;&#x79CD;&#x573A;&#x666F;&#xFF1A;</p>
 <ol>
 <li>&#x7F16;&#x8BD1;&#x5668;&#x7F16;&#x8BD1;&#x65F6;&#x7684;&#x4F18;&#x5316;</li>
-</ol>
-<ul>
 <li>&#x5904;&#x7406;&#x5668;&#x6267;&#x884C;&#x65F6;&#x7684;&#x4E71;&#x5E8F;&#x4F18;&#x5316;</li>
 <li>&#x7F13;&#x5B58;&#x540C;&#x6B65;&#x987A;&#x5E8F;&#xFF08;&#x5BFC;&#x81F4;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#xFF09;</li>
-</ul>
+</ol>
 <p>&#x573A;&#x666F;1&#x3001;2&#x5C5E;&#x4E8E;&#x771F;&#xB7;&#x91CD;&#x6392;&#x5E8F;&#xFF1B;&#x573A;&#x666F;3&#x5C5E;&#x4E8E;&#x4F2A;&#xB7;&#x91CD;&#x6392;&#x5E8F;&#x3002;&#x573A;&#x666F;3&#x4E5F;&#x5C5E;&#x4E8E;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x4E3A;&#x4FDD;&#x6301;&#x8FDE;&#x8D2F;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x8BA8;&#x8BBA;&#x573A;&#x666F;3&#x3002;</p>
 <h4 id="&#x53EF;&#x89C1;&#x6027;&#x5BFC;&#x81F4;&#x7684;&#x4F2A;&#xB7;&#x91CD;&#x6392;&#x5E8F;"><a href="#&#x53EF;&#x89C1;&#x6027;&#x5BFC;&#x81F4;&#x7684;&#x4F2A;&#xB7;&#x91CD;&#x6392;&#x5E8F;" class="headerlink" title="&#x53EF;&#x89C1;&#x6027;&#x5BFC;&#x81F4;&#x7684;&#x4F2A;&#xB7;&#x91CD;&#x6392;&#x5E8F;"></a>&#x53EF;&#x89C1;&#x6027;&#x5BFC;&#x81F4;&#x7684;&#x4F2A;&#xB7;&#x91CD;&#x6392;&#x5E8F;</h4><p>&#x7F13;&#x5B58;&#x540C;&#x6B65;&#x987A;&#x5E8F;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x3002;</p>
 <p>&#x5047;&#x8BBE;<code>&#x7A0B;&#x5E8F;&#x987A;&#x5E8F;</code>&#xFF08;program order&#xFF09;&#x4E2D;&#x5148;&#x66F4;&#x65B0;&#x53D8;&#x91CF;v1&#x3001;&#x518D;&#x66F4;&#x65B0;&#x53D8;&#x91CF;v2&#xFF0C;&#x4E0D;&#x8003;&#x8651;&#x771F;&#xB7;&#x91CD;&#x6392;&#x5E8F;&#xFF1A;</p>
 <ol>
 <li>Core0&#x5148;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;v1&#xFF0C;&#x518D;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;v2&#xFF08;&#x4F4D;&#x4E8E;&#x4E24;&#x4E2A;&#x7F13;&#x5B58;&#x884C;&#xFF0C;&#x8FD9;&#x6837;&#x6DD8;&#x6C70;&#x7F13;&#x5B58;&#x884C;&#x65F6;&#x4E0D;&#x4F1A;&#x4E00;&#x8D77;&#x5199;&#x56DE;&#x5185;&#x5B58;&#xFF09;&#x3002;</li>
-</ol>
-<ul>
 <li>Core0&#x8BFB;&#x53D6;v1&#xFF08;&#x5047;&#x8BBE;&#x4F7F;&#x7528;LRU&#x534F;&#x8BAE;&#x6DD8;&#x6C70;&#x7F13;&#x5B58;&#xFF09;&#x3002;</li>
 <li>Core0&#x7684;&#x7F13;&#x5B58;&#x6EE1;&#xFF0C;&#x5C06;&#x6700;&#x8FDC;&#x4F7F;&#x7528;&#x7684;v2&#x5199;&#x56DE;&#x5185;&#x5B58;&#x3002;</li>
 <li>Core1&#x7684;&#x7F13;&#x5B58;&#x4E2D;&#x672C;&#x6765;&#x5B58;&#x6709;v1&#xFF0C;&#x73B0;&#x5728;&#x5C06;v2&#x52A0;&#x8F7D;&#x5165;&#x7F13;&#x5B58;&#x3002;</li>
-</ul>
+</ol>
 <blockquote>
 <p>&#x91CD;&#x6392;&#x5E8F;&#x662F;&#x9488;&#x5BF9;&#x7A0B;&#x5E8F;&#x987A;&#x5E8F;&#x800C;&#x8A00;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x4E0E;&#x7A0B;&#x5E8F;&#x987A;&#x5E8F;&#x4E0D;&#x540C;&#xFF0C;&#x5C31;&#x8BF4;&#x660E;&#x8FD9;&#x6BB5;&#x6307;&#x4EE4;&#x88AB;&#x91CD;&#x6392;&#x5E8F;&#x4E86;&#x3002;</p>
 </blockquote>
@@ -127,11 +121,9 @@
 <p>&#x8FD9;&#x4E2A;&#x8981;&#x6C42;&#x5F88;&#x5F31;&#xFF0C;&#x65E2;&#x53EF;&#x4EE5;&#x5728;&#x6BCF;&#x6B21;&#x4FEE;&#x6539;v&#x540E;&#xFF0C;&#x90FD;&#x540C;&#x6B65;&#x4FEE;&#x6539;&#x503C;&#x5230;&#x5176;&#x4ED6;&#x7F13;&#x5B58;&#x4E86;v&#x7684;Cache&#x4E2D;&#xFF1B;&#x53C8;&#x53EF;&#x4EE5;&#x53EA;&#x540C;&#x6B65;&#x4F7F;&#x7528;&#x524D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x4FEE;&#x6539;&#x503C;&#x3002;&#x540E;&#x8005;&#x6027;&#x80FD;&#x4E0A;&#x66F4;&#x4F18;&#xFF0C;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x5462;&#xFF1A;</p>
 <ol>
 <li>Core0&#x4FEE;&#x6539;v&#x540E;&#xFF0C;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#xFF0C;&#x5C06;Core1&#x7F13;&#x5B58;&#x7684;v&#x6807;&#x8BB0;&#x4E3A;&#x5931;&#x6548;&#xFF0C;&#x5E76;&#x5C06;&#x4FEE;&#x6539;&#x503C;&#x5199;&#x56DE;&#x5185;&#x5B58;&#x3002;</li>
-</ol>
-<ul>
 <li>Core0&#x53EF;&#x80FD;&#x4F1A;&#x591A;&#x6B21;&#x4FEE;&#x6539;v&#xFF0C;&#x6BCF;&#x6B21;&#x4FEE;&#x6539;&#x90FD;&#x53EA;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#xFF08;&#x53D1;&#x4FE1;&#x53F7;&#x65F6;&#x4F1A;&#x9501;&#x4F4F;&#x7F13;&#x5B58;&#x95F4;&#x7684;&#x603B;&#x7EBF;&#xFF09;&#xFF0C;Core1&#x7F13;&#x5B58;&#x7684;v&#x4FDD;&#x6301;&#x7740;&#x5931;&#x6548;&#x6807;&#x8BB0;&#x3002;</li>
 <li>Core1&#x4F7F;&#x7528;v&#x524D;&#xFF0C;&#x53D1;&#x73B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;v&#x5DF2;&#x7ECF;&#x5931;&#x6548;&#x4E86;&#xFF0C;&#x5F97;&#x77E5;v&#x5DF2;&#x7ECF;&#x88AB;&#x4FEE;&#x6539;&#x4E86;&#xFF0C;&#x4E8E;&#x662F;&#x91CD;&#x65B0;&#x4ECE;&#x5176;&#x4ED6;&#x7F13;&#x5B58;&#x6216;&#x5185;&#x5B58;&#x4E2D;&#x52A0;&#x8F7D;v&#x3002;</li>
-</ul>
+</ol>
 <p>&#x4EE5;&#x4E0A;&#x5373;&#x662F;MESI&#xFF08;Modified Exclusive Shared Or Invalid&#xFF0C;&#x7F13;&#x5B58;&#x7684;&#x56DB;&#x79CD;&#x72B6;&#x6001;&#xFF09;&#x534F;&#x8BAE;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;&#xFF0C;&#x4E0D;&#x7B97;&#x4E25;&#x8C28;&#xFF0C;&#x4F46;&#x5BF9;&#x4E8E;&#x7406;&#x89E3;&#x7F13;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#xFF08;&#x66F4;&#x5E38;&#x89C1;&#x7684;&#x79F0;&#x547C;&#x662F;&#x201C;&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x201D;&#xFF09;&#x5DF2;&#x7ECF;&#x8DB3;&#x591F;&#x3002;</p>
 <p>MESI&#x534F;&#x8BAE;&#x89E3;&#x51B3;&#x4E86;CPU&#x7F13;&#x5B58;&#x5C42;&#x9762;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x3002;</p>
 <blockquote>
@@ -168,23 +160,19 @@
 <p>&#x4E0D;&#x8FDB;&#x884C;&#x4E71;&#x5E8F;&#x4F18;&#x5316;&#x65F6;&#xFF0C;&#x5904;&#x7406;&#x5668;&#x7684;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
 <ol>
 <li>&#x6307;&#x4EE4;&#x83B7;&#x53D6;&#x3002;</li>
-</ol>
-<ul>
 <li>&#x5982;&#x679C;&#x8F93;&#x5165;&#x7684;&#x8FD0;&#x7B97;&#x5BF9;&#x8C61;&#x662F;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x7684;&#xFF08;&#x6BD4;&#x5982;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x4E8E;&#x5BC4;&#x5B58;&#x5668;&#x4E2D;&#xFF09;&#xFF0C;&#x8FD9;&#x6761;&#x6307;&#x4EE4;&#x4F1A;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x5408;&#x9002;&#x7684;&#x529F;&#x80FD;&#x5355;&#x5143;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x66F4;&#x591A;&#x7684;&#x8FD0;&#x7B97;&#x5BF9;&#x8C61;&#x5728;&#x5F53;&#x524D;&#x7684;&#x65F6;&#x949F;&#x5468;&#x671F;&#x4E2D;&#x662F;&#x4E0D;&#x53EF;&#x83B7;&#x53D6;&#x7684;&#xFF08;&#x901A;&#x5E38;&#x9700;&#x8981;&#x4ECE;&#x4E3B;&#x5185;&#x5B58;&#x83B7;&#x53D6;&#xFF09;&#xFF0C;&#x5904;&#x7406;&#x5668;&#x4F1A;&#x5F00;&#x59CB;&#x7B49;&#x5F85;&#x76F4;&#x5230;&#x5B83;&#x4EEC;&#x662F;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x7684;&#x3002;</li>
 <li>&#x6307;&#x4EE4;&#x5728;&#x5408;&#x9002;&#x7684;&#x529F;&#x80FD;&#x5355;&#x5143;&#x4E2D;&#x88AB;&#x6267;&#x884C;&#x3002;</li>
 <li>&#x529F;&#x80FD;&#x5355;&#x5143;&#x5C06;&#x8FD0;&#x7B97;&#x7ED3;&#x679C;&#x5199;&#x56DE;&#x5BC4;&#x5B58;&#x5668;&#x3002;</li>
-</ul>
+</ol>
 <p>&#x4E71;&#x5E8F;&#x4F18;&#x5316;&#x4E0B;&#x7684;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
 <ol>
 <li>&#x6307;&#x4EE4;&#x83B7;&#x53D6;&#x3002;</li>
-</ol>
-<ul>
 <li>&#x6307;&#x4EE4;&#x88AB;&#x53D1;&#x9001;&#x5230;&#x4E00;&#x4E2A;&#x6307;&#x4EE4;&#x5E8F;&#x5217;&#xFF08;&#x4E5F;&#x79F0;<code>&#x6267;&#x884C;&#x7F13;&#x51B2;&#x533A;</code>&#x6216;&#x8005;<code>&#x4FDD;&#x7559;&#x7AD9;</code>&#xFF09;&#x4E2D;&#x3002;</li>
 <li><strong>&#x6307;&#x4EE4;&#x5C06;&#x5728;&#x5E8F;&#x5217;&#x4E2D;&#x7B49;&#x5F85;&#xFF0C;&#x76F4;&#x5230;&#x5B83;&#x7684;&#x6570;&#x636E;&#x8FD0;&#x7B97;&#x5BF9;&#x8C61;&#x662F;&#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x7684;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x6307;&#x4EE4;&#x88AB;&#x5141;&#x8BB8;&#x5728;&#x5148;&#x8FDB;&#x5165;&#x7684;&#x3001;&#x65E7;&#x7684;&#x6307;&#x4EE4;&#x4E4B;&#x524D;&#x79BB;&#x5F00;&#x5E8F;&#x5217;&#x7F13;&#x51B2;&#x533A;</strong>&#x3002;&#xFF08;&#x6B64;&#x5904;&#x8868;&#x73B0;&#x4E3A;&#x4E71;&#x5E8F;&#xFF09;</li>
 <li>&#x6307;&#x4EE4;&#x88AB;&#x5206;&#x914D;&#x7ED9;&#x4E00;&#x4E2A;&#x5408;&#x9002;&#x7684;&#x529F;&#x80FD;&#x5355;&#x5143;&#x5E76;&#x7531;&#x4E4B;&#x6267;&#x884C;&#x3002;</li>
 <li>&#x7ED3;&#x679C;&#x88AB;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x5E8F;&#x5217;&#x4E2D;&#x3002;</li>
 <li>&#x4EC5;&#x5F53;&#x6240;&#x6709;&#x5728;&#x8BE5;&#x6307;&#x4EE4;&#x4E4B;&#x524D;&#x7684;&#x6307;&#x4EE4;&#x90FD;&#x5C06;&#x4ED6;&#x4EEC;&#x7684;&#x7ED3;&#x679C;&#x5199;&#x5165;&#x5BC4;&#x5B58;&#x5668;&#x540E;&#xFF0C;&#x8FD9;&#x6761;&#x6307;&#x4EE4;&#x7684;&#x7ED3;&#x679C;&#x624D;&#x4F1A;&#x88AB;&#x5199;&#x5165;&#x5BC4;&#x5B58;&#x5668;&#x4E2D;&#x3002;&#xFF08;&#x91CD;&#x6574;&#x4E71;&#x5E8F;&#x7ED3;&#x679C;&#xFF09;</li>
-</ul>
+</ol>
 <p>&#x5F53;&#x7136;&#xFF0C;&#x4E3A;&#x4E86;&#x5B9E;&#x73B0;&#x4E71;&#x5E8F;&#x4F18;&#x5316;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x5F88;&#x591A;&#x6280;&#x672F;&#x7684;&#x652F;&#x6301;&#xFF0C;&#x5982;<code>&#x5BC4;&#x5B58;&#x5668;&#x91CD;&#x547D;&#x540D;</code>&#x3001;<code>&#x5206;&#x679D;&#x9884;&#x6D4B;</code>&#x7B49;&#xFF0C;&#x4F46;&#x5927;&#x81F4;&#x4E86;&#x89E3;&#x5230;&#x8FD9;&#x91CC;&#x5C31;&#x8DB3;&#x591F;&#x3002;&#x540E;&#x6587;&#x7684;&#x6CE8;&#x91CA;&#x4E2D;&#x4F1A;&#x636E;&#x6B64;&#x7ED9;&#x51FA;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x7684;&#x5B9E;&#x73B0;&#x65B9;&#x6848;&#x3002;</p>
 </blockquote>
 <p>&#x4E71;&#x5E8F;&#x4F18;&#x5316;&#x5728;&#x5355;&#x6838;&#x65F6;&#x4EE3;&#x4E0D;&#x5F71;&#x54CD;&#x6B63;&#x786E;&#x6027;&#xFF1B;&#x4F46;&#x591A;&#x6838;&#x65F6;&#x4EE3;&#x7684;&#x591A;&#x7EBF;&#x7A0B;&#x80FD;&#x591F;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x6838;&#x4E0A;&#x5B9E;&#x73B0;&#x771F;&#x6B63;&#x7684;&#x5E76;&#x884C;&#xFF0C;&#x4E00;&#x65E6;&#x7EBF;&#x7A0B;&#x95F4;&#x5171;&#x4EAB;&#x6570;&#x636E;&#xFF0C;&#x5C31;&#x51FA;&#x73B0;&#x95EE;&#x9898;&#x4E86;&#x3002;&#x770B;&#x4E00;&#x6BB5;&#x5F88;&#x7ECF;&#x5178;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
@@ -194,12 +182,10 @@
 <p>&#x7136;&#x800C;&#xFF0C;<em>&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x7684;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x4E5F;&#x53EF;&#x80FD;&#x662F;(0,0)</em>&#xFF0C;&#x770B;&#x8D77;&#x6765;&#x8FDD;&#x53CD;&#x5E38;&#x7406;&#x3002;&#x8FD9;&#x662F;&#x5904;&#x7406;&#x5668;&#x4E71;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x7ED3;&#x679C;&#xFF1A;&#x7EBF;&#x7A0B;t1&#x5185;&#x90E8;&#x7684;&#x4E24;&#x884C;&#x4EE3;&#x7801;&#x4E4B;&#x95F4;&#x4E0D;&#x5B58;&#x5728;&#x6570;&#x636E;&#x4F9D;&#x8D56;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x53EF;&#x4EE5;&#x5C06;<code>x = b</code>&#x4E71;&#x5E8F;&#x5230;<code>a = 1</code>&#x524D;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;&#x7EBF;&#x7A0B;t2&#x4E2D;&#x7684;<code>y = a</code>&#x65E9;&#x4E8E;&#x7EBF;&#x7A0B;t1&#x4E2D;&#x7684;<code>a = 1</code>&#x6267;&#x884C;&#x3002;&#x4E00;&#x4E2A;&#x53EF;&#x80FD;&#x7684;&#x6267;&#x884C;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#xFF1A;</p>
 <ol>
 <li>t1: x = b</li>
-</ol>
-<ul>
 <li>t2: b = 1</li>
 <li>t2: y = a</li>
 <li>t1: a = 1</li>
-</ul>
+</ol>
 <blockquote>
 <p>&#x8FD9;&#x91CC;&#x5C06;&#x4EE3;&#x7801;&#x7B49;&#x540C;&#x4E8E;&#x6307;&#x4EE4;&#xFF0C;&#x4E0D;&#x4E25;&#x8C28;&#xFF0C;&#x4F46;&#x4E0D;&#x59A8;&#x788D;&#x7406;&#x89E3;&#x3002;</p>
 </blockquote>
@@ -307,7 +293,7 @@
 <p><strong>&#x8FD9;&#x91CC;&#x5C06;&#x53EF;&#x89C1;&#x6027;&#x4ECE;&#x201C;final&#x5B57;&#x6BB5;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x524D;&#xFF08;include&#xFF09;&#x7684;&#x5185;&#x5B58;&#x66F4;&#x65B0;&#x201D;&#x7F29;&#x5C0F;&#x5230;&#x201C;final&#x5B57;&#x6BB5;&#x521D;&#x59CB;&#x5316;&#x201D;</strong>&#x3002;&#x7334;&#x5B50;&#x6CA1;&#x627E;&#x5230;&#x786E;&#x5207;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x624B;&#x91CC;&#x6682;&#x65F6;&#x53EA;&#x6709;&#x4E00;&#x4E2A;jdk&#x4E5F;&#x4E0D;&#x65B9;&#x4FBF;&#x9A8C;&#x8BC1;&#x3002;&#x53EF;&#x80FD;&#x662F;&#x56E0;&#x4E3A;&#xFF0C;<em>JVM&#x6CA1;&#x6709;&#x8981;&#x6C42;&#x865A;&#x62DF;&#x673A;&#x5B9E;&#x73B0;&#x5728;&#x751F;&#x6210;<code>&lt;init&gt;()</code>&#x65B9;&#x6CD5;&#x65F6;&#x7F16;&#x6392;&#x5B57;&#x6BB5;&#x521D;&#x59CB;&#x5316;&#x6307;&#x4EE4;&#x7684;&#x987A;&#x5E8F;</em>&#x3002;</p>
 </blockquote>
 <p>&#x521D;&#x59CB;&#x5316;&#x5B89;&#x5168;&#x6027;&#x4E3A;&#x89E3;&#x51B3;&#x90E8;&#x5206;&#x521D;&#x59CB;&#x5316;&#x95EE;&#x9898;&#x5E26;&#x6765;&#x4E86;&#x65B0;&#x7684;&#x601D;&#x8DEF;&#xFF1A;&#x5982;&#x679C;&#x5F85;&#x53D1;&#x5E03;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x57DF;&#x90FD;&#x662F;final&#x4FEE;&#x9970;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x9632;&#x6B62;&#x5BF9;&#x5BF9;&#x8C61;&#x7684;&#x521D;&#x59CB;&#x5F15;&#x7528;&#x88AB;&#x91CD;&#x6392;&#x5E8F;&#x5230;&#x6784;&#x9020;&#x8FC7;&#x7A0B;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#x3002;&#x4E8E;&#x662F;&#xFF0C;<a href="/2017/09/27/&#x9762;&#x8BD5;&#x4E2D;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x6709;&#x51E0;&#x79CD;&#x5199;&#x6CD5;&#xFF1F;/">&#x9762;&#x8BD5;&#x4E2D;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x6709;&#x51E0;&#x79CD;&#x5199;&#x6CD5;&#xFF1F;</a>&#x4E2D;&#x7684;&#x9971;&#x6C49;&#x53D8;&#x79CD;&#x4E09;&#x8FD8;&#x53EF;&#x4EE5;&#x6254;&#x6389;volatile&#xFF0C;&#x6539;&#x4E3A;&#x501F;&#x52A9;final&#x7684;sfence&#x8BED;&#x4E49;&#xFF1A;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// &#x9971;&#x6C49;</span></div><div class="line"><span class="comment">// ThreadSafe</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton1_3 singleton = <span class="keyword">null</span>;</div><div class="line">  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span> f1 = <span class="number">1</span>;   <span class="comment">// &#x89E6;&#x53D1;&#x90E8;&#x5206;&#x521D;&#x59CB;&#x5316;&#x95EE;&#x9898;</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span> f2 = <span class="number">2</span>;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton1_3</span><span class="params">()</span> </span>{</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton1_3 <span class="title">getInstance</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</div><div class="line">      <span class="keyword">synchronized</span> (Singleton1_3.class) {</div><div class="line">        <span class="comment">// must be a complete instance</span></div><div class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</div><div class="line">          singleton = <span class="keyword">new</span> Singleton1_3();</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> singleton;</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// &#x9971;&#x6C49;</span></div><div class="line"><span class="comment">// ThreadSafe</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton1_3</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Singleton1_3 singleton = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span> f1 = <span class="number">1</span>;   <span class="comment">// &#x89E6;&#x53D1;&#x90E8;&#x5206;&#x521D;&#x59CB;&#x5316;&#x95EE;&#x9898;</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">int</span> f2 = <span class="number">2</span>;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Singleton1_3</span><span class="params">()</span> </span>{</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton1_3 <span class="title">getInstance</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</div><div class="line">      <span class="keyword">synchronized</span> (Singleton1_3.class) {</div><div class="line">        <span class="comment">// must be a complete instance</span></div><div class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) {</div><div class="line">          singleton = <span class="keyword">new</span> Singleton1_3();</div><div class="line">        }</div><div class="line">      }</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> singleton;</div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
 <blockquote>
 <p>&#x6CE8;&#x610F;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x5B89;&#x5168;&#x6027;&#x4EC5;&#x9488;&#x5BF9;&#x5B89;&#x5168;&#x53D1;&#x5E03;&#x4E2D;&#x7684;&#x90E8;&#x5206;&#x521D;&#x59CB;&#x5316;&#x95EE;&#x9898;&#xFF0C;&#x4E0E;&#x5176;&#x4ED6;&#x5B89;&#x5168;&#x53D1;&#x5E03;&#x95EE;&#x9898;&#x3001;&#x53D1;&#x5E03;&#x540E;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x65E0;&#x5173;&#x3002;</p>
 </blockquote>
@@ -481,9 +467,9 @@
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
-    
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
+    
+      <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
   </entry>
   

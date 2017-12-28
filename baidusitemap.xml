@@ -4,31 +4,8 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2017-12-28T05:12:17.000Z</lastmod>
-    <data>
-        <display>
-        <title>volatile关键字的作用、原理</title>
-        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>并发</tag>
-         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/</loc>
-    <lastmod>2017-12-28T05:11:07.000Z</lastmod>
+    <lastmod>2017-12-28T09:09:41.000Z</lastmod>
     <data>
         <display>
         <title>一文解决内存屏障</title>
@@ -43,6 +20,29 @@
         <tag>JVM</tag>
          
         <tag>硬件</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2017-12-28T05:14:02.000Z</lastmod>
+    <data>
+        <display>
+        <title>volatile关键字的作用、原理</title>
+        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -111,9 +111,9 @@
          
         <tag>原创</tag>
          
-        <tag>JVM</tag>
-         
         <tag>猿格</tag>
+         
+        <tag>JVM</tag>
          
          
            
