@@ -4,6 +4,100 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2017-12-28T05:12:17.000Z</lastmod>
+    <data>
+        <display>
+        <title>volatile关键字的作用、原理</title>
+        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/</loc>
+    <lastmod>2017-12-28T05:11:07.000Z</lastmod>
+    <data>
+        <display>
+        <title>一文解决内存屏障</title>
+        <pubTime>2017-12-28T05:08:49.000Z</pubTime>
+        
+        <tag>并发</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>JVM</tag>
+         
+        <tag>硬件</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2017/09/27/%E9%9D%A2%E8%AF%95%E4%B8%AD%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95%EF%BC%9F/</loc>
+    <lastmod>2017-12-27T17:00:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>面试中单例模式有几种写法？</title>
+        <pubTime>2017-09-27T05:38:10.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>设计模式</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2017/11/29/%E6%B5%85%E8%B0%88linux%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2/</loc>
+    <lastmod>2017-12-27T03:41:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈linux线程模型和线程切换</title>
+        <pubTime>2017-11-29T03:18:06.000Z</pubTime>
+        
+        <tag>并发</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>Linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2017/12/20/%E6%B5%85%E8%B0%88%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2017-12-20T11:34:26.000Z</lastmod>
     <data>
@@ -17,32 +111,9 @@
          
         <tag>原创</tag>
          
-        <tag>猿格</tag>
-         
         <tag>JVM</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/11/29/%E6%B5%85%E8%B0%88linux%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2/</loc>
-    <lastmod>2017-12-20T10:46:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>浅谈linux线程模型和线程切换</title>
-        <pubTime>2017-11-29T03:18:06.000Z</pubTime>
-        
-        <tag>并发</tag>
-         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
-         
-        <tag>Linux</tag>
+        <tag>猿格</tag>
          
          
            
@@ -363,29 +434,6 @@
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/09/27/%E9%9D%A2%E8%AF%95%E4%B8%AD%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%87%A0%E7%A7%8D%E5%86%99%E6%B3%95%EF%BC%9F/</loc>
-    <lastmod>2017-11-21T02:28:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>面试中单例模式有几种写法？</title>
-        <pubTime>2017-09-27T05:38:10.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
-         
-        <tag>设计模式</tag>
          
          
            
@@ -1085,29 +1133,6 @@
         <tag>科普</tag>
          
         <tag>猿工</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2017-10-09T08:42:52.000Z</lastmod>
-    <data>
-        <display>
-        <title>volatile关键字的作用、原理</title>
-        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
-        
-        <tag>Java</tag>
-         
-        <tag>并发</tag>
-         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
          
          
            
