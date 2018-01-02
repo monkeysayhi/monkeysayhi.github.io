@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/01/02/CAS%E4%B8%AD%E7%9A%84ABA%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-01-02T06:53:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>CAS中的ABA问题</title>
+        <pubTime>2018-01-02T06:53:11.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2018-01-02T06:11:56.000Z</lastmod>
     <data>
@@ -904,9 +927,9 @@
         <title>事务的ACID和四个隔离级别</title>
         <pubTime>2016-11-25T16:34:15.000Z</pubTime>
         
-        <tag>面试</tag>
-         
         <tag>数据库</tag>
+         
+        <tag>面试</tag>
          
         <tag>事务</tag>
          
