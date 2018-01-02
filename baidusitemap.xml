@@ -4,13 +4,15 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2018/01/02/%E6%B5%85%E8%B0%88%E5%81%8F%E5%90%91%E9%94%81%E3%80%81%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E3%80%81%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81/</loc>
-    <lastmod>2018-01-02T05:38:01.000Z</lastmod>
+    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2018-01-02T06:11:56.000Z</lastmod>
     <data>
         <display>
-        <title>浅谈偏向锁、轻量级锁、重量级锁</title>
-        <pubTime>2018-01-02T05:34:25.000Z</pubTime>
+        <title>volatile关键字的作用、原理</title>
+        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>并发</tag>
          
         <tag>面试</tag>
@@ -28,12 +30,14 @@
     
   <url>
     <loc>https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/</loc>
-    <lastmod>2017-12-28T09:54:02.000Z</lastmod>
+    <lastmod>2018-01-02T06:11:41.000Z</lastmod>
     <data>
         <display>
         <title>一文解决内存屏障</title>
         <pubTime>2017-12-28T05:08:49.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>并发</tag>
          
         <tag>面试</tag>
@@ -52,12 +56,12 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2016/11/29/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%81%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2017-12-28T05:14:02.000Z</lastmod>
+    <loc>https://monkeysayhi.github.io/2018/01/02/%E6%B5%85%E8%B0%88%E5%81%8F%E5%90%91%E9%94%81%E3%80%81%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E3%80%81%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81/</loc>
+    <lastmod>2018-01-02T06:10:19.000Z</lastmod>
     <data>
         <display>
-        <title>volatile关键字的作用、原理</title>
-        <pubTime>2016-11-29T14:11:35.000Z</pubTime>
+        <title>浅谈偏向锁、轻量级锁、重量级锁</title>
+        <pubTime>2018-01-02T05:34:25.000Z</pubTime>
         
         <tag>Java</tag>
          
@@ -66,6 +70,8 @@
         <tag>面试</tag>
          
         <tag>原创</tag>
+         
+        <tag>JVM</tag>
          
          
            
@@ -134,9 +140,9 @@
          
         <tag>原创</tag>
          
-        <tag>JVM</tag>
-         
         <tag>猿格</tag>
+         
+        <tag>JVM</tag>
          
          
            
@@ -898,9 +904,9 @@
         <title>事务的ACID和四个隔离级别</title>
         <pubTime>2016-11-25T16:34:15.000Z</pubTime>
         
-        <tag>数据库</tag>
-         
         <tag>面试</tag>
+         
+        <tag>数据库</tag>
          
         <tag>事务</tag>
          
