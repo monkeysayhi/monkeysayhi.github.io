@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-01-02T06:53:11.000Z</updated>
+  <updated>2018-01-02T06:54:29.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2018/01/02/CAS%E4%B8%AD%E7%9A%84ABA%E9%97%AE%E9%A2%98/"/>
     <id>https://monkeysayhi.github.io/2018/01/02/CAS中的ABA问题/</id>
     <published>2018-01-02T06:53:11.000Z</published>
-    <updated>2018-01-02T06:53:11.000Z</updated>
+    <updated>2018-01-02T06:54:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x8865;&#x6863;CAS&#x4E2D;&#x7684;ABA&#x95EE;&#x9898;&#x3002;</p>
 <p>&#x8981;&#x7279;&#x522B;&#x6CE8;&#x610F;&#xFF0C;&#x5E38;&#x89C1;&#x7684;ABA&#x95EE;&#x9898;&#x6709;&#x4E24;&#x79CD;&#xFF0C;&#x8981;&#x6C42;&#x80FD;&#x5206;&#x522B;&#x4E3E;&#x4F8B;&#x89E3;&#x91CA;&#x3002;</p>
@@ -658,9 +658,9 @@
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
-    
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
+    
+      <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
   </entry>
   
