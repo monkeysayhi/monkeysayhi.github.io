@@ -75,9 +75,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -196,9 +196,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -533,9 +533,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -548,7 +548,7 @@
     <link href="https://monkeysayhi.github.io/2017/12/20/%E6%B5%85%E8%B0%88%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B/"/>
     <id>https://monkeysayhi.github.io/2017/12/20/浅谈双亲委派模型/</id>
     <published>2017-12-20T11:00:37.000Z</published>
-    <updated>2017-12-20T11:34:26.000Z</updated>
+    <updated>2018-01-04T02:01:30.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x672C;&#x6587;&#x6D45;&#x6790;&#x4E86;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x7684;&#x57FA;&#x672C;&#x6982;&#x5FF5;&#x3001;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x3001;&#x548C;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x6B63;&#x786E;&#x59FF;&#x52BF;&#x3002;</p>
 <p>&#x5BF9;&#x4E8E;&#x66F4;&#x7EC6;&#x81F4;&#x7684;&#x52A0;&#x8F7D;loading&#x8FC7;&#x7A0B;&#x3001;&#x521D;&#x59CB;&#x5316;initialization&#x987A;&#x5E8F;&#x7B49;&#x95EE;&#x9898;&#xFF0C;&#x6587;&#x4E2D;&#x6682;&#x4E0D;&#x6D89;&#x53CA;&#xFF0C;&#x540E;&#x9762;&#x6574;&#x7406;&#x7B14;&#x8BB0;&#x65F6;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x6587;&#x7AE0;&#x3002;</p>
@@ -576,7 +576,7 @@
 <p>&#x8D1F;&#x8D23;&#x5C06;&#x5B58;&#x653E;&#x5728;<code>&#xFF1C;JAVA_HOME&#xFF1E;/lib</code>&#x76EE;&#x5F55;&#x4E2D;&#x7684;&#xFF0C;&#x6216;&#x8005;&#x88AB;<code>-Xbootclasspath</code>&#x53C2;&#x6570;&#x6240;&#x6307;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x4E2D;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x662F;&#x865A;&#x62DF;&#x673A;&#x6309;&#x7167;&#x6587;&#x4EF6;&#x540D;&#x8BC6;&#x522B;&#x7684;&#xFF08;&#x5982;rt.jar&#xFF0C;&#x540D;&#x5B57;&#x4E0D;&#x7B26;&#x5408;&#x7684;&#x7C7B;&#x5E93;&#x5373;&#x4F7F;&#x653E;&#x5728;lib&#x76EE;&#x5F55;&#x4E2D;&#x4E5F;&#x4E0D;&#x4F1A;&#x88AB;&#x52A0;&#x8F7D;&#xFF09;&#x7C7B;&#x5E93;&#x52A0;&#x8F7D;&#x5230;&#x865A;&#x62DF;&#x673A;&#x5185;&#x5B58;&#x4E2D;&#x3002;</p>
 <p>&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65E0;&#x6CD5;&#x88AB;Java&#x7A0B;&#x5E8F;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#xFF0C;&#x7528;&#x6237;&#x5728;&#x7F16;&#x5199;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x628A;&#x52A0;&#x8F7D;&#x8BF7;&#x6C42;&#x59D4;&#x6D3E;&#x7ED9;&#x5F15;&#x5BFC;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x90A3;&#x76F4;&#x63A5;&#x4F7F;&#x7528;null&#x4EE3;&#x66FF;&#x5373;&#x53EF;&#x3002;</p>
 <blockquote>
-<p>&#x6BD4;&#x5982;&#xFF1F;</p>
+<p>JDK&#x4E2D;&#x7684;&#x5E38;&#x7528;&#x7C7B;&#x5927;&#x90FD;&#x7531;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#xFF0C;&#x5982;java.lang.String&#x3001;java.util.List&#x7B49;&#x3002;&#x9700;&#x8981;&#x7279;&#x522B;&#x8BF4;&#x660E;&#x7684;&#x662F;&#xFF0C;&#x542F;&#x52A8;&#x7C7B;Main class&#x4E5F;&#x7531;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#x3002;</p>
 </blockquote>
 <ul>
 <li>&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF08;Extension ClassLoader&#xFF09;</li>
@@ -585,7 +585,7 @@
 <p>&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;<code>&#xFF1C;JAVA_HOME&#xFF1E;/lib/ext</code>&#x76EE;&#x5F55;&#x4E2D;&#x7684;&#xFF0C;&#x6216;&#x8005;&#x88AB;<code>java.ext.dirs</code>&#x7CFB;&#x7EDF;&#x53D8;&#x91CF;&#x6240;&#x6307;&#x5B9A;&#x7684;&#x8DEF;&#x5F84;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x7C7B;&#x5E93;&#x3002;</p>
 <p>&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x6269;&#x5C55;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
 <blockquote>
-<p>&#x6BD4;&#x5982;&#xFF1F;</p>
+<p>&#x7334;&#x5B50;&#x5BF9;&#x81EA;&#x5DF1;&#x7535;&#x8111;<code>&#xFF1C;JAVA_HOME&#xFF1E;/lib/ext</code>&#x76EE;&#x5F55;&#x4E0B;&#x7684;jar&#x5305;&#x90FD;&#x975E;&#x5E38;&#x964C;&#x751F;&#x3002;&#x770B;&#x4E86;&#x51E0;&#x4E2A;jar&#x5305;&#xFF0C;&#x4E5F;&#x6CA1;&#x627E;&#x5230;&#x5E38;&#x7528;&#x7684;&#x7C7B;&#xFF1B;&#x552F;&#x4E00;&#x6709;&#x70B9;&#x5370;&#x8C61;&#x7684;&#x662F;jfxrt.jar&#xFF0C;&#x88AB;&#x7528;&#x4E8E;JavaFX&#x7684;&#x5F00;&#x53D1;&#x4E4B;&#x4E2D;&#x3002;</p>
 </blockquote>
 <ul>
 <li>&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF08;Application ClassLoader&#xFF09;</li>
@@ -593,7 +593,7 @@
 <p>&#x7531;<code>sun.misc.Launcher$AppClassLoader</code>&#x5B9E;&#x73B0;&#x3002;&#x7531;&#x4E8E;&#x8FD9;&#x4E2A;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x662F;<code>ClassLoader.getSystemClassLoader()</code>&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x822C;&#x4E5F;&#x79F0;&#x5B83;&#x4E3A;&#x7CFB;&#x7EDF;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
 <p>&#x5B83;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;&#x7528;&#x6237;&#x7C7B;&#x8DEF;&#x5F84;<code>ClassPath</code>&#x4E0A;&#x6240;&#x6307;&#x5B9A;&#x7684;&#x7C7B;&#x5E93;&#xFF0C;&#x5F00;&#x53D1;&#x8005;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;<strong>&#x5982;&#x679C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x6CA1;&#x6709;&#x81EA;&#x5B9A;&#x4E49;&#x8FC7;&#x81EA;&#x5DF1;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#x8FD9;&#x4E2A;&#x5C31;&#x662F;&#x7A0B;&#x5E8F;&#x4E2D;&#x9ED8;&#x8BA4;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</strong>&#x3002;</p>
 <blockquote>
-<p>&#x6BD4;&#x5982;&#xFF1F;</p>
+<p>&#x542F;&#x52A8;&#x7C7B;Main class&#x3001;&#x5176;&#x4ED6;&#x5982;&#x5DE5;&#x7A0B;&#x4E2D;&#x7F16;&#x5199;&#x7684;&#x7C7B;&#x3001;maven&#x5F15;&#x7528;&#x7684;&#x7C7B;&#xFF0C;&#x90FD;&#x4F1A;&#x88AB;&#x653E;&#x7F6E;&#x5728;&#x7C7B;&#x8DEF;&#x5F84;&#x4E0B;&#x3002;Main class&#x7531;&#x542F;&#x52A8;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#xFF0C;&#x5176;&#x4ED6;&#x7C7B;&#x7531;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x52A0;&#x8F7D;&#x3002;</p>
 </blockquote>
 <h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;"><a href="#&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;" class="headerlink" title="&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;"></a>&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</h3><p>JVM&#x5EFA;&#x8BAE;&#x7528;&#x6237;&#x5C06;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4F5C;&#x4E3A;&#x81EA;&#x5B9A;&#x4E49;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x7236;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;&#x5219;&#x7C7B;&#x52A0;&#x8F7D;&#x7684;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;&#x5982;&#x56FE;&#xFF1A;</p>
 <p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6D45;&#x8C08;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;/&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;.png" alt="&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x6A21;&#x578B;"></p>
@@ -654,9 +654,9 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -756,9 +756,9 @@
     </summary>
     
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="LintCode" scheme="https://monkeysayhi.github.io/tags/LintCode/"/>
     
@@ -1132,9 +1132,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -1188,9 +1188,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -1377,9 +1377,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -1449,9 +1449,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -1626,9 +1626,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -1798,9 +1798,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="Linux" scheme="https://monkeysayhi.github.io/tags/Linux/"/>
     
@@ -1857,13 +1857,13 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
+      <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -1976,9 +1976,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -2078,9 +2078,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -2194,9 +2194,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -2328,9 +2328,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -2399,9 +2399,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
@@ -2646,9 +2646,9 @@
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
