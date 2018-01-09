@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-01-09T10:41:45.000Z</updated>
+  <updated>2018-01-09T10:44:26.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2018/01/09/HDFS1.x%E3%80%812.x%E6%9E%B6%E6%9E%84%E5%9B%BE/"/>
     <id>https://monkeysayhi.github.io/2018/01/09/HDFS1.x、2.x架构图/</id>
     <published>2018-01-09T10:41:45.000Z</published>
-    <updated>2018-01-09T10:41:45.000Z</updated>
+    <updated>2018-01-09T10:44:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x540E;&#x9762;&#x5F00;&#x59CB;&#x6574;&#x7406;&#x4E4B;&#x524D;&#x5B66;&#x4E60;HDFS&#x3001;Yarn&#x65F6;&#x7684;&#x7B14;&#x8BB0;&#x3002;</p>
 <a id="more"></a>
@@ -75,11 +75,11 @@
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
     
       <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -321,13 +321,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -442,13 +442,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -779,13 +779,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -902,15 +902,15 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
+    
+      <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
   </entry>
   
@@ -1143,9 +1143,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -1378,13 +1378,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -1434,13 +1434,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -1623,13 +1623,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -1695,13 +1695,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -1872,13 +1872,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -2046,11 +2046,11 @@
     </summary>
     
     
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="Linux" scheme="https://monkeysayhi.github.io/tags/Linux/"/>
     
@@ -2105,13 +2105,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2222,13 +2222,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -2324,13 +2324,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
@@ -2440,13 +2440,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -2574,13 +2574,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
