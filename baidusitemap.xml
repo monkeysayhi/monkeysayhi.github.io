@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/01/09/HDFS1.x%E3%80%812.x%E6%9E%B6%E6%9E%84%E5%9B%BE/</loc>
+    <lastmod>2018-01-09T10:41:45.000Z</lastmod>
+    <data>
+        <display>
+        <title>HDFS1.x、2.x架构图</title>
+        <pubTime>2018-01-09T10:41:45.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>Hadoop</tag>
+         
+        <tag>HDFS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2017/08/26/%E3%80%90%E9%9D%A2%E7%BB%8F%E3%80%91%E7%8C%BF%E9%A2%98%E5%BA%93-2017%E5%B9%B48%E6%9C%8825%E6%97%A5%EF%BC%8C%E6%95%A3%E6%8B%9B%E5%AE%9E%E4%B9%A0%E7%94%9F/</loc>
     <lastmod>2018-01-05T11:19:08.000Z</lastmod>
     <data>
@@ -11,9 +34,9 @@
         <title>【面经】猿题库-2017年8月25日，散招实习生</title>
         <pubTime>2017-08-25T17:03:36.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -34,9 +57,9 @@
         <title>分布式系统的基本特性</title>
         <pubTime>2018-01-04T06:29:28.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>分布式</tag>
          
@@ -59,9 +82,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -82,9 +105,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>JVM</tag>
          
@@ -105,9 +128,9 @@
         
         <tag>Java</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>猿格</tag>
          
@@ -128,9 +151,9 @@
         <title>【刷题】Linked List Cycle II</title>
         <pubTime>2017-08-19T13:38:40.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>LintCode</tag>
          
@@ -151,9 +174,9 @@
         <title>【刷题】二叉树非递归遍历</title>
         <pubTime>2017-08-05T13:36:08.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>LintCode</tag>
          
@@ -178,9 +201,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>JVM</tag>
          
@@ -203,9 +226,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>JVM</tag>
          
@@ -228,11 +251,11 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
+        <tag>面试</tag>
          
         <tag>原创</tag>
          
-        <tag>面试</tag>
+        <tag>设计模式</tag>
          
          
            
@@ -251,9 +274,9 @@
         
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Linux</tag>
          
@@ -276,9 +299,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -299,9 +322,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -322,9 +345,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -345,9 +368,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -368,9 +391,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -391,9 +414,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -414,9 +437,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>猿格</tag>
          
@@ -435,9 +458,9 @@
         <title>【刷题】Lowest Common Ancestor</title>
         <pubTime>2017-12-17T15:21:33.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>LintCode</tag>
          
@@ -481,9 +504,9 @@
         
         <tag>Java</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>JVM</tag>
          
@@ -527,9 +550,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -550,9 +573,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -571,13 +594,13 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>并发</tag>
+         
+        <tag>面试</tag>
          
         <tag>原创</tag>
          
-        <tag>面试</tag>
+        <tag>设计模式</tag>
          
          
            
@@ -596,9 +619,9 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>原创</tag>
+         
+        <tag>设计模式</tag>
          
          
            
@@ -638,9 +661,9 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>原创</tag>
+         
+        <tag>设计模式</tag>
          
          
            
@@ -659,9 +682,9 @@
         
         <tag>Java</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -701,9 +724,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -743,9 +766,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -766,9 +789,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>猿格</tag>
          
@@ -791,9 +814,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -814,9 +837,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -833,9 +856,9 @@
         <title>【刷题】Search in a Big Sorted Array</title>
         <pubTime>2017-08-04T05:25:33.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>LintCode</tag>
          
@@ -856,9 +879,9 @@
         <title>【刷题】strStr II - Rabin Karp</title>
         <pubTime>2017-08-05T16:54:20.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>LintCode</tag>
          
@@ -881,11 +904,11 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>并发</tag>
          
         <tag>原创</tag>
+         
+        <tag>设计模式</tag>
          
          
            
@@ -904,9 +927,9 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>原创</tag>
+         
+        <tag>设计模式</tag>
          
         <tag>猿格</tag>
          
@@ -927,11 +950,11 @@
         
         <tag>Java</tag>
          
-        <tag>设计模式</tag>
-         
         <tag>并发</tag>
          
         <tag>原创</tag>
+         
+        <tag>设计模式</tag>
          
          
            
@@ -952,9 +975,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -992,9 +1015,9 @@
         <title>【面经】阿里健康-2017年8月29日，散招实习生</title>
         <pubTime>2017-08-31T10:44:53.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -1021,17 +1044,17 @@
         
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
          
-        <tag>算法</tag>
-         
-        <tag>系统设计</tag>
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>算法</tag>
+         
+        <tag>系统设计</tag>
          
         <tag>Yarn</tag>
          
@@ -1050,9 +1073,9 @@
         <title>【面经】陌陌-2017年8月28日，散招实习生</title>
         <pubTime>2017-08-28T09:27:58.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -1144,9 +1167,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -1245,9 +1268,9 @@
         
         <tag>Java</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -1268,9 +1291,9 @@
          
         <tag>并发</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
          
            

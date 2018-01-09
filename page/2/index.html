@@ -157,6 +157,61 @@ ga('send', 'pageview');
       <div class="body-wrap">
         
   
+    <article id="post-源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/05/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/">源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock</a>
+    </h1>
+  
+
+        <a href="/2017/12/05/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/" class="archive-article-date">
+  	<time datetime="2017-12-05T12:15:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-05</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x663E;&#x793A;&#x9501;ReentrantLock&#x7684;&#x5185;&#x90E8;&#x540C;&#x6B65;&#x4F9D;&#x8D56;&#x4E8E;AQS&#xFF08;AbstractQueuedSynchronizer&#xFF09;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5206;&#x6790;ReentrantLock&#x5FC5;&#x7136;&#x6D89;&#x53CA;AQS&#x3002;</p>
+<p>&#x672C;&#x6587;&#x5047;&#x8BBE;&#x8BFB;&#x8005;&#x5DF2;&#x719F;&#x7EC3;&#x638C;&#x63E1;AQS&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;&#xFF08;&#x53C2;&#x8003;<a href="/2017/12/04/AQS&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;/">AQS&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;</a>&#xFF09;&#xFF0C;&#x901A;&#x8FC7;&#x5206;&#x6790;ReentrantLock#lock()&#x4E0E;ReentrantLock#unlock()&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#xFF0C;&#x7528;&#x5B9E;&#x4F8B;&#x5E2E;&#x52A9;&#x8BFB;&#x8005;&#x7406;&#x89E3;AQS&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x6A21;&#x578B;&#x3002;</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2017/12/05/源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock/#more">more >></a>
+        </p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-AQS的基本原理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -646,60 +701,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-源码|并发一枝花之CopyOnWriteArrayList" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/24/源码|并发一枝花之CopyOnWriteArrayList/">源码|并发一枝花之CopyOnWriteArrayList</a>
-    </h1>
-  
-
-        <a href="/2017/10/24/源码|并发一枝花之CopyOnWriteArrayList/" class="archive-article-date">
-  	<time datetime="2017-10-24T14:33:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-24</time>
-</a>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>CopyOnWriteArrayList&#x7684;&#x8BBE;&#x8BA1;&#x601D;&#x60F3;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x4F46;&#x5728;&#x8BBE;&#x8BA1;&#x5C42;&#x9762;&#x6709;&#x4E00;&#x4E9B;&#x5C0F;&#x95EE;&#x9898;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x3002;</p>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2017/10/24/源码|并发一枝花之CopyOnWriteArrayList/#more">more >></a>
-        </p>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-      
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -768,7 +769,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 12px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 12px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 16px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 14px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Yarn/" style="font-size: 12px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 11px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13px;">猿工</a> <a href="/tags/猿格/" style="font-size: 15px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 13px;">科普</a> <a href="/tags/算法/" style="font-size: 16px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11px;">随笔</a> <a href="/tags/面试/" style="font-size: 19px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 13px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 13px;">Hadoop</a> <a href="/tags/JVM/" style="font-size: 16px;">JVM</a> <a href="/tags/Java/" style="font-size: 18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 14px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Yarn/" style="font-size: 12px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 11px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13px;">猿工</a> <a href="/tags/猿格/" style="font-size: 15px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 13px;">科普</a> <a href="/tags/算法/" style="font-size: 16px;">算法</a> <a href="/tags/系统设计/" style="font-size: 12px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 16px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 11px;">随笔</a> <a href="/tags/面试/" style="font-size: 19px;">面试</a>
     			</div>
     	</section>
     
