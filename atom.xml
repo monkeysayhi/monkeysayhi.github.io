@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-01-15T09:41:01.000Z</updated>
+  <updated>2018-01-15T09:45:09.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -14,6 +14,155 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hadoop单步debug追源码</title>
+    <link href="https://monkeysayhi.github.io/2018/01/15/Hadoop%E5%8D%95%E6%AD%A5debug%E8%BF%BD%E6%BA%90%E7%A0%81/"/>
+    <id>https://monkeysayhi.github.io/2018/01/15/Hadoop单步debug追源码/</id>
+    <published>2018-01-15T09:45:09.000Z</published>
+    <updated>2018-01-15T09:45:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>&#x53C2;&#x8003;<a href="/2018/01/15/Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;/">Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;</a>&#x7F16;&#x8BD1;&#x597D;Hadoop&#x6E90;&#x7801;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;&#x4E86;&#x3002;</p>
+<blockquote>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x672C;&#x6587;&#x4E0D;&#x4EC5;&#x9002;&#x7528;&#x4E8E;debug Hadoop&#x6E90;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x65E0;&#x7F1D;&#x8FC1;&#x79FB;&#x5230;&#x5176;&#x4ED6;&#x6846;&#x67B6;&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="&#x7248;&#x672C;&#x58F0;&#x660E;"><a href="#&#x7248;&#x672C;&#x58F0;&#x660E;" class="headerlink" title="&#x7248;&#x672C;&#x58F0;&#x660E;"></a>&#x7248;&#x672C;&#x58F0;&#x660E;</h1><ul>
+<li>&#x6E90;&#x7801;&#xFF1A;<code>Apache Hadoop 2.6.0</code></li>
+<li>&#x7CFB;&#x7EDF;&#xFF1A;<code>macOS 10.12.4</code></li>
+<li>JDK&#xFF1A;<code>oracle jdk 1.7.0_79</code></li>
+<li>IDE&#xFF1A;<code>IntelliJ IDEA 2017.2.3</code> </li>
+</ul>
+<h1 id="&#x5355;&#x7EBF;&#x7A0B;debug"><a href="#&#x5355;&#x7EBF;&#x7A0B;debug" class="headerlink" title="&#x5355;&#x7EBF;&#x7A0B;debug"></a>&#x5355;&#x7EBF;&#x7A0B;debug</h1><p>&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;datanode&#x6E90;&#x7801;&#x4E3A;&#x4F8B;&#x3002;</p>
+<h2 id="&#x542F;&#x52A8;namenode"><a href="#&#x542F;&#x52A8;namenode" class="headerlink" title="&#x542F;&#x52A8;namenode"></a>&#x542F;&#x52A8;namenode</h2><p>&#x6B63;&#x5E38;&#x542F;&#x52A8;namenode&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sbin/hadoop-daemon.sh start namenode</div></pre></td></tr></table></figure>
+<h2 id="&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;"><a href="#&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;" class="headerlink" title="&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;"></a>&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;</h2><p>&#x4FEE;&#x6539;<code>etc/hadoop/hadoop-env.sh</code>&#xFF0C;&#x8BBE;&#x7F6E;<code>HADOOP_OPTS</code>&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># Extra Java runtime options.  Empty by default.</div><div class="line">HADOOP_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8888&quot;</div><div class="line">export HADOOP_OPTS=&quot;$HADOOP_OPTS -Djava.net.preferIPv4Stack=true&quot;</div></pre></td></tr></table></figure>
+<p>&#x542F;&#x52A8;datanode&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sbin/hadoop-daemon.sh start datanode</div></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">starting datanode, logging to /Users/msh/Applications/experiment/hadoop-2.6.0/logs/hadoop-msh-datanode-mshdeMacBook-Pro.local.out</div><div class="line">Listening for transport dt_socket at address: 8888</div></pre></td></tr></table></figure>
+<p>&#x67E5;&#x770B;log&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail <span class="_">-f</span> /Users/msh/Applications/experiment/hadoop-2.6.0/logs/hadoop-msh-datanode-mshdeMacBook-Pro.local.logs</div></pre></td></tr></table></figure>
+<p>&#x4F1A;&#x62A5;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#x3002;&#x56E0;&#x4E3A;&#x6B64;&#x65F6;JVM&#x662F;hang&#x4F4F;&#x7684;&#xFF08;&#x7B49;&#x5F85;&#x8C03;&#x8BD5;&#x5668;&#x8FDE;&#x63A5;&#xFF0C;&#x89C1;&#x4E0B;&#xFF09;&#xFF0C;&#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C;main&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x5C31;&#x6CA1;&#x6709;&#x521B;&#x5EFA;log&#x6587;&#x4EF6;&#x3002;</p>
+<p>&#x8F6C;&#x53BB;&#x914D;&#x7F6E;IDEA&#x3002;</p>
+<h2 id="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"><a href="#&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;" class="headerlink" title="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"></a>&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;</h2><p>IDEA&#x4E2D;&#x6253;&#x5F00;&#x5BF9;&#x5E94;&#x7248;&#x672C;&#x7684;hadoop&#x6E90;&#x7801;&#xFF08;2.6.0&#xFF09;&#x3002;</p>
+<p>Run-&gt;Edit Configurations&#xFF0C;&#x5DE6;&#x4E0A;&#x89D2;&#x7684;+&#x53F7;&#x9009;&#x62E9;Remote&#xFF0C;&#x4E3B;&#x8981;&#x914D;&#x7F6E;&#x4E3B;&#x673A;localhost&#x3001;&#x7AEF;&#x53E3;8888&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png" alt="&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png"></p>
+<blockquote>
+<p>Eclipse&#x540C;&#x7406;&#x3002; </p>
+</blockquote>
+<p>&#x914D;&#x7F6E;&#x9879;&#x505A;&#x7B80;&#x5355;&#x8BF4;&#x660E;&#xFF1A;</p>
+<ul>
+<li><code>-agentlib:jdwp</code>&#xFF1A;&#x4F7F;&#x7528;JDWP&#x5B9E;&#x73B0;&#x8FDC;&#x7A0B;&#x8C03;&#x8BD5;&#xFF0C;&#x5305;&#x542B;&#x82E5;&#x5E72;&#x5B50;&#x9009;&#x9879;&#x3002;</li>
+<li><code>transport=dt_socket</code>&#xFF1A;&#x8C03;&#x8BD5;&#x5668;&#x548C;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x5957;&#x63A5;&#x5B57;&#x4F20;&#x8F93;&#x3002;</li>
+<li><code>server=y</code>&#xFF1A;&#x542F;&#x52A8;&#x7684;JVM&#x662F;&#x63A5;&#x6536;&#x8C03;&#x8BD5;&#x8BF7;&#x6C42;&#x7684;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF08;IDEA&#x4E0A;&#x542F;&#x52A8;&#x7684;&#x662F;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#xFF0C;&#x4F1A;&#x5B58;&#x5728;&#x4E00;&#x4E2A;server=n&#x7684;&#x8FDB;&#x7A0B;&#xFF09;&#x3002;</li>
+<li><code>suspend=y</code>&#xFF1A;&#x542F;&#x52A8;&#x7684;JVM&#x4F1A;&#x6682;&#x505C;&#x7B49;&#x5F85;&#xFF0C;&#x76F4;&#x5230;&#x8C03;&#x8BD5;&#x5668;&#x8FDE;&#x63A5;&#x4E0A;&#x624D;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x56E0;&#x6B64;&#x542F;&#x52A8;datanode&#x65F6;&#x624D;&#x80FD;&#x201C;hang&#x4F4F;&#x201D;&#xFF0C;&#x7B49;&#x5F85;&#x6211;&#x4EEC;&#x542F;&#x52A8;&#x8C03;&#x8BD5;&#x5668;&#xFF08;&#x8FD9;&#x91CC;&#x4E0E;IDEA&#x63D0;&#x4F9B;&#x7684;&#x914D;&#x7F6E;&#x662F;suspend=n&#xFF0C;&#x6211;&#x4E60;&#x60EF;&#x7528;suspend=y&#xFF09;&#x3002;</li>
+<li><code>address=8888</code>&#xFF1A;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#x5728;8888&#x7AEF;&#x53E3;&#x4E0A;&#x76D1;&#x542C;&#x8C03;&#x8BD5;&#x8BF7;&#x6C42;&#x3002;</li>
+</ul>
+<h2 id="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"><a href="#&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"></a>&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;</h2><p>&#x6CBF;&#x7740;&#x5728;Datanode&#x7C7B;&#x7684;main&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x51E0;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x6F14;&#x793A;&#x57FA;&#x672C;&#x7684;&#x8C03;&#x8BD5;&#x4EA4;&#x4E92;</li>
+</ul>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<ul>
+<li>&#x5229;&#x7528;&#x6253;&#x5370;&#x7684;log&#x9A8C;&#x8BC1;</li>
+</ul>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<h2 id="&#x5F00;&#x59CB;debug"><a href="#&#x5F00;&#x59CB;debug" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="&#x8C03;&#x8BD5;&#x5668;"><a href="#&#x8C03;&#x8BD5;&#x5668;" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>IDEA&#x4E2D;&#xFF0C;Run-&gt;Debug&#xFF0C;&#x9009;&#x62E9;&#x521A;&#x521A;&#x914D;&#x7F6E;&#x7684;TestDatanode&#x53C2;&#x6570;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x5F00;&#x59CB;debug.png" alt="&#x5F00;&#x59CB;debug.png"></p>
+<p>&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x56DE;&#x5230;&#x542F;&#x52A8;datanode&#x7684;&#x7EC8;&#x7AEF;&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x770B;log&#x3002;</p>
+<p>&#x53D1;&#x73B0;&#x6587;&#x4EF6;&#x5DF2;&#x521B;&#x5EFA;&#x4F46;&#x662F;&#x7A7A;&#x6587;&#x4EF6;&#x3002;</p>
+<h3 id="&#x8C03;&#x8BD5;&#x5668;-1"><a href="#&#x8C03;&#x8BD5;&#x5668;-1" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>&#x56DE;&#x5230;IDEA&#xFF0C;F8&#x8DF3;&#x8FC7;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF0C;&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<p>&#x8FD9;&#x53E5;&#x4EE3;&#x7801;&#x4F1A;&#x6253;&#x5370;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#xFF08;&#x6B64;&#x5904;&#x4E0D;&#x8BA8;&#x8BBA;&#xFF09;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x8BE5;&#x884C;&#x540E;&#xFF0C;&#x65E5;&#x5FD7;&#x88AB;&#x6253;&#x5370;&#xFF0C;&#x8BF4;&#x660E;&#x6211;&#x4EEC;&#x7684;&#x5355;&#x72EC;debug&#x6210;&#x529F;&#x4E86;&#x3002;</p>
+<p>F8&#x540E;&#x505C;&#x5728;&#x4E0B;&#x4E00;&#x884C;&#xFF0C;&#x56DE;&#x53BB;&#x67E5;&#x770B;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x3002;</p>
+<h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x67E5;&#x770B;log&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2018-01-15 11:37:52,314 INFO org.apache.hadoop.hdfs.server.datanode.DataNode: STARTUP_MSG:</div><div class="line">/************************************************************</div><div class="line">STARTUP_MSG: Starting DataNode</div><div class="line">...&#xFF08;&#x5185;&#x5BB9;&#x592A;&#x957F;&#xFF0C;&#x7565;&#xFF09;</div></pre></td></tr></table></figure>
+<p>&#x786E;&#x5B9E;&#x6253;&#x5370;&#x4E86;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x641E;&#x5B9A;&#x3002;</p>
+<blockquote>
+<p>&#x5982;&#x679C;&#x540C;&#x65F6;&#x8C03;&#x8BD5;&#x591A;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x6CE8;&#x610F;&#x8BBE;&#x7F6E;&#x4E0D;&#x540C;&#x7684;&#x7AEF;&#x53E3;</p>
+</blockquote>
+<h1 id="&#x591A;&#x7EBF;&#x7A0B;debug"><a href="#&#x591A;&#x7EBF;&#x7A0B;debug" class="headerlink" title="&#x591A;&#x7EBF;&#x7A0B;debug"></a>&#x591A;&#x7EBF;&#x7A0B;debug</h1><blockquote>
+<p>Hadoop&#x4E2D;&#x6709;&#x5927;&#x91CF;&#x4F18;&#x79C0;&#x7684;&#x5E76;&#x53D1;&#x8BBE;&#x8BA1;&#xFF0C;&#x591A;&#x7EBF;&#x7A0B;debug&#x5FC5;&#x4E0D;&#x53EF;&#x5C11;&#x3002;</p>
+</blockquote>
+<p>IDEA&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x9ED8;&#x8BA4;&#x53EA;&#x80FD;&#x76D1;&#x63A7;&#x524D;&#x53F0;&#x7EBF;&#x7A0B;&#xFF08;&#x4E00;&#x822C;&#x662F;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF09;&#xFF0C;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x65AD;&#x70B9;&#x90FD;&#x4F1A;&#x5FFD;&#x7565;&#xFF0C;&#x65E0;&#x6CD5;&#x8C03;&#x8BD5;&#x591A;&#x7EBF;&#x7A0B;&#x4EE3;&#x7801;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;IDEA&#x3001;Eclipse&#x7B49;&#x672C;&#x8EAB;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#xFF0C;&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;&#x5373;&#x53EF;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x4ECD;&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;datanode&#x6E90;&#x7801;&#x4E3A;&#x4F8B;&#xFF0C;&#x770B;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x591A;&#x7EBF;&#x7A0B;debug&#x3002;</p>
+<h2 id="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"><a href="#&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;" class="headerlink" title="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"></a>&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;</h2><p>&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;&#x4E3A;&#x201C;All&#x201D;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png" alt="&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png"></p>
+<p>&#x6539;&#x4E3A;Thread&#xFF0C;&#x5E76;&#x70B9;&#x51FB;&#x201C;Make Default&#x201D;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/Thread&#x6A21;&#x5F0F;.png" alt="Thread&#x6A21;&#x5F0F;.png"></p>
+<p>&#x8FD9;&#x6837;&#x4EE5;&#x540E;&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x5C31;&#x90FD;&#x662F;Thread&#x6A21;&#x5F0F;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#x4E86;&#x3002;</p>
+<h2 id="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1"><a href="#&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"></a>&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;</h2><blockquote>
+<p>&#x91CD;&#x65B0;&#x542F;&#x52A8;namenode&#x4E0E;datanode&#xFF0C;&#x8FDE;&#x63A5;&#x4E0A;datanode&#x3002;</p>
+</blockquote>
+<p>&#x6CBF;&#x7740;DataNode.secureMain()&#x627E;&#x5230;createDataNode-&gt;runDatanodeDaemon&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/runDatanodeDaemon.png" alt="runDatanodeDaemon.png"></p>
+<p>DataXceiver&#x8D1F;&#x8D23;datanode&#x7684;&#x7BA1;&#x9053;&#x6D41;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#xFF0C;&#x4EE5;&#x5B88;&#x62A4;&#x7EBF;&#x7A0B;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x5728;&#x3002;&#x4EE5;dataXceiverServer&#x4F8B;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;Runable&#x7C7B;&#x4E3A;DataXceiverServer&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/DataXceiverServer.png" alt="DataXceiverServer.png"></p>
+<h2 id="&#x5F00;&#x59CB;debug-1"><a href="#&#x5F00;&#x59CB;debug-1" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="main&#x7EBF;&#x7A0B;"><a href="#main&#x7EBF;&#x7A0B;" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x6267;&#x884C;&#x5230;DataNode&#x7C7B;&#x4E2D;&#x7684;2104&#x884C;<code>dataXceiverServer.start();</code>&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
+<p>&#x5982;&#x679C;F8&#x8DF3;&#x8FC7;&#x65AD;&#x70B9;&#xFF0C;dataXceiverServer&#x5C31;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#xFF0C;&#x7EE7;&#x800C;&#x505C;&#x5728;&#x7C7B;&#x4E2D;&#x7684;133&#x884C;<code>while (datanode.shouldRun &amp;&amp; !datanode.shutdownForUpgrade) {</code>&#x3002;F8&#x540E;&#xFF0C;&#x89C2;&#x5BDF;&#x76EE;&#x524D;&#x6709;&#x54EA;&#x4E9B;&#x7EBF;&#x7A0B;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png" alt="main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png"></p>
+<p>&#x6CE8;&#x610F;&#x5230;&#xFF0C;&#x5E95;&#x90E8;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x901A;&#x77E5;&#xFF1A;dataXceiverServer&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x4E86;&#x65AD;&#x70B9;&#x3002;</p>
+<h3 id="dataXceiverServer&#x7EBF;&#x7A0B;"><a href="#dataXceiverServer&#x7EBF;&#x7A0B;" class="headerlink" title="dataXceiverServer&#x7EBF;&#x7A0B;"></a>dataXceiverServer&#x7EBF;&#x7A0B;</h3><p>main&#x7EBF;&#x7A0B;&#x653E;&#x7740;&#xFF0C;&#x5207;&#x6362;&#x5230;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png"></p>
+<blockquote>
+<p>&#x56FE;&#x6807;&#x4E3A;&#x201C;&#x7EA2;&#x70B9;+&#x5BF9;&#x52FE;&#x201D;&#x7684;&#x662F;&#x6B63;&#x5E38;debug&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5176;&#x4ED6;&#x56FE;&#x6807;&#x53EA;&#x6709;&#x201C;&#x7EA2;&#x70B9;&#x201D;&#x7684;&#x662F;&#x540E;&#x53F0;&#x505C;&#x5728;&#x65AD;&#x70B9;&#x4E0A;&#x7684;&#x7EBF;&#x7A0B;&#x3002;</p>
+</blockquote>
+<p>&#x5207;&#x6362;&#x540E;&#xFF0C;IDEA&#x4F1A;&#x81EA;&#x52A8;&#x5230;&#x5207;&#x6362;&#x5BF9;&#x5E94;&#x7EBF;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png"></p>
+<p>&#x76F8;&#x5E94;&#x81EA;&#x52A8;&#x8DF3;&#x5230;&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x4F4D;&#x7F6E;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
+<p>&#x6B64;&#x65F6;&#xFF0C;debug&#x64CD;&#x4F5C;&#x90FD;&#x4F1A;&#x4F5C;&#x7528;&#x5230;&#x5F53;&#x524D;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#x4E0A;&#xFF0C;&#x5373;&#x53EA;&#x5F71;&#x54CD;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;main&#x7EBF;&#x7A0B;&#x4FDD;&#x6301;&#x7B49;&#x5F85;&#xFF08;&#x56E0;&#x4E3A;&#x521A;&#x624D;&#x8BA9;main&#x7EBF;&#x7A0B;&#x4E5F;&#x505C;&#x5728;&#x4E86;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#x4E0A;&#xFF09;&#x3002;</p>
+<p>F8&#xFF0C;&#x6267;&#x884C;&#x5230;accept&#x4E00;&#x884C;&#xFF0C;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x8FC7;&#x6765;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;hang&#x5728;&#x8FD9;&#x91CC;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png"></p>
+<h3 id="main&#x7EBF;&#x7A0B;-1"><a href="#main&#x7EBF;&#x7A0B;-1" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x518D;&#x5207;&#x6362;&#x56DE;main&#x7EBF;&#x7A0B;&#x3002;</p>
+<p>&#x865A;&#x62DF;&#x673A;&#x6808;&#x6062;&#x590D;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png" alt="main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png"></p>
+<p>&#x4EE3;&#x7801;&#x4E5F;&#x8FD8;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png" alt="main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png"></p>
+<p>F8&#x8DF3;&#x8FC7;2105&#x884C;&#x65AD;&#x70B9;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png" alt="main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png"></p>
+<p>main&#x7EBF;&#x7A0B;&#x4ECD;&#x80FD;&#x591F;&#x6B63;&#x5E38;debug&#x3002;</p>
+<blockquote>
+<p>&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x9001;&#x8FC7;&#x6765;&#x7684;&#x65F6;&#x5019;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;&#x6062;&#x590D;RUNNING&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x5728;&#x540E;&#x53F0;&#x9ED8;&#x9ED8;&#x6267;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x65AD;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x7528;&#x6237;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;debug&#x3002;</p>
+</blockquote>
+<p>&#x641E;&#x5B9A;&#x3002;</p>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://www.iteblog.com/archives/897.html" target="_blank" rel="external">Hadoop&#x6E90;&#x7801;&#x7F16;&#x8BD1;&#x4E0E;&#x8C03;&#x8BD5;</a></li>
+<li><a href="http://blog.csdn.net/fuzzytalker/article/details/50925218" target="_blank" rel="external">Idea Intellij&#x591A;&#x7EBF;&#x7A0B;&#x8C03;&#x8BD5;</a></li>
+</ul>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;#x53C2;&amp;#x8003;&lt;a href=&quot;/2018/01/15/Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;/&quot;&gt;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&lt;/a&gt;&amp;#x7F16;&amp;#x8BD1;&amp;#x597D;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x4E86;&amp;#x3002;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;#x5F53;&amp;#x7136;&amp;#xFF0C;&amp;#x672C;&amp;#x6587;&amp;#x4E0D;&amp;#x4EC5;&amp;#x9002;&amp;#x7528;&amp;#x4E8E;debug Hadoop&amp;#x6E90;&amp;#x7801;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x65E0;&amp;#x7F1D;&amp;#x8FC1;&amp;#x79FB;&amp;#x5230;&amp;#x5176;&amp;#x4ED6;&amp;#x6846;&amp;#x67B6;&amp;#x3002;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="猿工" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E5%B7%A5/"/>
+    
+      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
+    
+      <category term="IDEA" scheme="https://monkeysayhi.github.io/tags/IDEA/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac编译Hadoop源码</title>
@@ -97,9 +246,9 @@
     </summary>
     
     
-      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
     
       <category term="Mac" scheme="https://monkeysayhi.github.io/tags/Mac/"/>
     
@@ -138,11 +287,11 @@
     </summary>
     
     
-      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
     
       <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
     
@@ -206,11 +355,11 @@
     </summary>
     
     
-      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
     
       <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
     
@@ -381,9 +530,9 @@
     </summary>
     
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="分布式" scheme="https://monkeysayhi.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
@@ -456,11 +605,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -577,11 +726,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -914,11 +1063,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -1037,9 +1186,9 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -1139,9 +1288,9 @@
     </summary>
     
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="LintCode" scheme="https://monkeysayhi.github.io/tags/LintCode/"/>
     
@@ -1513,11 +1662,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -1569,11 +1718,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -1758,11 +1907,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -1830,11 +1979,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
   </entry>
   
@@ -2007,11 +2156,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="猿格" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E6%A0%BC/"/>
     
@@ -2179,11 +2328,11 @@
     </summary>
     
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="Linux" scheme="https://monkeysayhi.github.io/tags/Linux/"/>
     
@@ -2240,11 +2389,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="设计模式" scheme="https://monkeysayhi.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2357,113 +2506,11 @@
     
       <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
-  </entry>
-  
-  <entry>
-    <title>条件队列大法好：wait和notify的基本语义</title>
-    <link href="https://monkeysayhi.github.io/2017/11/15/%E6%9D%A1%E4%BB%B6%E9%98%9F%E5%88%97%E5%A4%A7%E6%B3%95%E5%A5%BD%EF%BC%9Await%E5%92%8Cnotify%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E4%B9%89/"/>
-    <id>https://monkeysayhi.github.io/2017/11/15/条件队列大法好：wait和notify的基本语义/</id>
-    <published>2017-11-15T15:15:56.000Z</published>
-    <updated>2017-12-18T00:19:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>&#x6761;&#x4EF6;&#x961F;&#x5217;&#x662F;&#x6211;&#x4EEC;&#x5E38;&#x7528;&#x7684;&#x8F7B;&#x91CF;&#x7EA7;&#x540C;&#x6B65;&#x673A;&#x5236;&#xFF0C;&#x4E5F;&#x88AB;&#x79F0;&#x4E3A;&#x201C;wait+notify&#x201D;&#x673A;&#x5236;&#x3002;&#x4F46;&#x5F88;&#x591A;&#x521A;&#x521A;&#x63A5;&#x89E6;&#x5E76;&#x53D1;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x80FD;&#x4F1A;&#x5BF9;wait&#x548C;notify&#x7684;&#x8BED;&#x4E49;&#x548C;&#x914D;&#x5408;&#x8FC7;&#x7A0B;&#x611F;&#x5230;&#x8FF7;&#x60D1;&#x3002;</p>
-<p>&#x4ECA;&#x5929;&#x4ECE;join()&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x5207;&#x5165;&#xFF0C;&#x91CD;&#x70B9;&#x8BB2;&#x89E3;wait()&#x65B9;&#x6CD5;&#x7684;&#x8BED;&#x4E49;&#xFF0C;&#x7B80;&#x7565;&#x63D0;&#x53CA;notify()&#x4E0E;notifyAll()&#x7684;&#x8BED;&#x4E49;&#xFF0C;&#x6700;&#x540E;&#x603B;&#x7ED3;&#x4E8C;&#x8005;&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;&#x3002;</p>
-<a id="more"></a>
-<blockquote>
-<p>&#x672C;&#x7BC7;&#x7684;&#x77E5;&#x8BC6;&#x70B9;&#x5F88;&#x6D45;&#xFF0C;&#x4F46;&#x7262;&#x56FA;&#x638C;&#x63E1;&#x5F88;&#x91CD;&#x8981;&#x3002;&#x540E;&#x9762;&#x4F1A;&#x518D;&#x5199;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x4ECB;&#x7ECD;wait+nofity&#x7684;&#x7528;&#x6CD5;&#xFF0C;&#x548C;&#x4F7F;&#x7528;&#x65F6;&#x7684;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#x3002;</p>
-</blockquote>
-<h1 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x57FA;&#x672C;&#x6982;&#x5FF5;</h1><h2 id="&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object"><a href="#&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object" class="headerlink" title="&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object"></a>&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object</h2><p>&#x5728;&#x7406;&#x89E3;&#x201C;wait+notify&#x201D;&#x673A;&#x5236;&#x65F6;&#xFF0C;&#x6CE8;&#x610F;&#x533A;&#x5206;&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x660E;&#x786E;&#x4E09;&#x8005;&#x5728;wait&#x3001; notify&#x3001;&#x9501;&#x7ADE;&#x4E89;&#x7B49;&#x4E8B;&#x4EF6;&#x4E2D;&#x5145;&#x5F53;&#x7684;&#x89D2;&#x8272;&#xFF1A;</p>
-<ul>
-<li>&#x7EBF;&#x7A0B;&#x6307;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;</li>
-<li>Thread&#x6307;Java&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x7C7B;</li>
-<li>Object&#x6307;Java&#x4E2D;&#x7684;&#x5BF9;&#x8C61;</li>
-</ul>
-<p>Thread&#x7EE7;&#x627F;&#x81EA;Object&#xFF0C;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF08;&#x591A;&#x6001;&#xFF09;&#xFF0C;&#x5E76;&#x4ECE;Object&#x7C7B;&#x4E2D;&#x7EE7;&#x627F;&#x5F97;&#x5230;&#x4E86;wait()&#x3001;notify()&#xFF08;&#x8FD8;&#x6709;notifyAll()&#xFF09;&#x65B9;&#x6CD5;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;Thread&#x4E5F;&#x88AB;JVM&#x7528;&#x4E8E;&#x6620;&#x5C04;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x3002;</p>
-<h1 id="wait"><a href="#wait" class="headerlink" title="wait()"></a>wait()</h1><h2 id="&#x8FF7;&#x60D1;&#x7684;join-&#x65B9;&#x6CD5;"><a href="#&#x8FF7;&#x60D1;&#x7684;join-&#x65B9;&#x6CD5;" class="headerlink" title="&#x8FF7;&#x60D1;&#x7684;join()&#x65B9;&#x6CD5;"></a>&#x8FF7;&#x60D1;&#x7684;join()&#x65B9;&#x6CD5;</h2><p>&#x901A;&#x8FC7;join()&#x65B9;&#x6CD5;&#x786E;&#x8BA4;&#x4F60;&#x662F;&#x5426;&#x7406;&#x89E3;&#x4E86;wait+notify&#x673A;&#x5236;&#xFF1A;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Thread f = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line">  <span class="meta">@Overide</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">    Thread s = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() {</div><div class="line">      <span class="meta">@Overide</span></div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : <span class="number">1000000</span>) {</div><div class="line">          sout(i);</div><div class="line">        }</div><div class="line">      }</div><div class="line">    });</div><div class="line">    s.start();</div><div class="line">    sout(<span class="string">&quot;************* son thread started *************&quot;</span>);</div><div class="line">    s.join();</div><div class="line">    sout(<span class="string">&quot;************* son thread died *************&quot;</span>);</div><div class="line">  }</div><div class="line">});</div><div class="line">f.start();</div></pre></td></tr></table></figure>
-<p>join()&#x65B9;&#x6CD5;&#x7684;&#x8BED;&#x4E49;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x4E25;&#x8C28;&#x7684;&#x8868;&#x8FF0;&#x4E3A;&#x201C;&#x8BA9;&#x7236;&#x7EBF;&#x7A0B;&#x7B49;&#x5F85;&#x5B50;&#x7EBF;&#x7A0B;&#x9000;&#x51FA;&#x201D;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x6765;&#x89C2;&#x5BDF;Thread#join()&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x8BA9;&#x4F60;&#x5BF9;&#x8FD9;&#x4E2A;&#x8BED;&#x4E49;&#x4EA7;&#x751F;&#x8FF7;&#x60D1;&#xFF1A;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">join</span><span class="params">(<span class="keyword">long</span> millis)</span></span></div><div class="line"><span class="keyword">throws</span> InterruptedException {</div><div class="line">    <span class="keyword">long</span> base = System.currentTimeMillis();</div><div class="line">    <span class="keyword">long</span> now = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (millis &lt; <span class="number">0</span>) {</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;timeout value is negative&quot;</span>);</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (millis == <span class="number">0</span>) {</div><div class="line">        <span class="keyword">while</span> (isAlive()) {</div><div class="line">            wait(<span class="number">0</span>);</div><div class="line">        }</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">        <span class="keyword">while</span> (isAlive()) {</div><div class="line">            <span class="keyword">long</span> delay = millis - now;</div><div class="line">            <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) {</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            }</div><div class="line">            wait(delay);</div><div class="line">            now = System.currentTimeMillis() - base;</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
-<p>&#x91CD;&#x70B9;&#x770B;15-22&#x884C;&#x3002;&#x903B;&#x8F91;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x4E00;&#x4E2A;&#x9650;&#x65F6;&#x963B;&#x585E;&#x7684;&#x7ECF;&#x5178;&#x5199;&#x6CD5;&#x3002;&#x4E0D;&#x8FC7;&#xFF0C;&#x4F60;&#x53EF;&#x80FD;&#x4F1A;&#x4EA7;&#x751F;&#x548C;&#x6211;&#x4E00;&#x6837;&#x7684;&#x8FF7;&#x60D1;&#xFF1A;</p>
-<p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x8C03;&#x7528;&#x5B50;&#x7EBF;&#x7A0B;&#x7684;wait()&#x65B9;&#x6CD5;&#xFF0C;&#x8FDB;&#x5165;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#x7684;&#x5374;&#x662F;&#x7236;&#x7EBF;&#x7A0B;&#x5462;&#xFF1F;</strong></p>
-<h2 id="&#x5206;&#x6790;"><a href="#&#x5206;&#x6790;" class="headerlink" title="&#x5206;&#x6790;"></a>&#x5206;&#x6790;</h2><p>&#x8BA9;&#x6211;&#x4EEC;&#x7528;&#x524D;&#x9762;&#x63D0;&#x5230;&#x7684;&#x7EBF;&#x7A0B;&#x3001;Thread&#x548C;Object&#x4E09;&#x4E2A;&#x6982;&#x5FF5;&#x6765;&#x89E3;&#x91CA;&#x8FD9;&#x6BB5;&#x4EE3;&#x7801;&#x3002;&#x4E8B;&#x4EF6;&#x5E8F;&#x5217;&#x5982;&#x4E0B;&#xFF1A;</p>
-<ol>
-<li>&#x4E3B;&#x7EBF;&#x7A0B;t0&#x6267;&#x884C;1-17&#x884C;&#xFF0C;&#x5728;Java&#x4E2D;&#x521B;&#x5EFA;&#x4E86;Thread&#x5B9E;&#x4F8B;f&#xFF0C;&#x5904;&#x4E8E;NEW&#x72B6;&#x6001;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;f&#x4E5F;&#x662F;&#x4E00;&#x4E2A;Object&#x5B9E;&#x4F8B;</li>
-</ol>
-<ul>
-<li>&#x4E3B;&#x7EBF;&#x7A0B;t0&#x6267;&#x884C;18&#x884C;&#x540E;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;&#x7EBF;&#x7A0B;t1&#xFF0C;Thread&#x5B9E;&#x4F8B;f&#x8F6C;&#x5165;RUNNABLE&#x72B6;&#x6001;&#xFF08;Java&#x4E2D;&#xFF0C;Thread&#x6CA1;&#x6709;RUN&#x72B6;&#x6001;&#xFF0C;&#x56E0;&#x4E3A;&#x7EBF;&#x7A0B;&#x662F;&#x5426;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7531;JVM&#x4E4B;&#x5916;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x51B3;&#x5B9A;&#xFF09;</li>
-<li>&#x5047;&#x8BBE;&#x7EBF;&#x7A0B;t1&#x6B63;&#x5728;&#x6267;&#x884C;&#xFF0C;&#x5219;&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;4-11&#x884C;&#xFF0C;&#x5728;Java&#x4E2D;&#x521B;&#x5EFA;&#x4E86;Thread&#x5B9E;&#x4F8B;s&#xFF0C;&#x5904;&#x4E8E;NEW&#x72B6;&#x6001;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;s&#x4E5F;&#x662F;&#x4E00;&#x4E2A;Object&#x5B9E;&#x4F8B;</li>
-<li>&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;12&#x884C;&#x540E;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x521B;&#x5EFA;&#x4E86;&#x7EBF;&#x7A0B;t2&#xFF0C;Thread&#x5B9E;&#x4F8B;s&#x8F6C;&#x5165;RUNNABLE&#x72B6;&#x6001;</li>
-<li>&#x5047;&#x8BBE;&#x7EBF;&#x7A0B;t1&#x3001;t2&#x5747;&#x6B63;&#x5728;&#x6267;&#x884C;&#xFF0C;&#x5219;&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;12&#x884C;&#x4E4B;&#x540E;&#x3001;14&#x884C;&#x4E4B;&#x524D;&#xFF0C;&#x53EF;&#x80FD;&#x7EBF;&#x7A0B;t1&#x4E0E;&#x7EBF;&#x7A0B;t2&#x540C;&#x65F6;&#x5728;&#x5411;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x6253;&#x5370;&#x5185;&#x5BB9;&#xFF08;t1&#x6267;&#x884C;13&#x884C;&#xFF0C;t2&#x6267;&#x884C;7-9&#x884C;&#xFF09;</li>
-<li>&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;14&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;<strong>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;t1&#x8F6C;&#x5165;&#x963B;&#x585E;&#x6216;&#x7B49;&#x5F85;&#x72B6;&#x6001;</strong>&#xFF08;&#x53D6;&#x51B3;&#x4E8E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x5B9E;&#x73B0;&#xFF09;&#xFF0C;<strong>Thread&#x5B9E;&#x4F8B;f&#x8F6C;&#x5165;TIMED_WAITING&#x72B6;&#x6001;</strong>&#xFF0C;<strong>Thread&#x5B9E;&#x4F8B;s&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#xFF0C;&#x4ECD;&#x5904;&#x4E8E;RUNNABLE&#x72B6;&#x6001;</strong></li>
-<li>&#x7EBF;&#x7A0B;t2&#x6B7B;&#x4EA1;&#x540E;&#xFF0C;&#x88AB;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6807;&#x8BB0;&#x4E3A;&#x6B7B;&#x4EA1;&#xFF0C;Thread&#x5B9E;&#x4F8B;s&#x8F6C;&#x5165;&#x4E3A;TERMINATED&#x72B6;&#x6001;</li>
-<li>&#x7EBF;&#x7A0B;t1&#x4E2D;&#xFF0C;Thread&#x5B9E;&#x4F8B;f&#x53D1;&#x73B0;Thread&#x5B9E;&#x4F8B;s&#x4E0D;&#x518D;&#x5B58;&#x6D3B;&#xFF0C;&#x968F;&#x5373;&#x8F6C;&#x5165;RUNNABLE&#x72B6;&#x6001;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;t1&#x8F6C;&#x5165;&#x8FD0;&#x884C;&#x72B6;&#x6001;</li>
-<li>&#x7EBF;&#x7A0B;t1&#x4ECE;14&#x884C;<code>s.join()</code>&#x8FD4;&#x56DE;&#xFF0C;&#x6267;&#x884C;15&#x884C;&#xFF0C;&#x6253;&#x5370;</li>
-<li>&#x6700;&#x540E;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x6B7B;&#x4EA1;&#xFF0C;Thread&#x5B9E;&#x4F8B;&#x4E5F;&#x8F6C;&#x5165;&#x4E86;TERMINATED&#x72B6;&#x6001;</li>
-</ul>
-<blockquote>
-<p>&#x5F53;&#x7136;&#xFF0C;&#x5728;&#x4E8B;&#x4EF6;6&#xFF08;&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;14&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF09;&#xFF0C;Thread&#x5B9E;&#x4F8B;f&#x5728;TIMED_WAITING&#x72B6;&#x6001;&#x4E0E;RUNNABLE&#x72B6;&#x6001;&#x4E4B;&#x95F4;&#x6765;&#x56DE;&#x8F6C;&#x6362;&#xFF0C;&#x4E5F;&#x56E0;&#x6B64;&#xFF0C;&#x624D;&#x80FD;&#x53D1;&#x73B0;Thread&#x5B9E;&#x4F8B;s&#x4E0D;&#x518D;&#x5B58;&#x6D3B;&#x3002;&#x4F46;&#x53EF;&#x5FFD;&#x7565;RUNNABLE&#x72B6;&#x6001;&#xFF0C;&#x4E0D;&#x5F71;&#x54CD;&#x7406;&#x89E3;&#x3002;</p>
-</blockquote>
-<p>&#x4E0A;&#x4E00;&#x8282;&#x63D0;&#x51FA;&#x7684;&#x95EE;&#x9898;&#x5FFD;&#x7565;&#x4E86;&#x7EBF;&#x7A0B;&#x3001;Thread&#x4E0E;Object&#x7684;&#x533A;&#x522B;&#x3002;&#x73B0;&#x5728;&#xFF0C;&#x8010;&#x5FC3;&#x5206;&#x6790;&#x8FC7;&#x4E8B;&#x4EF6;&#x5E8F;&#x5217;&#x4E4B;&#x540E;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x8FD9;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x91CD;&#x65B0;&#x8868;&#x8FF0;&#x8BE5;&#x95EE;&#x9898;&#xFF1A;</p>
-<p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x5728;&#x7236;&#x7EBF;&#x7A0B;t1&#x4E2D;&#x8C03;&#x7528;s.join()&#xFF0C;&#x8FDB;&#x800C;&#x8C03;&#x7528;s.wait()&#xFF0C;&#x8FDB;&#x5165;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#x7684;&#x5374;&#x662F;Thread&#x5B9E;&#x4F8B;f&#x5BF9;&#x5E94;&#x7684;&#x7236;&#x7EBF;&#x7A0B;t1&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5B50;&#x7EBF;&#x7A0B;t2&#x5462;&#xFF1F;</strong></p>
-<p>&#x8BE5;&#x8868;&#x8FF0;&#x540C;&#x65F6;&#x4E5F;&#x662F;&#x56DE;&#x7B54;&#x3002;&#x56E0;&#x4E3A;wait()&#x5F71;&#x54CD;&#x7684;&#x662F;&#x8C03;&#x7528;wait()&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x662F;wait()&#x6240;&#x5C5E;&#x7684;Object&#x5B9E;&#x4F8B;&#x3002;&#x5177;&#x4F53;&#x8BF4;&#xFF0C;wait()&#x7684;&#x8BED;&#x4E49;&#x662F;&#x201C;<strong>&#x5C06;&#x8C03;&#x7528;s.wait()&#x7684;&#x7EBF;&#x7A0B;t1&#x653E;&#x5165;Object&#x5B9E;&#x4F8B;s&#x7684;&#x7B49;&#x5F85;&#x96C6;&#x5408;</strong>&#x201D;&#x3002;&#x8FD9;&#x4E0E;s&#x662F;&#x5426;&#x540C;&#x65F6;&#x662F;Thread&#x5B9E;&#x4F8B;&#x5E76;&#x65E0;&#x5173;&#x7CFB;&#x2014;&#x2014;&#x5982;&#x679C;s&#x6070;&#x597D;&#x662F;&#x4E00;&#x4E2A;Thread&#x5B9E;&#x4F8B;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x7EBF;&#x7A0B;t2&#x53EF;&#x4EE5;&#x7167;&#x5E38;&#x8FD0;&#x884C;&#xFF0C;&#x6BEB;&#x65E0;&#x5F71;&#x54CD;&#x3002;</p>
-<p>&#x867D;&#x7136;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x4E0E;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4E0D;&#x80FD;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x4F46;&#x7528;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4EE3;&#x66FF;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x7684;&#x6A21;&#x578B;&#xFF0C;&#x53C8;&#x4E0D;&#x5F71;&#x54CD;&#x6838;&#x5FC3;&#x7684;&#x6B63;&#x786E;&#x6027;&#x3002;&#x5728;&#x4E8B;&#x4EF6;6&#xFF08;&#x7EBF;&#x7A0B;t1&#x6267;&#x884C;14&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF09;&#x4E2D;&#xFF0C;&#x5404;&#x89D2;&#x8272;&#x7684;&#x5173;&#x7CFB;&#x5982;&#x56FE;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
-<h2 id="&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;"><a href="#&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;" class="headerlink" title="&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;"></a>&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x7684;&#x7528;&#x6CD5;</h2><blockquote>
-<p>&#x6211;&#x4EEC;&#x4E4B;&#x6240;&#x4EE5;&#x4F1A;&#x5728;join()&#x65B9;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#x4E0A;&#x4EA7;&#x751F;&#x56F0;&#x60D1;&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x4EE5;&#x4E00;&#x79CD;&#x96BE;&#x4EE5;&#x7406;&#x89E3;&#x7684;&#x59FF;&#x52BF;&#x4F7F;&#x7528;wait+notify&#x673A;&#x5236;&#x3002;</p>
-</blockquote>
-<p>wait+notify&#x673A;&#x5236;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x79CD;&#x57FA;&#x4E8E;<code>&#x6761;&#x4EF6;&#x961F;&#x5217;</code>&#x7684;&#x540C;&#x6B65;&#x3002;JVM&#x4E3A;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x90FD;&#x5185;&#x7F6E;&#x4E86;&#x76D1;&#x89C6;&#x5668;&#xFF0C;&#x4E0E;java.util.concurrent&#x5305;&#x4E2D;&#x7684;&#x6761;&#x4EF6;&#x961F;&#x5217;Condition&#x5BF9;&#x5E94;&#x3002;</p>
-<p>&#x6761;&#x4EF6;&#x961F;&#x5217;&#x672C;&#x8EAB;&#x5F88;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF0C;&#x4F46;join()&#x65B9;&#x6CD5;&#x4F7F;&#x7528;wait()&#x7684;&#x59FF;&#x52BF;&#x8BA9;&#x4EBA;&#x8FF7;&#x60D1;&#x3002;<strong>&#x5B83;&#x5C06;Thread&#x5B9E;&#x4F8B;s&#x4F5C;&#x4E3A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF0C;&#x5171;&#x4EAB;&#x4E8E;&#x7236;&#x7EBF;&#x7A0B;t1&#x3001;&#x5B50;&#x7EBF;&#x7A0B;t2&#x4E2D;</strong>&#x2014;&#x2014;Thread&#x5B9E;&#x4F8B;s&#x65E2;&#x80FD;&#x591F;&#x88AB;&#x521B;&#x5EFA;&#x5B83;&#x7684;Thread&#x5B9E;&#x4F8B;f&#x8BBF;&#x95EE;&#xFF0C;&#x4E5F;&#x80FD;&#x591F;&#x88AB;&#x5B83;&#x81EA;&#x5DF1;(this)&#x8BBF;&#x95EE;&#x3002;&#x53EF;&#x8BFB;&#x6027;&#x5F88;&#x5DEE;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x5B66;&#x4E60;&#x3002;</p>
-<p>&#x90A3;&#x4E48;&#xFF0C;&#x5982;&#x4F55;&#x4F7F;&#x7528;wait()&#x624D;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x5462;&#xFF1F;&#x53EF;&#x53C2;&#x8003;<a href="/2017/10/08/Java&#x5B9E;&#x73B0;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;/">Java&#x5B9E;&#x73B0;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</a>&#x4E2D;&#x7684;&#x201C;&#x5B9E;&#x73B0;&#x4E8C;&#xFF1A;wait &amp;&amp; notify&#x201D;&#xFF0C;&#x4F7F;&#x7528;&#x660E;&#x786E;&#x53EF;&#x8BFB;&#x7684;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x3002;&#x7B80;&#x5316;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WaitNotifyModel</span> <span class="keyword">implements</span> <span class="title">Model</span> </span>{</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Object BUFFER_LOCK = <span class="keyword">new</span> Object();</div><div class="line">...</div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractConsumer</span> <span class="keyword">implements</span> <span class="title">Consumer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="keyword">synchronized</span> (BUFFER_LOCK) {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == <span class="number">0</span>) {</div><div class="line">          BUFFER_LOCK.wait();</div><div class="line">        }</div><div class="line">        Task task = buffer.poll();</div><div class="line">        <span class="keyword">assert</span> task != <span class="keyword">null</span>;</div><div class="line">        System.out.println(<span class="string">&quot;consume: &quot;</span> + task.no);</div><div class="line">        BUFFER_LOCK.notifyAll();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerImpl</span> <span class="keyword">extends</span> <span class="title">AbstractProducer</span> <span class="keyword">implements</span> <span class="title">Producer</span>, <span class="title">Runnable</span> </span>{</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produce</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>{</div><div class="line">      <span class="keyword">synchronized</span> (BUFFER_LOCK) {</div><div class="line">        <span class="keyword">while</span> (buffer.size() == cap) {</div><div class="line">          BUFFER_LOCK.wait();</div><div class="line">        }</div><div class="line">        Task task = <span class="keyword">new</span> Task(increTaskNo.getAndIncrement());</div><div class="line">        buffer.offer(task);</div><div class="line">        System.out.println(<span class="string">&quot;produce: &quot;</span> + task.no);</div><div class="line">        BUFFER_LOCK.notifyAll();</div><div class="line">      }</div><div class="line">    }</div><div class="line">  }</div><div class="line">...</div><div class="line">}</div></pre></td></tr></table></figure>
-<p><code>BUFFER_LOCK</code>&#x5373;&#x662F;&#x5185;&#x7F6E;&#x7684;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x3002;&#x6240;&#x6709;&#x751F;&#x4EA7;&#x8005;&#x7EBF;&#x7A0B;&#x548C;&#x6D88;&#x8D39;&#x8005;&#x7EBF;&#x7A0B;&#x90FD;&#x5171;&#x4EAB;<code>BUFFER_LOCK</code>&#xFF0C;&#x901A;&#x8FC7;<code>BUFFER_LOCK</code>&#x7684;wait+notify&#x673A;&#x5236;&#x5B9E;&#x73B0;&#x540C;&#x6B65;&#x3002;</p>
-<blockquote>
-<ul>
-<li>notify()&#x548C;notifyAll()&#x63A5;&#x4E0B;&#x6765;&#x8BB2;&#x3002;</li>
-<li>&#x4E4B;&#x6240;&#x4EE5;&#x547D;&#x540D;&#x4E3A;<code>BUFFER_LOCK</code>&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x540C;&#x65F6;&#x8FD8;&#x8981;&#x5728;&#x5C06;<code>BUFFER_LOCK</code>&#x4F5C;&#x4E3A;&#x5185;&#x7F6E;&#x9501;&#x6765;&#x4F7F;&#x7528;&#x3002;&#x547D;&#x540D;&#x4E3A;<code>BUFFER_LOCK</code>&#x6216;<code>BUFFER_COND</code>&#x90FD;&#x662F;&#x53EF;&#x63A5;&#x53D7;&#x7684;&#x3002;</li>
-</ul>
-</blockquote>
-<h1 id="notify-&#x4E0E;notifyAll"><a href="#notify-&#x4E0E;notifyAll" class="headerlink" title="notify()&#x4E0E;notifyAll()"></a>notify()&#x4E0E;notifyAll()</h1><p>&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;notify&#x4E0E;wait&#x662F;&#x5BF9;&#x5076;&#x7684;&#x3002;<strong>s.wait()&#x5C06;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;c&#x653E;&#x5165;Object&#x5B9E;&#x4F8B;s&#x7684;&#x7B49;&#x5F85;&#x96C6;&#x5408;&#x4E2D;&#xFF0C;s.notify()&#x968F;&#x673A;&#x5C06;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;t&#x4ECE;s&#x7684;&#x7B49;&#x5F85;&#x96C6;&#x5408;&#x4E2D;&#x53D6;&#x51FA;&#x6765;</strong>&#xFF08;&#x4E5F;&#x53EF;&#x80FD;&#x4E0D;&#x662F;&#x968F;&#x673A;&#x7684;&#xFF0C;&#x8FD9;&#x53D6;&#x51B3;&#x4E8E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x5B9E;&#x73B0;&#x3002;&#x4F46;&#x5F88;&#x660E;&#x663E;JVM&#x7684;&#x4F7F;&#x7528;&#x8005;&#x4E0D;&#x5E94;&#x8BE5;&#x4F9D;&#x8D56;&#x5176;&#x662F;&#x5426;&#x968F;&#x673A;&#xFF09;&#x3002;&#x5982;&#x679C;s&#x7684;&#x7B49;&#x5F85;&#x96C6;&#x5408;&#x4E2D;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x90A3;&#x4E48;t&#x53EF;&#x80FD;&#x662F;&#x521A;&#x624D;&#x653E;&#x5165;&#x7684;&#x7EBF;&#x7A0B;c&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x662F;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x3002;</p>
-<p>&#x867D;&#x7136;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x8BF4;&#x201C;wait+notify&#x201D;&#x673A;&#x5236;&#xFF0C;&#x4F46;&#x662F;&#x4F7F;&#x7528;&#x66F4;&#x591A;&#x7684;&#x662F;notifyAll()&#x800C;&#x4E0D;&#x662F;notify()&#x3002;&#x56E0;&#x4E3A;notify()&#x53EA;&#x80FD;&#x5524;&#x9192;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x901A;&#x5E38;&#x662F;&#x968F;&#x673A;&#x7684;&#x2014;&#x2014;&#x800C;<strong>&#x88AB;&#x5524;&#x9192;&#x7EBF;&#x7A0B;&#x6240;&#x7B49;&#x5F85;&#x7684;&#x6761;&#x4EF6;&#x4E0D;&#x4E00;&#x5B9A;&#x5DF2;&#x7ECF;&#x88AB;&#x6EE1;&#x8DB3;&#xFF08;&#x56E0;&#x4E3A;&#x591A;&#x4E2A;&#x6761;&#x4EF6;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x4E2A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF09;&#xFF0C;&#x4ECE;&#x800C;&#x4F1A;&#x518D;&#x6B21;&#x8FDB;&#x5165;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#xFF1B;&#x771F;&#x6B63;&#x6EE1;&#x8DB3;&#x4E86;&#x6761;&#x4EF6;&#x7684;&#x7EBF;&#x7A0B;&#x5374;&#x56E0;&#x4E3A;&#x6CA1;&#x88AB;&#x9009;&#x4E2D;&#x800C;&#x7EE7;&#x7EED;&#x7B49;&#x5F85;</strong>&#x3002;&#x8FD9;&#x7C7B;&#x4F3C;&#x4E8E;&#x201C;&#x4FE1;&#x53F7;&#x4E22;&#x5931;&#x201D;&#xFF0C;&#x53EF;&#x4EE5;&#x79F0;&#x4E3A;<code>&#x4FE1;&#x53F7;&#x52AB;&#x6301;</code>&#x3002;</p>
-<p>notifyAll()&#x5219;&#x4E00;&#x6B21;&#x5524;&#x9192;&#x5168;&#x90E8;&#x7B49;&#x5F85;&#x5728;&#x8BE5;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x4E0A;&#x7684;&#x7EBF;&#x7A0B;&#x3002;&#x867D;&#x7136;notifyAll()&#x89E3;&#x51B3;&#x4E86;&#x201C;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x201D;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4F46;&#x4E00;&#x6B21;&#x6027;&#x5524;&#x9192;&#x5168;&#x90E8;&#x7EBF;&#x7A0B;&#x53BB;&#x7ADE;&#x4E89;&#x9501;&#xFF0C;&#x4E5F;&#x5927;&#x5927;&#x52A0;&#x5267;&#x4E86;<code>&#x65E0;&#x6548;&#x7ADE;&#x4E89;</code>&#x3002;</p>
-<h2 id="&#x5173;&#x4E8E;notify-&#x4E0E;notifyAll-&#x7684;&#x81EA;&#x95EE;&#x81EA;&#x7B54;"><a href="#&#x5173;&#x4E8E;notify-&#x4E0E;notifyAll-&#x7684;&#x81EA;&#x95EE;&#x81EA;&#x7B54;" class="headerlink" title="&#x5173;&#x4E8E;notify()&#x4E0E;notifyAll()&#x7684;&#x81EA;&#x95EE;&#x81EA;&#x7B54;"></a>&#x5173;&#x4E8E;notify()&#x4E0E;notifyAll()&#x7684;&#x81EA;&#x95EE;&#x81EA;&#x7B54;</h2><h3 id="&#x5982;&#x4F55;&#x540C;&#x65F6;&#x89E3;&#x51B3;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x4E0E;&#x65E0;&#x6548;&#x7ADE;&#x4E89;&#xFF1F;"><a href="#&#x5982;&#x4F55;&#x540C;&#x65F6;&#x89E3;&#x51B3;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x4E0E;&#x65E0;&#x6548;&#x7ADE;&#x4E89;&#xFF1F;" class="headerlink" title="&#x5982;&#x4F55;&#x540C;&#x65F6;&#x89E3;&#x51B3;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x4E0E;&#x65E0;&#x6548;&#x7ADE;&#x4E89;&#xFF1F;"></a>&#x5982;&#x4F55;&#x540C;&#x65F6;&#x89E3;&#x51B3;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x4E0E;&#x65E0;&#x6548;&#x7ADE;&#x4E89;&#xFF1F;</h3><p>&#x4E0D;&#x8FC7;&#xFF0C;&#x53EA;&#x8981;&#x4FDD;&#x8BC1;notify()&#x6BCF;&#x6B21;&#x90FD;&#x80FD;&#x53EB;&#x9192;&#x6B63;&#x786E;&#x7684;&#x4EBA;&#xFF0C;&#x5C31;&#x80FD;&#x5728;&#x89E3;&#x51B3;&#x4FE1;&#x53F7;&#x52AB;&#x6301;&#x7684;&#x524D;&#x63D0;&#x4E0B;&#xFF0C;&#x907F;&#x514D;&#x65E0;&#x6548;&#x7ADE;&#x4E89;&#x3002;&#x65B9;&#x6CD5;&#x5F88;&#x7B80;&#x5355;&#xFF0C;<strong>&#x7981;&#x6B62;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x7EBF;&#x7A0B;&#x5171;&#x7528;&#x6761;&#x4EF6;&#x961F;&#x5217;</strong>&#xFF1A;</p>
-<ul>
-<li>&#x4E00;&#x4E2A;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x53EA;&#x7528;&#x6765;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;&#x6761;&#x4EF6;</li>
-<li>&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x88AB;&#x5524;&#x9192;&#x540E;&#x6267;&#x884C;&#x7684;&#x64CD;&#x4F5C;&#x76F8;&#x540C;</li>
-</ul>
-<h3 id="&#x4F7F;&#x7528;join-&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;notify-&#x6216;notifyAll-&#xFF0C;&#x5982;&#x4F55;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1F;"><a href="#&#x4F7F;&#x7528;join-&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;notify-&#x6216;notifyAll-&#xFF0C;&#x5982;&#x4F55;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1F;" class="headerlink" title="&#x4F7F;&#x7528;join()&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;notify()&#x6216;notifyAll()&#xFF0C;&#x5982;&#x4F55;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1F;"></a>&#x4F7F;&#x7528;join()&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;notify()&#x6216;notifyAll()&#xFF0C;&#x5982;&#x4F55;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1F;</h3><p>&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x7406;&#x89E3;&#xFF0C;&#x524D;&#x9762;&#x4E8B;&#x4EF6;8&#xFF08;&#x7EBF;&#x7A0B;t1&#x4E2D;&#xFF0C;Thread&#x5B9E;&#x4F8B;f&#x53D1;&#x73B0;Thread&#x5B9E;&#x4F8B;s&#x4E0D;&#x518D;&#x5B58;&#x6D3B;&#xFF09;&#x91C7;&#x7528;&#x4E86;&#x4E0D;&#x6B63;&#x786E;&#x7684;&#x63CF;&#x8FF0;&#x3002;&#x5728;<strong>&#x4E8B;&#x4EF6;8&#x4E4B;&#x524D;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x5DF2;&#x7ECF;&#x5904;&#x4E8E;&#x963B;&#x585E;&#x72B6;&#x6001;&#xFF0C;&#x4ECE;&#x800C;Thread&#x5B9E;&#x4F8B;f&#x65E0;&#x6CD5;&#x53D1;&#x73B0;s&#x662F;&#x5426;&#x4E0D;&#x518D;&#x5B58;&#x6D3B;</strong>&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x4F7F;&#x7528;join()&#x65B9;&#x6CD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;notify()&#x6216;notifyAll()&#xFF0C;&#x5982;&#x4F55;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1F;</p>
-<p><strong>&#x5728;&#x7EBF;&#x7A0B;t1&#x6B7B;&#x4EA1;&#x7684;&#x65F6;&#x5019;&#xFF0C;JVM&#x4F1A;&#x5E2E;&#x5FD9;&#x8C03;&#x7528;s.notifyAll()</strong>&#xFF08;&#x6216;&#x975E;&#x6B63;&#x5E38;&#x6B7B;&#x4EA1;&#x65F6;&#x629B;&#x51FA;InterruptedException&#xFF09;&#xFF0C;&#x4EE5;&#x5524;&#x9192;&#x7EBF;&#x7A0B;t1&#xFF1B;t1&#x4E2D;&#x505A;&#x5224;&#x65AD;&#xFF0C;&#x53D1;&#x73B0;s&#x4E0D;&#x518D;&#x5B58;&#x6D3B;&#xFF0C;&#x4FBF;&#x80FD;&#x591F;&#x6B63;&#x5E38;&#x53EA;&#x662F;&#x540E;&#x9762;&#x7684;&#x903B;&#x8F91;&#x3002;</p>
-<p><strong>&#x8FD9;&#x662F;&#x5FC5;&#x8981;&#x7684;</strong>&#x3002;&#x5047;&#x8BBE;JVM&#x4E0D;&#x4F1A;&#x5E2E;&#x5FD9;&#xFF08;&#x8C03;&#x7528;s.notifyAll()&#x6216;&#x629B;&#x51FA;InterruptedException&#xFF09;&#xFF0C;&#x5728;&#x6700;&#x574F;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x7EBF;&#x7A0B;t1&#x88AB;&#x7528;&#x6237;&#x4ECE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x5F3A;&#x5236;&#x6740;&#x6B7B;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6761;&#x4EF6;&#x961F;&#x5217;s&#x4E0A;&#x7B49;&#x5F85;&#x7684;&#x4E3B;&#x7EBF;&#x7A0B;t0&#x5C06;&#x6C38;&#x8FDC;&#x963B;&#x585E;&#xFF0C;&#x800C;&#x4E0D;&#x77E5;&#x9053;&#x6B64;&#x65F6;&#x53D1;&#x751F;&#x7684;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x3002;</p>
-<p>&#x540C;&#x65F6;&#xFF0C;<strong>&#x8FD9;&#x79CD;&#x5E2E;&#x52A9;&#x5728;JVM&#x89C4;&#x8303;&#x4E0B;&#x6CA1;&#x6709;&#x526F;&#x4F5C;&#x7528;</strong>&#x3002;&#x56E0;&#x4E3A;JVM&#x8981;&#x6C42;&#x7528;&#x6237;&#x4ECE;wait()&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x540E;&#x68C0;&#x67E5;&#x6761;&#x4EF6;&#x662F;&#x5426;&#x5F97;&#x5230;&#x6EE1;&#x8DB3;&#x3002;&#x5982;&#x679C;&#x7528;&#x6237;&#x7F16;&#x5199;&#x4E86;&#x9519;&#x8BEF;&#x7684;&#x540C;&#x6B65;&#x903B;&#x8F91;&#xFF0C;&#x4F7F;&#x5F97;&#x7EBF;&#x7A0B;t2&#x6B63;&#x5E38;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;&#xFF0C;&#x6761;&#x4EF6;&#x4ECD;&#x4E0D;&#x80FD;&#x5F97;&#x5230;&#x6EE1;&#x8DB3;&#xFF0C;&#x90A3;&#x4E48;&#x867D;&#x7136;JVM&#x7684;&#x201C;&#x5E2E;&#x52A9;&#x201D;&#x4F7F;&#x5F97;&#x7EBF;&#x7A0B;t1&#x63D0;&#x524D;&#x5524;&#x9192;&#xFF0C;&#x4F46;wait()&#x8FD4;&#x56DE;&#x540E;&#x7684;&#x68C0;&#x67E5;&#x4F7F;&#x7EBF;&#x7A0B;t1&#x518D;&#x6B21;&#x8FDB;&#x5165;&#x963B;&#x585E;&#x72B6;&#x6001;&#xFF0C;&#x7B26;&#x5408;&#x7528;&#x6237;&#x7F16;&#x5199;&#x7684;&#x540C;&#x6B65;&#x903B;&#x8F91;&#xFF08;&#x5C3D;&#x7BA1;&#x662F;&#x9519;&#x8BEF;&#x7684;&#xFF09;&#x3002;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7EBF;&#x7A0B;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF0C;&#x90A3;&#x4E48;notify&#x4E5F;&#x4E0D;&#x4F1A;&#x505A;&#x4EFB;&#x4F55;&#x4E8B;&#x3002;</p>
-<h1 id="wait-notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;"><a href="#wait-notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;" class="headerlink" title="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;"></a>wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;</h1><p>&#x4ECD;&#x7136;&#x7528;Thread&#x5B9E;&#x4F8B;&#x7684;&#x72B6;&#x6001;&#x4EE3;&#x66FF;&#x7EBF;&#x7A0B;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
-<h2 id="1-&#x8C03;&#x7528;wait-&#x524D;"><a href="#1-&#x8C03;&#x7528;wait-&#x524D;" class="headerlink" title="1. &#x8C03;&#x7528;wait()&#x524D;"></a>1. &#x8C03;&#x7528;wait()&#x524D;</h2><p>&#x8C03;&#x7528;wait()&#x524D;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x5BF9;&#x5E94;&#x7684;Thread&#x5B9E;&#x4F8B;f&#x3001;t2&#x5BF9;&#x5E94;&#x7684;s&#x90FD;&#x5904;&#x4E8E;RUNNABLE&#x72B6;&#x6001;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
-<h2 id="2-&#x8C03;&#x7528;wait-&#x540E;&#xFF0C;&#x8C03;&#x7528;notify-&#x524D;"><a href="#2-&#x8C03;&#x7528;wait-&#x540E;&#xFF0C;&#x8C03;&#x7528;notify-&#x524D;" class="headerlink" title="2. &#x8C03;&#x7528;wait()&#x540E;&#xFF0C;&#x8C03;&#x7528;notify()&#x524D;"></a>2. &#x8C03;&#x7528;wait()&#x540E;&#xFF0C;&#x8C03;&#x7528;notify()&#x524D;</h2><p>&#x5728;&#x7EBF;&#x7A0B;t1&#x4E2D;&#x8C03;&#x7528;s.wait()&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;s.notify()&#x524D;&#xFF0C;t1&#x5BF9;&#x5E94;&#x7684;f&#x8F6C;&#x5165;WAITING&#x72B6;&#x6001;&#xFF0C;&#x8FDB;&#x5165;&#x5BF9;&#x8C61;s&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF08;&#x5373;&#xFF0C;&#x6761;&#x4EF6;&#x961F;&#x5217;&#xFF09;&#xFF1B;s&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#xFF0C;&#x4ECD;&#x5904;&#x4E8E;RUNNABLE&#x72B6;&#x6001;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-2"></p>
-<h2 id="3-&#x8C03;&#x7528;notify-&#x540E;"><a href="#3-&#x8C03;&#x7528;notify-&#x540E;" class="headerlink" title="3. &#x8C03;&#x7528;notify()&#x540E;"></a>3. &#x8C03;&#x7528;notify()&#x540E;</h2><p>&#x5047;&#x8BBE;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;t0&#x4E2D;&#x4E3B;&#x52A8;&#x8C03;&#x7528;s.notify()&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x6B64;&#x4E4B;&#x540E;&#xFF0C;&#x7EBF;&#x7A0B;t1&#x5BF9;&#x5E94;&#x7684;Thread&#x5B9E;&#x4F8B;f&#x8F6C;&#x5165;RUNNABLE&#x72B6;&#x6001;&#xFF1B;s&#x4ECD;&#x7136;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6761;&#x4EF6;&#x961F;&#x5217;&#x5927;&#x6CD5;&#x597D;&#xFF1A;wait&#x548C;notify&#x7684;&#x57FA;&#x672C;&#x8BED;&#x4E49;/wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1.png" alt="wait+notify&#x7684;&#x914D;&#x5408;&#x8FC7;&#x7A0B;-1"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;#x6761;&amp;#x4EF6;&amp;#x961F;&amp;#x5217;&amp;#x662F;&amp;#x6211;&amp;#x4EEC;&amp;#x5E38;&amp;#x7528;&amp;#x7684;&amp;#x8F7B;&amp;#x91CF;&amp;#x7EA7;&amp;#x540C;&amp;#x6B65;&amp;#x673A;&amp;#x5236;&amp;#xFF0C;&amp;#x4E5F;&amp;#x88AB;&amp;#x79F0;&amp;#x4E3A;&amp;#x201C;wait+notify&amp;#x201D;&amp;#x673A;&amp;#x5236;&amp;#x3002;&amp;#x4F46;&amp;#x5F88;&amp;#x591A;&amp;#x521A;&amp;#x521A;&amp;#x63A5;&amp;#x89E6;&amp;#x5E76;&amp;#x53D1;&amp;#x7684;&amp;#x670B;&amp;#x53CB;&amp;#x53EF;&amp;#x80FD;&amp;#x4F1A;&amp;#x5BF9;wait&amp;#x548C;notify&amp;#x7684;&amp;#x8BED;&amp;#x4E49;&amp;#x548C;&amp;#x914D;&amp;#x5408;&amp;#x8FC7;&amp;#x7A0B;&amp;#x611F;&amp;#x5230;&amp;#x8FF7;&amp;#x60D1;&amp;#x3002;&lt;/p&gt;
-&lt;p&gt;&amp;#x4ECA;&amp;#x5929;&amp;#x4ECE;join()&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x5207;&amp;#x5165;&amp;#xFF0C;&amp;#x91CD;&amp;#x70B9;&amp;#x8BB2;&amp;#x89E3;wait()&amp;#x65B9;&amp;#x6CD5;&amp;#x7684;&amp;#x8BED;&amp;#x4E49;&amp;#xFF0C;&amp;#x7B80;&amp;#x7565;&amp;#x63D0;&amp;#x53CA;notify()&amp;#x4E0E;notifyAll()&amp;#x7684;&amp;#x8BED;&amp;#x4E49;&amp;#xFF0C;&amp;#x6700;&amp;#x540E;&amp;#x603B;&amp;#x7ED3;&amp;#x4E8C;&amp;#x8005;&amp;#x7684;&amp;#x914D;&amp;#x5408;&amp;#x8FC7;&amp;#x7A0B;&amp;#x3002;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
-      <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
