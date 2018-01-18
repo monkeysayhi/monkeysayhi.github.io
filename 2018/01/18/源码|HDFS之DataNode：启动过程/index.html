@@ -8,17 +8,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>源码|HDFS之DataNode章：启动过程 | 程序猿说你好</title>
+  <title>源码|HDFS之DataNode：启动过程 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="&amp;#x638C;&amp;#x63E1;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x4E0E;Hadoop&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x80FD;&amp;#x544A;&amp;#x522B;&amp;#x4EBA;&amp;#x8089;&amp;#x8C03;&amp;#x7528;&amp;#x6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="源码|HDFS之DataNode章：启动过程">
-<meta property="og:url" content="https://monkeysayhi.github.io/2018/01/18/源码|HDFS之DataNode章：启动过程/index.html">
+<meta property="og:title" content="源码|HDFS之DataNode：启动过程">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/01/18/源码|HDFS之DataNode：启动过程/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x638C;&amp;#x63E1;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x4E0E;Hadoop&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x80FD;&amp;#x544A;&amp;#x522B;&amp;#x4EBA;&amp;#x8089;&amp;#x8C03;&amp;#x7528;&amp;#x6">
-<meta property="og:updated_time" content="2018-01-18T04:52:45.000Z">
+<meta property="og:updated_time" content="2018-01-18T08:45:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="源码|HDFS之DataNode章：启动过程">
+<meta name="twitter:title" content="源码|HDFS之DataNode：启动过程">
 <meta name="twitter:description" content="&amp;#x638C;&amp;#x63E1;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x4E0E;Hadoop&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x80FD;&amp;#x544A;&amp;#x522B;&amp;#x4EBA;&amp;#x8089;&amp;#x8C03;&amp;#x7528;&amp;#x6">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
@@ -156,18 +156,18 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-源码|HDFS之DataNode章：启动过程" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-源码|HDFS之DataNode：启动过程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      源码|HDFS之DataNode章：启动过程
+      源码|HDFS之DataNode：启动过程
     </h1>
   
 
-        <a href="/2018/01/18/源码|HDFS之DataNode章：启动过程/" class="archive-article-date">
+        <a href="/2018/01/18/源码|HDFS之DataNode：启动过程/" class="archive-article-date">
   	<time datetime="2018-01-18T04:46:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-18</time>
 </a>
 
@@ -176,7 +176,7 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <p>&#x638C;&#x63E1;<a href="/2018/01/15/Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;/">Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;</a>&#x4E0E;<a href="/2018/01/15/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/">Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;</a>&#x540E;&#xFF0C;&#x5C31;&#x80FD;&#x544A;&#x522B;&#x4EBA;&#x8089;&#x8C03;&#x7528;&#x6808;&#xFF0C;&#x5229;&#x7528;IDE&#x8F7B;&#x677E;&#x6109;&#x5FEB;&#x7684;&#x8FFD;&#x5404;&#x79CD;&#x5F00;&#x6E90;&#x6846;&#x67B6;&#x7684;&#x6E90;&#x7801;&#x5566;~</p>
-<p>&#x4ECA;&#x5929;&#x662F;HDFS&#x4E2D;DataNode&#x7AE0;&#x7684;&#x7B2C;&#x4E00;&#x7BC7;&#x2014;&#x2014;DataNode&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;</p>
+<p>&#x4ECA;&#x5929;&#x662F;HDFS&#x4E2D;DataNode&#x7684;&#x7B2C;&#x4E00;&#x7BC7;&#x2014;&#x2014;DataNode&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;</p>
 <a id="more"></a>
 <!--[TOC]-->
 <blockquote>
@@ -425,7 +425,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2018/01/18/源码|HDFS之DataNode章：启动过程/">源码|HDFS之DataNode章：启动过程</a><br/>
+		本文链接：<a href="/2018/01/18/源码|HDFS之DataNode：启动过程/">源码|HDFS之DataNode：启动过程</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
