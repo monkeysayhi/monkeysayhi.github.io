@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2018/01/18/源码|HDFS之DataNode：启动过程/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x638C;&amp;#x63E1;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x4E0E;Hadoop&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x80FD;&amp;#x544A;&amp;#x522B;&amp;#x4EBA;&amp;#x8089;&amp;#x8C03;&amp;#x7528;&amp;#x6">
-<meta property="og:updated_time" content="2018-01-18T08:45:56.000Z">
+<meta property="og:updated_time" content="2018-01-19T10:02:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|HDFS之DataNode：启动过程">
 <meta name="twitter:description" content="&amp;#x638C;&amp;#x63E1;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x4E0E;Hadoop&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x80FD;&amp;#x544A;&amp;#x522B;&amp;#x4EBA;&amp;#x8089;&amp;#x8C03;&amp;#x7528;&amp;#x6">
@@ -180,6 +180,7 @@ ga('send', 'pageview');
 <a id="more"></a>
 <!--[TOC]-->
 <blockquote>
+<p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
 <p>&#x53EF;&#x53C2;&#x8003;&#x7334;&#x5B50;&#x8FFD;&#x6E90;&#x7801;&#x65F6;&#x7684;<a href="http://note.youdao.com/noteshare?id=868f0221312ea53bbf430baa172310ad" target="_blank" rel="external">&#x901F;&#x8BB0;</a>&#x6253;&#x65AD;&#x70B9;&#xFF0C;&#x4EB2;&#x81EA;debug&#x4E00;&#x904D;&#x3002;</p>
 </blockquote>
 <h1 id="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>HDFS-2.x&#x4E0E;1.x&#x7684;&#x6838;&#x5FC3;&#x533A;&#x522B;&#xFF1A;</p>
