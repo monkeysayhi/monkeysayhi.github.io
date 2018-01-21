@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://monkeysayhi.github.io/2018/01/18/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</loc>
-    <lastmod>2018-01-19T10:02:28.000Z</lastmod>
+    <loc>https://monkeysayhi.github.io/2018/01/21/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%86%99%E6%95%B0%E6%8D%AE%E5%9D%97%EF%BC%882%EF%BC%89/</loc>
+    <lastmod>2018-01-21T07:51:30.000Z</lastmod>
     <data>
         <display>
-        <title>源码|HDFS之DataNode：启动过程</title>
-        <pubTime>2018-01-18T04:46:40.000Z</pubTime>
+        <title>源码|HDFS之DataNode：写数据块（2）</title>
+        <pubTime>2018-01-21T07:50:32.000Z</pubTime>
         
         <tag>面试</tag>
          
@@ -28,11 +28,34 @@
     
   <url>
     <loc>https://monkeysayhi.github.io/2018/01/19/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%86%99%E6%95%B0%E6%8D%AE%E5%9D%97%EF%BC%881%EF%BC%89/</loc>
-    <lastmod>2018-01-19T10:00:13.000Z</lastmod>
+    <lastmod>2018-01-21T07:34:02.000Z</lastmod>
     <data>
         <display>
         <title>源码|HDFS之DataNode：写数据块（1）</title>
         <pubTime>2018-01-19T09:55:06.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>Hadoop</tag>
+         
+        <tag>HDFS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2018/01/18/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</loc>
+    <lastmod>2018-01-19T10:02:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>源码|HDFS之DataNode：启动过程</title>
+        <pubTime>2018-01-18T04:46:40.000Z</pubTime>
         
         <tag>面试</tag>
          
@@ -61,9 +84,9 @@
          
         <tag>原创</tag>
          
-        <tag>猿工</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>猿工</tag>
          
         <tag>IDEA</tag>
          

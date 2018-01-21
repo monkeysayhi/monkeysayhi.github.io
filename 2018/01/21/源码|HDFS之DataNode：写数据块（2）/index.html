@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>源码|HDFS之DataNode：写数据块（2） | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x7BC7;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;1&amp;#xFF09;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&amp;#x65E0;&amp;#x7BA1;&amp;#x9053;&amp;#x65E0;&amp;#x5F02;&amp;#x5E38;&amp;#x60C5;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码|HDFS之DataNode：写数据块（2）">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/01/21/源码|HDFS之DataNode：写数据块（2）/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x7BC7;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;1&amp;#xFF09;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&amp;#x65E0;&amp;#x7BA1;&amp;#x9053;&amp;#x65E0;&amp;#x5F02;&amp;#x5E38;&amp;#x60C5;&amp;#">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|HDFS之DataNode：写数据块（2）/管道中的IO流.png">
+<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|HDFS之DataNode：写数据块（2）/管道写流程.png">
+<meta property="og:updated_time" content="2018-01-21T07:51:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="源码|HDFS之DataNode：写数据块（2）">
+<meta name="twitter:description" content="&amp;#x4E0A;&amp;#x4E00;&amp;#x7BC7;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;1&amp;#xFF09;&amp;#x5206;&amp;#x6790;&amp;#x4E86;&amp;#x65E0;&amp;#x7BA1;&amp;#x9053;&amp;#x65E0;&amp;#x5F02;&amp;#x5E38;&amp;#x60C5;&amp;#">
+<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|HDFS之DataNode：写数据块（2）/管道中的IO流.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-源码|HDFS之DataNode：写数据块（2）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      源码|HDFS之DataNode：写数据块（2）
+    </h1>
+  
+
+        <a href="/2018/01/21/源码|HDFS之DataNode：写数据块（2）/" class="archive-article-date">
+  	<time datetime="2018-01-21T07:50:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-21</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x4E0A;&#x4E00;&#x7BC7;<a href="/2018/01/19/&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;1&#xFF09;/">&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;1&#xFF09;</a>&#x5206;&#x6790;&#x4E86;&#x65E0;&#x7BA1;&#x9053;&#x65E0;&#x5F02;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;datanode&#x4E0A;&#x7684;&#x5199;&#x6570;&#x636E;&#x5757;&#x8FC7;&#x7A0B;&#x3002;&#x672C;&#x6587;&#x5206;&#x6790;&#x7BA1;&#x9053;&#x5199;&#x65E0;&#x5F02;&#x5E38;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5047;&#x8BBE;<strong>&#x526F;&#x672C;&#x7CFB;&#x6570;3</strong>&#xFF08;&#x5373;&#x5199;&#x6570;&#x636E;&#x5757;&#x6D89;&#x53CA;1&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;+3&#x4E2A;datanode&#xFF09;&#xFF0C;<strong>&#x672A;&#x53D1;&#x751F;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;</strong>&#x3002;</p>
+<a id="more"></a>
+<!--[TOC]-->
+<blockquote>
+<p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
+<p>&#x672C;&#x6587;&#x5185;&#x5BB9;&#x867D;&#x77ED;&#xFF0C;&#x5374;&#x662F;&#x5EFA;&#x7ACB;&#x5728;&#x524D;&#x6587;&#x7684;&#x57FA;&#x7840;&#x4E4B;&#x4E0A;&#x3002;&#x5BF9;&#x4E8E;&#x524D;&#x6587;&#x5DF2;&#x7ECF;&#x8BF4;&#x660E;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x672C;&#x6587;&#x4E0D;&#x518D;&#x8D58;&#x8FF0;&#xFF0C;&#x5EFA;&#x8BAE;&#x8BFB;&#x8005;&#x6309;&#x987A;&#x5E8F;&#x9605;&#x8BFB;&#x3002;</p>
+</blockquote>
+<h1 id="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>&#x6839;&#x636E;<a href="/2018/01/19/&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;1&#xFF09;/">&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;1&#xFF09;</a>&#xFF0C;&#x5BF9;&#x4E8E;&#x591A;&#x526F;&#x672C;&#x7684;&#x7BA1;&#x9053;&#x5199;&#x6D41;&#x7A0B;&#xFF0C;&#x4E3B;&#x8981;&#x5F71;&#x54CD;DataXceiver#writeBlock()&#x3001;BlockReceiver#receivePacket()&#x3001;PacketResponder&#x7EBF;&#x7A0B;&#x4E09;&#x90E8;&#x5206;&#x3002;&#x672C;&#x6587;&#x6309;&#x7167;&#x8FD9;&#x4E09;&#x4E2A;&#x5206;&#x652F;&#x5C55;&#x5F00;&#x3002;</p>
+<h2 id="&#x6587;&#x7AE0;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;"><a href="#&#x6587;&#x7AE0;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;" class="headerlink" title="&#x6587;&#x7AE0;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;"></a>&#x6587;&#x7AE0;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;</h2><ol>
+<li>&#x5982;&#x679C;&#x53EA;&#x6D89;&#x53CA;&#x5355;&#x4E2A;&#x5206;&#x652F;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x5219;&#x653E;&#x5728;&#x540C;&#x4E00;&#x8282;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6D89;&#x53CA;&#x591A;&#x4E2A;&#x5206;&#x652F;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x5219;&#x5728;&#x4E0B;&#x4E00;&#x7EA7;&#x5206;&#x591A;&#x4E2A;&#x8282;&#xFF0C;&#x6BCF;&#x8282;&#x8BA8;&#x8BBA;&#x4E00;&#x4E2A;&#x5206;&#x652F;&#x3002;</li>
+<li>&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5206;&#x6790;&#x540C;&#x591A;&#x5206;&#x652F;&#x3002;</li>
+<li>&#x6BCF;&#x4E00;&#x4E2A;&#x5206;&#x652F;&#x548C;&#x7EBF;&#x7A0B;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;&#x9075;&#x5FAA;&#x89C4;&#x5219;1-3&#x3002;</li>
+</ol>
+<h1 id="&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;DataXceiver-writeBlock"><a href="#&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;DataXceiver-writeBlock" class="headerlink" title="&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;DataXceiver#writeBlock()"></a>&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;DataXceiver#writeBlock()</h1><p>&#x51C6;&#x5907;&#x63A5;&#x6536;&#x6570;&#x636E;&#x5757;&#xFF1A;<code>BlockReceiver.&lt;init&gt;()</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeBlock</span><span class="params">(<span class="keyword">final</span> ExtendedBlock block,</span></span></div><div class="line">    <span class="keyword">final</span> StorageType storageType, </div><div class="line">    <span class="keyword">final</span> Token&lt;BlockTokenIdentifier&gt; blockToken,</div><div class="line">    <span class="keyword">final</span> String clientname,</div><div class="line">    <span class="keyword">final</span> DatanodeInfo[] targets,</div><div class="line">    <span class="keyword">final</span> StorageType[] targetStorageTypes, </div><div class="line">    <span class="keyword">final</span> DatanodeInfo srcDataNode,</div><div class="line">    <span class="keyword">final</span> BlockConstructionStage stage,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> pipelineSize,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> minBytesRcvd,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> maxBytesRcvd,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> latestGenerationStamp,</div><div class="line">    DataChecksum requestedChecksum,</div><div class="line">    CachingStrategy cachingStrategy,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> allowLazyPersist) <span class="keyword">throws</span> IOException {</div><div class="line">  ...<span class="comment">// &#x68C0;&#x67E5;&#xFF0C;&#x8BBE;&#x7F6E;&#x53C2;&#x6570;&#x7B49;</span></div><div class="line"></div><div class="line">  ...<span class="comment">// &#x6784;&#x5EFA;&#x5411;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x6216;&#x5BA2;&#x6237;&#x7AEF;&#x56DE;&#x590D;&#x7684;&#x8F93;&#x51FA;&#x6D41;&#xFF08;&#x6B64;&#x5904;&#x5373;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#xFF09;</span></div><div class="line"></div><div class="line">  ...<span class="comment">// &#x7565;</span></div><div class="line">  </div><div class="line">  <span class="keyword">try</span> {</div><div class="line">    <span class="keyword">if</span> (isDatanode || </div><div class="line">        stage != BlockConstructionStage.PIPELINE_CLOSE_RECOVERY) {</div><div class="line">      <span class="comment">// &#x521B;&#x5EFA;BlockReceiver&#xFF0C;&#x51C6;&#x5907;&#x63A5;&#x6536;&#x6570;&#x636E;&#x5757;</span></div><div class="line">      blockReceiver = <span class="keyword">new</span> BlockReceiver(block, storageType, in,</div><div class="line">          peer.getRemoteAddressString(),</div><div class="line">          peer.getLocalAddressString(),</div><div class="line">          stage, latestGenerationStamp, minBytesRcvd, maxBytesRcvd,</div><div class="line">          clientname, srcDataNode, datanode, requestedChecksum,</div><div class="line">          cachingStrategy, allowLazyPersist);</div><div class="line"></div><div class="line">      storageUuid = blockReceiver.getStorageUuid();</div><div class="line">    } <span class="keyword">else</span> {</div><div class="line">      ...<span class="comment">// &#x7BA1;&#x9053;&#x9519;&#x8BEF;&#x6062;&#x590D;&#x76F8;&#x5173;</span></div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">// &#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x5904;&#x7406;&#xFF1A;&#x4EE5;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E3A;&#x201C;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#xFF0C;&#x7EE7;&#x7EED;&#x89E6;&#x53D1;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x7684;&#x5EFA;&#x7ACB;</span></div><div class="line">    <span class="keyword">if</span> (targets.length &gt; <span class="number">0</span>) {</div><div class="line">      <span class="comment">// &#x8FDE;&#x63A5;&#x4E0B;&#x6E38;&#x8282;&#x70B9;</span></div><div class="line">      InetSocketAddress mirrorTarget = <span class="keyword">null</span>;</div><div class="line">      mirrorNode = targets[<span class="number">0</span>].getXferAddr(connectToDnViaHostname);</div><div class="line">      <span class="keyword">if</span> (LOG.isDebugEnabled()) {</div><div class="line">        LOG.debug(<span class="string">&quot;Connecting to datanode &quot;</span> + mirrorNode);</div><div class="line">      }</div><div class="line">      mirrorTarget = NetUtils.createSocketAddr(mirrorNode);</div><div class="line">      mirrorSock = datanode.newSocket();</div><div class="line">      <span class="comment">// &#x5C1D;&#x8BD5;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF08;&#x4E0B;&#x9762;&#x5C55;&#x5F00;&#xFF09;</span></div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="comment">// &#x8BBE;&#x7F6E;&#x5EFA;&#x7ACB;socket&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x3001;&#x5199;packet&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#x3001;&#x5199;buf&#x5927;&#x5C0F;&#x7B49;</span></div><div class="line">        <span class="keyword">int</span> timeoutValue = dnConf.socketTimeout</div><div class="line">            + (HdfsServerConstants.READ_TIMEOUT_EXTENSION * targets.length);</div><div class="line">        <span class="keyword">int</span> writeTimeout = dnConf.socketWriteTimeout + </div><div class="line">                    (HdfsServerConstants.WRITE_TIMEOUT_EXTENSION * targets.length);</div><div class="line">        NetUtils.connect(mirrorSock, mirrorTarget, timeoutValue);</div><div class="line">        mirrorSock.setSoTimeout(timeoutValue);</div><div class="line">        mirrorSock.setSendBufferSize(HdfsConstants.DEFAULT_DATA_SOCKET_SIZE);</div><div class="line">        </div><div class="line">        <span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x5230;&#x4E0B;&#x6E38;&#x7684;&#x8F93;&#x51FA;&#x6D41;mirrorOut&#x3001;&#x4E0B;&#x6E38;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x8F93;&#x5165;&#x6D41;mirrorIn&#x7B49;</span></div><div class="line">        OutputStream unbufMirrorOut = NetUtils.getOutputStream(mirrorSock,</div><div class="line">            writeTimeout);</div><div class="line">        InputStream unbufMirrorIn = NetUtils.getInputStream(mirrorSock);</div><div class="line">        DataEncryptionKeyFactory keyFactory =</div><div class="line">          datanode.getDataEncryptionKeyFactoryForBlock(block);</div><div class="line">        IOStreamPair saslStreams = datanode.saslClient.socketSend(mirrorSock,</div><div class="line">          unbufMirrorOut, unbufMirrorIn, keyFactory, blockToken, targets[<span class="number">0</span>]);</div><div class="line">        unbufMirrorOut = saslStreams.out;</div><div class="line">        unbufMirrorIn = saslStreams.in;</div><div class="line">        mirrorOut = <span class="keyword">new</span> DataOutputStream(<span class="keyword">new</span> BufferedOutputStream(unbufMirrorOut,</div><div class="line">            HdfsConstants.SMALL_BUFFER_SIZE));</div><div class="line">        mirrorIn = <span class="keyword">new</span> DataInputStream(unbufMirrorIn);</div><div class="line"></div><div class="line">        <span class="comment">// &#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x672A;&#x6765;&#x5C06;&#x7EE7;&#x7EED;&#x4F7F;&#x7528;mirrorOut&#x4F5C;&#x4E3A;&#x5199;packet&#x7684;&#x8F93;&#x51FA;&#x6D41;</span></div><div class="line">        <span class="keyword">new</span> Sender(mirrorOut).writeBlock(originalBlock, targetStorageTypes[<span class="number">0</span>],</div><div class="line">            blockToken, clientname, targets, targetStorageTypes, srcDataNode,</div><div class="line">            stage, pipelineSize, minBytesRcvd, maxBytesRcvd,</div><div class="line">            latestGenerationStamp, requestedChecksum, cachingStrategy, <span class="keyword">false</span>);</div><div class="line">        mirrorOut.flush();</div><div class="line"></div><div class="line">        <span class="comment">// &#x5982;&#x679C;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x8D77;&#x7684;&#x5199;&#x6570;&#x636E;&#x5757;&#x8BF7;&#x6C42;&#xFF08;&#x6EE1;&#x8DB3;&#xFF09;&#xFF0C;&#x5219;&#x5B58;&#x5728;&#x7BA1;&#x9053;&#xFF0C;&#x9700;&#x8981;&#x4ECE;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x8BFB;&#x53D6;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x7684;ack</span></div><div class="line">        <span class="keyword">if</span> (isClient) {</div><div class="line">          BlockOpResponseProto connectAck =</div><div class="line">            BlockOpResponseProto.parseFrom(PBHelper.vintPrefixed(mirrorIn));</div><div class="line">          <span class="comment">// &#x5C06;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x7ED3;&#x679C;&#x4F5C;&#x4E3A;&#x6574;&#x4E2A;&#x7BA1;&#x9053;&#x7684;&#x5EFA;&#x7ACB;&#x7ED3;&#x679C;&#xFF08;&#x8981;&#x4E48;&#x4ECE;&#x5C3E;&#x8282;&#x70B9;&#x5230;&#x5934;&#x7ED3;&#x70B9;&#x90FD;&#x662F;&#x6210;&#x529F;&#x7684;&#xFF0C;&#x8981;&#x4E48;&#x90FD;&#x662F;&#x5931;&#x8D25;&#x7684;&#xFF09;</span></div><div class="line">          mirrorInStatus = connectAck.getStatus();</div><div class="line">          firstBadLink = connectAck.getFirstBadLink();</div><div class="line">          <span class="keyword">if</span> (LOG.isDebugEnabled() || mirrorInStatus != SUCCESS) {</div><div class="line">            LOG.info(<span class="string">&quot;Datanode &quot;</span> + targets.length +</div><div class="line">                     <span class="string">&quot; got response for connect ack &quot;</span> +</div><div class="line">                     <span class="string">&quot; from downstream datanode with firstbadlink as &quot;</span> +</div><div class="line">                     firstBadLink);</div><div class="line">          }</div><div class="line">        }</div><div class="line"></div><div class="line">      } <span class="keyword">catch</span> (IOException e) {</div><div class="line">        ...<span class="comment">// &#x5F02;&#x5E38;&#x5904;&#x7406;&#xFF1A;&#x6E05;&#x7406;&#x8D44;&#x6E90;&#xFF0C;&#x54CD;&#x5E94;ack&#x7B49;</span></div><div class="line">      }</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="comment">// &#x53D1;&#x9001;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;packet&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x53EA;&#x7528;&#x4E8E;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x3002;&#x8FD9;&#x91CC;&#x7ACB;&#x5373;&#x8FD4;&#x56DE;ack&#x8868;&#x793A;&#x7BA1;&#x9053;&#x662F;&#x5426;&#x5EFA;&#x7ACB;&#x6210;&#x529F;</span></div><div class="line">    <span class="comment">// &#x7531;&#x4E8E;&#x8BE5;datanode&#x6CA1;&#x6709;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#xFF0C;&#x5219;&#x6267;&#x884C;&#x5230;&#x6B64;&#x5904;&#xFF0C;&#x8868;&#x793A;&#x7BA1;&#x9053;&#x5DF2;&#x7ECF;&#x5EFA;&#x7ACB;&#x6210;&#x529F;</span></div><div class="line">    <span class="keyword">if</span> (isClient &amp;&amp; !isTransfer) {</div><div class="line">      <span class="keyword">if</span> (LOG.isDebugEnabled() || mirrorInStatus != SUCCESS) {</div><div class="line">        LOG.info(<span class="string">&quot;Datanode &quot;</span> + targets.length +</div><div class="line">                 <span class="string">&quot; forwarding connect ack to upstream firstbadlink is &quot;</span> +</div><div class="line">                 firstBadLink);</div><div class="line">      }</div><div class="line">      BlockOpResponseProto.newBuilder()</div><div class="line">        .setStatus(mirrorInStatus)</div><div class="line">        .setFirstBadLink(firstBadLink)</div><div class="line">        .build()</div><div class="line">        .writeDelimitedTo(replyOut);</div><div class="line">      replyOut.flush();</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="comment">// &#x63A5;&#x6536;&#x6570;&#x636E;&#x5757;&#xFF08;&#x4E5F;&#x8D1F;&#x8D23;&#x53D1;&#x9001;&#x5230;&#x4E0B;&#x6E38;&#xFF0C;&#x4E0D;&#x8FC7;&#x6B64;&#x5904;&#x6CA1;&#x6709;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#xFF09;</span></div><div class="line">    <span class="keyword">if</span> (blockReceiver != <span class="keyword">null</span>) {</div><div class="line">      String mirrorAddr = (mirrorSock == <span class="keyword">null</span>) ? <span class="keyword">null</span> : mirrorNode;</div><div class="line">      blockReceiver.receiveBlock(mirrorOut, mirrorIn, replyOut,</div><div class="line">          mirrorAddr, <span class="keyword">null</span>, targets, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">      ...<span class="comment">// &#x6570;&#x636E;&#x5757;&#x590D;&#x5236;&#x76F8;&#x5173;</span></div><div class="line">    }</div><div class="line"></div><div class="line">    ...<span class="comment">// &#x6570;&#x636E;&#x5757;&#x6062;&#x590D;&#x76F8;&#x5173;</span></div><div class="line">    </div><div class="line">    ...<span class="comment">// &#x6570;&#x636E;&#x5757;&#x590D;&#x5236;&#x76F8;&#x5173;</span></div><div class="line">    </div><div class="line">  } <span class="keyword">catch</span> (IOException ioe) {</div><div class="line">    LOG.info(<span class="string">&quot;opWriteBlock &quot;</span> + block + <span class="string">&quot; received exception &quot;</span> + ioe);</div><div class="line">    <span class="keyword">throw</span> ioe;</div><div class="line">  } <span class="keyword">finally</span> {</div><div class="line">    ...<span class="comment">// &#x6E05;&#x7406;&#x8D44;&#x6E90;</span></div><div class="line">  }</div><div class="line"></div><div class="line">  ...<span class="comment">// &#x66F4;&#x65B0;metrics</span></div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x4E0E;&#x526F;&#x672C;&#x7CFB;&#x6570;1&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x76F8;&#x6BD4;&#xFF0C;&#x4EC5;&#x4EC5;&#x589E;&#x52A0;&#x4E86;&#x201C;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x5904;&#x7406;&#x201D;&#x7684;&#x90E8;&#x5206;&#xFF1A;<em>&#x4EE5;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E3A;&#x201C;&#x5BA2;&#x6237;&#x7AEF;&#x201D;&#xFF0C;&#x7EE7;&#x7EED;&#x89E6;&#x53D1;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x7684;&#x5EFA;&#x7ACB;&#xFF1B;&#x5BF9;&#x4E8E;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#xFF0C;&#x4ECD;&#x7136;&#x8981;&#x8D70;&#x4E00;&#x904D;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x6D41;&#x7A0B;</em>&#x3002;<strong>&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x6536;&#x5230;&#x7B2C;&#x4E00;&#x4E2A;datanode&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x6210;&#x529F;&#x7684;ack&#x65F6;&#xFF0C;&#x4E0B;&#x6E38;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;&#x7684;&#x7BA1;&#x9053;&#x4E00;&#x5B9A;&#x5DF2;&#x7ECF;&#x5EFA;&#x7ACB;&#x6210;&#x529F;</strong>&#xFF0C;&#x52A0;&#x4E0A;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7EC4;&#x6210;&#x4E86;&#x5B8C;&#x6574;&#x7684;&#x7BA1;&#x9053;&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x6839;&#x636E;&#x524D;&#x6587;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x76F4;&#x5230;&#x6267;&#x884C;BlockReceiver.receiveBlock()&#x624D;&#x5F00;&#x59CB;&#x7BA1;&#x9053;&#x5199;&#x6570;&#x636E;&#x5757;&#x5185;&#x5BB9;&#xFF0C;&#x7ED3;&#x5408;&#x7BA1;&#x9053;&#x7684;&#x5173;&#x95ED;&#x8FC7;&#x7A0B;&#xFF0C;&#x53EF;&#x77E5;&#x7BA1;&#x9053;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5206;&#x4E3A;&#x4E09;&#x4E2A;&#x9636;&#x6BB5;&#xFF1A;</p>
+<ol>
+<li>&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#xFF1A;&#x4EE5;&#x7BA1;&#x9053;&#x7684;&#x65B9;&#x5F0F;&#x5411;&#x4E0B;&#x6E38;&#x53D1;&#x9001;&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4ECE;&#x4E0B;&#x6E38;&#x63A5;&#x6536;&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x7684;&#x54CD;&#x5E94;&#x3002;</li>
+<li>&#x7BA1;&#x9053;&#x5199;&#xFF1A;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x6536;&#x5230;&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x6210;&#x529F;&#x7684;ack&#x65F6;&#xFF0C;&#x624D;&#x5229;&#x7528;&#x521A;&#x521A;&#x5EFA;&#x7ACB;&#x7684;&#x7BA1;&#x9053;&#x5F00;&#x59CB;&#x7BA1;&#x9053;&#x5199;&#x6570;&#x636E;&#x5757;&#x7684;&#x5185;&#x5BB9;&#x3002;</li>
+<li>&#x7BA1;&#x9053;&#x5173;&#x95ED;&#xFF1A;&#x4EE5;&#x7BA1;&#x9053;&#x7684;&#x65B9;&#x5F0F;&#x5411;&#x4E0B;&#x6E38;&#x53D1;&#x9001;&#x7BA1;&#x9053;&#x5173;&#x95ED;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4ECE;&#x4E0B;&#x6E38;&#x63A5;&#x6536;&#x7BA1;&#x9053;&#x5173;&#x95ED;&#x7684;&#x54CD;&#x5E94;&#x3002;</li>
+</ol>
+<p>&#x5982;&#x56FE;&#x8BF4;&#x660E;&#x51E0;&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;2&#xFF09;/&#x7BA1;&#x9053;&#x4E2D;&#x7684;IO&#x6D41;.png" alt="&#x7BA1;&#x9053;&#x4E2D;&#x7684;IO&#x6D41;"></p>
+<ul>
+<li>in&#xFF1A;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x8F93;&#x5165;&#x6D41;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x901A;&#x8FC7;in&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x7684;packet&#x3002;</li>
+<li>replyOut&#xFF1A;&#xFF1A;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x5230;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x8F93;&#x51FA;&#x6D41;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x901A;&#x8FC7;replyOut&#x5411;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x53D1;&#x9001;ack&#x3002;</li>
+<li>mirrorOut&#xFF1A;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x5230;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x8F93;&#x51FA;&#x6D41;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x901A;&#x8FC7;mirrorOut&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x955C;&#x50CF;&#x53D1;&#x9001;packet&#x3002;</li>
+<li>mirrorIn&#xFF1A;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x8F93;&#x5165;&#x6D41;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x901A;&#x8FC7;mirrorIn&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;&#x955C;&#x50CF;ack&#x3002;</li>
+</ul>
+<h2 id="&#x8BF7;&#x6C42;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;Sender-writeBlock"><a href="#&#x8BF7;&#x6C42;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;Sender-writeBlock" class="headerlink" title="&#x8BF7;&#x6C42;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;Sender#writeBlock()"></a>&#x8BF7;&#x6C42;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#xFF1A;Sender#writeBlock()</h2><p>Sender#writeBlock()&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeBlock</span><span class="params">(<span class="keyword">final</span> ExtendedBlock blk,</span></span></div><div class="line">    <span class="keyword">final</span> StorageType storageType, </div><div class="line">    <span class="keyword">final</span> Token&lt;BlockTokenIdentifier&gt; blockToken,</div><div class="line">    <span class="keyword">final</span> String clientName,</div><div class="line">    <span class="keyword">final</span> DatanodeInfo[] targets,</div><div class="line">    <span class="keyword">final</span> StorageType[] targetStorageTypes, </div><div class="line">    <span class="keyword">final</span> DatanodeInfo source,</div><div class="line">    <span class="keyword">final</span> BlockConstructionStage stage,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> pipelineSize,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> minBytesRcvd,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> maxBytesRcvd,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">long</span> latestGenerationStamp,</div><div class="line">    DataChecksum requestedChecksum,</div><div class="line">    <span class="keyword">final</span> CachingStrategy cachingStrategy,</div><div class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> allowLazyPersist) <span class="keyword">throws</span> IOException {</div><div class="line">  ClientOperationHeaderProto header = DataTransferProtoUtil.buildClientHeader(</div><div class="line">      blk, clientName, blockToken);</div><div class="line">  </div><div class="line">  ChecksumProto checksumProto =</div><div class="line">    DataTransferProtoUtil.toProto(requestedChecksum);</div><div class="line"></div><div class="line">  OpWriteBlockProto.Builder proto = OpWriteBlockProto.newBuilder()</div><div class="line">    .setHeader(header)</div><div class="line">    .setStorageType(PBHelper.convertStorageType(storageType))</div><div class="line">    <span class="comment">// &#x53BB;&#x6389;targets&#x4E2D;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;</span></div><div class="line">    .addAllTargets(PBHelper.convert(targets, <span class="number">1</span>))</div><div class="line">    .addAllTargetStorageTypes(PBHelper.convertStorageTypes(targetStorageTypes, <span class="number">1</span>))</div><div class="line">    .setStage(toProto(stage))</div><div class="line">    .setPipelineSize(pipelineSize)</div><div class="line">    .setMinBytesRcvd(minBytesRcvd)</div><div class="line">    .setMaxBytesRcvd(maxBytesRcvd)</div><div class="line">    .setLatestGenerationStamp(latestGenerationStamp)</div><div class="line">    .setRequestedChecksum(checksumProto)</div><div class="line">    .setCachingStrategy(getCachingStrategy(cachingStrategy))</div><div class="line">    .setAllowLazyPersist(allowLazyPersist);</div><div class="line">  </div><div class="line">  <span class="keyword">if</span> (source != <span class="keyword">null</span>) {</div><div class="line">    proto.setSource(PBHelper.convertDatanodeInfo(source));</div><div class="line">  }</div><div class="line"></div><div class="line">  send(out, Op.WRITE_BLOCK, proto.build());</div><div class="line">}</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(<span class="keyword">final</span> DataOutputStream out, <span class="keyword">final</span> Op opcode,</span></span></div><div class="line">    <span class="keyword">final</span> Message proto) <span class="keyword">throws</span> IOException {</div><div class="line">  <span class="keyword">if</span> (LOG.isTraceEnabled()) {</div><div class="line">    LOG.trace(<span class="string">&quot;Sending DataTransferOp &quot;</span> + proto.getClass().getSimpleName()</div><div class="line">        + <span class="string">&quot;: &quot;</span> + proto);</div><div class="line">  }</div><div class="line">  op(out, opcode);</div><div class="line">  proto.writeDelimitedTo(out);</div><div class="line">  out.flush();</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x903B;&#x8F91;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x3002;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x53BB;&#x6389;targets&#x4E2D;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF1F;&#x5047;&#x8BBE;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;&#x7684;targets&#x4E2D;&#x987A;&#x5E8F;&#x5B58;&#x50A8;d1&#x3001;d2&#x3001;d3&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E3A;d1&#xFF0C;&#x90A3;&#x4E48;d1&#x7684;&#x4E0B;&#x6E38;&#x53EA;&#x5269;&#x4E0B;d2&#x3001;d3&#xFF0C;&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x6E38;&#x53D1;&#x9001;&#x7BA1;&#x9053;&#x5EFA;&#x7ACB;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x81EA;&#x7136;&#x8981;&#x53BB;&#x6389;&#x5F53;&#x524D;targets&#x4E2D;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;d1&#xFF1B;d2&#x3001;d3&#x540C;&#x7406;&#x3002;</p>
+<p>&#x4F9D;&#x9760;&#x8FD9;&#x79CD;targets&#x9010;&#x6E10;&#x51CF;&#x5C11;&#x7684;&#x903B;&#x8F91;&#xFF0C;DataXceiver#writeBlock()&#x624D;&#x80FD;&#x7528;<code>targets.length &gt; 0</code>&#x5224;&#x65AD;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x3002;</p>
+<blockquote>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x4E5F;&#x4F7F;&#x7528;Sender#writeBlock()&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x3002;&#x4F46;&#x53D1;&#x9001;&#x8FC7;&#x7A0B;&#x7565;&#x6709;&#x4E0D;&#x540C;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x8FC7;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5B57;&#x8282;&#x6D41;&#x5199;&#x5165;&#x6570;&#x636E;&#xFF0C;&#x9700;&#x8981;&#x5C06;&#x5B57;&#x8282;&#x6D41;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6574;&#x5408;&#x6210;packet&#xFF0C;&#x518D;&#x5199;&#x5165;&#x7BA1;&#x9053;&#x3002;</p>
+</blockquote>
+<h1 id="&#x5411;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x53D1;&#x9001;packet&#xFF1A;BlockReceiver-receivePacket"><a href="#&#x5411;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x53D1;&#x9001;packet&#xFF1A;BlockReceiver-receivePacket" class="headerlink" title="&#x5411;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x53D1;&#x9001;packet&#xFF1A;BlockReceiver#receivePacket()"></a>&#x5411;&#x4E0B;&#x6E38;&#x7BA1;&#x9053;&#x53D1;&#x9001;packet&#xFF1A;BlockReceiver#receivePacket()</h1><p>&#x540C;&#x6B65;&#x63A5;&#x6536;packet&#xFF1A;BlockReceiver#receivePacket()</p>
+<p>&#x5148;&#x770B;BlockReceiver#receivePacket()&#x3002;</p>
+<p>&#x4E25;&#x683C;&#x6765;&#x8BF4;&#xFF0C;BlockReceiver#receivePacket()&#x8D1F;&#x8D23;<strong>&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x7684;packet&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7BA1;&#x9053;&#x5199;</strong>&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">receivePacket</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>{</div><div class="line">  <span class="comment">// read the next packet</span></div><div class="line">  packetReceiver.receiveNextPacket(in);</div><div class="line"></div><div class="line">  PacketHeader header = packetReceiver.getHeader();</div><div class="line">  ...<span class="comment">// &#x7565;</span></div><div class="line"></div><div class="line">  ...<span class="comment">// &#x68C0;&#x67E5;packet&#x5934;</span></div><div class="line"></div><div class="line">  <span class="keyword">long</span> offsetInBlock = header.getOffsetInBlock();</div><div class="line">  <span class="keyword">long</span> seqno = header.getSeqno();</div><div class="line">  <span class="keyword">boolean</span> lastPacketInBlock = header.isLastPacketInBlock();</div><div class="line">  <span class="keyword">final</span> <span class="keyword">int</span> len = header.getDataLen();</div><div class="line">  <span class="keyword">boolean</span> syncBlock = header.getSyncBlock();</div><div class="line"></div><div class="line">  ...<span class="comment">// &#x7565;</span></div><div class="line">  </div><div class="line">  <span class="comment">// &#x5982;&#x679C;&#x4E0D;&#x9700;&#x8981;&#x7ACB;&#x5373;&#x6301;&#x4E45;&#x5316;&#x4E5F;&#x4E0D;&#x9700;&#x8981;&#x6821;&#x9A8C;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x7ACB;&#x5373;&#x59D4;&#x6258;PacketResponder&#x7EBF;&#x7A0B;&#x8FD4;&#x56DE; SUCCESS &#x7684;ack&#xFF0C;&#x7136;&#x540E;&#x518D;&#x8FDB;&#x884C;&#x6821;&#x9A8C;&#x548C;&#x6301;&#x4E45;&#x5316;</span></div><div class="line">  <span class="keyword">if</span> (responder != <span class="keyword">null</span> &amp;&amp; !syncBlock &amp;&amp; !shouldVerifyChecksum()) {</div><div class="line">    ((PacketResponder) responder.getRunnable()).enqueue(seqno,</div><div class="line">        lastPacketInBlock, offsetInBlock, Status.SUCCESS);</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="comment">// &#x7BA1;&#x9053;&#x5199;&#x76F8;&#x5173;&#xFF1A;&#x5C06;in&#x4E2D;&#x6536;&#x5230;&#x7684;packet&#x955C;&#x50CF;&#x5199;&#x5165;mirrorOut</span></div><div class="line">  <span class="keyword">if</span> (mirrorOut != <span class="keyword">null</span> &amp;&amp; !mirrorError) {</div><div class="line">    <span class="keyword">try</span> {</div><div class="line">      <span class="keyword">long</span> begin = Time.monotonicNow();</div><div class="line">      packetReceiver.mirrorPacketTo(mirrorOut);</div><div class="line">      mirrorOut.flush();</div><div class="line">      <span class="keyword">long</span> duration = Time.monotonicNow() - begin;</div><div class="line">      <span class="keyword">if</span> (duration &gt; datanodeSlowLogThresholdMs) {</div><div class="line">        LOG.warn(<span class="string">&quot;Slow BlockReceiver write packet to mirror took &quot;</span> + duration</div><div class="line">            + <span class="string">&quot;ms (threshold=&quot;</span> + datanodeSlowLogThresholdMs + <span class="string">&quot;ms)&quot;</span>);</div><div class="line">      }</div><div class="line">    } <span class="keyword">catch</span> (IOException e) {</div><div class="line">      handleMirrorOutError(e);</div><div class="line">    }</div><div class="line">  }</div><div class="line">  </div><div class="line">  ByteBuffer dataBuf = packetReceiver.getDataSlice();</div><div class="line">  ByteBuffer checksumBuf = packetReceiver.getChecksumSlice();</div><div class="line">  </div><div class="line">  <span class="keyword">if</span> (lastPacketInBlock || len == <span class="number">0</span>) {    <span class="comment">// &#x6536;&#x5230;&#x7A7A;packet&#x53EF;&#x80FD;&#x662F;&#x8868;&#x793A;&#x5FC3;&#x8DF3;&#x6216;&#x6570;&#x636E;&#x5757;&#x53D1;&#x9001;</span></div><div class="line">    <span class="comment">// &#x8FD9;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x90FD;&#x53EF;&#x4EE5;&#x5C1D;&#x8BD5;&#x628A;&#x4E4B;&#x524D;&#x7684;&#x6570;&#x636E;&#x5237;&#x5230;&#x78C1;&#x76D8;</span></div><div class="line">    <span class="keyword">if</span> (syncBlock) {</div><div class="line">      flushOrSync(<span class="keyword">true</span>);</div><div class="line">    }</div><div class="line">  } <span class="keyword">else</span> {    <span class="comment">// &#x5426;&#x5219;&#xFF0C;&#x9700;&#x8981;&#x6301;&#x4E45;&#x5316;packet</span></div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> checksumLen = diskChecksum.getChecksumSize(len);</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> checksumReceivedLen = checksumBuf.capacity();</div><div class="line"></div><div class="line">    ...<span class="comment">// &#x5982;&#x679C;&#x662F;&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5219;&#x6301;&#x4E45;&#x5316;&#x4E4B;&#x524D;&#xFF0C;&#x8981;&#x5148;&#x5BF9;&#x6536;&#x5230;&#x7684;packet&#x505A;&#x4E00;&#x6B21;&#x6821;&#x9A8C;&#xFF08;&#x4F7F;&#x7528;packet&#x672C;&#x8EAB;&#x7684;&#x6821;&#x9A8C;&#x673A;&#x5236;&#xFF09;</span></div><div class="line">    ...<span class="comment">// &#x5982;&#x679C;&#x6821;&#x9A8C;&#x9519;&#x8BEF;&#xFF0C;&#x5219;&#x59D4;&#x6258;PacketResponder&#x7EBF;&#x7A0B;&#x8FD4;&#x56DE; ERROR_CHECKSUM &#x7684;ack</span></div><div class="line"></div><div class="line">    <span class="keyword">final</span> <span class="keyword">boolean</span> shouldNotWriteChecksum = checksumReceivedLen == <span class="number">0</span></div><div class="line">        &amp;&amp; streams.isTransientStorage();</div><div class="line">    <span class="keyword">try</span> {</div><div class="line">      <span class="keyword">long</span> onDiskLen = replicaInfo.getBytesOnDisk();</div><div class="line">      <span class="keyword">if</span> (onDiskLen&lt;offsetInBlock) {</div><div class="line">        ...<span class="comment">// &#x5982;&#x679C;&#x6821;&#x9A8C;&#x5757;&#x4E0D;&#x5B8C;&#x6574;&#xFF0C;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x5E76;&#x8C03;&#x6574;&#x65E7;&#x7684;meta&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#xFF0C;&#x4F9B;&#x540E;&#x7EED;&#x91CD;&#x65B0;&#x8BA1;&#x7B97;crc</span></div><div class="line"></div><div class="line">        <span class="comment">// &#x5199;block&#x6587;&#x4EF6;</span></div><div class="line">        <span class="keyword">int</span> startByteToDisk = (<span class="keyword">int</span>)(onDiskLen-firstByteInBlock) </div><div class="line">            + dataBuf.arrayOffset() + dataBuf.position();</div><div class="line">        <span class="keyword">int</span> numBytesToDisk = (<span class="keyword">int</span>)(offsetInBlock-onDiskLen);</div><div class="line">        out.write(dataBuf.array(), startByteToDisk, numBytesToDisk);</div><div class="line">        </div><div class="line">        <span class="comment">// &#x5199;meta&#x6587;&#x4EF6;</span></div><div class="line">        <span class="keyword">final</span> <span class="keyword">byte</span>[] lastCrc;</div><div class="line">        <span class="keyword">if</span> (shouldNotWriteChecksum) {</div><div class="line">          lastCrc = <span class="keyword">null</span>;</div><div class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (partialCrc != <span class="keyword">null</span>) {  <span class="comment">// &#x5982;&#x679C;&#x662F;&#x6821;&#x9A8C;&#x5757;&#x4E0D;&#x5B8C;&#x6574;&#xFF08;&#x4E4B;&#x524D;&#x6536;&#x5230;&#x8FC7;&#x4E00;&#x90E8;&#x5206;&#xFF09;</span></div><div class="line">          ...<span class="comment">// &#x91CD;&#x65B0;&#x8BA1;&#x7B97;crc</span></div><div class="line">          ...<span class="comment">// &#x66F4;&#x65B0;lastCrc</span></div><div class="line">          checksumOut.write(buf);</div><div class="line">          partialCrc = <span class="keyword">null</span>;</div><div class="line">        } <span class="keyword">else</span> { <span class="comment">// &#x5982;&#x679C;&#x6821;&#x9A8C;&#x5757;&#x5B8C;&#x6574;</span></div><div class="line">          ...<span class="comment">// &#x66F4;&#x65B0;lastCrc</span></div><div class="line">          checksumOut.write(checksumBuf.array(), offset, checksumLen);</div><div class="line">        }</div><div class="line"></div><div class="line">        ...<span class="comment">//&#x7565;</span></div><div class="line">      }</div><div class="line">    } <span class="keyword">catch</span> (IOException iex) {</div><div class="line">      datanode.checkDiskErrorAsync();</div><div class="line">      <span class="keyword">throw</span> iex;</div><div class="line">    }</div><div class="line">  }</div><div class="line"></div><div class="line">  <span class="comment">// &#x76F8;&#x53CD;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x7ACB;&#x5373;&#x6301;&#x4E45;&#x5316;&#x6216;&#x9700;&#x8981;&#x6821;&#x9A8C;&#x6536;&#x5230;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5219;&#x73B0;&#x5728;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#x4E86;&#x6301;&#x4E45;&#x5316;&#x548C;&#x6821;&#x9A8C;&#xFF0C;&#x53EF;&#x4EE5;&#x59D4;&#x6258;PacketResponder&#x7EBF;&#x7A0B;&#x8FD4;&#x56DE; SUCCESS &#x7684;ack</span></div><div class="line">  <span class="comment">// if sync was requested, put in queue for pending acks here</span></div><div class="line">  <span class="comment">// (after the fsync finished)</span></div><div class="line">  <span class="keyword">if</span> (responder != <span class="keyword">null</span> &amp;&amp; (syncBlock || shouldVerifyChecksum())) {</div><div class="line">    ((PacketResponder) responder.getRunnable()).enqueue(seqno,</div><div class="line">        lastPacketInBlock, offsetInBlock, Status.SUCCESS);</div><div class="line">  }</div><div class="line"></div><div class="line">  ...<span class="comment">// &#x5982;&#x679C;&#x8D85;&#x8FC7;&#x4E86;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#xFF0C;&#x8FD8;&#x8981;&#x4E3B;&#x52A8;&#x53D1;&#x9001;&#x4E00;&#x4E2A;IN_PROGRESS&#x7684;ack&#xFF0C;&#x9632;&#x6B62;&#x8D85;&#x65F6;</span></div><div class="line"></div><div class="line">  ...<span class="comment">// &#x8282;&#x6D41;&#x5668;&#x76F8;&#x5173;</span></div><div class="line">  </div><div class="line">  <span class="comment">// &#x5F53;&#x6574;&#x4E2A;&#x6570;&#x636E;&#x5757;&#x90FD;&#x53D1;&#x9001;&#x5B8C;&#x6210;&#x4E4B;&#x524D;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x4F1A;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x9001;&#x6709;&#x6570;&#x636E;&#x7684;packet&#xFF0C;&#x4E5F;&#x56E0;&#x4E3A;&#x7EF4;&#x6301;&#x5FC3;&#x8DF3;&#x6216;&#x8868;&#x793A;&#x7ED3;&#x675F;&#x5199;&#x6570;&#x636E;&#x5757;&#x53D1;&#x9001;&#x7A7A;packet</span></div><div class="line">  <span class="comment">// &#x56E0;&#x6B64;&#xFF0C;&#x5F53;&#x6807;&#x5FD7;&#x4F4D;lastPacketInBlock&#x4E3A;true&#x65F6;&#xFF0C;&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;0&#xFF0C;&#x8981;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x8D1F;&#x503C;&#xFF0C;&#x4EE5;&#x533A;&#x5206;&#x672A;&#x5230;&#x8FBE;&#x6700;&#x540E;&#x4E00;&#x4E2A;packet&#x4E4B;&#x524D;&#x7684;&#x60C5;&#x51B5;</span></div><div class="line">  <span class="keyword">return</span> lastPacketInBlock?-<span class="number">1</span>:len;</div><div class="line">}</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">shouldVerifyChecksum</span><span class="params">()</span> </span>{</div><div class="line">  <span class="comment">// &#x5BF9;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x5199;&#xFF0C;&#x53EA;&#x6709;&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x6EE1;&#x8DB3;`mirrorOut == null`</span></div><div class="line">  <span class="keyword">return</span> (mirrorOut == <span class="keyword">null</span> || isDatanode || needsChecksumTranslation);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x7531;&#x4E8E;&#x5DF2;&#x7ECF;&#x5728;&#x4E2D;&#x5EFA;&#x7ACB;&#x4E86;&#x7BA1;&#x9053;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x5DE5;&#x4F5C;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x53EA;&#x6D89;&#x53CA;&#x201C;&#x7BA1;&#x9053;&#x5199;&#x76F8;&#x5173;&#x201D;&#x90E8;&#x5206;&#xFF1A;</p>
+<p><em>&#x6BCF;&#x6536;&#x5230;&#x4E00;&#x4E2A;packet&#xFF0C;&#x5C31;&#x5C06;in&#x4E2D;&#x6536;&#x5230;&#x7684;packet&#x955C;&#x50CF;&#x5199;&#x5165;mirrorOut&#xFF1B;&#x5BF9;&#x4E8E;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#xFF0C;&#x4ECD;&#x7136;&#x8981;&#x8D70;&#x4E00;&#x904D;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x7684;&#x6D41;&#x7A0B;</em>&#x3002;</p>
+<p>&#x53E6;&#x5916;&#xFF0C;BlockReceiver#shouldVerifyChecksum()&#x4E5F;&#x53D1;&#x6325;&#x4E86;&#x4F5C;&#x7528;&#xFF1A;<em>&#x7BA1;&#x9053;&#x7684;&#x4E2D;&#x95F4;&#x8282;&#x70B9;&#x5728;&#x843D;&#x76D8;&#x524D;&#x4E0D;&#x9700;&#x8981;&#x6821;&#x9A8C;</em>&#x3002;</p>
+<h1 id="&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;ack&#xFF1A;PacketResponder&#x7EBF;&#x7A0B;"><a href="#&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;ack&#xFF1A;PacketResponder&#x7EBF;&#x7A0B;" class="headerlink" title="&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;ack&#xFF1A;PacketResponder&#x7EBF;&#x7A0B;"></a>&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;ack&#xFF1A;PacketResponder&#x7EBF;&#x7A0B;</h1><p>&#x5F02;&#x6B65;&#x53D1;&#x9001;ack&#xFF1A;PacketResponder&#x7EBF;&#x7A0B;</p>
+<p>&#x4E0E;BlockReceiver#receivePacket()&#x76F8;&#x5BF9;&#xFF0C;PacketResponder&#x7EBF;&#x7A0B;&#x8D1F;&#x8D23;<strong>&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;</strong>&#x3002;</p>
+<p>PacketResponder#run()&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">  <span class="keyword">boolean</span> lastPacketInBlock = <span class="keyword">false</span>;</div><div class="line">  <span class="keyword">final</span> <span class="keyword">long</span> startTime = ClientTraceLog.isInfoEnabled() ? System.nanoTime() : <span class="number">0</span>;</div><div class="line">  <span class="keyword">while</span> (isRunning() &amp;&amp; !lastPacketInBlock) {</div><div class="line">    <span class="keyword">long</span> totalAckTimeNanos = <span class="number">0</span>;</div><div class="line">    <span class="keyword">boolean</span> isInterrupted = <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">try</span> {</div><div class="line">      Packet pkt = <span class="keyword">null</span>;</div><div class="line">      <span class="keyword">long</span> expected = -<span class="number">2</span>;</div><div class="line">      PipelineAck ack = <span class="keyword">new</span> PipelineAck();</div><div class="line">      <span class="keyword">long</span> seqno = PipelineAck.UNKOWN_SEQNO;</div><div class="line">      <span class="keyword">long</span> ackRecvNanoTime = <span class="number">0</span>;</div><div class="line">      <span class="keyword">try</span> {</div><div class="line">        <span class="comment">// &#x5982;&#x679C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0D;&#x662F;&#x7BA1;&#x9053;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x4E14;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x6B63;&#x5E38;&#xFF0C;&#x5219;&#x4ECE;&#x4E0B;&#x6E38;&#x8BFB;&#x53D6;ack</span></div><div class="line">        <span class="keyword">if</span> (type != PacketResponderType.LAST_IN_PIPELINE &amp;&amp; !mirrorError) {</div><div class="line">          ack.readFields(downstreamIn);</div><div class="line">          ...<span class="comment">// &#x7EDF;&#x8BA1;&#x76F8;&#x5173;</span></div><div class="line">          ...<span class="comment">// OOB&#x76F8;&#x5173;&#xFF08;&#x6682;&#x65F6;&#x5FFD;&#x7565;&#xFF09;</span></div><div class="line">          seqno = ack.getSeqno();</div><div class="line">        }</div><div class="line">        <span class="comment">// &#x5982;&#x679C;&#x4ECE;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x6536;&#x5230;&#x4E86;&#x6B63;&#x5E38;&#x7684; ack&#xFF0C;&#x6216;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x662F;&#x7BA1;&#x9053;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x4ECE;&#x961F;&#x5217;&#x4E2D;&#x6D88;&#x8D39;pkt&#xFF08;&#x5373;BlockReceiver#receivePacket()&#x653E;&#x5165;&#x7684;ack&#xFF09;</span></div><div class="line">        <span class="keyword">if</span> (seqno != PipelineAck.UNKOWN_SEQNO</div><div class="line">            || type == PacketResponderType.LAST_IN_PIPELINE) {</div><div class="line">          pkt = waitForAckHead(seqno);</div><div class="line">          <span class="keyword">if</span> (!isRunning()) {</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">          }</div><div class="line">          <span class="comment">// &#x7BA1;&#x9053;&#x5199;&#x7528;seqno&#x63A7;&#x5236;packet&#x7684;&#x987A;&#x5E8F;&#xFF1A;&#x5F53;&#x4E14;&#x4EC5;&#x5F53;&#x4E0B;&#x6E38;&#x6B63;&#x786E;&#x63A5;&#x6536;&#x7684;&#x5E8F;&#x53F7;&#x4E0E;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x6B63;&#x786E;&#x5904;&#x7406;&#x5B8C;&#x7684;&#x5E8F;&#x53F7;&#x76F8;&#x7B49;&#x65F6;&#xFF0C;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x624D;&#x8BA4;&#x4E3A;&#x8BE5;&#x5E8F;&#x53F7;&#x7684;packet&#x5DF2;&#x6B63;&#x786E;&#x63A5;&#x6536;&#xFF1B;&#x4E0A;&#x6E38;&#x540C;&#x7406;</span></div><div class="line">          expected = pkt.seqno;</div><div class="line">          <span class="keyword">if</span> (type == PacketResponderType.HAS_DOWNSTREAM_IN_PIPELINE</div><div class="line">              &amp;&amp; seqno != expected) {</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IOException(myString + <span class="string">&quot;seqno: expected=&quot;</span> + expected</div><div class="line">                + <span class="string">&quot;, received=&quot;</span> + seqno);</div><div class="line">          }</div><div class="line">          ...<span class="comment">// &#x7EDF;&#x8BA1;&#x76F8;&#x5173;</span></div><div class="line">          lastPacketInBlock = pkt.lastPacketInBlock;</div><div class="line">        }</div><div class="line">      } <span class="keyword">catch</span> (InterruptedException ine) {</div><div class="line">        ...<span class="comment">// &#x5F02;&#x5E38;&#x5904;&#x7406;</span></div><div class="line">      } <span class="keyword">catch</span> (IOException ioe) {</div><div class="line">        ...<span class="comment">// &#x5F02;&#x5E38;&#x5904;&#x7406;</span></div><div class="line">      }</div><div class="line"></div><div class="line">      ...<span class="comment">// &#x4E2D;&#x65AD;&#x9000;&#x51FA;</span></div><div class="line"></div><div class="line">      <span class="comment">// &#x5982;&#x679C;&#x662F;&#x6700;&#x540E;&#x4E00;&#x4E2A;packet&#xFF0C;&#x5C06;block&#x7684;&#x72B6;&#x6001;&#x8F6C;&#x6362;&#x4E3A;FINALIZE&#xFF0C;&#x5E76;&#x5173;&#x95ED;BlockReceiver</span></div><div class="line">      <span class="keyword">if</span> (lastPacketInBlock) {</div><div class="line">        finalizeBlock(startTime);</div><div class="line">      }</div><div class="line"></div><div class="line">      <span class="comment">// &#x6B64;&#x65F6;&#xFF0C;&#x5FC5;&#x7136;&#x6EE1;&#x8DB3; ack.seqno == pkt.seqno&#xFF0C;&#x6784;&#x9020;&#x65B0;&#x7684; ack &#x53D1;&#x9001;&#x7ED9;&#x4E0A;&#x6E38;</span></div><div class="line">      sendAckUpstream(ack, expected, totalAckTimeNanos,</div><div class="line">          (pkt != <span class="keyword">null</span> ? pkt.offsetInBlock : <span class="number">0</span>), </div><div class="line">          (pkt != <span class="keyword">null</span> ? pkt.ackStatus : Status.SUCCESS));</div><div class="line">      <span class="comment">// &#x5DF2;&#x7ECF;&#x5904;&#x7406;&#x5B8C;&#x961F;&#x5934;&#x5143;&#x7D20;&#xFF0C;&#x51FA;&#x961F;</span></div><div class="line">      <span class="comment">// &#x53EA;&#x6709;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x6EE1;&#x8DB3;pkt == null&#xFF1A;PacketResponder#isRunning()&#x8FD4;&#x56DE;false&#xFF0C;&#x5373;PacketResponder&#x7EBF;&#x7A0B;&#x6B63;&#x5728;&#x5173;&#x95ED;&#x3002;&#x6B64;&#x65F6;&#x65E0;&#x8BBA;&#x961F;&#x5217;&#x4E2D;&#x662F;&#x5426;&#x6709;&#x5143;&#x7D20;&#xFF0C;&#x90FD;&#x4E0D;&#x9700;&#x8981;&#x51FA;&#x961F;&#x4E86;</span></div><div class="line">      <span class="keyword">if</span> (pkt != <span class="keyword">null</span>) {</div><div class="line">        removeAckHead();</div><div class="line">      }</div><div class="line">    } <span class="keyword">catch</span> (IOException e) {</div><div class="line">      ...<span class="comment">// &#x5F02;&#x5E38;&#x5904;&#x7406;</span></div><div class="line">    } <span class="keyword">catch</span> (Throwable e) {</div><div class="line">      ...<span class="comment">// &#x5F02;&#x5E38;&#x5904;&#x7406;</span></div><div class="line">    }</div><div class="line">  }</div><div class="line">  LOG.info(myString + <span class="string">&quot; terminating&quot;</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x524D;&#x6587;&#x4E00;&#x4E0D;&#x5C0F;&#x5FC3;&#x5206;&#x6790;&#x4E86;PacketResponder&#x7EBF;&#x7A0B;&#x5982;&#x4F55;&#x5904;&#x7406;&#x4EE5;&#x7BA1;&#x9053;&#x7684;&#x65B9;&#x5F0F;&#x54CD;&#x5E94;ack&#xFF0C;&#x6B64;&#x5904;&#x7B80;&#x5355;&#x590D;&#x4E60;&#xFF0C;&#x5173;&#x6CE8;ack&#x4E0E;pkt&#x7684;&#x5173;&#x7CFB;&#x3002;</p>
+</blockquote>
+<p>&#x603B;&#x7ED3;&#x8D77;&#x6765;&#xFF0C;PacketResponder&#x7EBF;&#x7A0B;&#x7684;&#x6838;&#x5FC3;&#x5DE5;&#x4F5C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack</li>
+<li>&#x6BD4;&#x8F83;ack.seqno&#x4E0E;&#x5F53;&#x524D;&#x961F;&#x5934;&#x7684;pkt.seqno</li>
+<li>&#x5982;&#x679C;&#x76F8;&#x7B49;&#xFF0C;&#x5219;&#x5411;&#x4E0A;&#x6E38;&#x53D1;&#x9001;pkt</li>
+<li>&#x5982;&#x679C;&#x662F;&#x6700;&#x540E;&#x4E00;&#x4E2A;packet&#xFF0C;&#x5C06;block&#x7684;&#x72B6;&#x6001;&#x8F6C;&#x6362;&#x4E3A;FINALIZED</li>
+</ol>
+<h1 id="&#x4E00;&#x9053;&#x9762;&#x8BD5;&#x9898;"><a href="#&#x4E00;&#x9053;&#x9762;&#x8BD5;&#x9898;" class="headerlink" title="&#x4E00;&#x9053;&#x9762;&#x8BD5;&#x9898;"></a>&#x4E00;&#x9053;&#x9762;&#x8BD5;&#x9898;</h1><p>&#x65E9;&#x4E0A;&#x78B0;&#x5DE7;&#x770B;&#x5230;&#x4E00;&#x9053;&#x9762;&#x8BD5;&#x9898;&#xFF1A;</p>
+<blockquote>
+<p>1&#x4E2A;&#x8282;&#x70B9;&#x53D1;&#x9001;100G&#x7684;&#x6570;&#x636E;&#x5230;99&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x786C;&#x76D8;&#x3001;&#x5185;&#x5B58;&#x3001;&#x7F51;&#x5361;&#x901F;&#x5EA6;&#x90FD;&#x662F;1G/s&#xFF0C;&#x5982;&#x4F55;&#x65F6;&#x95F4;&#x6700;&#x77ED;&#xFF1F;</p>
+</blockquote>
+<p>&#x7334;&#x5B50;&#x6709;&#x7BC7;&#x7B14;&#x8BB0;&#x91CC;&#x5206;&#x6790;&#x4E86;&#x201C;&#x7BA1;&#x9053;&#x5199;&#x201D;&#x6280;&#x672F;&#x7684;&#x4F18;&#x52BF;&#x3002;&#x5982;&#x679C;&#x719F;&#x6089;HDFS&#x4E2D;&#x7684;&#x201C;&#x7BA1;&#x9053;&#x5199;&#x201D;&#xFF0C;&#x5C31;&#x5F88;&#x5BB9;&#x6613;&#x89E3;&#x51B3;&#x8BE5;&#x9898;&#xFF1A;</p>
+<p>&#x5355;&#x7F51;&#x5361;1G/s&#xFF0C;&#x90A3;&#x4E48;&#x540C;&#x65F6;&#x8BFB;&#x5199;&#x7684;&#x901F;&#x5EA6;&#x6700;&#x5927;500M/s&#x3002;&#x5047;&#x8BBE;&#x786C;&#x76D8;&#x5927;&#x4E8E;100G&#xFF0C;&#x5185;&#x5B58;&#x5927;&#x4E8E;1G&#xFF0C;&#x5FFD;&#x7565;&#x96F6;&#x788E;&#x7684;&#x5EFA;&#x7ACB;&#x7BA1;&#x9053;&#x3001;&#x54CD;&#x5E94;ack&#x7684;&#x6210;&#x672C;&#xFF0C;&#x7BA1;&#x9053;&#x5199;&#x4E00;&#x4E2A;100G&#x5927;&#x5C0F;&#x7684;&#x6570;&#x636E;&#x5757;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;<code>100G / (500M/s) = 200s</code>&#x3002;</p>
+<p>&#x80FD;&#x4E0D;&#x80FD;&#x7EE7;&#x7EED;&#x4F18;&#x5316;&#x5462;&#xFF1F;&#x5176;&#x5B9E;&#x5F88;&#x5BB9;&#x6613;&#x4F30;&#x8BA1;&#xFF0C;&#x770B;&#x96C6;&#x7FA4;&#x4E2D;&#x95F2;&#x7F6E;&#x8D44;&#x6E90;&#x8FD8;&#x6709;&#x591A;&#x5C11;&#x3002;&#x5728;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x65B9;&#x6848;&#x4E2D;&#xFF0C;&#x4E24;&#x4E2A;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x5E26;&#x5BBD;&#x4E0A;&#x59CB;&#x7EC8;&#x5360;&#x7740;500M&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x53EA;&#x6709;&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x5934;&#x8282;&#x70B9;&#x4E0E;&#x5C3E;&#x8282;&#x70B9;&#x5269;&#x4F59;500M/s&#x7684;&#x5E26;&#x5BBD;&#xFF0C;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x7684;&#x5E26;&#x5BBD;&#x90FD;&#x5DF2;&#x7ECF;&#x6253;&#x6EE1;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5DF2;&#x7ECF;&#x65E0;&#x6CD5;&#x7EE7;&#x7EED;&#x4F18;&#x5316;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x9898;&#x76EE;&#x7684;&#x8D44;&#x6E90;&#x5E76;&#x6CA1;&#x6709;&#x8FD9;&#x4E48;&#x7406;&#x60F3;&#xFF0C;&#x6BD4;&#x5982;&#x786C;&#x76D8;&#x8BFB;800M/s&#xFF0C;&#x5199;200M/s&#xFF0C;&#x90A3;&#x4E48;&#x660E;&#x663E;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x901F;&#x5EA6;&#x6700;&#x9AD8;&#x4E5F;&#x53EA;&#x80FD;&#x5230;200M/s&#xFF0C;&#x5176;&#x4ED6;&#x8D44;&#x6E90;&#x548C;&#x5047;&#x8BBE;&#x4E0D;&#x53D8;&#xFF0C;&#x5219;&#x81F3;&#x5C11;&#x9700;&#x8981;<code>100G / (200M/s) = 500s</code>&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x6BD4;&#x8FD9;&#x91CC;&#x7684;&#x5047;&#x8BBE;&#x8981;&#x590D;&#x6742;&#x7684;&#x591A;&#xFF0C;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x6700;&#x5927;&#x597D;&#x5904;&#x5728;&#x4E8E;&#x6027;&#x80FD;&#x5E73;&#x8861;&#xFF0C;&#x8BA9;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x76F8;&#x5F53;&#xFF0C;&#x4E0D;&#x51FA;&#x73B0;&#x77ED;&#x677F;&#x624D;&#x53EF;&#x80FD;&#x53D1;&#x6325;&#x6700;&#x5927;&#x7684;&#x4F18;&#x52BF;&#x3002;</p>
+<blockquote>
+<ul>
+<li>&#x5FD8;&#x8BB0;&#x9898;&#x76EE;&#x63CF;&#x8FF0;&#x7F51;&#x5361;1G/s&#xFF0C;&#x8FD8;&#x662F;&#x5E26;&#x5BBD;1G/s&#x3002;&#x5982;&#x679C;&#x662F;&#x540E;&#x8005;&#xFF0C;&#x90A3;&#x4E48;&#x901F;&#x5EA6;&#x5FEB;&#x4E00;&#x500D;&#xFF0C;&#x81F3;&#x5C11;&#x9700;&#x8981;100s&#x3002;</li>
+<li>&#x9898;&#x76EE;&#x8FD8;&#x8981;&#x6C42;&#x5199;&#x51FA;&#x4F2A;&#x7801;&#x3002;&#x5982;&#x679C;&#x4E0D;&#x8003;&#x8651;&#x5BB9;&#x9519;&#x6027;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x6309;&#x7167;&#x8FD9;&#x4E24;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x5265;&#x79BB;&#x51FA;&#x4E3B;&#x5E72;&#x4EE3;&#x7801;&#x5B8C;&#x6210;&#x9898;&#x76EE;&#xFF0C;&#x7334;&#x5B50;&#x5C31;&#x4E0D;&#x5570;&#x55E6;&#x4E86;&#x3002;</li>
+</ul>
+</blockquote>
+<h1 id="&#x603B;&#x7ED3;"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</h1><p>&#x5F15;&#x7528;&#x4E00;&#x5F20;&#x56FE;&#x505A;&#x603B;&#x7ED3;&#xFF1A;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|HDFS&#x4E4B;DataNode&#xFF1A;&#x5199;&#x6570;&#x636E;&#x5757;&#xFF08;2&#xFF09;/&#x7BA1;&#x9053;&#x5199;&#x6D41;&#x7A0B;.png" alt="&#x7BA1;&#x9053;&#x5199;&#x6D41;&#x7A0B;"></p>
+<p>&#x4E86;&#x89E3;&#x4E86;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x6B63;&#x5E38;&#x6D41;&#x7A0B;&#xFF0C;&#x4E0B;&#x6587;&#x5C06;&#x5206;&#x6790;&#x7BA1;&#x9053;&#x5199;&#x4E2D;&#x7684;&#x90E8;&#x5206;&#x9519;&#x8BEF;&#x5904;&#x7406;&#x7B56;&#x7565;&#x3002;</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2018/01/21/源码|HDFS之DataNode：写数据块（2）/">源码|HDFS之DataNode：写数据块（2）</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/19/源码|HDFS之DataNode：写数据块（1）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码|HDFS之DataNode：写数据块（1）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 15.83px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.67px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.33px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Yarn/" style="font-size: 11.67px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10.83px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.5px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.33px;">猿工</a> <a href="/tags/猿格/" style="font-size: 14.17px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.5px;">科普</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/系统设计/" style="font-size: 11.67px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.83px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.17px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://spy19930412.github.io/">Jane_s_blog</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
