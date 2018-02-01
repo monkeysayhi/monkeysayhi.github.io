@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2018/01/23/源码|HDFS之DataNode：写数据块（3）/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;1&amp;#xFF09;&amp;#x3001;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;2&amp;#xFF09;&amp;#x5">
-<meta property="og:updated_time" content="2018-01-23T04:42:12.000Z">
+<meta property="og:updated_time" content="2018-02-01T14:06:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|HDFS之DataNode：写数据块（3）">
 <meta name="twitter:description" content="&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;1&amp;#xFF09;&amp;#x3001;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#xFF08;2&amp;#xFF09;&amp;#x5">
@@ -182,7 +182,7 @@ ga('send', 'pageview');
 <p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
 <p>&#x7ED3;&#x8BBA;&#x4E0E;&#x5B9E;&#x73B0;&#x90FD;&#x76F8;&#x5BF9;&#x7B80;&#x5355;&#x3002;&#x53EF;&#x4EC5;&#x9605;&#x8BFB;&#x603B;&#x89C8;&#x3002;</p>
 </blockquote>
-<h1 id="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>datanode&#x5BF9;&#x5199;&#x6570;&#x636E;&#x5757;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x5E38;&#x91C7;&#x7528;&#x4E24;&#x79CD;&#x7B56;&#x7565;&#xFF1A;</p>
+<h1 id="&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>datanode&#x5BF9;&#x5199;&#x6570;&#x636E;&#x5757;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#xFF0C;&#x901A;&#x5E38;&#x91C7;&#x7528;&#x4E24;&#x79CD;&#x7B56;&#x7565;&#xFF1A;</p>
 <ol>
 <li>&#x5F53;&#x524D;&#x8282;&#x70B9;&#x629B;&#x5F02;&#x5E38;&#xFF0C;&#x5173;&#x95ED;&#x4E0A;&#x4E0B;&#x6E38;&#x7684;IO&#x6D41;&#x3001;socket&#x7B49;&#xFF0C;&#x4EE5;&#x5173;&#x95ED;&#x7BA1;&#x9053;&#x3002;</li>
 <li>&#x5411;&#x4E0A;&#x6E38;&#x8282;&#x70B9;&#x53D1;&#x9001;&#x643A;&#x5E26;&#x6545;&#x969C;&#x4FE1;&#x606F;&#x7684;ack&#x3002;</li>

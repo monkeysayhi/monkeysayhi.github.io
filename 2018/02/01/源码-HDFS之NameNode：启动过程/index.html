@@ -19,7 +19,7 @@ namenode&amp;#x7684;&amp;#">
 <meta property="og:description" content="&amp;#x4EFF;&amp;#x7167;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x542F;&amp;#x52A8;&amp;#x8FC7;&amp;#x7A0B;&amp;#xFF0C;NameNode&amp;#x4E5F;&amp;#x4ECE;&amp;#x542F;&amp;#x52A8;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5F00;&amp;#x59CB;&amp;#x3002;
 namenode&amp;#x7684;&amp;#">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|HDFS之NameNode：启动过程/NNBlock.png">
-<meta property="og:updated_time" content="2018-02-01T14:02:20.000Z">
+<meta property="og:updated_time" content="2018-02-01T14:06:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|HDFS之NameNode：启动过程">
 <meta name="twitter:description" content="&amp;#x4EFF;&amp;#x7167;&amp;#x6E90;&amp;#x7801;|HDFS&amp;#x4E4B;DataNode&amp;#xFF1A;&amp;#x542F;&amp;#x52A8;&amp;#x8FC7;&amp;#x7A0B;&amp;#xFF0C;NameNode&amp;#x4E5F;&amp;#x4ECE;&amp;#x542F;&amp;#x52A8;&amp;#x8FC7;&amp;#x7A0B;&amp;#x5F00;&amp;#x59CB;&amp;#x3002;
@@ -188,7 +188,7 @@ ga('send', 'pageview');
 <p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
 <p>&#x53EF;&#x53C2;&#x8003;&#x7334;&#x5B50;&#x8FFD;&#x6E90;&#x7801;&#x65F6;&#x7684;<a href="http://note.youdao.com/noteshare?id=9dd8fd7a0949688453cca58ba229685d" target="_blank" rel="external">&#x901F;&#x8BB0;</a>&#x6253;&#x65AD;&#x70B9;&#xFF0C;&#x4EB2;&#x81EA;debug&#x4E00;&#x904D;&#x3002;</p>
 </blockquote>
-<h1 id="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5728;&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>namenode&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x56F4;&#x7ED5;&#x7740;safemode&#x3001;HA&#x7B49;&#x5C55;&#x5F00;&#xFF0C;&#x542F;&#x52A8;&#x4E4B;&#x540E;&#xFF0C;&#x5404;&#x79CD;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x5F00;&#x59CB;&#x53D1;&#x6325;&#x4F5C;&#x7528;&#x3002;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#xFF1A;</p>
+<h1 id="&#x5F00;&#x59CB;&#x4E4B;&#x524D;"><a href="#&#x5F00;&#x59CB;&#x4E4B;&#x524D;" class="headerlink" title="&#x5F00;&#x59CB;&#x4E4B;&#x524D;"></a>&#x5F00;&#x59CB;&#x4E4B;&#x524D;</h1><h2 id="&#x603B;&#x89C8;"><a href="#&#x603B;&#x89C8;" class="headerlink" title="&#x603B;&#x89C8;"></a>&#x603B;&#x89C8;</h2><p>namenode&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x56F4;&#x7ED5;&#x7740;safemode&#x3001;HA&#x7B49;&#x5C55;&#x5F00;&#xFF0C;&#x542F;&#x52A8;&#x4E4B;&#x540E;&#xFF0C;&#x5404;&#x79CD;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x5F00;&#x59CB;&#x53D1;&#x6325;&#x4F5C;&#x7528;&#x3002;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#xFF1A;</p>
 <ul>
 <li>&#x52A0;&#x8F7D;fsimage&#x4E0E;editlog</li>
 <li>&#x542F;&#x52A8;&#x591A;&#x79CD;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#xFF1A;<ul>
