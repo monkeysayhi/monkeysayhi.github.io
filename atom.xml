@@ -17,8 +17,8 @@
   
   <entry>
     <title>源码|HDFS之NameNode：启动过程</title>
-    <link href="https://monkeysayhi.github.io/2018/02/01/%E6%BA%90%E7%A0%81-HDFS%E4%B9%8BNameNode%EF%BC%9A%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
-    <id>https://monkeysayhi.github.io/2018/02/01/源码-HDFS之NameNode：启动过程/</id>
+    <link href="https://monkeysayhi.github.io/2018/02/01/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BNameNode%EF%BC%9A%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
+    <id>https://monkeysayhi.github.io/2018/02/01/源码|HDFS之NameNode：启动过程/</id>
     <published>2018-02-01T14:01:39.000Z</published>
     <updated>2018-02-01T14:06:14.000Z</updated>
     
