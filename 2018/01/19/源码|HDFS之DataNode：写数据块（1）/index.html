@@ -16,7 +16,7 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2018/01/19/源码|HDFS之DataNode：写数据块（1）/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x4F5C;&amp;#x4E3A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6587;&amp;#x4EF6;&amp;#x7CFB;&amp;#x7EDF;&amp;#xFF0C;HDFS&amp;#x64C5;&amp;#x4E8E;&amp;#x5904;&amp;#x7406;&amp;#x5927;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x8BFB;/&amp;#x5199;&amp;#x3002;&amp;#x8FD9;&amp;#x5F97;&amp;#x76CA;&amp;#x">
-<meta property="og:updated_time" content="2018-02-01T14:06:41.000Z">
+<meta property="og:updated_time" content="2018-02-06T09:04:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|HDFS之DataNode：写数据块（1）">
 <meta name="twitter:description" content="&amp;#x4F5C;&amp;#x4E3A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x6587;&amp;#x4EF6;&amp;#x7CFB;&amp;#x7EDF;&amp;#xFF0C;HDFS&amp;#x64C5;&amp;#x4E8E;&amp;#x5904;&amp;#x7406;&amp;#x5927;&amp;#x6587;&amp;#x4EF6;&amp;#x7684;&amp;#x8BFB;/&amp;#x5199;&amp;#x3002;&amp;#x8FD9;&amp;#x5F97;&amp;#x76CA;&amp;#x">
@@ -178,7 +178,7 @@ ga('send', 'pageview');
         <p>&#x4F5C;&#x4E3A;&#x5206;&#x5E03;&#x5F0F;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;HDFS&#x64C5;&#x4E8E;&#x5904;&#x7406;&#x5927;&#x6587;&#x4EF6;&#x7684;&#x8BFB;/&#x5199;&#x3002;&#x8FD9;&#x5F97;&#x76CA;&#x4E8E;&#x201C;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#x4E0E;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x5206;&#x79BB;&#xFF0C;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x5206;&#x5757;&#x5B58;&#x50A8;&#x201D;&#x7684;&#x601D;&#x60F3;&#xFF1A;namenode&#x7BA1;&#x7406;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#xFF0C;datanode&#x7BA1;&#x7406;&#x5206;&#x5757;&#x7684;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x3002;</p>
 <p>HDFS 2.x&#x8FDB;&#x4E00;&#x6B65;&#x5C06;&#x6570;&#x636E;&#x5757;&#x5B58;&#x50A8;&#x670D;&#x52A1;&#x62BD;&#x8C61;&#x4E3A;blockpool&#xFF0C;&#x4E0D;&#x8FC7;&#x5199;&#x6570;&#x636E;&#x5757;&#x8FC7;&#x7A0B;&#x4E0E;1.x&#x5927;&#x540C;&#x5C0F;&#x5F02;&#x3002;&#x672C;&#x6587;&#x5047;&#x8BBE;<strong>&#x526F;&#x672C;&#x7CFB;&#x6570;1</strong>&#xFF08;&#x5373;&#x5199;&#x6570;&#x636E;&#x5757;&#x53EA;&#x6D89;&#x53CA;1&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;+1&#x4E2A;datanode&#xFF09;&#xFF0C;<strong>&#x672A;&#x53D1;&#x751F;&#x4EFB;&#x4F55;&#x5F02;&#x5E38;</strong>&#xFF0C;&#x5206;&#x6790;datanode&#x5199;&#x6570;&#x636E;&#x5757;&#x7684;&#x8FC7;&#x7A0B;&#x3002;</p>
 <a id="more"></a>
-<p>[TOC]</p>
+<!--[TOC]-->
 <blockquote>
 <p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
 <p>&#x53EF;&#x53C2;&#x8003;&#x7334;&#x5B50;&#x8FFD;&#x6E90;&#x7801;&#x65F6;&#x7684;<a href="http://note.youdao.com/noteshare?id=84376f19ed7d5096a4f3472e20539df6" target="_blank" rel="external">&#x901F;&#x8BB0;</a>&#x6253;&#x65AD;&#x70B9;&#xFF0C;&#x4EB2;&#x81EA;debug&#x4E00;&#x904D;&#x3002;</p>
