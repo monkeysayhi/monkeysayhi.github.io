@@ -157,6 +157,61 @@ ga('send', 'pageview');
       <div class="body-wrap">
         
   
+    <article id="post-Mac编译Hadoop源码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/15/Mac编译Hadoop源码/">Mac编译Hadoop源码</a>
+    </h1>
+  
+
+        <a href="/2018/01/15/Mac编译Hadoop源码/" class="archive-article-date">
+  	<time datetime="2018-01-15T08:06:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-15</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x5355;&#x7EAF;&#x770B;&#x4E66;&#x7FFB;&#x6E90;&#x7801;&#x975E;&#x5E38;&#x67AF;&#x71E5;&#xFF0C;&#x4E3A;&#x4E86;&#x5355;&#x6B65;debug&#x8FFD;Hadoop&#x6E90;&#x7801;&#xFF0C;&#x6700;&#x597D;&#x5148;&#x5728;&#x90E8;&#x7F72;&#x73AF;&#x5883;&#x7F16;&#x8BD1;&#x4E00;&#x4EFD;&#x6E90;&#x7801;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x5404;&#x79CD;&#x73AF;&#x5883;&#x95EE;&#x9898;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x8BB0;&#x5F55;&#x4E86;&#x7334;&#x5B50;&#x5728;&#x81EA;&#x5DF1;&#x7684;Mac&#x4E0A;&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x7ED3;&#x5408;&#x4E4B;&#x524D;&#x7684;&#x4E00;&#x6B21;&#x7F16;&#x8BD1;&#x7ECF;&#x9A8C;&#xFF0C;&#x57FA;&#x672C;&#x8986;&#x76D6;&#x4E86;&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;&#x65F6;&#x53EF;&#x80FD;&#x9047;&#x5230;&#x7684;&#x4E3B;&#x8981;&#x95EE;&#x9898;&#x3002;</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2018/01/15/Mac编译Hadoop源码/#more">more >></a>
+        </p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-HDFS1.x、2.x架构图" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -658,65 +713,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-源码|并发一枝花之ReentrantLock与AQS（3）：Condition" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/07/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/">源码|并发一枝花之ReentrantLock与AQS（3）：Condition</a>
-    </h1>
-  
-
-        <a href="/2017/12/07/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/" class="archive-article-date">
-  	<time datetime="2017-12-07T11:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
-</a>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>ReentrantLock#lock()&#x3001;ReentrantLock#unlock()&#x3001;ReentrantLock#lockInterruptibly()&#x7684;&#x5206;&#x6790;&#x89C1;&#x524D;&#x6587;&#xFF1A;</p>
-<ul>
-<li><a href="/2017/12/05/&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;1&#xFF09;&#xFF1A;lock&#x3001;unlock/">&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;1&#xFF09;&#xFF1A;lock&#x3001;unlock</a>&#xFF08;&#x8FD9;&#x7BC7;&#x975E;&#x5E38;&#x91CD;&#x8981;&#xFF0C;&#x89E3;&#x91CA;&#x4E86;&#x5F88;&#x591A;&#x672C;&#x6587;&#x7701;&#x7565;&#x7684;&#x95EE;&#x9898;&#xFF09;</li>
-<li><a href="/2017/12/05/&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;2&#xFF09;&#xFF1A;lockInterruptibly/">&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;2&#xFF09;&#xFF1A;lockInterruptibly</a></li>
-</ul>
-<p>&#x672C;&#x6587;&#x662F;&#x300A;&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#x300B;&#x7CFB;&#x5217;&#x7684;&#x6700;&#x540E;&#x4E00;&#x7BC7;&#xFF0C;&#x5206;&#x6790;&#x4E0E;&#x663E;&#x5F0F;&#x9501;ReentrantLock&#x914D;&#x5957;&#x7684;&#x663E;&#x5F0F;&#x6761;&#x4EF6;&#x961F;&#x5217;AQS#ConditionObject&#xFF0C;&#x4EE5;&#x5B8C;&#x5584;&#x5BF9;AQS&#x7684;&#x4F7F;&#x7528;&#x548C;&#x7406;&#x89E3;&#x3002;</p>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2017/12/07/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/#more">more >></a>
-        </p>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-      
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -785,7 +781,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 12.73px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.91px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 13.64px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
     			</div>
     	</section>
     
