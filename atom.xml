@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-03-07T03:06:01.000Z</updated>
+  <updated>2018-03-07T03:10:36.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%882%EF%BC%89%EF%BC%9A%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/"/>
     <id>https://monkeysayhi.github.io/2018/03/07/浅谈TCP（2）：流量控制与拥塞控制/</id>
     <published>2018-03-07T03:05:42.000Z</published>
-    <updated>2018-03-07T03:06:01.000Z</updated>
+    <updated>2018-03-07T03:10:36.000Z</updated>
     
-    <content type="html"><![CDATA[<p>&#x4E0A;&#x6587;<a href="https://monkeysayhi.github.io/2018/03/07/&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;">&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;</a>&#x4ECB;&#x7ECD;&#x4E86;TCP&#x7684;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;&#x3002;&#x672C;&#x6587;&#x4ECB;&#x7ECD;<code>&#x6D41;&#x91CF;&#x63A7;&#x5236;</code>&#xFF08;Flow Control&#xFF0C;&#x7B80;&#x79F0;&#x6D41;&#x63A7;&#xFF09;&#x4E0E;<code>&#x62E5;&#x585E;&#x63A7;&#x5236;</code>&#xFF08;Congestion Control&#xFF09;&#x3002;TCP&#x4F9D;&#x6B64;&#x4FDD;&#x969C;&#x7F51;&#x7EDC;&#x7684;<code>QOS</code>&#xFF08;Quality of Service&#xFF09;&#x3002;</p>
+    <content type="html"><![CDATA[<p>&#x4E0A;&#x6587;<a href="/2018/03/07/&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;/">&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;</a>&#x4ECB;&#x7ECD;&#x4E86;TCP&#x7684;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;&#x3002;&#x672C;&#x6587;&#x4ECB;&#x7ECD;<code>&#x6D41;&#x91CF;&#x63A7;&#x5236;</code>&#xFF08;Flow Control&#xFF0C;&#x7B80;&#x79F0;&#x6D41;&#x63A7;&#xFF09;&#x4E0E;<code>&#x62E5;&#x585E;&#x63A7;&#x5236;</code>&#xFF08;Congestion Control&#xFF09;&#x3002;TCP&#x4F9D;&#x6B64;&#x4FDD;&#x969C;&#x7F51;&#x7EDC;&#x7684;<code>QOS</code>&#xFF08;Quality of Service&#xFF09;&#x3002;</p>
 <blockquote>
 <p>&#x672C;&#x6587;&#x5927;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x57FA;&#x4E8E;<a href="https://coolshell.cn/articles/11609.html" target="_blank" rel="external">TCP &#x7684;&#x90A3;&#x4E9B;&#x4E8B;&#x513F;&#xFF08;&#x4E0B;&#xFF09;</a>&#x4FEE;&#x6539;&#x800C;&#x6765;&#xFF0C;&#x90E8;&#x5206;&#x89C2;&#x70B9;&#x4E0E;&#x539F;&#x6587;&#x4E0D;&#x540C;&#xFF0C;&#x91CD;&#x8981;&#x5730;&#x65B9;&#x589E;&#x52A0;&#x4E86;&#x89E3;&#x91CA;&#x3002;</p>
 </blockquote>
@@ -173,7 +173,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&amp;#x4E0A;&amp;#x6587;&lt;a href=&quot;https://monkeysayhi.github.io/2018/03/07/&amp;#x6D45;&amp;#x8C08;TCP&amp;#xFF08;1&amp;#xFF09;&amp;#xFF1A;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;&quot;&gt;&amp;#x6D45;&amp;#x8C08;TCP&amp;#xFF08;1&amp;#xFF09;&amp;#xFF1A;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;&lt;/a&gt;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;TCP&amp;#x7684;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;&amp;#x3002;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&lt;code&gt;&amp;#x6D41;&amp;#x91CF;&amp;#x63A7;&amp;#x5236;&lt;/code&gt;&amp;#xFF08;Flow Control&amp;#xFF0C;&amp;#x7B80;&amp;#x79F0;&amp;#x6D41;&amp;#x63A7;&amp;#xFF09;&amp;#x4E0E;&lt;code&gt;&amp;#x62E5;&amp;#x585E;&amp;#x63A7;&amp;#x5236;&lt;/code&gt;&amp;#xFF08;Congestion Control&amp;#xFF09;&amp;#x3002;TCP&amp;#x4F9D;&amp;#x6B64;&amp;#x4FDD;&amp;#x969C;&amp;#x7F51;&amp;#x7EDC;&amp;#x7684;&lt;code&gt;QOS&lt;/code&gt;&amp;#xFF08;Quality of Service&amp;#xFF09;&amp;#x3002;&lt;/p&gt;
+      &lt;p&gt;&amp;#x4E0A;&amp;#x6587;&lt;a href=&quot;/2018/03/07/&amp;#x6D45;&amp;#x8C08;TCP&amp;#xFF08;1&amp;#xFF09;&amp;#xFF1A;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;/&quot;&gt;&amp;#x6D45;&amp;#x8C08;TCP&amp;#xFF08;1&amp;#xFF09;&amp;#xFF1A;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;&lt;/a&gt;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;TCP&amp;#x7684;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#x4E0E;&amp;#x91CD;&amp;#x4F20;&amp;#x673A;&amp;#x5236;&amp;#x3002;&amp;#x672C;&amp;#x6587;&amp;#x4ECB;&amp;#x7ECD;&lt;code&gt;&amp;#x6D41;&amp;#x91CF;&amp;#x63A7;&amp;#x5236;&lt;/code&gt;&amp;#xFF08;Flow Control&amp;#xFF0C;&amp;#x7B80;&amp;#x79F0;&amp;#x6D41;&amp;#x63A7;&amp;#xFF09;&amp;#x4E0E;&lt;code&gt;&amp;#x62E5;&amp;#x585E;&amp;#x63A7;&amp;#x5236;&lt;/code&gt;&amp;#xFF08;Congestion Control&amp;#xFF09;&amp;#x3002;TCP&amp;#x4F9D;&amp;#x6B64;&amp;#x4FDD;&amp;#x969C;&amp;#x7F51;&amp;#x7EDC;&amp;#x7684;&lt;code&gt;QOS&lt;/code&gt;&amp;#xFF08;Quality of Service&amp;#xFF09;&amp;#x3002;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&amp;#x672C;&amp;#x6587;&amp;#x5927;&amp;#x90E8;&amp;#x5206;&amp;#x5185;&amp;#x5BB9;&amp;#x57FA;&amp;#x4E8E;&lt;a href=&quot;https://coolshell.cn/articles/11609.html&quot;&gt;TCP &amp;#x7684;&amp;#x90A3;&amp;#x4E9B;&amp;#x4E8B;&amp;#x513F;&amp;#xFF08;&amp;#x4E0B;&amp;#xFF09;&lt;/a&gt;&amp;#x4FEE;&amp;#x6539;&amp;#x800C;&amp;#x6765;&amp;#xFF0C;&amp;#x90E8;&amp;#x5206;&amp;#x89C2;&amp;#x70B9;&amp;#x4E0E;&amp;#x539F;&amp;#x6587;&amp;#x4E0D;&amp;#x540C;&amp;#xFF0C;&amp;#x91CD;&amp;#x8981;&amp;#x5730;&amp;#x65B9;&amp;#x589E;&amp;#x52A0;&amp;#x4E86;&amp;#x89E3;&amp;#x91CA;&amp;#x3002;&lt;/p&gt;
 &lt;/blockquote&gt;
