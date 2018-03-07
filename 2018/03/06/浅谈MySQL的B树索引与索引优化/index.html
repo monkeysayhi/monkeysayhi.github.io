@@ -18,7 +18,7 @@
 <meta property="og:description" content="MySQL&amp;#x7684;MyISAM&amp;#x3001;InnoDB&amp;#x5F15;&amp;#x64CE;&amp;#x9ED8;&amp;#x8BA4;&amp;#x5747;&amp;#x4F7F;&amp;#x7528;B+&amp;#x6811;&amp;#x7D22;&amp;#x5F15;&amp;#xFF08;&amp;#x67E5;&amp;#x8BE2;&amp;#x65F6;&amp;#x90FD;&amp;#x663E;&amp;#x793A;&amp;#x4E3A;&amp;#x201C;BTREE&amp;#x201D;">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/浅谈MySQL的B树索引与索引优化/B树.png">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/浅谈MySQL的B树索引与索引优化/B+树.png">
-<meta property="og:updated_time" content="2018-03-06T06:20:33.000Z">
+<meta property="og:updated_time" content="2018-03-07T01:34:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈MySQL的B树索引与索引优化">
 <meta name="twitter:description" content="MySQL&amp;#x7684;MyISAM&amp;#x3001;InnoDB&amp;#x5F15;&amp;#x64CE;&amp;#x9ED8;&amp;#x8BA4;&amp;#x5747;&amp;#x4F7F;&amp;#x7528;B+&amp;#x6811;&amp;#x7D22;&amp;#x5F15;&amp;#xFF08;&amp;#x67E5;&amp;#x8BE2;&amp;#x65F6;&amp;#x90FD;&amp;#x663E;&amp;#x793A;&amp;#x4E3A;&amp;#x201C;BTREE&amp;#x201D;">
@@ -275,11 +275,13 @@ ga('send', 'pageview');
 <p>&#x8FD9;&#x4E2A;&#x503C;&#x5F88;&#x96BE;&#x786E;&#x5B9A;&#xFF0C;&#x4E00;&#x822C;&#x9700;&#x8981;join&#x7684;&#x5B57;&#x6BB5;&#x8981;&#x6C42;&#x662F;0.1&#x4EE5;&#x4E0A;&#xFF0C;&#x5373;&#x5E73;&#x5747;1&#x6761;&#x626B;&#x63CF;10&#x6761;&#x8BB0;&#x5F55;&#x3002;</p>
 </blockquote>
 <hr>
+<blockquote>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
 <li><a href="http://blog.csdn.net/v_JULY_v/article/details/6530142/" target="_blank" rel="external">&#x4ECE;B&#x6811;&#x3001;B+&#x6811;&#x3001;B*&#x6811;&#x8C08;&#x5230;R &#x6811;</a></li>
 <li><a href="https://tech.meituan.com/mysql-index.html" target="_blank" rel="external">MySQL&#x7D22;&#x5F15;&#x539F;&#x7406;&#x53CA;&#x6162;&#x67E5;&#x8BE2;&#x4F18;&#x5316;</a></li>
 </ul>
+</blockquote>
 
       
 
@@ -397,6 +399,15 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
+    <a href="/2018/03/07/浅谈TCP（1）：状态机与重传机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          浅谈TCP（1）：状态机与重传机制
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/02/10/Linux文件系统目录结构/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Linux文件系统目录结构</div>
@@ -474,7 +485,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.91px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 13.64px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.91px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 13.64px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
     			</div>
     	</section>
     
