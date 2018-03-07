@@ -157,6 +157,62 @@ ga('send', 'pageview');
       <div class="body-wrap">
         
   
+    <article id="post-你真的会阅读Java的异常信息吗？" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/02/你真的会阅读Java的异常信息吗？/">你真的会阅读Java的异常信息吗？</a>
+    </h1>
+  
+
+        <a href="/2017/10/02/你真的会阅读Java的异常信息吗？/" class="archive-article-date">
+  	<time datetime="2017-10-02T06:19:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-02</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x7ED9;&#x51FA;&#x5982;&#x4E0B;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">java.lang.RuntimeException: level 2 exception</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun2(Test.java:17)</div><div class="line">	at com.msh.demo.exceptionStack.Test.main(Test.java:24)</div><div class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</div><div class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</div><div class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</div><div class="line">	at java.lang.reflect.Method.invoke(Method.java:498)</div><div class="line">	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)</div><div class="line">Caused by: java.io.IOException: level 1 exception</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun1(Test.java:10)</div><div class="line">	at com.msh.demo.exceptionStack.Test.fun2(Test.java:15)</div><div class="line">	... 6 more</div></pre></td></tr></table></figure>
+<p>&#x5B66;&#x8FD9;&#x4E48;&#x591A;&#x5E74;Java&#xFF0C;&#x4F60;&#x771F;&#x7684;&#x4F1A;&#x9605;&#x8BFB;Java&#x7684;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#x5417;&#xFF1F;&#x4F60;&#x80FD;&#x8BF4;&#x6E05;&#x695A;&#x5F02;&#x5E38;&#x629B;&#x51FA;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#x987A;&#x5E8F;&#x5417;&#xFF1F;</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2017/10/02/你真的会阅读Java的异常信息吗？/#more">more >></a>
+        </p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-面试中单例模式有几种写法？" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -678,60 +734,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-HashMap实现原理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/26/HashMap实现原理/">HashMap实现原理</a>
-    </h1>
-  
-
-        <a href="/2017/08/26/HashMap实现原理/" class="archive-article-date">
-  	<time datetime="2017-08-26T03:04:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-26</time>
-</a>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>HashMap&#x662F;&#x5E38;&#x8003;&#x70B9;&#xFF0C;&#x800C;&#x4E00;&#x822C;&#x4E0D;&#x95EE;List&#x7684;&#x51E0;&#x4E2A;&#x5B9E;&#x73B0;&#x7C7B;(&#x504F;&#x7B80;&#x5355;)&#x3002;&#x4EE5;&#x4E0B;&#x57FA;&#x4E8E;JDK1.8.0_102&#x5206;&#x6790;&#x3002;</p>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2017/08/26/HashMap实现原理/#more">more >></a>
-        </p>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-      
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -800,7 +802,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.91px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 13.64px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 15.45px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.36px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 14.55px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.18px;">Java</a> <a href="/tags/LintCode/" style="font-size: 12.73px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 10.91px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.91px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.27px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.91px;">数据库</a> <a href="/tags/猿工/" style="font-size: 12.73px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.64px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 11.82px;">科普</a> <a href="/tags/算法/" style="font-size: 13.64px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.91px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.55px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.91px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.09px;">面试</a>
     			</div>
     	</section>
     
