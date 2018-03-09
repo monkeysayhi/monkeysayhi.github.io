@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="inode&amp;#x4E0E;block&amp;#x662F;&amp;#x7406;&amp;#x89E3;Linux&amp;#x6587;&amp;#x4EF6;&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5;&amp;#x3002;&amp;#x5728;&amp;#x6B64;&amp;#x57FA;&amp;#x7840;&amp;#x4E0A;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86;&amp;#x6587;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux文件系统：inode&block，文件&目录，硬链&软链">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/03/10/Linux文件系统：inode&block，文件&目录，硬链&软链/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="inode&amp;#x4E0E;block&amp;#x662F;&amp;#x7406;&amp;#x89E3;Linux&amp;#x6587;&amp;#x4EF6;&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5;&amp;#x3002;&amp;#x5728;&amp;#x6B64;&amp;#x57FA;&amp;#x7840;&amp;#x4E0A;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86;&amp;#x6587;&amp;">
+<meta property="og:updated_time" content="2018-03-09T16:10:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux文件系统：inode&block，文件&目录，硬链&软链">
+<meta name="twitter:description" content="inode&amp;#x4E0E;block&amp;#x662F;&amp;#x7406;&amp;#x89E3;Linux&amp;#x6587;&amp;#x4EF6;&amp;#x7CFB;&amp;#x7EDF;&amp;#x7684;&amp;#x57FA;&amp;#x7840;&amp;#x6982;&amp;#x5FF5;&amp;#x3002;&amp;#x5728;&amp;#x6B64;&amp;#x57FA;&amp;#x7840;&amp;#x4E0A;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86;&amp;#x6587;&amp;">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链
+    </h1>
+  
+
+        <a href="/2018/03/10/Linux文件系统：inode&block，文件&目录，硬链&软链/" class="archive-article-date">
+  	<time datetime="2018-03-09T16:10:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-10</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>inode</code>&#x4E0E;<code>block</code>&#x662F;&#x7406;&#x89E3;Linux&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x3002;&#x5728;&#x6B64;&#x57FA;&#x7840;&#x4E0A;&#x5B9E;&#x73B0;&#x4E86;<code>&#x6587;&#x4EF6;</code>&#x3001;<code>&#x76EE;&#x5F55;</code>&#x3001;<code>&#x786C;&#x94FE;</code>&#x3001;<code>&#x8F6F;&#x94FE;</code>&#x3002;</p>
+<a id="more"></a>
+<blockquote>
+<p>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF1A;CentOS 6.5&#xFF08;Linux 2.6&#xFF09;&#x3002;</p>
+</blockquote>
+<h1 id="inode-amp-block"><a href="#inode-amp-block" class="headerlink" title="inode &amp; block"></a>inode &amp; block</h1><h2 id="block&#x548C;inode&#x7684;&#x610F;&#x4E49;"><a href="#block&#x548C;inode&#x7684;&#x610F;&#x4E49;" class="headerlink" title="block&#x548C;inode&#x7684;&#x610F;&#x4E49;"></a>block&#x548C;inode&#x7684;&#x610F;&#x4E49;</h2><p>&#x7406;&#x89E3;inode&#xFF0C;&#x8981;&#x4ECE;&#x6587;&#x4EF6;&#x50A8;&#x5B58;&#x8BF4;&#x8D77;&#x3002;</p>
+<p>&#x6587;&#x4EF6;&#x50A8;&#x5B58;&#x5728;&#x786C;&#x76D8;&#x4E0A;&#xFF0C;<strong>&#x786C;&#x76D8;&#x7684;&#x6700;&#x5C0F;&#x5B58;&#x50A8;&#x5355;&#x4F4D;&#x53EB;&#x505A;&#x201D;<code>&#x6247;&#x533A;</code>&#x201C;</strong>&#xFF08;Sector&#xFF0C;&#x5E38;&#x89C1;512B&#xFF09;&#xFF0C;<strong>&#x591A;&#x4E2A;&#x6247;&#x533A;&#x7EC4;&#x6210;&#x7684;&#x4E00;&#x4E2A;&#x201D;<code>&#x5757;</code>&#x201C;</strong>&#xFF08;block&#xFF0C;&#x5E38;&#x89C1;4096B&#xFF0C;&#x5373;&#x8FDE;&#x7EED;8&#x4E2A;sector&#x7EC4;&#x6210;&#x4E00;&#x4E2A;block&#xFF09;&#x3002;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x53D6;&#x4E00;&#x4E2A;&#x5757;&#xFF08;8&#x4E2A;&#x8FDE;&#x7EED;8&#x4E2A;&#x6247;&#x533A;&#xFF09;&#xFF0C;&#x4EE5;&#x63D0;&#x9AD8;&#x78C1;&#x76D8;IO&#x6548;&#x7387;&#x3002;&#x56E0;&#x6B64;&#xFF0C;<strong>&#x5757;&#x662F;&#x78C1;&#x76D8;&#x8BFB;&#x5199;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;</strong>&#x3002;</p>
+<p>&#x540C;&#x65F6;&#xFF0C;<strong>&#x5757;&#x662F;&#x6587;&#x4EF6;&#x5B58;&#x53D6;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;</strong>&#xFF0C;&#x591A;&#x4E2A;&#x5757;&#x7EC4;&#x6210;<code>&#x6587;&#x4EF6;&#x5185;&#x5BB9;</code>&#x3002;&#x663E;&#x7136;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x7ED3;&#x6784;&#x5B58;&#x50A8;<code>&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;</code>&#xFF08;&#x6587;&#x4EF6;&#x7684;&#x521B;&#x5EFA;&#x8005;&#x3001;&#x521B;&#x5EFA;&#x65E5;&#x671F;&#x3001;&#x5185;&#x5BB9;&#x5927;&#x5C0F;&#x7B49;&#xFF09;&#xFF0C;&#x4E5F;&#x5C31;&#x5F15;&#x51FA;&#x4E86;<code>&#x7D22;&#x5F15;&#x8282;&#x70B9;</code>&#xFF08;inode&#xFF0C;Index Node&#xFF09;&#x3002;<strong>&#x7D22;&#x5F15;&#x8282;&#x70B9;&#x7528;&#x4E8E;&#x7D22;&#x5F15;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x6240;&#x6709;&#x5757;</strong>&#x3002;</p>
+<h2 id="inode&#x7684;&#x5185;&#x5BB9;"><a href="#inode&#x7684;&#x5185;&#x5BB9;" class="headerlink" title="inode&#x7684;&#x5185;&#x5BB9;"></a>inode&#x7684;&#x5185;&#x5BB9;</h2><p>inode&#x7EF4;&#x62A4;&#x6587;&#x4EF6;&#x7684;&#x5143;&#x4FE1;&#x606F;&#x3002;&#x53EF;&#x4EE5;&#x7528;<code>stat &lt;path&gt;</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x7684;inode&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test <span class="built_in">stat</span> example.txt</div><div class="line">  File: <span class="string">&quot;example.txt&quot;</span></div><div class="line">  Size: 4847      	Blocks: 16         IO Block: 4096   &#x666E;&#x901A;&#x6587;&#x4EF6;</div><div class="line">Device: fd00h/64768d	Inode: 261774      Links: 1</div><div class="line">Access: (0664/-rw-rw-r--)  Uid: (  500/    lauo)   Gid: (  500/    lauo)</div><div class="line">Access: 2018-03-09 22:55:01.306013501 +0800</div><div class="line">Modify: 2018-03-09 22:55:01.307013501 +0800</div><div class="line">Change: 2018-03-09 22:55:31.796013501 +0800</div></pre></td></tr></table></figure>
+<p><strong>&#x9664;&#x4E86;&#x6587;&#x4EF6;&#x540D;</strong>&#x4EE5;&#x5916;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x4FE1;&#x606F;&#xFF0C;&#x90FD;&#x5B58;&#x5728;inode&#x4E4B;&#x4E2D;&#x3002;</p>
+<blockquote>
+<p>&#x81F3;&#x4E8E;&#x4E3A;&#x4EC0;&#x4E48;&#x6CA1;&#x6709;&#x6587;&#x4EF6;&#x540D;&#xFF0C;&#x4E0B;&#x9762;&#x4F1A;&#x6709;&#x8BE6;&#x7EC6;&#x89E3;&#x91CA;&#x3002;</p>
+</blockquote>
+<h2 id="inode&#x5927;&#x5C0F;&#x4E0E;inode&#x6570;&#x91CF;&#x4E0A;&#x9650;"><a href="#inode&#x5927;&#x5C0F;&#x4E0E;inode&#x6570;&#x91CF;&#x4E0A;&#x9650;" class="headerlink" title="inode&#x5927;&#x5C0F;&#x4E0E;inode&#x6570;&#x91CF;&#x4E0A;&#x9650;"></a>inode&#x5927;&#x5C0F;&#x4E0E;inode&#x6570;&#x91CF;&#x4E0A;&#x9650;</h2><p>inode&#x4E5F;&#x4F1A;&#x6D88;&#x8017;&#x786C;&#x76D8;&#x7A7A;&#x95F4;&#xFF0C;&#x6240;&#x4EE5;<em><strong>&#x786C;&#x76D8;&#x683C;&#x5F0F;&#x5316;&#x7684;&#x65F6;&#x5019;</strong>&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x81EA;&#x52A8;&#x5C06;&#x786C;&#x76D8;&#x5206;&#x6210;&#x4E24;&#x4E2A;&#x533A;&#x57DF;&#xFF1A;&#x4E00;&#x4E2A;&#x662F;<code>&#x6570;&#x636E;&#x533A;</code>&#xFF08;data area&#xFF09;&#xFF0C;&#x5B58;&#x653E;block&#xFF1B;&#x53E6;&#x4E00;&#x4E2A;&#x662F;<code>inode&#x533A;</code>&#xFF08;&#x4E5F;&#x4EA4;inode&#x8868;&#xFF0C;inode table&#xFF09;&#xFF0C;&#x5B58;&#x653E;inode</em>&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x533A;&#xFF0C;&#x6682;&#x65F6;&#x4E0D;&#x8003;&#x8651;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;inode&#x8282;&#x70B9;&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x4E00;&#x822C;&#x662F;128B&#x6216;256B&#x3002;&#x53EF;&#x4EE5;&#x7528;&#x5982;&#x4E0B;<code>dumpe2fs -h &lt;disk_path&gt;</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test sudo dumpe2fs -h /dev/sda1 | grep <span class="string">&quot;Inode size&quot;</span></div><div class="line">dumpe2fs 1.41.12 (17-May-2010)</div><div class="line">Inode size:	          128</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>/dev/sda1</code>&#x6307;&#x6302;&#x8F7D;&#x7684;SATA&#x76D8;&#x3002;&#x81F3;&#x4E8E;SATA&#x76D8;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x7334;&#x5B50;&#x6682;&#x65F6;&#x6728;&#x6709;&#x5173;&#x5FC3;&#x3002;</p>
+</blockquote>
+<p><strong>inode&#x8282;&#x70B9;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#xFF0C;&#x5728;&#x683C;&#x5F0F;&#x5316;&#x65F6;&#x5C31;&#x7ED9;&#x5B9A;</strong>&#x3002;&#x5728;&#x521D;&#x59CB;&#x5316;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x65F6;&#xFF0C;inode table&#x521D;&#x59CB;&#x5927;&#x5C0F;&#x4E3A;0&#xFF0C;&#x7136;&#x540E;&#xFF0C;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x6BCF;&#x5206;&#x914D;1024B&#x6216;2048B&#x7ED9;data area&#xFF0C;&#x5C31;&#x5206;&#x914D;inode&#x5927;&#x5C0F;&#x7684;&#x7A7A;&#x95F4;&#xFF08;128B&#x6216;256B&#xFF09;&#x7ED9;inode table&#xFF0C;&#x4FDD;&#x6301;2048 : 256 = 8 : 1&#x7684;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x3002;&#x6CE8;&#x610F;&#xFF0C;&#x6B64;&#x5904;&#x4EC5;&#x4EC5;&#x662F;<strong>&#x4FDD;&#x6301;data area&#x4E0E;inode table&#x7684;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#xFF08;&#x5982;8:1&#xFF09;</strong>&#xFF0C;&#x4E0E;&#x672A;&#x6765;&#x4E00;&#x4E2A;inode&#x6307;&#x5411;&#x591A;&#x5C11;block&#x65E0;&#x5173;&#x3002;</p>
+<p>&#x5047;&#x5B9A;&#x5728;&#x4E00;&#x5757;2GB&#x7684;&#x786C;&#x76D8;&#x4E2D;&#xFF0C;data area&#x4E0E;inode table&#x7684;&#x5206;&#x914D;&#x6BD4;&#x4F8B;&#x4E3A;8 : 1&#xFF0C;&#x5219;inode table&#x5360;&#x7528;11.11%&#x7684;&#x78C1;&#x76D8;&#x7A7A;&#x95F4;&#xFF0C;&#x5373;227.56MB&#xFF1B;inode size 256B&#xFF0C;&#x5219;inode&#x6570;&#x91CF;&#x7684;&#x4E0A;&#x9650;&#x4E3A;932067&#x3002;</p>
+<p>&#x4F7F;&#x7528;&#x5982;&#x4E0B;<code>df -i</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6BCF;&#x4E2A;&#x786C;&#x76D8;&#x5206;&#x533A;&#x7684;inode&#x6570;&#x91CF;&#x4E0A;&#x9650;&#x3001;&#x5DF2;&#x7528;&#x6570;&#x91CF;&#x3001;&#x5269;&#x4F59;&#x6570;&#x91CF;&#x7B49;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test df -i</div><div class="line">Filesystem                   Inodes IUsed  IFree IUse% Mounted on</div><div class="line">/dev/mapper/VolGroup-lv_root 912128 33668 878460    4% /</div><div class="line">tmpfs                         63627     1  63626    1% /dev/shm</div><div class="line">/dev/sda1                    128016    38 127978    1% /boot</div></pre></td></tr></table></figure>
+<p>&#x65E2;&#x7136;inode&#x8282;&#x70B9;&#x7684;&#x6570;&#x91CF;&#x5B58;&#x5728;&#x4E0A;&#x9650;&#xFF0C;&#x800C;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x53C8;&#x5FC5;&#x987B;&#x6709;&#x4E00;&#x4E2A;inode&#xFF0C;&#x56E0;&#x6B64;<strong>&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;inode&#x5DF2;&#x7ECF;&#x7528;&#x5149;&#xFF0C;&#x4F46;&#x662F;&#x786C;&#x76D8;&#x8FD8;&#x672A;&#x5B58;&#x6EE1;&#x7684;&#x60C5;&#x51B5;</strong>&#xFF08;&#x5982;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;&#x90FD;&#x5C0F;&#x4E8E;2048B&#xFF09;&#x3002;&#x8FD9;&#x65F6;&#xFF0C;&#x5C31;&#x65E0;&#x6CD5;&#x5728;&#x786C;&#x76D8;&#x4E0A;&#x521B;&#x5EFA;&#x65B0;&#x6587;&#x4EF6;&#x4E86;&#x3002;</p>
+<h2 id="inode&#x53F7;"><a href="#inode&#x53F7;" class="headerlink" title="inode&#x53F7;"></a>inode&#x53F7;</h2><p>Linux&#x7CFB;&#x7EDF;<strong>&#x4F7F;&#x7528;inode&#x53F7;&#x6765;&#x8BC6;&#x522B;&#x6587;&#x4EF6;</strong>&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x4EC5;&#x4EC5;&#x662F;&#x6587;&#x4EF6;&#x7684;&#x522B;&#x540D;&#x3002;</p>
+<p>&#x8868;&#x9762;&#x4E0A;&#xFF0C;&#x7528;&#x6237;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x540D;&#x6253;&#x5F00;&#x6587;&#x4EF6;&#x2014;&#x2014;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x7CFB;&#x7EDF;&#x5185;&#x90E8;&#x5206;&#x4E09;&#x6B65;&#x5B8C;&#x6210;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x627E;&#x5230;&#x6587;&#x4EF6;&#x540D;&#x5BF9;&#x5E94;&#x7684;inode&#x53F7;&#xFF08;&#x5185;&#x5B58;&#xFF09;&#x3002;</li>
+<li>&#x901A;&#x8FC7;inode&#x53F7;&#x7801;&#xFF0C;&#x83B7;&#x53D6;inode&#x5185;&#x5BB9;&#xFF08;&#x78C1;&#x76D8;&#xFF09;&#x3002;</li>
+<li>&#x6700;&#x540E;&#xFF0C;&#x6839;&#x636E;inode&#x5185;&#x5BB9;&#xFF0C;&#x627E;&#x5230;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7684;&#x6240;&#x6709;block&#xFF0C;&#x8BFB;&#x51FA;&#x6570;&#x636E;&#xFF08;&#x78C1;&#x76D8;&#xFF09;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x53EA;&#x83B7;&#x53D6;&#x6587;&#x4EF6;&#x540D;&#x4E0E;inode&#x53F7;&#x7801;&#xFF0C;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x8BFB;&#x53D6;&#x78C1;&#x76D8;&#x7684;&#x3002;</p>
+</blockquote>
+<p>&#x4F7F;&#x7528;<code>ls -i &lt;path&gt;</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x540D;&#x5BF9;&#x5E94;&#x7684;inode&#x53F7;&#x7801;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ls -i example.txt</div><div class="line">261774 example.txt</div></pre></td></tr></table></figure>
+<h1 id="&#x6587;&#x4EF6;-amp-&#x76EE;&#x5F55;"><a href="#&#x6587;&#x4EF6;-amp-&#x76EE;&#x5F55;" class="headerlink" title="&#x6587;&#x4EF6; &amp; &#x76EE;&#x5F55;"></a>&#x6587;&#x4EF6; &amp; &#x76EE;&#x5F55;</h1><h2 id="&#x6587;&#x4EF6;"><a href="#&#x6587;&#x4EF6;" class="headerlink" title="&#x6587;&#x4EF6;"></a>&#x6587;&#x4EF6;</h2><p>&#x4ECB;&#x7ECD;inode&#x65F6;&#xFF0C;&#x5DF2;&#x7ECF;&#x8BF4;&#x660E;&#x4E86;&#x6587;&#x4EF6;&#x7684;&#x5B9E;&#x73B0;&#x2014;&#x2014;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;inode&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x662F;&#x6587;&#x4EF6;&#x7684;&#x522B;&#x540D;&#xFF0C;inode&#x662F;&#x6587;&#x4EF6;&#x7684;&#x672C;&#x4F53;&#xFF1B;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7EF4;&#x62A4;&#x6587;&#x4EF6;&#x540D;&#x5230;inode&#x7684;&#x6620;&#x5C04;&#x3002;</p>
+<p>Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;<strong>&#x4E00;&#x5207;&#x7686;&#x6587;&#x4EF6;</strong>&#xFF0C;&#x5305;&#x62EC;&#x540E;&#x9762;&#x8981;&#x89E3;&#x91CA;&#x7684;&#x76EE;&#x5F55;&#x3001;&#x786C;&#x94FE;&#x63A5;&#x3001;&#x8F6F;&#x94FE;&#x63A5;&#xFF0C;&#x5305;&#x62EC;socket&#x3001;&#x8BBE;&#x5907;&#x3001;&#x5185;&#x5B58;&#x7B49;&#x3002;&#x7406;&#x89E3;&#x8FD9;&#x4E00;&#x70B9;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x3002;</p>
+<h2 id="&#x76EE;&#x5F55;&#x6587;&#x4EF6;"><a href="#&#x76EE;&#x5F55;&#x6587;&#x4EF6;" class="headerlink" title="&#x76EE;&#x5F55;&#x6587;&#x4EF6;"></a>&#x76EE;&#x5F55;&#x6587;&#x4EF6;</h2><p>Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;<code>&#x76EE;&#x5F55;</code>&#xFF08;directory&#xFF09;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x6587;&#x4EF6;&#x3002;&#x6253;&#x5F00;&#x76EE;&#x5F55;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x6253;&#x5F00;<code>&#x76EE;&#x5F55;&#x6587;&#x4EF6;</code>&#x3002;</p>
+<p>&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x7684;&#x7ED3;&#x6784;&#x975E;&#x5E38;&#x7B80;&#x5355;&#xFF0C;&#x5C31;&#x662F;&#x4E00;&#x7CFB;&#x5217;<code>&#x76EE;&#x5F55;&#x9879;</code>&#xFF08;dirent&#xFF09;&#x7684;&#x5217;&#x8868;&#x3002;<strong>&#x76EE;&#x5F55;&#x9879;&#x662F;&#x4E00;&#x4E2A;&#x4E8C;&#x5143;&#x7EC4;<code>&lt;&#x6587;&#x4EF6;&#x540D;, inode&#x53F7;&#x7801;&gt;</code></strong>&#x3002;</p>
+<p><code>ls &lt;path&gt;</code>&#x547D;&#x4EE4;&#x53EA;&#x5217;&#x51FA;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6587;&#x4EF6;&#x540D;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ls exp_dir</div><div class="line">example_1.txt  ex_dir_1</div></pre></td></tr></table></figure>
+<p><code>ls -i &lt;path&gt;</code>&#x547D;&#x4EE4;&#x5217;&#x51FA;&#x6574;&#x4E2A;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#xFF0C;&#x5373;&#x6587;&#x4EF6;&#x540D;&#x548C;inode&#x53F7;&#x7801;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ls -i exp_dir</div><div class="line">261780 example_1.txt  261781 ex_dir_1</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x524D;&#x9762;<code>ls -i &lt;file&gt;</code>&#x7684;&#x65F6;&#x5019;&#x53EA;&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x6587;&#x4EF6;&#x540D;&#x5230;inode&#x7684;map&#xFF1B;&#x800C;&#x6B64;&#x5904;<code>ls -i &lt;dir&gt;</code>&#x5219;&#x591A;&#x4E00;&#x6B21;&#x8BFB;&#x53D6;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x7684;&#x5F00;&#x9500;&#x3002;</p>
+</blockquote>
+<p>&#x5982;&#x679C;&#x8981;&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x7684;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x6839;&#x636E;inode&#x53F7;&#x7801;&#xFF0C;&#x8BFB;&#x53D6;inode&#x5185;&#x5BB9;&#xFF08;&#x78C1;&#x76D8;&#xFF09;&#x3002;<code>ls -l &lt;path&gt;</code>&#x547D;&#x4EE4;&#x5217;&#x51FA;&#x6587;&#x4EF6;&#x7684;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ls <span class="_">-l</span> exp_dir</div><div class="line">&#x603B;&#x7528;&#x91CF; 12</div><div class="line">-rw-rw-r--. 1 msh msh 4847 3&#x6708;   9 23:15 example_1.txt</div><div class="line">drwxrwxr-x. 2 msh msh 4096 3&#x6708;   9 23:16 ex_dir_1</div></pre></td></tr></table></figure>
+<p>&#x7406;&#x89E3;&#x4E86;&#x4E0A;&#x9762;&#x8FD9;&#x4E9B;&#x77E5;&#x8BC6;&#xFF0C;&#x5C31;&#x80FD;&#x7406;&#x89E3;&#x76EE;&#x5F55;&#x7684;&#x6743;&#x9650;&#xFF1A;</p>
+<ul>
+<li>&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x7684;&#x8BFB;&#x6743;&#x9650;&#xFF08;r&#xFF09;&#x548C;&#x5199;&#x6743;&#x9650;&#xFF08;w&#xFF09;&#x9488;&#x5BF9;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x672C;&#x8EAB;</li>
+<li>&#x7531;&#x4E8E;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x5185;&#x53EA;&#x6709;&#x6587;&#x4EF6;&#x540D;&#x548C;inode&#x53F7;&#x7801;&#xFF0C;<strong>&#x5982;&#x679C;&#x60F3;&#x8BFB;&#x53D6;&#x76EE;&#x5F55;&#x9879;&#x7684;inode&#x5185;&#x5BB9;&#xFF0C;Linux&#x89C4;&#x5B9A;&#x9700;&#x8981;&#x7528;&#x6237;&#x62E5;&#x6709;&#x76EE;&#x5F55;&#x7684;&#x53EF;&#x6267;&#x884C;&#x6743;&#x9650;&#xFF08;x&#xFF09;</strong>&#x3002;</li>
+</ul>
+<h1 id="&#x786C;&#x94FE;-amp-&#x8F6F;&#x94FE;"><a href="#&#x786C;&#x94FE;-amp-&#x8F6F;&#x94FE;" class="headerlink" title="&#x786C;&#x94FE; &amp; &#x8F6F;&#x94FE;"></a>&#x786C;&#x94FE; &amp; &#x8F6F;&#x94FE;</h1><h2 id="&#x786C;&#x94FE;&#x63A5;"><a href="#&#x786C;&#x94FE;&#x63A5;" class="headerlink" title="&#x786C;&#x94FE;&#x63A5;"></a>&#x786C;&#x94FE;&#x63A5;</h2><p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x548C;inode&#x53F7;&#x7801;&#x662F;&#x201D;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x201D;&#x7684;&#x3002;&#x4F46;&#x662F;&#xFF0C;Linux&#x7CFB;&#x7EDF;&#x5141;&#x8BB8;<strong>&#x591A;&#x4E2A;&#x6587;&#x4EF6;&#x540D;&#x6307;&#x5411;&#x540C;&#x4E00;&#x4E2A;inode&#x53F7;&#x7801;</strong>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;<code>&#x786C;&#x94FE;&#x63A5;</code>&#xFF08;hard link&#xFF09;&#x3002;</p>
+<p>&#x4E00;&#x65E6;&#x5EFA;&#x7ACB;&#x786C;&#x94FE;&#xFF0C;&#x5C31;&#x4E0D;&#x518D;&#x533A;&#x5206;&#x5219;&#x6E90;&#x6587;&#x4EF6;&#x4E0E;&#x786C;&#x94FE;&#x6587;&#x4EF6;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4E8C;&#x8005;&#x662F;&#x6307;&#x5411;&#x76F8;&#x540C;inode&#x7684;&#x201C;&#x5E73;&#x7B49;&#x7684;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x201D;&#xFF08;&#x5982;&#x679C;&#x4EE5;&#x6587;&#x4EF6;&#x540D;&#x533A;&#x5206;&#xFF09;&#x3002;&#x7531;&#x4E8E;&#x6307;&#x5411;&#x76F8;&#x540C;&#x7684;inode&#xFF0C;&#x786C;&#x94FE;&#x63A5;&#x7684;&#x884C;&#x4E3A;&#x5C31;&#x5F88;&#x597D;&#x7406;&#x89E3;&#x4E86;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x4FEE;&#x6539;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#xFF0C;&#x5219;&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x540D;&#x8BBF;&#x95EE;&#x7684;&#x5185;&#x5BB9;&#x4E5F;&#x968F;&#x4E4B;&#x4FEE;&#x6539;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5220;&#x9664;&#x6587;&#x4EF6;&#xFF0C;&#x5219;&#x7CFB;&#x7EDF;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x6587;&#x4EF6;&#x540D;&#x6307;&#x5411;inode&#x3002;&#x5982;&#x679C;&#x6CA1;&#x6709;&#xFF0C;&#x5219;&#x5220;&#x9664;inode&#x4E0E;block&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x4EC5;&#x5220;&#x9664;&#x5F53;&#x524D;&#x6587;&#x4EF6;&#x540D;&#x5230;inode&#x7684;&#x6620;&#x5C04;&#x3002;</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>ln &lt;src&gt; &lt;hard_link&gt;</code>&#x547D;&#x4EE4;&#x521B;&#x5EFA;&#x786C;&#x94FE;&#x63A5;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ln example.txt example_2.txt</div><div class="line">&#x279C;  fs_test ls -li</div><div class="line">&#x603B;&#x7528;&#x91CF; 20</div><div class="line">261774 -rw-rw-r--. 2 msh msh 4847 3&#x6708;   9 22:55 example_2.txt</div><div class="line">261774 -rw-rw-r--. 2 msh msh 4847 3&#x6708;   9 22:55 example.txt</div><div class="line">261779 drwxrwxr-x. 3 msh msh 4096 3&#x6708;   9 23:16 exp_dir</div></pre></td></tr></table></figure>
+<p>&#x7B2C;&#x4E00;&#x5217;&#x662F;inode&#x53F7;&#xFF0C;&#x7B2C;3&#x5217;&#x662F;&#x6307;&#x5411;&#x8BE5;inode&#x7684;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x5373;<code>&#x94FE;&#x63A5;&#x6570;</code>&#x3002;&#x53EF;&#x89C1;&#xFF0C;<code>example.txt</code>&#x3001;<code>example_2.txt</code>&#x7684;inode&#x53F7;&#x90FD;&#x4E3A;261774&#xFF1B;&#x516C;&#x6709;2&#x4E2A;&#x6587;&#x4EF6;&#x540D;&#x6307;&#x5411;inode 261774&#x3002;</p>
+<p>&#x987A;&#x4FBF;&#x8BF4;&#x4E00;&#x4E0B;&#xFF0C;<strong>&#x201C;<code>.</code>&#x201C;&#x548C;&#x201D;<code>..</code>&#x201C;&#x4E5F;&#x662F;&#x76EE;&#x5F55;&#xFF0C;&#x901A;&#x8FC7;&#x786C;&#x94FE;&#x5206;&#x522B;&#x6307;&#x5411;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x548C;&#x7236;&#x76EE;&#x5F55;</strong>&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6240;&#x6709;&#x76EE;&#x5F55;&#x7684;&#x94FE;&#x63A5;&#x6570;&#x5FC5;&#x7136;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;2&#xFF0C;&#x5373;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x548C;&#x201D;.&#x201D;&#x76EE;&#x5F55;&#x3002;&#x5982;&#x4E0A;&#xFF0C;<code>exp_dir</code>&#x76EE;&#x5F55;&#x7684;&#x94FE;&#x63A5;&#x6570;&#x4E3A;3&#x3002;</p>
+<h2 id="&#x8F6F;&#x94FE;&#x63A5;"><a href="#&#x8F6F;&#x94FE;&#x63A5;" class="headerlink" title="&#x8F6F;&#x94FE;&#x63A5;"></a>&#x8F6F;&#x94FE;&#x63A5;</h2><p>&#x786C;&#x94FE;&#x4F7F;&#x7528;&#x8D77;&#x6765;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x65B9;&#x4FBF;&#xFF0C;&#x7BA1;&#x7406;&#x8D77;&#x6765;&#x4E5F;&#x6BD4;&#x8F83;&#x9EBB;&#x70E6;&#x3002;&#x4E8E;&#x662F;&#x4F7F;&#x7528;&#x53E6;&#x4E00;&#x79CD;&#x66F4;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x4E86;<code>&#x8F6F;&#x94FE;</code>&#xFF08;soft link&#xFF0C;&#x6216;&#x79F0;&#x7B26;&#x53F7;&#x94FE;&#x63A5;symbolic link&#xFF09;&#xFF1A;<strong>&#x5982;&#x679C;&#x6587;&#x4EF6;A&#x8F6F;&#x94FE;&#x6307;&#x5411;&#x6587;&#x4EF6;B&#xFF0C;&#x5219;&#x6807;&#x8BB0;&#x6587;&#x4EF6;A&#x4E3A;&#x8F6F;&#x94FE;&#x6587;&#x4EF6;&#xFF0C;&#x5E76;&#x5728;&#x6587;&#x4EF6;A&#x4E2D;&#x8BB0;&#x5F55;&#x6587;&#x4EF6;B&#x7684;&#x8DEF;&#x5F84;</strong>&#x3002;</p>
+<p>&#x6B64;&#x65F6;&#xFF0C;&#x6587;&#x4EF6;A&#x4E0E;&#x6587;&#x4EF6;B&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;inode&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x6587;&#x4EF6;A&#x8BBF;&#x95EE;&#x5230;&#x6587;&#x4EF6;B&#x7684;&#x5185;&#x5BB9;&#x5462;&#xFF1F;<em>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x5728;&#x6211;&#x4EEC;&#x8BBF;&#x95EE;&#x6587;&#x4EF6;A&#x65F6;&#xFF0C;&#x53D1;&#x73B0;&#x6587;&#x4EF6;A&#x662F;&#x8F6F;&#x94FE;&#x6587;&#x4EF6;&#xFF0C;&#x5219;&#x81EA;&#x52A8;&#x5C06;&#x8BBF;&#x95EE;&#x8005;&#x5BFC;&#x5411;&#x6587;&#x4EF6;B</em>&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x65E0;&#x8BBA;&#x6253;&#x5F00;&#x54EA;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x6700;&#x7EC8;&#x8BFB;&#x53D6;&#x7684;&#x90FD;&#x662F;&#x6587;&#x4EF6;B&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x8BFB;&#x3001;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#xFF0C;&#x786C;&#x94FE;&#x63A5;&#x4E0E;&#x8F6F;&#x8FDE;&#x63A5;&#x5B9E;&#x73B0;&#x7684;&#x6548;&#x679C;&#x76F8;&#x540C;&#x3002;&#x4F46;&#x5220;&#x9664;&#xFF08;&#x5305;&#x62EC;rename&#xFF09;&#x64CD;&#x4F5C;&#x4E0A;&#x7684;&#x8868;&#x73B0;&#x4E0D;&#x540C;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x5220;&#x9664;&#x6587;&#x4EF6;A&#xFF0C;&#x5219;&#x6587;&#x4EF6;B&#x65E0;&#x5F71;&#x54CD;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5220;&#x9664;&#x6587;&#x4EF6;B&#xFF0C;&#x5219;&#x6587;&#x4EF6;A&#x4F9D;&#x7136;&#x5B58;&#x5728;&#xFF0C;&#x4F46;&#x8BBF;&#x95EE;&#x6587;&#x4EF6;A&#x65F6;&#x4F1A;&#x62A5;&#x9519;&#x201D;&#x6CA1;&#x6709;&#x90A3;&#x4E2A;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55;&#x201D;&#x3002;</li>
+</ul>
+<p>&#x4F7F;&#x7528;<code>ln -s &lt;src&gt; &lt;soft_link&gt;</code>&#x547D;&#x4EE4;&#x521B;&#x5EFA;&#x8F6F;&#x94FE;&#x63A5;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ln <span class="_">-s</span> example.txt example_3.txt</div><div class="line">&#x279C;  fs_test ls -li</div><div class="line">&#x603B;&#x7528;&#x91CF; 20</div><div class="line">261774 -rw-rw-r--. 2 msh msh 4847 3&#x6708;   9 22:55 example_2.txt</div><div class="line">261782 lrwxrwxrwx. 1 msh msh   11 3&#x6708;  10 00:05 example_3.txt -&gt; example.txt</div><div class="line">261774 -rw-rw-r--. 2 msh msh 4847 3&#x6708;   9 22:55 example.txt</div><div class="line">261779 drwxrwxr-x. 3 msh msh 4096 3&#x6708;   9 23:16 exp_dir</div></pre></td></tr></table></figure>
+<p>&#x53EF;&#x89C1;&#xFF0C; <code>example_3.txt</code>&#x662F;&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#xFF0C;&#x6307;&#x5411;<code>example.txt</code>&#xFF0C;&#x4E8C;&#x8005;&#x7684;inode&#x53F7;&#x7801;&#x4E0D;&#x540C;&#xFF0C;&#x94FE;&#x63A5;&#x6570;&#x4E5F;&#x6CA1;&#x6709;&#x5173;&#x7CFB;&#x3002;</p>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2011/12/inode.html" target="_blank" rel="external">&#x7406;&#x89E3;inode</a></li>
+<li><a href="http://blog.csdn.net/zollty/article/details/7001950" target="_blank" rel="external">&#x786C;&#x76D8;&#x7C7B;&#x578B;&#x548C;Linux&#x5206;&#x533A;</a></li>
+<li><a href="http://blog.csdn.net/lidan3959/article/details/16981137" target="_blank" rel="external">linux&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x2014;inode&#x53CA;&#x76F8;&#x5173;&#x6982;&#x5FF5; inode&#x5927;&#x5C0F;&#x7684;&#x6700;&#x4F73;&#x8BBE;&#x7F6E;</a></li>
+</ul>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2018/03/10/Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链/">Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/09/分布式理论：CAP、BASE与ACID/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">分布式理论：CAP、BASE与ACID</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 15.83px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.67px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.33px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.83px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10.83px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.5px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.33px;">猿工</a> <a href="/tags/猿格/" style="font-size: 14.17px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.5px;">科普</a> <a href="/tags/算法/" style="font-size: 14.17px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.83px;">网络</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.83px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.17px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://spy19930412.github.io/">Jane_s_blog</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://zongwenlong.github.io/">All_is_well</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
