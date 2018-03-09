@@ -8,18 +8,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>Date类为什么设计为可变的，而不是像String一样？ | 程序猿说你好</title>
+  <title>分布式理论：CAP、BASE与ACID | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x9996;&amp;#x5148;&amp;#xFF0C;&amp;#x4E0D;&amp;#x5F97;&amp;#x4E0D;&amp;#x627F;&amp;#x8BA4;&amp;#xFF0C;&amp;#x8FD9;&amp;#x786E;&amp;#x5B9E;&amp;#x662F;&amp;#x7C7B;&amp;#x5E93;&amp;#x8BBE;&amp;#x8BA1;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x9519;&amp;#x8BEF;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;">
+  <meta name="description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Date类为什么设计为可变的，而不是像String一样？">
-<meta property="og:url" content="https://monkeysayhi.github.io/2016/11/30/Date类为什么设计为可变的，而不是像String一样？/index.html">
+<meta property="og:title" content="分布式理论：CAP、BASE与ACID">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/03/09/分布式理论：CAP、BASE与ACID/index.html">
 <meta property="og:site_name" content="程序猿说你好">
-<meta property="og:description" content="&amp;#x9996;&amp;#x5148;&amp;#xFF0C;&amp;#x4E0D;&amp;#x5F97;&amp;#x4E0D;&amp;#x627F;&amp;#x8BA4;&amp;#xFF0C;&amp;#x8FD9;&amp;#x786E;&amp;#x5B9E;&amp;#x662F;&amp;#x7C7B;&amp;#x5E93;&amp;#x8BBE;&amp;#x8BA1;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x9519;&amp;#x8BEF;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;">
-<meta property="og:updated_time" content="2017-10-11T02:19:35.000Z">
+<meta property="og:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
+<meta property="og:updated_time" content="2018-03-09T12:24:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Date类为什么设计为可变的，而不是像String一样？">
-<meta name="twitter:description" content="&amp;#x9996;&amp;#x5148;&amp;#xFF0C;&amp;#x4E0D;&amp;#x5F97;&amp;#x4E0D;&amp;#x627F;&amp;#x8BA4;&amp;#xFF0C;&amp;#x8FD9;&amp;#x786E;&amp;#x5B9E;&amp;#x662F;&amp;#x7C7B;&amp;#x5E93;&amp;#x8BBE;&amp;#x8BA1;&amp;#x7684;&amp;#x4E00;&amp;#x4E2A;&amp;#x9519;&amp;#x8BEF;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;">
+<meta name="twitter:title" content="分布式理论：CAP、BASE与ACID">
+<meta name="twitter:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -156,55 +156,52 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-Date类为什么设计为可变的，而不是像String一样？" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-分布式理论：CAP、BASE与ACID" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Date类为什么设计为可变的，而不是像String一样？
+      分布式理论：CAP、BASE与ACID
     </h1>
   
 
-        <a href="/2016/11/30/Date类为什么设计为可变的，而不是像String一样？/" class="archive-article-date">
-  	<time datetime="2016-11-30T15:35:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-30</time>
+        <a href="/2018/03/09/分布式理论：CAP、BASE与ACID/" class="archive-article-date">
+  	<time datetime="2018-03-09T12:24:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-09</time>
 </a>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x9996;&#x5148;&#xFF0C;&#x4E0D;&#x5F97;&#x4E0D;&#x627F;&#x8BA4;&#xFF0C;<strong>&#x8FD9;&#x786E;&#x5B9E;&#x662F;&#x7C7B;&#x5E93;&#x8BBE;&#x8BA1;&#x7684;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;</strong>&#xFF0C;&#x6240;&#x4EE5;&#x201C;&#x4E3A;&#x4EC0;&#x4E48;&#x201D;&#x8FDB;&#x884C;&#x4E86;&#x8FD9;&#x4E2A;&#x9519;&#x8BEF;&#x8BBE;&#x8BA1;&#x5E76;&#x6CA1;&#x6709;&#x610F;&#x4E49;&#x3002;&#x4F46;&#x6CA1;&#x6709;&#x4E8B;&#x7269;&#x4E00;&#x8BDE;&#x751F;&#x5C31;&#x662F;&#x5B8C;&#x7F8E;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x7684;Java&#x53EA;&#x662F;&#x53CD;&#x5E94;&#x7684;&#x6162;&#x4E86;&#x4E00;&#x70B9;&#xFF0C;&#x518D;&#x6162;&#x4E86;&#x4E00;&#x70B9;&#x3002;<br>&#x66F4;&#x4F55;&#x51B5;&#xFF0C;Date&#x7C7B;&#x7B49;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x53C8;&#x4E0D;&#x662F;&#x53EA;&#x6709;&#x8FD9;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+        <p>&#x4ECB;&#x7ECD;&#x51E0;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x57FA;&#x672C;&#x7406;&#x8BBA;&#x3002;</p>
 <a id="more"></a>
-<h1 id="Java8&#x4E4B;&#x524D;&#xFF0C;&#x65E5;&#x671F;-&#x65F6;&#x95F4;API&#x7684;&#x95EE;&#x9898;"><a href="#Java8&#x4E4B;&#x524D;&#xFF0C;&#x65E5;&#x671F;-&#x65F6;&#x95F4;API&#x7684;&#x95EE;&#x9898;" class="headerlink" title="Java8&#x4E4B;&#x524D;&#xFF0C;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x7684;&#x95EE;&#x9898;"></a>Java8&#x4E4B;&#x524D;&#xFF0C;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x7684;&#x95EE;&#x9898;</h1><p>&#x5728;Java8&#x4E4B;&#x524D;&#xFF0C;&#x65E5;&#x671F;&#x548C;&#x65F6;&#x95F4;&#x76F8;&#x5173;&#x7684;&#x7C7B;&#x5B58;&#x5728;&#x8BF8;&#x591A;&#x95EE;&#x9898;&#xFF1A;</p>
-<ol>
-<li>Java&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;&#x7C7B;&#x7684;&#x5B9A;&#x4E49;&#x5E76;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;&#x5728;java.util&#x548C;java.sql&#x7684;&#x5305;&#x4E2D;&#x90FD;&#x6709;&#x65E5;&#x671F;&#x7C7B;&#xFF0C;&#x6B64;&#x5916;&#x7528;&#x4E8E;&#x683C;&#x5F0F;&#x5316;&#x548C;&#x89E3;&#x6790;&#x7684;&#x7C7B;&#x5728;java.text&#x5305;&#x4E2D;&#x5B9A;&#x4E49;&#x3002;</li>
-<li>java.util.Date&#x540C;&#x65F6;&#x5305;&#x542B;&#x65E5;&#x671F;&#x548C;&#x65F6;&#x95F4;&#xFF0C;&#x800C;java.sql.Date&#x4EC5;&#x5305;&#x542B;&#x65E5;&#x671F;&#xFF0C;&#x5C06;&#x5176;&#x7EB3;&#x5165;java.sql&#x5305;&#x5E76;&#x4E0D;&#x5408;&#x7406;&#x3002;&#x53E6;&#x5916;&#x8FD9;&#x4E24;&#x4E2A;&#x7C7B;&#x90FD;&#x6709;&#x76F8;&#x540C;&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x8FD9;&#x672C;&#x8EAB;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x7CDF;&#x7CD5;&#x7684;&#x8BBE;&#x8BA1;&#x3002;</li>
-<li>&#x5BF9;&#x4E8E;&#x65F6;&#x95F4;&#x3001;&#x65F6;&#x95F4;&#x6233;&#x3001;&#x683C;&#x5F0F;&#x5316;&#x4EE5;&#x53CA;&#x89E3;&#x6790;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x4E00;&#x4E9B;&#x660E;&#x786E;&#x5B9A;&#x4E49;&#x7684;&#x7C7B;&#x3002;&#x5BF9;&#x4E8E;&#x683C;&#x5F0F;&#x5316;&#x548C;&#x89E3;&#x6790;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x6211;&#x4EEC;&#x6709;java.text.DateFormat&#x62BD;&#x8C61;&#x7C7B;&#xFF0C;&#x4F46;&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;SimpleDateFormat&#x7C7B;&#x88AB;&#x7528;&#x4E8E;&#x6B64;&#x7C7B;&#x9700;&#x6C42;&#x3002;</li>
-<li>&#x6240;&#x6709;&#x7684;&#x65E5;&#x671F;&#x7C7B;&#x90FD;&#x662F;&#x53EF;&#x53D8;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x4ED6;&#x4EEC;&#x90FD;&#x4E0D;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x8FD9;&#x662F;Java&#x65E5;&#x671F;&#x7C7B;&#x6700;&#x5927;&#x7684;&#x95EE;&#x9898;&#x4E4B;&#x4E00;&#x3002;</li>
-<li>&#x65E5;&#x671F;&#x7C7B;&#x5E76;&#x4E0D;&#x63D0;&#x4F9B;&#x56FD;&#x9645;&#x5316;&#xFF0C;&#x6CA1;&#x6709;&#x65F6;&#x533A;&#x652F;&#x6301;&#xFF0C;&#x56E0;&#x6B64;Java&#x5F15;&#x5165;&#x4E86;java.util.Calendar&#x548C;java.util.TimeZone&#x7C7B;&#xFF0C;&#x4F46;&#x4ED6;&#x4EEC;&#x540C;&#x6837;&#x5B58;&#x5728;&#x4E0A;&#x8FF0;&#x6240;&#x6709;&#x7684;&#x95EE;&#x9898;&#x3002;</li>
-</ol>
-<p>&#x9650;&#x4E8E;&#x7BC7;&#x5E45;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x95EE;&#x9898;&#x6CA1;&#x6709;&#x63D0;&#x5230;&#xFF0C;&#x4F46;&#x4EE5;&#x4E0A;&#x95EE;&#x9898;&#x5DF2;&#x7ECF;&#x5F88;&#x6E05;&#x6670;&#x5730;&#x8868;&#x660E;&#xFF1A;</p>
-<p><strong>Java&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x5065;&#x58EE;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;&#x7C7B;&#x3002;&#x8FD9;&#x4E5F;&#x662F;&#x4E3A;&#x4EC0;&#x4E48;Joda Time&#x5728;Java&#x65E5;&#x671F;/&#x65F6;&#x95F4;&#x9700;&#x6C42;&#x4E2D;&#x626E;&#x6F14;&#x4E86;&#x9AD8;&#x8D28;&#x91CF;&#x66FF;&#x6362;&#x7684;&#x91CD;&#x8981;&#x89D2;&#x8272;&#x3002;</strong></p>
-<h1 id="Java8&#x5D2D;&#x65B0;&#x7684;&#x65E5;&#x671F;-&#x65F6;&#x95F4;API"><a href="#Java8&#x5D2D;&#x65B0;&#x7684;&#x65E5;&#x671F;-&#x65F6;&#x95F4;API" class="headerlink" title="Java8&#x5D2D;&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API"></a>Java8&#x5D2D;&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API</h1><p>Java 8&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x662F;JSR-310&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5B83;&#x7684;&#x5B9E;&#x73B0;&#x76EE;&#x6807;&#x662F;&#x514B;&#x670D;&#x65E7;&#x7684;&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x5B9E;&#x73B0;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x7F3A;&#x9677;&#x3002;</p>
-<p>&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x7684;&#x4E00;&#x4E9B;&#x8BBE;&#x8BA1;&#x539F;&#x5219;&#x662F;&#xFF1A;</p>
-<ol>
-<li>&#x4E0D;&#x53D8;&#x6027;&#xFF1A;&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7C7B;&#x90FD;&#x662F;&#x4E0D;&#x53EF;&#x53D8;&#x7684;&#xFF0C;&#x8FD9;&#x5BF9;&#x591A;&#x7EBF;&#x7A0B;&#x73AF;&#x5883;&#x6709;&#x597D;&#x5904;&#x3002;</li>
-<li>&#x5173;&#x6CE8;&#x70B9;&#x5206;&#x79BB;&#xFF1A;&#x65B0;&#x7684;API&#x5C06;&#x4EBA;&#x53EF;&#x8BFB;&#x7684;&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x548C;&#x673A;&#x5668;&#x65F6;&#x95F4;&#xFF08;unix timestamp&#xFF09;&#x660E;&#x786E;&#x5206;&#x79BB;&#xFF0C;&#x5B83;&#x4E3A;&#x65E5;&#x671F;&#xFF08;Date&#xFF09;&#x3001;&#x65F6;&#x95F4;&#xFF08;Time&#xFF09;&#x3001;&#x65E5;&#x671F;&#x65F6;&#x95F4;&#xFF08;DateTime&#xFF09;&#x3001;&#x65F6;&#x95F4;&#x6233;&#xFF08;unix timestamp&#xFF09;&#x4EE5;&#x53CA;&#x65F6;&#x533A;&#x5B9A;&#x4E49;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x7C7B;&#x3002;</li>
-<li>&#x6E05;&#x6670;&#xFF1A;&#x5728;&#x6240;&#x6709;&#x7684;&#x7C7B;&#x4E2D;&#xFF0C;&#x65B9;&#x6CD5;&#x90FD;&#x88AB;&#x660E;&#x786E;&#x5B9A;&#x4E49;&#x7528;&#x4EE5;&#x5B8C;&#x6210;&#x76F8;&#x540C;&#x7684;&#x884C;&#x4E3A;&#x3002;&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x8981;&#x62FF;&#x5230;&#x5F53;&#x524D;&#x5B9E;&#x4F8B;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;now()&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x6240;&#x6709;&#x7684;&#x7C7B;&#x4E2D;&#x90FD;&#x5B9A;&#x4E49;&#x4E86;format()&#x548C;parse()&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x50CF;&#x4EE5;&#x524D;&#x90A3;&#x6837;&#x4E13;&#x95E8;&#x6709;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x7C7B;&#x3002;&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x5904;&#x7406;&#x95EE;&#x9898;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7C7B;&#x90FD;&#x4F7F;&#x7528;&#x4E86;&#x5DE5;&#x5382;&#x6A21;&#x5F0F;&#x548C;&#x7B56;&#x7565;&#x6A21;&#x5F0F;&#xFF0C;&#x4E00;&#x65E6;&#x4F60;&#x4F7F;&#x7528;&#x4E86;&#x5176;&#x4E2D;&#x67D0;&#x4E2A;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4E0E;&#x5176;&#x4ED6;&#x7C7B;&#x534F;&#x540C;&#x5DE5;&#x4F5C;&#x5E76;&#x4E0D;&#x56F0;&#x96BE;&#x3002;</li>
-<li>&#x5B9E;&#x7528;&#x64CD;&#x4F5C;&#xFF1A;&#x6240;&#x6709;&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x7C7B;&#x90FD;&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x65B9;&#x6CD5;&#x7528;&#x4EE5;&#x5B8C;&#x6210;&#x901A;&#x7528;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x5982;&#xFF1A;&#x52A0;&#x3001;&#x51CF;&#x3001;&#x683C;&#x5F0F;&#x5316;&#x3001;&#x89E3;&#x6790;&#x3001;&#x4ECE;&#x65E5;&#x671F;/&#x65F6;&#x95F4;&#x4E2D;&#x63D0;&#x53D6;&#x5355;&#x72EC;&#x90E8;&#x5206;&#xFF0C;&#x7B49;&#x7B49;&#x3002;</li>
-<li>&#x53EF;&#x6269;&#x5C55;&#x6027;&#xFF1A;&#x65B0;&#x7684;&#x65E5;&#x671F;/&#x65F6;&#x95F4;API&#x662F;&#x5DE5;&#x4F5C;&#x5728;ISO-8601&#x65E5;&#x5386;&#x7CFB;&#x7EDF;&#x4E0A;&#x7684;&#xFF0C;&#x4F46;&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x5C06;&#x5176;&#x5E94;&#x7528;&#x5728;&#x975E;ISO&#x7684;&#x65E5;&#x5386;&#x4E0A;&#x3002;</li>
-</ol>
-<p>&#x5177;&#x4F53;&#x5E94;&#x7528;&#x4E0D;&#x8868;&#x3002;</p>
-<hr>
-<blockquote>
-<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<h1 id="CAP&#x5B9A;&#x7406;"><a href="#CAP&#x5B9A;&#x7406;" class="headerlink" title="CAP&#x5B9A;&#x7406;"></a>CAP&#x5B9A;&#x7406;</h1><p>CAP&#x5B9A;&#x7406;&#xFF1A;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x6700;&#x591A;&#x53EA;&#x80FD;&#x540C;&#x65F6;&#x6EE1;&#x8DB3;&#x4E00;&#x81F4;&#x6027;&#xFF08;Consistence&#xFF09;&#x3001;&#x53EF;&#x7528;&#x6027;&#xFF08;Availability&#xFF09;&#x548C;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF08;Partition tolerance&#xFF09;&#x8FD9;&#x4E09;&#x9879;&#x4E2D;&#x7684;&#x4E24;&#x9879;&#x3002;</p>
 <ul>
-<li><a href="http://www.importnew.com/14857.html" target="_blank" rel="external">Java8&#xFF1A;&#x5065;&#x58EE;&#x3001;&#x6613;&#x7528;&#x7684;&#x65F6;&#x95F4;/&#x65E5;&#x671F;API</a></li>
-<li><a href="http://www.importnew.com/14140.html" target="_blank" rel="external">Java8&#x65E5;&#x671F;/&#x65F6;&#x95F4;(Date Time)API&#x6307;&#x5357;</a></li>
+<li>&#x4E00;&#x81F4;&#x6027;&#xFF1A;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5728;&#x540C;&#x4E00;&#x65F6;&#x95F4;&#x7684;&#x770B;&#x5230;&#x7684;&#x6570;&#x636E;&#x76F8;&#x540C;&#x3002;</li>
+<li>&#x53EF;&#x7528;&#x6027;&#xFF1A;&#x8BFB;&#x3001;&#x5199;&#x6C38;&#x8FDC;&#x90FD;&#x80FD;&#x6210;&#x529F;&#xFF0C;&#x5373;&#xFF0C;&#x670D;&#x52A1;&#x4E00;&#x76F4;&#x53EF;&#x7528;&#x3002;</li>
+<li>&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF1A;&#x5373;&#x4F7F;&#x7CFB;&#x7EDF;&#x7684;&#x67D0;&#x4E2A;&#x5206;&#x533A;&#x9047;&#x5230;&#x4E25;&#x91CD;&#x7684;&#x6545;&#x969C;&#xFF0C;&#x7CFB;&#x7EDF;&#x80FD;&#x7EE7;&#x7EED;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</li>
 </ul>
-</blockquote>
+<h1 id="CAP&#x4E2D;&#x7684;&#x6743;&#x8861;"><a href="#CAP&#x4E2D;&#x7684;&#x6743;&#x8861;" class="headerlink" title="CAP&#x4E2D;&#x7684;&#x6743;&#x8861;"></a>CAP&#x4E2D;&#x7684;&#x6743;&#x8861;</h1><p>&#x6839;&#x636E;CAP&#x5B9A;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x540C;&#x65F6;&#x6EE1;&#x8DB3;&#x4E00;&#x81F4;&#x6027;&#x3001;&#x53EF;&#x7528;&#x6027;&#x3001;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#x8FD9;&#x4E09;&#x4E2A;&#x7279;&#x6027;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x8981;&#x820D;&#x5F03;&#x54EA;&#x4E2A;&#x5462;&#xFF1F;</p>
+<p>&#x5BF9;&#x4E8E;&#x591A;&#x6570;&#x5927;&#x578B;&#x4E92;&#x8054;&#x7F51;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4E3B;&#x673A;&#x4F17;&#x591A;&#x3001;&#x90E8;&#x7F72;&#x5206;&#x6563;&#xFF0C;&#x8282;&#x70B9;&#x6545;&#x969C;&#x3001;&#x7F51;&#x7EDC;&#x6545;&#x969C;&#x662F;&#x5E38;&#x6001;&#xFF0C;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;P&#xFF1B;&#x5E94;&#x7528;&#x7684;&#x76EE;&#x7684;&#x662F;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x56E0;&#x6B64;&#x901A;&#x5E38;&#x4E5F;&#x8981;&#x4FDD;&#x8BC1;A&#x3002;&#x65E2;&#x7136;&#x8981;&#x4FDD;&#x8BC1;P&#x548C;A&#xFF0C;&#x5C31;&#x53EA;&#x80FD;&#x4E0D;&#x540C;&#x7A0B;&#x5EA6;&#x7684;&#x820D;&#x5F03;C&#xFF0C;&#x727A;&#x7272;&#x4E00;&#x4E9B;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;&#x4E25;&#x683C;&#x6765;&#x8BB2;&#xFF0C;&#x90E8;&#x5206;&#x5E94;&#x7528;&#x7684;A&#x4E5F;&#x4E0D;&#x5FC5;&#x4FDD;&#x8BC1;100%&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x4E3B;&#x6D41;&#x505A;&#x6CD5;&#x662F;&#x9996;&#x8981;&#x4FDD;&#x969C;P&#x3001;&#x5728;A&#x548C;C&#x4E4B;&#x95F4;&#x53D6;&#x820D;&#x3001;&#x91CD;A&#x8F7B;C&#x3002;</p>
+<p>&#x4F46;&#x662F;&#xFF0C;&#x5BF9;&#x4E8E;&#x91D1;&#x878D;&#x670D;&#x52A1;&#xFF0C;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;C&#xFF1B;&#x5927;&#x89C4;&#x6A21;&#x91D1;&#x878D;&#x670D;&#x52A1;&#x51E0;&#x4E4E;&#x5FC5;&#x7136;&#x6D89;&#x53CA;&#x7F51;&#x7EDC;&#x5206;&#x533A;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x8981;&#x4FDD;&#x8BC1;P&#xFF1B;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;C&#x3001;P&#xFF0C;&#x53EA;&#x80FD;&#x727A;&#x7272;A&#xFF08;&#x505C;&#x6B62;&#x670D;&#x52A1;&#xFF09;&#x3002;&#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x7279;&#x6B8A;&#x7684;&#x91D1;&#x878D;&#x670D;&#x52A1;&#xFF0C;&#x9700;&#x8981;7*24&#x5C0F;&#x65F6;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x5219;&#x6539;&#x4E3A;&#x727A;&#x7272;&#x90E8;&#x5206;P&#xFF08;&#x5982;&#x5355;&#x8282;&#x70B9;&#x4E3B;&#x4ECE;&#x5907;&#x4EFD;&#xFF0C;&#x6545;&#x969C;&#x5207;&#x6362;&#xFF09;&#xFF0C;&#x4FDD;&#x969C;C&#x3001;A&#x3002;</p>
+<h1 id="BASE&#x5B9A;&#x7406;"><a href="#BASE&#x5B9A;&#x7406;" class="headerlink" title="BASE&#x5B9A;&#x7406;"></a>BASE&#x5B9A;&#x7406;</h1><p>BASE&#x5B9A;&#x7406;&#x662F;&#x5BF9;CAP&#x5B9A;&#x7406;&#x7684;&#x5EF6;&#x4F38;&#xFF1A;&#x5373;&#x4F7F;&#x65E0;&#x6CD5;&#x505A;&#x5230;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#xFF08;Strong Consistency&#xFF09;&#xFF0C;&#x4F46;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x9002;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#x8FBE;&#x5230;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF08;Eventual Consitency&#xFF09;&#x3002;CAP&#x4E2D;&#x63D0;&#x5230;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x662F;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x6240;&#x8C13;&#x201C;&#x727A;&#x7272;&#x4E00;&#x81F4;&#x6027;&#x201D;&#x6307;&#x727A;&#x7272;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x4FDD;&#x8BC1;&#x5F31;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
+<p>BASE&#x662F;&#x6307;&#x57FA;&#x672C;&#x53EF;&#x7528;&#xFF08;Basically Available&#xFF09;&#x3001;&#x8F6F;&#x72B6;&#x6001;&#xFF08; Soft State&#xFF09;&#x3001;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF08; Eventual Consistency&#xFF09;&#x3002;</p>
+<ul>
+<li>&#x57FA;&#x672C;&#x53EF;&#x7528;&#xFF1A;&#x51FA;&#x73B0;&#x6545;&#x969C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5141;&#x8BB8;&#x635F;&#x5931;&#x90E8;&#x5206;&#x53EF;&#x7528;&#x6027;&#xFF0C;&#x5373;&#xFF0C;&#x4FDD;&#x8BC1;&#x6838;&#x5FC3;&#x53EF;&#x7528;&#x3002;</li>
+</ul>
+<p>&#x5982;&#xFF0C;&#x7535;&#x5546;&#x5927;&#x4FC3;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x5E94;&#x5BF9;&#x8BBF;&#x95EE;&#x91CF;&#x6FC0;&#x589E;&#xFF0C;&#x90E8;&#x5206;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x5F15;&#x5BFC;&#x5230;&#x964D;&#x7EA7;&#x9875;&#x9762;&#xFF0C;&#x670D;&#x52A1;&#x5C42;&#x4E5F;&#x53EF;&#x80FD;&#x53EA;&#x63D0;&#x4F9B;&#x964D;&#x7EA7;&#x670D;&#x52A1;</p>
+<ul>
+<li>&#x8F6F;&#x72B6;&#x6001;&#xFF1A;&#x5141;&#x8BB8;&#x7CFB;&#x7EDF;&#x5B58;&#x5728;&#x4E2D;&#x95F4;&#x72B6;&#x6001;&#xFF0C;&#x800C;&#x8BE5;&#x4E2D;&#x95F4;&#x72B6;&#x6001;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x7CFB;&#x7EDF;&#x6574;&#x4F53;&#x53EF;&#x7528;&#x6027;&#x3002;</li>
+</ul>
+<p>&#x8F6F;&#x72B6;&#x6001;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x79CD;&#x5F31;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x5141;&#x8BB8;&#x7684;&#x8F6F;&#x72B6;&#x6001;&#x4E0D;&#x80FD;&#x8FDD;&#x80CC;&#x201C;&#x57FA;&#x672C;&#x53EF;&#x7528;&#x201D;&#x7684;&#x8981;&#x6C42;&#x3002;&#x5982;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x5B58;&#x50A8;&#x4E2D;&#x4E00;&#x822C;&#x4E00;&#x4EFD;&#x6570;&#x636E;&#x81F3;&#x5C11;&#x4F1A;&#x6709;&#x4E09;&#x4E2A;&#x526F;&#x672C;&#xFF0C;&#x5141;&#x8BB8;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x95F4;&#x526F;&#x672C;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#xFF08;&#x67D0;&#x4E9B;&#x65F6;&#x523B;&#x526F;&#x672C;&#x6570;&#x4F4E;&#x4E8E;3&#xFF09;&#x3002;</p>
+<ul>
+<li>&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF1A;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x526F;&#x672C;&#x7ECF;&#x8FC7;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x540E;&#xFF0C;&#x6700;&#x7EC8;&#x80FD;&#x591F;&#x8FBE;&#x5230;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x3002;</li>
+</ul>
+<p>&#x8F6F;&#x72B6;&#x6001;&#x7684;&#x7EC8;&#x6781;&#x76EE;&#x6807;&#x662F;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x5982;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x5B58;&#x50A8;&#x7684;&#x526F;&#x672C;&#x6570;&#x6700;&#x7EC8;&#x4F1A;&#x8FBE;&#x5230;&#x7A33;&#x5B9A;&#x72B6;&#x6001;&#x3002;</p>
+<h1 id="ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;"><a href="#ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;" class="headerlink" title="ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;"></a>ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;</h1><p>ACID&#x662F;&#x4E8B;&#x52A1;&#x7684;&#x56DB;&#x4E2A;&#x57FA;&#x672C;&#x6027;&#x8D28;&#xFF0C;&#x5C5E;&#x4E8E;&#x4F20;&#x7EDF;&#x6570;&#x636E;&#x5E93;&#x5E38;&#x7528;&#x7684;&#x8BBE;&#x8BA1;&#x7406;&#x5FF5;&#xFF0C;&#x8FFD;&#x6C42;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x6A21;&#x578B;&#xFF0C;&#x8BE6;&#x89C1;<a href="/2016/11/26/&#x4E8B;&#x52A1;&#x7684;ACID&#x548C;&#x56DB;&#x4E2A;&#x9694;&#x79BB;&#x7EA7;&#x522B;/">&#x4E8B;&#x52A1;&#x7684;ACID&#x548C;&#x56DB;&#x4E2A;&#x9694;&#x79BB;&#x7EA7;&#x522B;</a>&#x3002;BASE&#x652F;&#x6301;&#x7684;&#x662F;&#x5927;&#x578B;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#xFF0C;&#x63D0;&#x51FA;&#x901A;&#x8FC7;&#x727A;&#x7272;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x83B7;&#x5F97;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#xFF08;&#x4E0E;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF09;&#x3002;</p>
+<p>&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#x7684;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x901A;&#x5E38;&#x7CFB;&#x7EDF;&#x7EC4;&#x4EF6;&#x5BF9;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x8981;&#x6C42;&#x4E0D;&#x540C;&#xFF0C;&#x5BF9;ACID&#x548C;BASE&#x7684;&#x53D6;&#x820D;&#x4E5F;&#x5C31;&#x4E0D;&#x540C;&#x3002;</p>
 
       
 
@@ -241,7 +238,7 @@ ga('send', 'pageview');
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 	</div>
 
       
@@ -310,7 +307,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2016/11/30/Date类为什么设计为可变的，而不是像String一样？/">Date类为什么设计为可变的，而不是像String一样？</a><br/>
+		本文链接：<a href="/2018/03/09/分布式理论：CAP、BASE与ACID/">分布式理论：CAP、BASE与ACID</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -322,18 +319,9 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/2016/11/30/源码|从源码分析非线程安全集合类的不安全迭代器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          源码|从源码分析非线程安全集合类的不安全迭代器
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/11/29/volatile关键字的作用、原理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">volatile关键字的作用、原理</div>
+    <a href="/2018/03/07/浅谈TCP（2）：流量控制与拥塞控制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈TCP（2）：流量控制与拥塞控制</div>
       <i class="icon-circle-right"></i>
     </a>
   
