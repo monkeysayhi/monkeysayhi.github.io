@@ -179,7 +179,7 @@
     <link href="https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%882%EF%BC%89%EF%BC%9A%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/"/>
     <id>https://monkeysayhi.github.io/2018/03/07/浅谈TCP（2）：流量控制与拥塞控制/</id>
     <published>2018-03-07T03:05:42.000Z</published>
-    <updated>2018-03-07T03:10:36.000Z</updated>
+    <updated>2018-03-19T04:28:27.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x4E0A;&#x6587;<a href="/2018/03/07/&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;/">&#x6D45;&#x8C08;TCP&#xFF08;1&#xFF09;&#xFF1A;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;</a>&#x4ECB;&#x7ECD;&#x4E86;TCP&#x7684;&#x72B6;&#x6001;&#x673A;&#x4E0E;&#x91CD;&#x4F20;&#x673A;&#x5236;&#x3002;&#x672C;&#x6587;&#x4ECB;&#x7ECD;<code>&#x6D41;&#x91CF;&#x63A7;&#x5236;</code>&#xFF08;Flow Control&#xFF0C;&#x7B80;&#x79F0;&#x6D41;&#x63A7;&#xFF09;&#x4E0E;<code>&#x62E5;&#x585E;&#x63A7;&#x5236;</code>&#xFF08;Congestion Control&#xFF09;&#x3002;TCP&#x4F9D;&#x6B64;&#x4FDD;&#x969C;&#x7F51;&#x7EDC;&#x7684;<code>QOS</code>&#xFF08;Quality of Service&#xFF09;&#x3002;</p>
 <blockquote>
@@ -293,7 +293,9 @@
 <li>&#x8D85;&#x65F6;&#x91CD;&#x4F20;&#x3002;TCP&#x8BA4;&#x4E3A;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x592A;&#x7CDF;&#x7CD5;&#xFF0C;&#x8C03;&#x6574;&#x529B;&#x5EA6;&#x6BD4;&#x8F83;&#x5927;&#xFF1A;<ol>
 <li>sshthresh =  cwnd /2</li>
 <li>cwnd = 1&#xFF0C;&#x91CD;&#x65B0;&#x8FDB;&#x5165;&#x6162;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#xFF08;&#x7F51;&#x7EDC;&#x7CDF;&#x7CD5;&#xFF0C;&#x8981;&#x6162;&#x6162;&#x8C03;&#x6574;&#xFF09;</li>
-<li>&#x5FEB;&#x901F;&#x91CD;&#x4F20;&#x3002;TCP&#x8BA4;&#x4E3A;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x901A;&#x5E38;&#x6BD4;RTO&#x8D85;&#x65F6;&#x597D;&#x4E00;&#x4E9B;&#xFF0C;&#x4E3B;&#x6D41;&#x5B9E;&#x73B0;TCP Reno&#x7684;&#x8C03;&#x6574;&#x529B;&#x5EA6;&#x66F4;&#x67D4;&#x548C;&#xFF08;TCP Tahoe&#x7684;&#x5B9E;&#x73B0;&#x548C;RTO&#x8D85;&#x65F6;&#x4E00;&#x6837;&#x66B4;&#x8E81;&#xFF09;&#xFF1A;</li>
+</ol>
+</li>
+<li>&#x5FEB;&#x901F;&#x91CD;&#x4F20;&#x3002;TCP&#x8BA4;&#x4E3A;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x901A;&#x5E38;&#x6BD4;RTO&#x8D85;&#x65F6;&#x597D;&#x4E00;&#x4E9B;&#xFF0C;&#x4E3B;&#x6D41;&#x5B9E;&#x73B0;TCP Reno&#x7684;&#x8C03;&#x6574;&#x529B;&#x5EA6;&#x66F4;&#x67D4;&#x548C;&#xFF08;TCP Tahoe&#x7684;&#x5B9E;&#x73B0;&#x548C;RTO&#x8D85;&#x65F6;&#x4E00;&#x6837;&#x66B4;&#x8E81;&#xFF09;&#xFF1A;<ol>
 <li>sshthresh =  cwnd /2</li>
 <li>cwnd = cwnd /2&#xFF0C;&#x8FDB;&#x5165;&#x5FEB;&#x901F;&#x6062;&#x590D;&#x7B97;&#x6CD5;&#xFF08;&#x7F51;&#x7EDC;&#x6CA1;&#x90A3;&#x4E48;&#x7CDF;&#xFF0C;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x8C03;&#x6574;&#xFF0C;&#x89C1;&#x4E0B;&#xFF09;</li>
 </ol>
@@ -609,13 +611,13 @@
     </summary>
     
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="索引" scheme="https://monkeysayhi.github.io/tags/%E7%B4%A2%E5%BC%95/"/>
     
       <category term="数据库" scheme="https://monkeysayhi.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="算法" scheme="https://monkeysayhi.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
@@ -2222,49 +2224,6 @@
   </entry>
   
   <entry>
-    <title>HDFS-1.x、2.x的RPC接口</title>
-    <link href="https://monkeysayhi.github.io/2018/01/09/HDFS-1.x%E3%80%812.x%E7%9A%84RPC%E6%8E%A5%E5%8F%A3/"/>
-    <id>https://monkeysayhi.github.io/2018/01/09/HDFS-1.x、2.x的RPC接口/</id>
-    <published>2018-01-09T10:41:45.000Z</published>
-    <updated>2018-01-15T10:51:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>HDFS&#x4E2D;&#x7684;&#x4E3B;&#x8981;RPC&#x63A5;&#x53E3;&#x3002;</p>
-<p>&#x67B6;&#x6784;&#x56FE;&#x53C2;&#x8003;&#x524D;&#x6587;<a href="/2018/01/09/HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;/">HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;</a>&#x3002;</p>
-<a id="more"></a>
-<h1 id="HDFS-1-x"><a href="#HDFS-1-x" class="headerlink" title="HDFS 1.x"></a>HDFS 1.x</h1><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/HDFS-1.x&#x3001;2.x&#x7684;RPC&#x63A5;&#x53E3;/1.x&#x7684;RPC&#x63A5;&#x53E3;.png" alt="1.x&#x7684;RPC&#x63A5;&#x53E3;"></p>
-<ul>
-<li>ClientProtocol&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x8BBF;&#x95EE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#xFF0C;<strong>&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55;&#x7684;&#x5143;&#x6570;&#x636E;&#x4FE1;&#x606F;</strong>&#xFF08;&#x5982;&#xFF0C;&#x83B7;&#x53D6;&#x6570;&#x636E;&#x5757;&#x4F4D;&#x7F6E;&#x540E;&#xFF0C;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x901A;&#x4FE1;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF09;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x8FD8;&#x80FD;&#x591F;<strong>&#x7BA1;&#x7406;&#x6216;&#x67E5;&#x770B;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x72B6;&#x6001;</strong>&#xFF08;&#x548C;&#x7531;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7EF4;&#x62A4;&#x7684;&#x96C6;&#x7FA4;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#xFF09;&#x3002;</li>
-<li>ClientDatanodeProtocol&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x7528;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x3002;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7528;&#x5F97;&#x6BD4;&#x8F83;&#x5C11;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x4E3B;&#x8981;&#x4EA4;&#x4E92;&#x662F;&#x901A;&#x8FC7;&#x6D41;&#x63A5;&#x53E3;&#x8FDB;&#x884C;&#x8BFB;/&#x5199;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x7684;&#x64CD; &#x4F5C;&#xFF1B;&#x4E3B;&#x8981;&#x5728;<strong>&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x6570;&#x636E;&#x8282;&#x70B9;&#x914D;&#x5408;&#x8FDB;&#x884C;&#x6062;&#x590D;</strong>&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x6216;&#x8005;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x8BFB;&#x4F18;&#x5316;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x901A;&#x8FC7;IPC&#x63A5;&#x53E3;&#x83B7;&#x53D6;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#x3002;</li>
-<li>DatanodeProtocol&#xFF1A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5728;HDFS&#x7684;&#x4E3B;&#x4ECE;&#xFF08;Master/Slave&#xFF09;&#x7ED3;&#x6784;&#x4E2D;&#xFF0C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4F5C;&#x4E3A;RPC Client&#x4E0D;&#x505C;&#x7684;&#x5411;&#x540D;&#x5B57;&#x8282;&#x70B9;<strong>&#x53D1;&#x9001;&#x5FC3;&#x8DF3;</strong>&#x3002;&#x5FC3;&#x8DF3;&#x8BF7;&#x6C42;&#x4E2D;&#x643A;&#x5E26;&#x4E86;&#x5927;&#x91CF;&#x6570;&#x636E;&#x8282;&#x70B9;&#x5F97;&#x5230;&#x7684;&#x6B63;&#x5E38;&#x3001;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#xFF1B;&#x5FC3;&#x8DF3;&#x54CD;&#x5E94;&#x4E2D;&#x643A;&#x5E26;&#x4E86;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x6307;&#x4EE4;&#xFF0C;&#x6307;&#x793A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5757;&#x7684;&#x590D;&#x5236;&#x3001;&#x5220;&#x9664;&#x3001;&#x6062;&#x590D;&#x7B49;&#x3002;&#x9664;&#x4E86;&#x5FC3;&#x8DF3;&#xFF0C;<strong>&#x6570;&#x636E;&#x8282;&#x70B9;&#x7684;&#x6CE8;&#x518C;</strong>&#x3001;<strong>&#x7BA1;&#x9053;&#x5199;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x7B49;&#x591A;&#x9879;&#x64CD;&#x4F5C;</strong>&#x4E5F;&#x901A;&#x8FC7;&#x8BE5;&#x8282;&#x70B9;&#x5B8C;&#x6210;&#x3002;</li>
-<li>InterDatanodeProtocol&#xFF1A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x6570;&#x636E;&#x8282;&#x70B9;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x548C;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;<strong>&#x6570;&#x636E;&#x5757;&#x7684;&#x6062;&#x590D;&#x7B49;</strong>&#x3002;</li>
-<li>NamenodeProtocol&#xFF1A;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4F1A;&#x4E0D;&#x505C;&#x5730;&#x83B7;&#x53D6;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0A;&#x67D0;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x955C;&#x50CF;&#xFF08;fsimage&#xFF09;&#x548C;&#x955C;&#x50CF;&#x7684;&#x53D8;&#x5316;&#x65E5;&#x5FD7;&#xFF08;editlog&#xFF09;&#xFF0C;&#x7136;&#x540E;<strong>&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;</strong>&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;&#x7ED3;&#x679C;&#x540C;&#x6B65;&#x56DE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x3002;</li>
-</ul>
-<h1 id="HDFS-2-x"><a href="#HDFS-2-x" class="headerlink" title="HDFS 2.x"></a>HDFS 2.x</h1><p>&#x5982;&#x679C;&#x4E0D;&#x5F00;&#x542F;HA&#xFF0C;&#x90A3;&#x4E48;HDFS 2.x&#x7528;&#x5230;&#x7684;&#x4E3B;&#x8981;RPC&#x63A5;&#x53E3;&#x4E0E;1.x&#x57FA;&#x672C;&#x76F8;&#x540C;&#x3002;</p>
-<p>&#x5982;&#x679C;&#x5F00;&#x542F;&#x4E86;HA&#xFF0C;&#x90A3;&#x4E48;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x5C31;&#x518D;&#x4E0D;&#x9700;&#x8981;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x914D;&#x5408;&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x9700;&#x8981;NamenodeProtocol&#x4E86;&#x3002;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/HDFS-1.x&#x3001;2.x&#x7684;RPC&#x63A5;&#x53E3;/2.x&#x7684;RPC&#x63A5;&#x53E3;.png" alt="2.x&#x7684;RPC&#x63A5;&#x53E3;"></p>
-<h2 id="&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"><a href="#&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;" class="headerlink" title="&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"></a>&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2><p>&#x5728;1.x&#x4E2D;&#x5DF2;&#x7ECF;&#x4ECB;&#x7ECD;&#x4E86;&#x672A;&#x5F00;&#x542F;HA&#x65F6;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1A;fsimage&#x4E0E;editlog&#x4EC5;&#x4FDD;&#x5B58;&#x5728;&#x552F;&#x4E00;&#x7684;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x5B9A;&#x671F;&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x5E76;&#x540C;&#x6B65;&#x56DE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x3002;</p>
-<p>&#x5728;2.x&#x7684;HA&#x673A;&#x5236;&#x4E2D;&#xFF0C;&#x5F15;&#x5165;JournalNode&#xFF08;&#x81F3;&#x5C11;3&#x4E2A;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5947;&#x6570;&#xFF09;&#x5728;active&#x4E8E;standby&#x8282;&#x70B9;&#x95F4;&#x540C;&#x6B65;fsimage&#x4E0E;editlog&#xFF1A;active&#x8282;&#x70B9;&#x5B9E;&#x65F6;&#x5C06;editlog&#x540C;&#x6B65;&#x5230;JournalNode&#x96C6;&#x7FA4;&#x4E2D;&#xFF08;&#x4FDD;&#x8BC1;&#x81F3;&#x5C11;<code>n - (n-/1)/2</code>&#x4E2A;&#x8282;&#x70B9;&#x6210;&#x529F;&#xFF09;&#xFF1B;standby&#x8282;&#x70B9;&#x5B9E;&#x65F6;&#x4ECE;JournalNode&#x96C6;&#x7FA4;&#x4E2D;&#x540C;&#x6B65;&#x56DE;editlog&#x3002;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;standby&#x4E0A;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x955C;&#x50CF;&#x4E0E;active&#x4E0A;&#x662F;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;standby&#x53EA;&#x9700;&#x8981;&#x5B9A;&#x671F;&#x68C0;&#x67E5;editlog&#x662F;&#x5426;&#x6709;&#x53D8;&#x5316;&#xFF0C;&#x5E76;&#x76F8;&#x5E94;&#x5728;&#x672C;&#x5730;&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;&#x3002;&#x7136;&#x540E;&#x901A;&#x8FC7;HTTP&#x63A5;&#x53E3;&#x540C;&#x6B65;&#x56DE;active&#x8282;&#x70B9;&#x3002;</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;HDFS&amp;#x4E2D;&amp;#x7684;&amp;#x4E3B;&amp;#x8981;RPC&amp;#x63A5;&amp;#x53E3;&amp;#x3002;&lt;/p&gt;
-&lt;p&gt;&amp;#x67B6;&amp;#x6784;&amp;#x56FE;&amp;#x53C2;&amp;#x8003;&amp;#x524D;&amp;#x6587;&lt;a href=&quot;/2018/01/09/HDFS1.x&amp;#x3001;2.x&amp;#x67B6;&amp;#x6784;&amp;#x56FE;/&quot;&gt;HDFS1.x&amp;#x3001;2.x&amp;#x67B6;&amp;#x6784;&amp;#x56FE;&lt;/a&gt;&amp;#x3002;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
-      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
-    
-      <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>HDFS1.x、2.x架构图</title>
     <link href="https://monkeysayhi.github.io/2018/01/09/HDFS1.x%E3%80%812.x%E6%9E%B6%E6%9E%84%E5%9B%BE/"/>
     <id>https://monkeysayhi.github.io/2018/01/09/HDFS1.x、2.x架构图/</id>
@@ -2318,6 +2277,49 @@
     <summary type="html">
     
       &lt;p&gt;&amp;#x540E;&amp;#x9762;&amp;#x5F00;&amp;#x59CB;&amp;#x6574;&amp;#x7406;&amp;#x4E4B;&amp;#x524D;&amp;#x5B66;&amp;#x4E60;HDFS&amp;#x3001;Yarn&amp;#x65F6;&amp;#x7684;&amp;#x7B14;&amp;#x8BB0;&amp;#x3002;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
+    
+      <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HDFS-1.x、2.x的RPC接口</title>
+    <link href="https://monkeysayhi.github.io/2018/01/09/HDFS-1.x%E3%80%812.x%E7%9A%84RPC%E6%8E%A5%E5%8F%A3/"/>
+    <id>https://monkeysayhi.github.io/2018/01/09/HDFS-1.x、2.x的RPC接口/</id>
+    <published>2018-01-09T10:41:45.000Z</published>
+    <updated>2018-01-15T10:51:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>HDFS&#x4E2D;&#x7684;&#x4E3B;&#x8981;RPC&#x63A5;&#x53E3;&#x3002;</p>
+<p>&#x67B6;&#x6784;&#x56FE;&#x53C2;&#x8003;&#x524D;&#x6587;<a href="/2018/01/09/HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;/">HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;</a>&#x3002;</p>
+<a id="more"></a>
+<h1 id="HDFS-1-x"><a href="#HDFS-1-x" class="headerlink" title="HDFS 1.x"></a>HDFS 1.x</h1><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/HDFS-1.x&#x3001;2.x&#x7684;RPC&#x63A5;&#x53E3;/1.x&#x7684;RPC&#x63A5;&#x53E3;.png" alt="1.x&#x7684;RPC&#x63A5;&#x53E3;"></p>
+<ul>
+<li>ClientProtocol&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x8BBF;&#x95EE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#xFF0C;<strong>&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55;&#x7684;&#x5143;&#x6570;&#x636E;&#x4FE1;&#x606F;</strong>&#xFF08;&#x5982;&#xFF0C;&#x83B7;&#x53D6;&#x6570;&#x636E;&#x5757;&#x4F4D;&#x7F6E;&#x540E;&#xFF0C;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x901A;&#x4FE1;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF09;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x8FD8;&#x80FD;&#x591F;<strong>&#x7BA1;&#x7406;&#x6216;&#x67E5;&#x770B;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x72B6;&#x6001;</strong>&#xFF08;&#x548C;&#x7531;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7EF4;&#x62A4;&#x7684;&#x96C6;&#x7FA4;&#x7EDF;&#x8BA1;&#x4FE1;&#x606F;&#xFF09;&#x3002;</li>
+<li>ClientDatanodeProtocol&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x7528;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x4EA4;&#x4E92;&#x3002;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7528;&#x5F97;&#x6BD4;&#x8F83;&#x5C11;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x548C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x4E3B;&#x8981;&#x4EA4;&#x4E92;&#x662F;&#x901A;&#x8FC7;&#x6D41;&#x63A5;&#x53E3;&#x8FDB;&#x884C;&#x8BFB;/&#x5199;&#x6587;&#x4EF6;&#x6570;&#x636E;&#x7684;&#x64CD; &#x4F5C;&#xFF1B;&#x4E3B;&#x8981;&#x5728;<strong>&#x9519;&#x8BEF;&#x53D1;&#x751F;&#x65F6;&#xFF0C;&#x5BA2;&#x6237;&#x7AEF;&#x9700;&#x8981;&#x6570;&#x636E;&#x8282;&#x70B9;&#x914D;&#x5408;&#x8FDB;&#x884C;&#x6062;&#x590D;</strong>&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x6216;&#x8005;&#x5F53;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x884C;&#x672C;&#x5730;&#x6587;&#x4EF6;&#x8BFB;&#x4F18;&#x5316;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x901A;&#x8FC7;IPC&#x63A5;&#x53E3;&#x83B7;&#x53D6;&#x4E00;&#x4E9B;&#x4FE1;&#x606F;&#x3002;</li>
+<li>DatanodeProtocol&#xFF1A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x5728;HDFS&#x7684;&#x4E3B;&#x4ECE;&#xFF08;Master/Slave&#xFF09;&#x7ED3;&#x6784;&#x4E2D;&#xFF0C;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4F5C;&#x4E3A;RPC Client&#x4E0D;&#x505C;&#x7684;&#x5411;&#x540D;&#x5B57;&#x8282;&#x70B9;<strong>&#x53D1;&#x9001;&#x5FC3;&#x8DF3;</strong>&#x3002;&#x5FC3;&#x8DF3;&#x8BF7;&#x6C42;&#x4E2D;&#x643A;&#x5E26;&#x4E86;&#x5927;&#x91CF;&#x6570;&#x636E;&#x8282;&#x70B9;&#x5F97;&#x5230;&#x7684;&#x6B63;&#x5E38;&#x3001;&#x5F02;&#x5E38;&#x4FE1;&#x606F;&#xFF1B;&#x5FC3;&#x8DF3;&#x54CD;&#x5E94;&#x4E2D;&#x643A;&#x5E26;&#x4E86;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x6307;&#x4EE4;&#xFF0C;&#x6307;&#x793A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5757;&#x7684;&#x590D;&#x5236;&#x3001;&#x5220;&#x9664;&#x3001;&#x6062;&#x590D;&#x7B49;&#x3002;&#x9664;&#x4E86;&#x5FC3;&#x8DF3;&#xFF0C;<strong>&#x6570;&#x636E;&#x8282;&#x70B9;&#x7684;&#x6CE8;&#x518C;</strong>&#x3001;<strong>&#x7BA1;&#x9053;&#x5199;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x7B49;&#x591A;&#x9879;&#x64CD;&#x4F5C;</strong>&#x4E5F;&#x901A;&#x8FC7;&#x8BE5;&#x8282;&#x70B9;&#x5B8C;&#x6210;&#x3002;</li>
+<li>InterDatanodeProtocol&#xFF1A;&#x6570;&#x636E;&#x8282;&#x70B9;&#x4E0E;&#x6570;&#x636E;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x6570;&#x636E;&#x8282;&#x70B9;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x548C;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x8282;&#x70B9;&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;<strong>&#x6570;&#x636E;&#x5757;&#x7684;&#x6062;&#x590D;&#x7B49;</strong>&#x3002;</li>
+<li>NamenodeProtocol&#xFF1A;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0E;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x63A5;&#x53E3;&#x3002;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4F1A;&#x4E0D;&#x505C;&#x5730;&#x83B7;&#x53D6;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0A;&#x67D0;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x955C;&#x50CF;&#xFF08;fsimage&#xFF09;&#x548C;&#x955C;&#x50CF;&#x7684;&#x53D8;&#x5316;&#x65E5;&#x5FD7;&#xFF08;editlog&#xFF09;&#xFF0C;&#x7136;&#x540E;<strong>&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;</strong>&#xFF0C;&#x5E76;&#x5C06;&#x8BE5;&#x7ED3;&#x679C;&#x540C;&#x6B65;&#x56DE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x3002;</li>
+</ul>
+<h1 id="HDFS-2-x"><a href="#HDFS-2-x" class="headerlink" title="HDFS 2.x"></a>HDFS 2.x</h1><p>&#x5982;&#x679C;&#x4E0D;&#x5F00;&#x542F;HA&#xFF0C;&#x90A3;&#x4E48;HDFS 2.x&#x7528;&#x5230;&#x7684;&#x4E3B;&#x8981;RPC&#x63A5;&#x53E3;&#x4E0E;1.x&#x57FA;&#x672C;&#x76F8;&#x540C;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x5F00;&#x542F;&#x4E86;HA&#xFF0C;&#x90A3;&#x4E48;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x5C31;&#x518D;&#x4E0D;&#x9700;&#x8981;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x7684;&#x914D;&#x5408;&#xFF0C;&#x4E5F;&#x5C31;&#x4E0D;&#x9700;&#x8981;NamenodeProtocol&#x4E86;&#x3002;</p>
+<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/HDFS-1.x&#x3001;2.x&#x7684;RPC&#x63A5;&#x53E3;/2.x&#x7684;RPC&#x63A5;&#x53E3;.png" alt="2.x&#x7684;RPC&#x63A5;&#x53E3;"></p>
+<h2 id="&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"><a href="#&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;" class="headerlink" title="&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;"></a>&#x5F00;&#x542F;HA&#x540E;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;</h2><p>&#x5728;1.x&#x4E2D;&#x5DF2;&#x7ECF;&#x4ECB;&#x7ECD;&#x4E86;&#x672A;&#x5F00;&#x542F;HA&#x65F6;&#x7684;&#x68C0;&#x67E5;&#x70B9;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF1A;fsimage&#x4E0E;editlog&#x4EC5;&#x4FDD;&#x5B58;&#x5728;&#x552F;&#x4E00;&#x7684;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x7B2C;&#x4E8C;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x5B9A;&#x671F;&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;&#xFF0C;&#x5E76;&#x540C;&#x6B65;&#x56DE;&#x540D;&#x5B57;&#x8282;&#x70B9;&#x3002;</p>
+<p>&#x5728;2.x&#x7684;HA&#x673A;&#x5236;&#x4E2D;&#xFF0C;&#x5F15;&#x5165;JournalNode&#xFF08;&#x81F3;&#x5C11;3&#x4E2A;&#xFF0C;&#x6700;&#x597D;&#x662F;&#x5947;&#x6570;&#xFF09;&#x5728;active&#x4E8E;standby&#x8282;&#x70B9;&#x95F4;&#x540C;&#x6B65;fsimage&#x4E0E;editlog&#xFF1A;active&#x8282;&#x70B9;&#x5B9E;&#x65F6;&#x5C06;editlog&#x540C;&#x6B65;&#x5230;JournalNode&#x96C6;&#x7FA4;&#x4E2D;&#xFF08;&#x4FDD;&#x8BC1;&#x81F3;&#x5C11;<code>n - (n-/1)/2</code>&#x4E2A;&#x8282;&#x70B9;&#x6210;&#x529F;&#xFF09;&#xFF1B;standby&#x8282;&#x70B9;&#x5B9E;&#x65F6;&#x4ECE;JournalNode&#x96C6;&#x7FA4;&#x4E2D;&#x540C;&#x6B65;&#x56DE;editlog&#x3002;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;standby&#x4E0A;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x955C;&#x50CF;&#x4E0E;active&#x4E0A;&#x662F;&#x5B8C;&#x5168;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;standby&#x53EA;&#x9700;&#x8981;&#x5B9A;&#x671F;&#x68C0;&#x67E5;editlog&#x662F;&#x5426;&#x6709;&#x53D8;&#x5316;&#xFF0C;&#x5E76;&#x76F8;&#x5E94;&#x5728;&#x672C;&#x5730;&#x5408;&#x5E76;&#x5F97;&#x5230;&#x65B0;&#x7684;&#x955C;&#x50CF;&#x3002;&#x7136;&#x540E;&#x901A;&#x8FC7;HTTP&#x63A5;&#x53E3;&#x540C;&#x6B65;&#x56DE;active&#x8282;&#x70B9;&#x3002;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HDFS&amp;#x4E2D;&amp;#x7684;&amp;#x4E3B;&amp;#x8981;RPC&amp;#x63A5;&amp;#x53E3;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x67B6;&amp;#x6784;&amp;#x56FE;&amp;#x53C2;&amp;#x8003;&amp;#x524D;&amp;#x6587;&lt;a href=&quot;/2018/01/09/HDFS1.x&amp;#x3001;2.x&amp;#x67B6;&amp;#x6784;&amp;#x56FE;/&quot;&gt;HDFS1.x&amp;#x3001;2.x&amp;#x67B6;&amp;#x6784;&amp;#x56FE;&lt;/a&gt;&amp;#x3002;&lt;/p&gt;
     
     </summary>
     
