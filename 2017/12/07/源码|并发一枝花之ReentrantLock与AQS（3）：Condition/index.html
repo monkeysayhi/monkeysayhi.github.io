@@ -21,7 +21,7 @@
 
 &amp;#x6E90;&amp;#x7801;|&amp;#x5E76;&amp;#x53D1;&amp;#x4E00;&amp;#x679D;&amp;#">
 <meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/AQS与ConditionObject共享节点.png">
-<meta property="og:updated_time" content="2017-12-18T00:20:49.000Z">
+<meta property="og:updated_time" content="2018-03-19T05:04:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|并发一枝花之ReentrantLock与AQS（3）：Condition">
 <meta name="twitter:description" content="ReentrantLock#lock()&amp;#x3001;ReentrantLock#unlock()&amp;#x3001;ReentrantLock#lockInterruptibly()&amp;#x7684;&amp;#x5206;&amp;#x6790;&amp;#x89C1;&amp;#x524D;&amp;#x6587;&amp;#xFF1A;
@@ -210,15 +210,13 @@ ga('send', 'pageview');
 <p>ConditionObject#await()&#x540C;ReentrantLock#lockInterruptibly()&#x4E00;&#x6837;&#xFF0C;&#x90FD;&#x662F;&#x53EF;&#x4E2D;&#x65AD;&#x7684;&#xFF1A;&#x8C03;&#x7528;ConditionObject#await()&#x540E;&#xFF0C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C06;&#x4FDD;&#x6301;&#x963B;&#x585E;&#xFF0C;&#x76F4;&#x5230;&#x6536;&#x5230;&#x4FE1;&#x53F7;&#x6216;&#x88AB;&#x4E2D;&#x65AD;&#x3002;</p>
 <ol>
 <li>&#x4E3B;&#x52A8;&#x68C0;&#x67E5;&#x4E2D;&#x65AD;&#xFF0C;&#x53CA;&#x65F6;&#x629B;&#x51FA;InterruptedException&#x3002;</li>
-</ol>
-<ul>
 <li>&#x521B;&#x5EFA;&#x7B49;&#x5F85;&#x8282;&#x70B9;&#x5E76;&#x653E;&#x5165;&#x961F;&#x5C3E;</li>
 <li>&#x91CA;&#x653E;&#x9501;&#xFF0C;&#x5E76;&#x4FDD;&#x5B58;&#x91CA;&#x653E;&#x524D;&#x7684;&#x9501;&#x72B6;&#x6001;&#xFF08;ownerThread&#x7684;&#x91CD;&#x5165;&#x6B21;&#x6570;&#xFF09;</li>
 <li>&#x963B;&#x585E;&#xFF0C;&#x76F4;&#x5230;&#x6536;&#x5230;&#x4FE1;&#x53F7;&#x6216;&#x88AB;&#x4E2D;&#x65AD;</li>
 <li>&#x91CD;&#x65B0;&#x7533;&#x8BF7;&#x9501;&#xFF0C;&#x5E76;&#x66F4;&#x65B0;&#x4E2D;&#x65AD;&#x6A21;&#x5F0F;</li>
 <li>&#x79FB;&#x9664;&#x5DF2;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x8282;&#x70B9;</li>
 <li>&#x5982;&#x679C;&#x4E4B;&#x524D;&#x53D1;&#x751F;&#x4E86;&#x4E2D;&#x65AD;&#xFF0C;&#x5219;&#x6839;&#x636E;&#x4E2D;&#x65AD;&#x6A21;&#x5F0F;&#x91CD;&#x653E;&#x4E2D;&#x65AD;</li>
-</ul>
+</ol>
 <p>&#x4E0B;&#x9762;&#x8BE6;&#x7EC6;&#x5206;&#x6790;&#x3002;</p>
 <h4 id="addConditionWaiter"><a href="#addConditionWaiter" class="headerlink" title="addConditionWaiter"></a>addConditionWaiter</h4><p>&#x68C0;&#x67E5;&#x4E2D;&#x65AD;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x7B49;&#x5F85;&#x8282;&#x70B9;&#x5E76;&#x653E;&#x5165;&#x961F;&#x5C3E;&#xFF1A;</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Node node = addConditionWaiter();</div></pre></td></tr></table></figure>
