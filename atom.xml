@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-03-09T16:10:36.000Z</updated>
+  <updated>2018-09-02T10:47:18.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://monkeysayhi.github.io/2018/03/10/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%EF%BC%9Ainode&amp;block%EF%BC%8C%E6%96%87%E4%BB%B6&amp;%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%A1%AC%E9%93%BE&amp;%E8%BD%AF%E9%93%BE/"/>
     <id>https://monkeysayhi.github.io/2018/03/10/Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链/</id>
     <published>2018-03-09T16:10:13.000Z</published>
-    <updated>2018-03-09T16:10:36.000Z</updated>
+    <updated>2018-09-02T10:47:18.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>inode</code>&#x4E0E;<code>block</code>&#x662F;&#x7406;&#x89E3;Linux&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x57FA;&#x7840;&#x6982;&#x5FF5;&#x3002;&#x5728;&#x6B64;&#x57FA;&#x7840;&#x4E0A;&#x5B9E;&#x73B0;&#x4E86;<code>&#x6587;&#x4EF6;</code>&#x3001;<code>&#x76EE;&#x5F55;</code>&#x3001;<code>&#x786C;&#x94FE;</code>&#x3001;<code>&#x8F6F;&#x94FE;</code>&#x3002;</p>
 <a id="more"></a>
@@ -59,6 +59,9 @@
 </blockquote>
 <p>&#x4F7F;&#x7528;<code>ls -i &lt;path&gt;</code>&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6587;&#x4EF6;&#x540D;&#x5BF9;&#x5E94;&#x7684;inode&#x53F7;&#x7801;&#xFF1A;</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#x279C;  fs_test ls -i example.txt</div><div class="line">261774 example.txt</div></pre></td></tr></table></figure>
+<h2 id="inode&#x5230;block&#x7684;&#x6620;&#x5C04;"><a href="#inode&#x5230;block&#x7684;&#x6620;&#x5C04;" class="headerlink" title="inode&#x5230;block&#x7684;&#x6620;&#x5C04;"></a>inode&#x5230;block&#x7684;&#x6620;&#x5C04;</h2><blockquote>
+<p><font color="red">// TODO: &#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8BB2;&#x8FC7;&#xFF0C;&#x5F85;&#x8003;&#x8BC1;</font>&#x3002;</p>
+</blockquote>
 <h1 id="&#x6587;&#x4EF6;-amp-&#x76EE;&#x5F55;"><a href="#&#x6587;&#x4EF6;-amp-&#x76EE;&#x5F55;" class="headerlink" title="&#x6587;&#x4EF6; &amp; &#x76EE;&#x5F55;"></a>&#x6587;&#x4EF6; &amp; &#x76EE;&#x5F55;</h1><h2 id="&#x6587;&#x4EF6;"><a href="#&#x6587;&#x4EF6;" class="headerlink" title="&#x6587;&#x4EF6;"></a>&#x6587;&#x4EF6;</h2><p>&#x4ECB;&#x7ECD;inode&#x65F6;&#xFF0C;&#x5DF2;&#x7ECF;&#x8BF4;&#x660E;&#x4E86;&#x6587;&#x4EF6;&#x7684;&#x5B9E;&#x73B0;&#x2014;&#x2014;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;inode&#xFF0C;&#x6587;&#x4EF6;&#x540D;&#x662F;&#x6587;&#x4EF6;&#x7684;&#x522B;&#x540D;&#xFF0C;inode&#x662F;&#x6587;&#x4EF6;&#x7684;&#x672C;&#x4F53;&#xFF1B;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7EF4;&#x62A4;&#x6587;&#x4EF6;&#x540D;&#x5230;inode&#x7684;&#x6620;&#x5C04;&#x3002;</p>
 <p>Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;<strong>&#x4E00;&#x5207;&#x7686;&#x6587;&#x4EF6;</strong>&#xFF0C;&#x5305;&#x62EC;&#x540E;&#x9762;&#x8981;&#x89E3;&#x91CA;&#x7684;&#x76EE;&#x5F55;&#x3001;&#x786C;&#x94FE;&#x63A5;&#x3001;&#x8F6F;&#x94FE;&#x63A5;&#xFF0C;&#x5305;&#x62EC;socket&#x3001;&#x8BBE;&#x5907;&#x3001;&#x5185;&#x5B58;&#x7B49;&#x3002;&#x7406;&#x89E3;&#x8FD9;&#x4E00;&#x70B9;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x3002;</p>
 <h2 id="&#x76EE;&#x5F55;&#x6587;&#x4EF6;"><a href="#&#x76EE;&#x5F55;&#x6587;&#x4EF6;" class="headerlink" title="&#x76EE;&#x5F55;&#x6587;&#x4EF6;"></a>&#x76EE;&#x5F55;&#x6587;&#x4EF6;</h2><p>Linux&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;<code>&#x76EE;&#x5F55;</code>&#xFF08;directory&#xFF09;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x6587;&#x4EF6;&#x3002;&#x6253;&#x5F00;&#x76EE;&#x5F55;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5C31;&#x662F;&#x6253;&#x5F00;<code>&#x76EE;&#x5F55;&#x6587;&#x4EF6;</code>&#x3002;</p>
