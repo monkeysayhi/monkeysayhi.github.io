@@ -4,8 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%882%EF%BC%89%EF%BC%9A%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/</loc>
+    <lastmod>2018-10-17T03:51:59.000Z</lastmod>
+    <data>
+        <display>
+        <title>浅谈TCP（2）：流量控制与拥塞控制</title>
+        <pubTime>2018-03-07T03:05:42.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>网络</tag>
+         
+        <tag>TCP</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%881%EF%BC%89%EF%BC%9A%E7%8A%B6%E6%80%81%E6%9C%BA%E4%B8%8E%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6/</loc>
-    <lastmod>2018-10-16T01:21:52.000Z</lastmod>
+    <lastmod>2018-10-16T02:11:04.000Z</lastmod>
     <data>
         <display>
         <title>浅谈TCP（1）：状态机与重传机制</title>
@@ -32,9 +53,9 @@
         <title>面试中单例模式有几种写法？</title>
         <pubTime>2017-09-27T05:38:10.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -74,9 +95,9 @@
         <title>FQ：从入门到放弃（三）</title>
         <pubTime>2016-12-14T14:00:00.000Z</pubTime>
         
-        <tag>猿工</tag>
-         
         <tag>原创</tag>
+         
+        <tag>猿工</tag>
          
         <tag>科普</tag>
          
@@ -95,9 +116,9 @@
         <title>Linux文件系统：inode&block，文件&目录，硬链&软链</title>
         <pubTime>2018-03-09T16:10:13.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Linux</tag>
          
@@ -116,9 +137,9 @@
         <title>源码|从串行线程封闭到对象池、线程池</title>
         <pubTime>2017-10-25T16:10:24.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -139,9 +160,9 @@
         <title>浅谈双亲委派模型</title>
         <pubTime>2017-12-20T11:00:37.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -204,9 +225,9 @@
         <title>源码|HDFS之NameNode：创建文件（1）</title>
         <pubTime>2018-02-07T08:51:21.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -227,9 +248,9 @@
         <title>源码|HDFS之NameNode：启动过程</title>
         <pubTime>2018-02-01T14:01:39.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -250,9 +271,9 @@
         <title>源码|HDFS之DataNode：写数据块（3）</title>
         <pubTime>2018-01-23T04:41:02.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -273,9 +294,9 @@
         <title>源码|HDFS之DataNode：写数据块（1）</title>
         <pubTime>2018-01-19T09:55:06.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -296,9 +317,9 @@
         <title>源码|HDFS之DataNode：启动过程</title>
         <pubTime>2018-01-18T04:46:40.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -319,9 +340,9 @@
         <title>HDFS-1.x、2.x的RPC接口</title>
         <pubTime>2018-01-09T10:41:45.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -342,9 +363,9 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（3）：Condition</title>
         <pubTime>2017-12-07T11:18:45.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -365,9 +386,9 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock</title>
         <pubTime>2017-12-05T12:15:24.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -392,32 +413,11 @@
          
         <tag>数据库</tag>
          
+        <tag>面试</tag>
+         
         <tag>原创</tag>
          
-        <tag>面试</tag>
-         
         <tag>算法</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%882%EF%BC%89%EF%BC%9A%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/</loc>
-    <lastmod>2018-03-19T04:31:23.000Z</lastmod>
-    <data>
-        <display>
-        <title>浅谈TCP（2）：流量控制与拥塞控制</title>
-        <pubTime>2018-03-07T03:05:42.000Z</pubTime>
-        
-        <tag>面试</tag>
-         
-        <tag>网络</tag>
-         
-        <tag>TCP</tag>
          
          
            
@@ -434,9 +434,9 @@
         <title>条件队列大法好：使用wait、notify和notifyAll的正确姿势</title>
         <pubTime>2017-11-29T06:38:04.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -459,9 +459,9 @@
         <title>【刷题】Linked List Cycle II</title>
         <pubTime>2017-08-19T13:38:40.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -482,9 +482,9 @@
         <title>【刷题】二叉树非递归遍历</title>
         <pubTime>2017-08-05T13:36:08.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -505,9 +505,9 @@
         <title>分布式理论：CAP、BASE与ACID</title>
         <pubTime>2018-03-09T12:24:32.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>分布式</tag>
          
@@ -526,9 +526,9 @@
         <title>Linux文件系统目录结构</title>
         <pubTime>2018-02-10T12:09:15.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Linux</tag>
          
@@ -547,9 +547,9 @@
         <title>浅谈linux线程模型和线程切换</title>
         <pubTime>2017-11-29T03:18:06.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -570,9 +570,9 @@
         <title>Java实现生产者-消费者模型</title>
         <pubTime>2017-10-08T09:36:55.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -595,9 +595,9 @@
         
         <tag>数据库</tag>
          
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>事务</tag>
          
@@ -616,9 +616,9 @@
         <title>源码|HDFS之NameNode：创建目录</title>
         <pubTime>2018-02-06T09:05:09.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -639,9 +639,9 @@
         <title>源码|HDFS之DataNode：写数据块（2）</title>
         <pubTime>2018-01-21T07:50:32.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -683,11 +683,11 @@
         <title>Hadoop单步debug追源码</title>
         <pubTime>2018-01-15T09:45:09.000Z</pubTime>
         
-        <tag>猿工</tag>
-         
         <tag>原创</tag>
          
         <tag>Hadoop</tag>
+         
+        <tag>猿工</tag>
          
         <tag>Java</tag>
          
@@ -708,9 +708,9 @@
         <title>HDFS1.x、2.x架构图</title>
         <pubTime>2018-01-09T10:41:45.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Hadoop</tag>
          
@@ -731,9 +731,9 @@
         <title>分布式系统的基本特性</title>
         <pubTime>2018-01-04T06:29:28.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>分布式</tag>
          
@@ -752,9 +752,9 @@
         <title>CAS中的ABA问题</title>
         <pubTime>2018-01-02T06:53:11.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -775,9 +775,9 @@
         <title>浅谈偏向锁、轻量级锁、重量级锁</title>
         <pubTime>2018-01-02T05:34:25.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -800,9 +800,9 @@
         <title>volatile关键字的作用、原理</title>
         <pubTime>2016-11-29T14:11:35.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -825,9 +825,9 @@
         <title>一文解决内存屏障</title>
         <pubTime>2017-12-28T05:08:49.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -852,9 +852,9 @@
         <title>源码|批量执行invokeAll()&&多选一invokeAny()</title>
         <pubTime>2017-11-19T13:40:13.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -875,9 +875,9 @@
         <title>AQS的基本原理</title>
         <pubTime>2017-12-04T12:38:02.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -898,9 +898,9 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（2）：lockInterruptibly</title>
         <pubTime>2017-12-05T14:42:59.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -921,9 +921,9 @@
         <title>条件队列大法好：wait和notify的基本语义</title>
         <pubTime>2017-11-15T15:15:56.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -944,9 +944,9 @@
         <title>【刷题】Lowest Common Ancestor</title>
         <pubTime>2017-12-17T15:21:33.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -988,9 +988,9 @@
         <title>源码|String拼接操作”+”的优化？</title>
         <pubTime>2017-09-23T07:54:42.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -1032,9 +1032,9 @@
         <title>源码|并发一枝花之BlockingQueue</title>
         <pubTime>2017-10-18T04:33:55.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1055,9 +1055,9 @@
         <title>源码|newTaskFor()和适配器模式</title>
         <pubTime>2017-11-19T14:11:12.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1143,9 +1143,9 @@
         <title>Java常用异常整理</title>
         <pubTime>2017-10-04T14:22:55.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -1164,9 +1164,9 @@
         <title>Java模拟赛跑过程</title>
         <pubTime>2017-10-08T10:10:20.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1187,9 +1187,9 @@
         <title>源码|ThreadLocal的实现原理</title>
         <pubTime>2016-11-27T15:45:05.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1210,9 +1210,9 @@
         <title>源码|使用FutureTask的正确姿势</title>
         <pubTime>2017-10-29T12:40:26.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1235,9 +1235,9 @@
         <title>源码|并发一枝花之CopyOnWriteArrayList</title>
         <pubTime>2017-10-24T14:33:46.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1258,9 +1258,9 @@
         <title>【刷题】Search in a Big Sorted Array</title>
         <pubTime>2017-08-04T05:25:33.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -1281,9 +1281,9 @@
         <title>【刷题】strStr II - Rabin Karp</title>
         <pubTime>2017-08-05T16:54:20.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -1373,9 +1373,9 @@
         <title>源码|并发一枝花之ConcurrentLinkedQueue【伪】</title>
         <pubTime>2017-10-21T17:05:35.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1396,9 +1396,9 @@
         <title>FQ：从入门到放弃（二）</title>
         <pubTime>2016-12-07T15:44:58.000Z</pubTime>
         
-        <tag>猿工</tag>
-         
         <tag>原创</tag>
+         
+        <tag>猿工</tag>
          
         <tag>科普</tag>
          
@@ -1440,9 +1440,9 @@
         <title>源码|从源码分析非线程安全集合类的不安全迭代器</title>
         <pubTime>2016-11-30T15:55:30.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1501,9 +1501,9 @@
         <title>翻墙：从入门到放弃（一）</title>
         <pubTime>2016-12-05T15:46:30.000Z</pubTime>
         
-        <tag>猿工</tag>
-         
         <tag>原创</tag>
+         
+        <tag>猿工</tag>
          
         <tag>科普</tag>
          
@@ -1522,9 +1522,9 @@
         <title>Java集合类综合</title>
         <pubTime>2016-11-25T15:54:35.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -1543,9 +1543,9 @@
         <title>Java高并发综合</title>
         <pubTime>2017-07-30T16:36:37.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>并发</tag>
          
@@ -1566,9 +1566,9 @@
         <title>最精致的浏览器——Chrome科普贴</title>
         <pubTime>2017-01-26T23:54:31.000Z</pubTime>
         
-        <tag>猿工</tag>
-         
         <tag>原创</tag>
+         
+        <tag>猿工</tag>
          
         <tag>科普</tag>
          
