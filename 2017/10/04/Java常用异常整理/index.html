@@ -16,12 +16,12 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/10/04/Java常用异常整理/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x586B;&amp;#x5751;&amp;#xFF0C;&amp;#x6574;&amp;#x7406;&amp;#x4E0B;Java&amp;#x7684;&amp;#x5E38;&amp;#x7528;&amp;#x5F02;&amp;#x5E38;&amp;#x3002;&amp;#x6B63;&amp;#x786E;&amp;#x4F7F;&amp;#x7528;&amp;#x5F02;&amp;#x5E38;&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x7F16;&amp;#x7801;&amp;#x4E2D;&amp;#x9">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/Java的常用异常整理/java_exception.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Java的常用异常整理/java_exception.png">
 <meta property="og:updated_time" content="2017-11-14T16:22:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常用异常整理">
 <meta name="twitter:description" content="&amp;#x586B;&amp;#x5751;&amp;#xFF0C;&amp;#x6574;&amp;#x7406;&amp;#x4E0B;Java&amp;#x7684;&amp;#x5E38;&amp;#x7528;&amp;#x5F02;&amp;#x5E38;&amp;#x3002;&amp;#x6B63;&amp;#x786E;&amp;#x4F7F;&amp;#x7528;&amp;#x5F02;&amp;#x5E38;&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x7F16;&amp;#x7801;&amp;#x4E2D;&amp;#x9">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/Java的常用异常整理/java_exception.png">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/Java的常用异常整理/java_exception.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -182,7 +182,7 @@ ga('send', 'pageview');
 <blockquote>
 <p>JDK&#x7248;&#x672C;&#xFF1A;oracle java 1.8.0_102</p>
 </blockquote>
-<h1 id="&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"><a href="#&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;" class="headerlink" title="&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"></a>&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;</h1><p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/Java&#x7684;&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x6574;&#x7406;/java_exception.png" alt="java_exception"></p>
+<h1 id="&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"><a href="#&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;" class="headerlink" title="&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;"></a>&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;</h1><p><img src="http://static.msh.tademingzi.com/static/images/Java&#x7684;&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x6574;&#x7406;/java_exception.png" alt="java_exception"></p>
 <p>Java&#x4E2D;&#xFF0C;&#x6240;&#x6709;&#x5F02;&#x5E38;&#x90FD;&#x7EE7;&#x627F;&#x81EA;Throwable&#x7C7B;&#xFF08;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x53EF;&#x7528;&#x7684;&#x7C7B;&#xFF09;&#x3002;&#x6574;&#x4F53;&#x4E0A;&#x5206;&#x4E3A;Error&#x3001;Exception&#x4E24;&#x4E2A;&#x5927;&#x7C7B;&#xFF0C;Exception&#x5927;&#x7C7B;&#x53C8;&#x5206;&#x4E3A;UncheckedException&#xFF08;&#x7EE7;&#x627F;&#x4E8E;RuntimeException&#xFF09;&#x548C;CheckedException&#xFF08;&#x7EE7;&#x627F;&#x4E8E;Exception&#xFF0C;&#x4F46;&#x4E0D;&#x7EE7;&#x627F;&#x4E8E;RuntimeException&#xFF09;&#x3002;</p>
 <p>&#x4E3A;&#x4E86;&#x5E2E;&#x52A9;&#x7406;&#x89E3;&#xFF0C;&#x6211;&#x5728;&#x6BCF;&#x4E2A;&#x7C7B;&#x522B;&#x4E0B;&#x90FD;&#x7ED9;&#x51FA;&#x4E86;&#x4E24;&#x4E2A;&#x5E38;&#x7528;&#x5B50;&#x7C7B;&#xFF0C;&#x5982;Error&#x5305;&#x62EC;OutOfMemoryError&#x3001;AssertionError&#x7B49;&#xFF1B;UncheckedException&#x5305;&#x62EC;NullPointerException&#x3001;IllegalArgumentException&#xFF1B;CheckedException&#x5305;&#x62EC;IOException&#x3001;InterruptedException&#x3002;&#x9762;&#x8BD5;&#x753B;&#x5F02;&#x5E38;&#x7C7B;&#x7684;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x65F6;&#xFF0C;&#x8981;&#x6C42;&#x80FD;&#x6E05;&#x695A;&#x7684;&#x8BF4;&#x660E;&#x51E0;&#x4E2A;&#x7C7B;&#x522B;&#x5E76;&#x5206;&#x7C7B;&#x522B;&#x4E3E;&#x51E0;&#x4E2A;&#x5E38;&#x7528;&#x7684;&#x5F02;&#x5E38;&#x7C7B;&#x3002;</p>
 <h1 id="&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x7C7B;"><a href="#&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x7C7B;" class="headerlink" title="&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x7C7B;"></a>&#x5E38;&#x7528;&#x5F02;&#x5E38;&#x7C7B;</h1><p>&#x4E0B;&#x9762;&#x5206;&#x7C7B;&#x522B;&#x6269;&#x5145;&#x4E00;&#x4E0B;&#x5E38;&#x7528;&#x7684;&#x5F02;&#x5E38;&#x7C7B;&#xFF0C;&#x5B57;&#x5178;&#x5E8F;&#x6392;&#x5E8F;&#xFF1A;</p>

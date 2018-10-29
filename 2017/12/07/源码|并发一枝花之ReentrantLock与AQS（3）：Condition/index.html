@@ -20,14 +20,14 @@
 <meta property="og:description" content="ReentrantLock#lock()&amp;#x3001;ReentrantLock#unlock()&amp;#x3001;ReentrantLock#lockInterruptibly()&amp;#x7684;&amp;#x5206;&amp;#x6790;&amp;#x89C1;&amp;#x524D;&amp;#x6587;&amp;#xFF1A;
 
 &amp;#x6E90;&amp;#x7801;|&amp;#x5E76;&amp;#x53D1;&amp;#x4E00;&amp;#x679D;&amp;#">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/AQS与ConditionObject共享节点.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/AQS与ConditionObject共享节点.png">
 <meta property="og:updated_time" content="2018-03-19T05:04:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|并发一枝花之ReentrantLock与AQS（3）：Condition">
 <meta name="twitter:description" content="ReentrantLock#lock()&amp;#x3001;ReentrantLock#unlock()&amp;#x3001;ReentrantLock#lockInterruptibly()&amp;#x7684;&amp;#x5206;&amp;#x6790;&amp;#x89C1;&amp;#x524D;&amp;#x6587;&amp;#xFF1A;
 
 &amp;#x6E90;&amp;#x7801;|&amp;#x5E76;&amp;#x53D1;&amp;#x4E00;&amp;#x679D;&amp;#">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/AQS与ConditionObject共享节点.png">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/源码|并发一枝花之ReentrantLock与AQS（3）：Condition/AQS与ConditionObject共享节点.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -290,7 +290,7 @@ ga('send', 'pageview');
 </blockquote>
 <p>&#x73B0;&#x5728;&#x7EC8;&#x4E8E;&#x8DF3;&#x51FA;&#x4E86;&#x5FAA;&#x73AF;&#xFF0C;&#x8981;&#x91CD;&#x65B0;&#x7533;&#x8BF7;&#x9501;&#x4E86;&#x3002;</p>
 <h5 id="&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;"><a href="#&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;" class="headerlink" title="&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;"></a>&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x7684;&#x7279;&#x6B8A;&#x60C5;&#x51B5;</h5><p><strong>&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x4F1A;&#x5BFC;&#x81F4;node&#x540C;&#x65F6;&#x5904;&#x4E8E;AQS&#x4E0E;ConditionObject&#x4E24;&#x65B9;&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;</strong>&#xFF08;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x6307;&#x9488;&#x8FDE;&#x63A5;&#x8282;&#x70B9;&#xFF09;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;3&#xFF09;&#xFF1A;Condition/AQS&#x4E0E;ConditionObject&#x5171;&#x4EAB;&#x8282;&#x70B9;.png" alt="AQS&#x4E0E;ConditionObject&#x5171;&#x4EAB;&#x8282;&#x70B9;"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;3&#xFF09;&#xFF1A;Condition/AQS&#x4E0E;ConditionObject&#x5171;&#x4EAB;&#x8282;&#x70B9;.png" alt="AQS&#x4E0E;ConditionObject&#x5171;&#x4EAB;&#x8282;&#x70B9;"></p>
 <p>&#x800C;&#x53E6;&#x5916;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x8282;&#x70B9;&#x90FD;&#x88AB;&#x8FC1;&#x5165;&#x4E86;AQS&#x5185;&#x90E8;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x3002;</p>
 <p>&#x56E0;&#x6B64;&#xFF0C;&#x53EA;&#x8981;ConditionObject&#x5185;&#x90E8;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x8282;&#x70B9;&#x6EE1;&#x8DB3;<code>node.waitStatus == SIGNAL</code>&#x6216;<code>node.waitStatus == 0</code>&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x5176;&#x540C;&#x65F6;&#x4F4D;&#x4E8E;&#x4E8E;AQS&#x4E0E;ConditionObject&#x4E24;&#x65B9;&#x7684;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x4E5F;&#x5C31;&#x80FD;&#x65AD;&#x5B9A;&#x8BE5;&#x8282;&#x70B9;&#x5C5E;&#x4E8E;&#x4FE1;&#x53F7;&#x524D;&#x4E2D;&#x65AD;&#x5524;&#x9192;&#x3002;</p>
 <blockquote>

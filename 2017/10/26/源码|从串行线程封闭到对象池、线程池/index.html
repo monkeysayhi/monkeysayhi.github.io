@@ -16,13 +16,13 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/10/26/源码|从串行线程封闭到对象池、线程池/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8BB2;&amp;#x4E00;&amp;#x4E2A;&amp;#x725B;&amp;#x903C;&amp;#x800C;&amp;#x5B9E;&amp;#x7528;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4E32;&amp;#x884C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C01;&amp;#x95ED;&amp;#x3002;&amp;#x5BF9;&amp;#x8C61;&amp;#x6C60;&amp;#x662F;">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPool-structure.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPool-structure.png">
 <meta property="og:updated_time" content="2018-09-01T14:19:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码|从串行线程封闭到对象池、线程池">
 <meta name="twitter:description" content="&amp;#x4ECA;&amp;#x5929;&amp;#x8BB2;&amp;#x4E00;&amp;#x4E2A;&amp;#x725B;&amp;#x903C;&amp;#x800C;&amp;#x5B9E;&amp;#x7528;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF0C;&amp;#x4E32;&amp;#x884C;&amp;#x7EBF;&amp;#x7A0B;&amp;#x5C01;&amp;#x95ED;&amp;#x3002;&amp;#x5BF9;&amp;#x8C61;&amp;#x6C60;&amp;#x662F;">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/源码|从串行线程封闭到对象池、线程池/ThreadPoolExecetor-extend-relationship.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -210,7 +210,7 @@ ga('send', 'pageview');
 <p>&#x5178;&#x578B;&#x7684;&#x5BF9;&#x8C61;&#x6C60;&#x6709;&#x5404;&#x79CD;&#x8FDE;&#x63A5;&#x6C60;&#x3001;&#x5E38;&#x91CF;&#x6C60;&#x7B49;&#xFF0C;&#x5E94;&#x7528;&#x975E;&#x5E38;&#x591A;&#xFF0C;&#x6A21;&#x578B;&#x4E5F;&#x5927;&#x540C;&#x5C0F;&#x5F02;&#xFF0C;&#x4E0D;&#x505A;&#x89E3;&#x6790;&#x3002;&#x4EE4;&#x4EBA;&#x8FF7;&#x60D1;&#x7684;&#x662F;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x8BA9;&#x4EBA;&#x8BEF;&#x4EE5;&#x4E3A;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x4E5F;&#x662F;&#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x4E0B;&#x9762;&#x6765;&#x8FFD;&#x4E00;&#x904D;&#x6E90;&#x7801;&#x3002;</p>
 <h1 id="&#x7EBF;&#x7A0B;&#x6C60;"><a href="#&#x7EBF;&#x7A0B;&#x6C60;" class="headerlink" title="&#x7EBF;&#x7A0B;&#x6C60;"></a>&#x7EBF;&#x7A0B;&#x6C60;</h1><p>&#x9996;&#x5148;&#x6446;&#x51FA;&#x7ED3;&#x8BBA;&#xFF1A;<strong>&#x7EBF;&#x7A0B;&#x6C60;&#x7CC5;&#x5408;&#x4E86;&#x5BF9;&#x8C61;&#x6C60;&#x6A21;&#x578B;&#xFF0C;&#x4F46;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x662F;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</strong>&#x3002;</p>
 <p>&#x7EE7;&#x627F;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPoolExecetor-extend-relationship.png" alt="ThreadPoolExecetor-extend-relationship"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPoolExecetor-extend-relationship.png" alt="ThreadPoolExecetor-extend-relationship"></p>
 <p>&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x5C06;Runnable&#xFF08;&#x6216;Callables&#xFF09;&#x5B9E;&#x4F8B;&#x63D0;&#x4EA4;&#x7ED9;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x4F1A;&#x5F02;&#x6B65;&#x6267;&#x884C;&#x8BE5;&#x4EFB;&#x52A1;&#xFF0C;&#x8FD4;&#x56DE;&#x54CD;&#x5E94;&#x7684;&#x7ED3;&#x679C;&#xFF08;&#x5B8C;&#x6210;/&#x8FD4;&#x56DE;&#x503C;&#xFF09;&#x3002;</p>
 <p>&#x7334;&#x5B50;&#x6700;&#x559C;&#x6B22;&#x7684;&#x662F;<code>submit(Callable&lt;T&gt; task)</code>&#x65B9;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x4ECE;&#x8BE5;&#x65B9;&#x6CD5;&#x5165;&#x624B;&#xFF0C;&#x9010;&#x6B65;&#x6DF1;&#x5165;&#x51FD;&#x6570;&#x6808;&#xFF0C;&#x63A2;&#x7A76;&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x3002;</p>
 <h2 id="submit"><a href="#submit" class="headerlink" title="submit()"></a>submit()</h2><p>submit()&#x65B9;&#x6CD5;&#x5728;ExecutorService&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#xFF0C;AbstractExecutorService&#x5B9E;&#x73B0;&#xFF0C;ThreadPoolExecutor&#x76F4;&#x63A5;&#x7EE7;&#x627F;&#x3002;</p>
@@ -275,7 +275,7 @@ ga('send', 'pageview');
 <p>&#x672A;&#x6765;&#x4F1A;&#x4E13;&#x95E8;&#x7CBE;&#x70BC;&#x51FA;&#x4E00;&#x7BC7;&#x77ED;&#x6587;&#xFF0C;&#x603B;&#x7ED3;ThreadPoolExecutor&#x53C2;&#x6570;&#x542B;&#x4E49;&#x3002;</p>
 </blockquote>
 <h4 id="case2&#x5C0F;&#x7ED3;"><a href="#case2&#x5C0F;&#x7ED3;" class="headerlink" title="case2&#x5C0F;&#x7ED3;"></a>case2&#x5C0F;&#x7ED3;</h4><p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;<strong>&#x7EBF;&#x7A0B;&#x6C60;&#x7684;&#x6838;&#x5FC3;&#x539F;&#x7406;&#x4E0E;&#x5BF9;&#x8C61;&#x6C60;&#x6A21;&#x578B;&#x65E0;&#x5173;&#xFF0C;&#x800C;&#x662F;&#x751F;&#x4EA7;&#x8005;-&#x6D88;&#x8D39;&#x8005;&#x6A21;&#x578B;</strong>&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPool-structure.png" alt="ThreadPool-structure"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x6E90;&#x7801;|&#x4ECE;&#x4E32;&#x884C;&#x7EBF;&#x7A0B;&#x5C01;&#x95ED;&#x5230;&#x5BF9;&#x8C61;&#x6C60;&#x3001;&#x7EBF;&#x7A0B;&#x6C60;/ThreadPool-structure.png" alt="ThreadPool-structure"></p>
 <ul>
 <li>&#x751F;&#x4EA7;&#x8005;&#xFF08;&#x8C03;&#x7528;submit()&#x6216;execute()&#x65B9;&#x6CD5;&#xFF09;&#x5C06;&#x4EFB;&#x52A1;task&#x653E;&#x5165;&#x961F;&#x5217;</li>
 <li>&#x6D88;&#x8D39;&#x8005;&#xFF08;worker&#x7EBF;&#x7A0B;&#xFF09;&#x5FAA;&#x73AF;&#x4ECE;&#x961F;&#x5217;&#x4E2D;&#x53D6;&#x51FA;&#x4EFB;&#x52A1;&#x5904;&#x7406;&#x4EFB;&#x52A1;&#xFF08;&#x6267;&#x884C;task.run()&#xFF09;&#x3002;</li>

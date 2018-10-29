@@ -16,13 +16,13 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2017/12/28/一文解决内存屏障/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x5185;&amp;#x5B58;&amp;#x5C4F;&amp;#x969C;&amp;#x662F;&amp;#x786C;&amp;#x4EF6;&amp;#x4E4B;&amp;#x4E0A;&amp;#x3001;&amp;#x64CD;&amp;#x4F5C;&amp;#x7CFB;&amp;#x7EDF;&amp;#x6216;JVM&amp;#x4E4B;&amp;#x4E0B;&amp;#xFF0C;&amp;#x5BF9;&amp;#x5E76;&amp;#x53D1;&amp;#x4F5C;&amp;#x51FA;&amp;#x7684;&amp;#x67">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/一文解决内存屏障/计算机内部的缓存架构.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/一文解决内存屏障/MESI协议的缓存状态机.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/一文解决内存屏障/计算机内部的缓存架构.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/一文解决内存屏障/MESI协议的缓存状态机.png">
 <meta property="og:updated_time" content="2018-01-02T06:11:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一文解决内存屏障">
 <meta name="twitter:description" content="&amp;#x5185;&amp;#x5B58;&amp;#x5C4F;&amp;#x969C;&amp;#x662F;&amp;#x786C;&amp;#x4EF6;&amp;#x4E4B;&amp;#x4E0A;&amp;#x3001;&amp;#x64CD;&amp;#x4F5C;&amp;#x7CFB;&amp;#x7EDF;&amp;#x6216;JVM&amp;#x4E4B;&amp;#x4E0B;&amp;#xFF0C;&amp;#x5BF9;&amp;#x5E76;&amp;#x53D1;&amp;#x4F5C;&amp;#x51FA;&amp;#x7684;&amp;#x67">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/一文解决内存屏障/计算机内部的缓存架构.png">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/一文解决内存屏障/计算机内部的缓存架构.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -218,7 +218,7 @@ ga('send', 'pageview');
 <p>&#x53EF;&#x89C1;&#x6027;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x662F;&#x6700;&#x5F31;&#x7684;&#x201C;<code>&#x4E00;&#x81F4;&#x6027;</code>&#x201D;&#xFF08;<code>&#x5F31;&#x4E00;&#x81F4;</code>&#xFF09;&#xFF0C;&#x53EA;&#x4FDD;&#x8BC1;&#x7528;&#x6237;&#x89C1;&#x5230;&#x7684;&#x6570;&#x636E;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF0C;&#x4F46;&#x4E0D;&#x4FDD;&#x8BC1;&#x4EFB;&#x610F;&#x65F6;&#x523B;&#xFF0C;&#x5B58;&#x50A8;&#x7684;&#x6570;&#x636E;&#x90FD;&#x662F;&#x4E00;&#x81F4;&#x7684;&#xFF08;<code>&#x5F3A;&#x4E00;&#x81F4;</code>&#xFF09;&#x3002;&#x4E0B;&#x6587;&#x4F1A;&#x8BA8;&#x8BBA;&#x201C;&#x7F13;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x201D;&#x95EE;&#x9898;&#xFF0C;&#x90E8;&#x5206;&#x6587;&#x7AE0;&#x4E5F;&#x4F1A;&#x79F0;&#x4E3A;&#x201C;&#x7F13;&#x5B58;&#x4E00;&#x81F4;&#x6027;&#x201D;&#x95EE;&#x9898;&#x3002;</p>
 </blockquote>
 <h3 id="&#x95EE;&#x9898;&#x6765;&#x6E90;"><a href="#&#x95EE;&#x9898;&#x6765;&#x6E90;" class="headerlink" title="&#x95EE;&#x9898;&#x6765;&#x6E90;"></a>&#x95EE;&#x9898;&#x6765;&#x6E90;</h3><p>&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x6765;&#x81EA;&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x90E8;&#x7684;&#x7F13;&#x5B58;&#x67B6;&#x6784;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;/&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x90E8;&#x7684;&#x7F13;&#x5B58;&#x67B6;&#x6784;.png" alt="&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x90E8;&#x7684;&#x7F13;&#x5B58;&#x67B6;&#x6784;"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;/&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x90E8;&#x7684;&#x7F13;&#x5B58;&#x67B6;&#x6784;.png" alt="&#x8BA1;&#x7B97;&#x673A;&#x5185;&#x90E8;&#x7684;&#x7F13;&#x5B58;&#x67B6;&#x6784;"></p>
 <p>&#x7F13;&#x5B58;&#x5927;&#x5927;&#x7F29;&#x5C0F;&#x4E86;&#x9AD8;&#x901F;CPU&#x4E0E;&#x4F4E;&#x901F;&#x5185;&#x5B58;&#x4E4B;&#x95F4;&#x7684;&#x5DEE;&#x8DDD;&#x3002;&#x4EE5;&#x4E09;&#x5C42;&#x7F13;&#x5B58;&#x67B6;&#x6784;&#x4E3A;&#x4F8B;&#xFF1A;</p>
 <ul>
 <li>L1 Cache&#x6700;&#x63A5;&#x8FD1;CPU, &#x5BB9;&#x91CF;&#x6700;&#x5C0F;&#xFF08;&#x5982;32K&#x3001;64K&#x7B49;&#xFF09;&#x3001;&#x901F;&#x5EA6;&#x6700;&#x9AD8;&#xFF0C;&#x6BCF;&#x4E2A;&#x6838;&#x4E0A;&#x90FD;&#x6709;&#x4E00;&#x4E2A;L1 Cache&#x3002;</li>
@@ -284,7 +284,7 @@ ga('send', 'pageview');
 <p>MESI&#x534F;&#x8BAE;&#x89E3;&#x51B3;&#x4E86;CPU&#x7F13;&#x5B58;&#x5C42;&#x9762;&#x7684;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x3002;</p>
 <blockquote>
 <p>&#x4EE5;&#x4E0B;&#x662F;MESI&#x534F;&#x8BAE;&#x7684;&#x7F13;&#x5B58;&#x72B6;&#x6001;&#x673A;&#xFF0C;&#x7B80;&#x5355;&#x770B;&#x770B;&#x5373;&#x53EF;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;/MESI&#x534F;&#x8BAE;&#x7684;&#x7F13;&#x5B58;&#x72B6;&#x6001;&#x673A;.png" alt="MESI&#x534F;&#x8BAE;&#x7684;&#x7F13;&#x5B58;&#x72B6;&#x6001;&#x673A;"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;/MESI&#x534F;&#x8BAE;&#x7684;&#x7F13;&#x5B58;&#x72B6;&#x6001;&#x673A;.png" alt="MESI&#x534F;&#x8BAE;&#x7684;&#x7F13;&#x5B58;&#x72B6;&#x6001;&#x673A;"></p>
 <p>&#x72B6;&#x6001;&#xFF1A;</p>
 <ul>
 <li>M&#xFF08;&#x4FEE;&#x6539;, Modified&#xFF09;: &#x672C;&#x5730;&#x5904;&#x7406;&#x5668;&#x5DF2;&#x7ECF;&#x4FEE;&#x6539;&#x7F13;&#x5B58;&#x884C;, &#x5373;&#x662F;&#x810F;&#x884C;, &#x5B83;&#x7684;&#x5185;&#x5BB9;&#x4E0E;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x4E0D;&#x4E00;&#x6837;. &#x5E76;&#x4E14;&#x6B64;cache&#x53EA;&#x6709;&#x672C;&#x5730;&#x4E00;&#x4E2A;&#x62F7;&#x8D1D;&#xFF08;&#x4E13;&#x6709;&#xFF09;&#x3002;</li>

@@ -16,13 +16,13 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2018/01/02/浅谈偏向锁、轻量级锁、重量级锁/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x4E3A;&amp;#x4E86;&amp;#x6362;&amp;#x53D6;&amp;#x6027;&amp;#x80FD;&amp;#xFF0C;JVM&amp;#x5728;&amp;#x5185;&amp;#x7F6E;&amp;#x9501;&amp;#x4E0A;&amp;#x505A;&amp;#x4E86;&amp;#x975E;&amp;#x5E38;&amp;#x591A;&amp;#x7684;&amp;#x4F18;&amp;#x5316;&amp;#xFF0C;&amp;#x81A8;&amp;#x80C0;&amp;#x5F0F;&amp;#x76">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/锁分配和膨胀过程.png">
-<meta property="og:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/简化版锁分配和膨胀过程.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/锁分配和膨胀过程.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/简化版锁分配和膨胀过程.png">
 <meta property="og:updated_time" content="2018-01-04T02:12:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈偏向锁、轻量级锁、重量级锁">
 <meta name="twitter:description" content="&amp;#x4E3A;&amp;#x4E86;&amp;#x6362;&amp;#x53D6;&amp;#x6027;&amp;#x80FD;&amp;#xFF0C;JVM&amp;#x5728;&amp;#x5185;&amp;#x7F6E;&amp;#x9501;&amp;#x4E0A;&amp;#x505A;&amp;#x4E86;&amp;#x975E;&amp;#x5E38;&amp;#x591A;&amp;#x7684;&amp;#x4F18;&amp;#x5316;&amp;#xFF0C;&amp;#x81A8;&amp;#x80C0;&amp;#x5F0F;&amp;#x76">
-<meta name="twitter:image" content="http://oh4pp6966.bkt.clouddn.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/锁分配和膨胀过程.png">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/浅谈偏向锁、轻量级锁、重量级锁/锁分配和膨胀过程.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -243,7 +243,7 @@ ga('send', 'pageview');
 <p>&#x91CD;&#x7533;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x4E3B;&#x8981;&#x662F;&#x6839;&#x636E;&#x7F51;&#x4E0A;&#x7684;&#x591A;&#x65B9;&#x8D44;&#x6599;&#x6574;&#x7406;&#x3002;&#x6838;&#x5FC3;&#x662F;&#x8FD9;&#x4F4D;<a href="https://blog.dreamtobe.cn/" target="_blank" rel="external">&#x5DE8;&#x5DE8;</a>&#x6574;&#x7406;&#x7684;&#x6D41;&#x7A0B;&#x56FE;&#xFF0C;&#x76F8;&#x5F53;&#x8BE6;&#x7EC6;&#xFF0C;&#x57FA;&#x672C;&#x7B26;&#x5408;&#x903B;&#x8F91;&#x3002;</p>
 </blockquote>
 <p>&#x524D;&#x9762;&#x8BB2;&#x8FF0;&#x4E86;&#x5185;&#x7F6E;&#x9501;&#x5728;&#x4F7F;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x95EE;&#x9898;&#x548C;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF0C;&#x5B9E;&#x73B0;&#x539F;&#x7406;&#x4E00;&#x7B14;&#x5E26;&#x8FC7;&#x3002;&#x8BE6;&#x7EC6;&#x7684;&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6D45;&#x8C08;&#x504F;&#x5411;&#x9501;&#x3001;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x3001;&#x91CD;&#x91CF;&#x7EA7;&#x9501;/&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;.png" alt="&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x6D45;&#x8C08;&#x504F;&#x5411;&#x9501;&#x3001;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x3001;&#x91CD;&#x91CF;&#x7EA7;&#x9501;/&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;.png" alt="&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;"></p>
 <blockquote>
 <p>&#x56FE;&#x4E2D;&#x6709;&#x4E00;&#x5904;&#x7591;&#x95EE;&#xFF1A;</p>
 <p>&#x6309;&#x7167;&#x56FE;&#x4E2D;&#x6D41;&#x7A0B;&#xFF0C;<em>&#x5982;&#x679C;&#x53D1;&#x73B0;&#x9501;&#x5DF2;&#x7ECF;&#x81A8;&#x80C0;&#x4E3A;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x4E92;&#x65A5;&#x91CF;mutex&#x963B;&#x585E;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;</em>&#x3002;</p>
@@ -256,7 +256,7 @@ ga('send', 'pageview');
 </ul>
 <p>&#x53E6;&#x5916;&#xFF0C;&#x5F53;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#x88AB;&#x89E3;&#x9664;&#x540E;&#xFF0C;&#x9700;&#x8981;&#x5524;&#x9192;&#x4E00;&#x4E2A;&#x88AB;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x903B;&#x8F91;&#x4E0E;ReentrantLock&#x57FA;&#x672C;&#x76F8;&#x540C;&#xFF0C;&#x8BE6;&#x89C1;<a href="https://monkeysayhi.github.io/2017/12/05/&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;1&#xFF09;&#xFF1A;lock&#x3001;unlock/">&#x6E90;&#x7801;|&#x5E76;&#x53D1;&#x4E00;&#x679D;&#x82B1;&#x4E4B;ReentrantLock&#x4E0E;AQS&#xFF08;1&#xFF09;&#xFF1A;lock&#x3001;unlock</a>&#x3002;</p>
 <h2 id="&#x7B80;&#x5316;&#x7248;"><a href="#&#x7B80;&#x5316;&#x7248;" class="headerlink" title="&#x7B80;&#x5316;&#x7248;"></a>&#x7B80;&#x5316;&#x7248;</h2><p>&#x4E0A;&#x56FE;&#x8BB0;&#x8F7D;&#x7684;&#x5F88;&#x8BE6;&#x7EC6;&#xFF0C;&#x4E5F;&#x6709;Mark Word&#x7684;&#x56FE;&#x89E3;&#x3002;&#x770B;&#x61C2;&#x4E0A;&#x56FE;&#x540E;&#xFF0C;&#x518D;&#x6765;&#x770B;&#x300A;&#x6DF1;&#x5165;&#x7406;&#x89E3;Java&#x865A;&#x62DF;&#x673A;&#xFF1A;JVM&#x9AD8;&#x7EA7;&#x7279;&#x6027;&#x4E0E;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;&#xFF08;&#x7B2C;2&#x7248;&#xFF09;&#x300B;&#x4E2D;&#x7684;&#x7B80;&#x5316;&#x7248;&#x6D41;&#x7A0B;&#x56FE;&#x5C31;&#x80FD;&#x770B;&#x61C2;&#x4E86;&#xFF1A;</p>
-<p><img src="http://oh4pp6966.bkt.clouddn.com/static/images/&#x6D45;&#x8C08;&#x504F;&#x5411;&#x9501;&#x3001;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x3001;&#x91CD;&#x91CF;&#x7EA7;&#x9501;/&#x7B80;&#x5316;&#x7248;&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;.png" alt="&#x7B80;&#x5316;&#x7248;&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;"></p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x6D45;&#x8C08;&#x504F;&#x5411;&#x9501;&#x3001;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x3001;&#x91CD;&#x91CF;&#x7EA7;&#x9501;/&#x7B80;&#x5316;&#x7248;&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;.png" alt="&#x7B80;&#x5316;&#x7248;&#x9501;&#x5206;&#x914D;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;"></p>
 <blockquote>
 <p>&#x6316;&#x5751;&#xFF1A;</p>
 <p>&#x7B80;&#x5316;&#x7248;&#x4E2D;&#x6307;&#x51FA;&#x4E86;<code>&#x91CD;&#x504F;&#x5411;</code>&#x8FC7;&#x7A0B;&#x3002;&#x8FD9;&#x4E00;&#x8FC7;&#x7A0B;&#x5BF9;&#x4E8E;&#x6027;&#x80FD;&#x4F18;&#x5316;&#x548C;&#x81A8;&#x80C0;&#x8FC7;&#x7A0B;&#x90FD;&#x975E;&#x5E38;&#x91CD;&#x8981;&#xFF1B;&#x4F46;&#x5982;&#x679C;&#x8003;&#x8651;&#x91CD;&#x504F;&#x5411;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x80FD;&#x4E0A;&#x8FF0;&#x7279;&#x522B;&#x8BF4;&#x660E;&#x7684;&#x5185;&#x5BB9;&#x5C31;&#x4E0D;&#x6210;&#x7ACB;&#x4E86;&#x3002;&#x8981;&#x6574;&#x7406;&#x7684;&#x7B14;&#x8BB0;&#x592A;&#x591A;&#x5566;&#x65F6;&#x95F4;&#x4E0D;&#x591F;&#x554A;&#xFF0C;&#x7334;&#x5B50;&#x9009;&#x62E9;&#x6682;&#x65F6;&#x653E;&#x5F03;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#xFF0C;&#xFF0C;&#x6069;&#xFF0C;&#x6316;&#x4E2A;&#x5751;&#xFF0C;&#x4EE5;&#x540E;&#x518D;&#x8FFD;&#x6E90;&#x7801;&#x586B;&#x5751;&#x3002;</p>
