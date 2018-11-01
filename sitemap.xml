@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/01/%E7%BB%99vim%E5%B0%8F%E7%99%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/</loc>
+    
+    <lastmod>2018-11-01T03:48:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://monkeysayhi.github.io/2018/03/07/%E6%B5%85%E8%B0%88TCP%EF%BC%882%EF%BC%89%EF%BC%9A%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/</loc>
     
     <lastmod>2018-10-17T03:51:59.000Z</lastmod>
@@ -527,14 +534,14 @@
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     

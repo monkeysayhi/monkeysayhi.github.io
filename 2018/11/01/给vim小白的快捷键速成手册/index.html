@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>给vim小白的快捷键速成手册 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&amp;#x5B9E;&amp;#x4E60;&amp;#x7EC4;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x4FDD;&amp;#x5BC6;&amp;#x7EA7;&amp;#x522B;&amp;#x9AD8;&amp;#xFF0C;&amp;#x8981;&amp;#x6C42;&amp;#x4EE3;&amp;#x7801;&amp;#x4E0D;&amp;#x80FD;&amp;#x62C9;&amp;#x5230;&amp;#x672C;&amp;#x5730;&amp;#xFF08;&amp;#x5F53;&amp;#x7136;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给vim小白的快捷键速成手册">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/01/给vim小白的快捷键速成手册/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="&amp;#x5B9E;&amp;#x4E60;&amp;#x7EC4;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x4FDD;&amp;#x5BC6;&amp;#x7EA7;&amp;#x522B;&amp;#x9AD8;&amp;#xFF0C;&amp;#x8981;&amp;#x6C42;&amp;#x4EE3;&amp;#x7801;&amp;#x4E0D;&amp;#x80FD;&amp;#x62C9;&amp;#x5230;&amp;#x672C;&amp;#x5730;&amp;#xFF08;&amp;#x5F53;&amp;#x7136;">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/命令模式-01.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/输入模式-01.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/输入模式-02.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/命令模式-02.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/底线命令模式-01.png">
+<meta property="og:updated_time" content="2018-11-01T03:48:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给vim小白的快捷键速成手册">
+<meta name="twitter:description" content="&amp;#x5B9E;&amp;#x4E60;&amp;#x7EC4;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x4FDD;&amp;#x5BC6;&amp;#x7EA7;&amp;#x522B;&amp;#x9AD8;&amp;#xFF0C;&amp;#x8981;&amp;#x6C42;&amp;#x4EE3;&amp;#x7801;&amp;#x4E0D;&amp;#x80FD;&amp;#x62C9;&amp;#x5230;&amp;#x672C;&amp;#x5730;&amp;#xFF08;&amp;#x5F53;&amp;#x7136;">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/给vim小白的快捷键速成手册/命令模式-01.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-给vim小白的快捷键速成手册" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      给vim小白的快捷键速成手册
+    </h1>
+  
+
+        <a href="/2018/11/01/给vim小白的快捷键速成手册/" class="archive-article-date">
+  	<time datetime="2018-11-01T03:48:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>&#x5B9E;&#x4E60;&#x7EC4;&#x7684;&#x4EE3;&#x7801;&#x4FDD;&#x5BC6;&#x7EA7;&#x522B;&#x9AD8;&#xFF0C;&#x8981;&#x6C42;&#x4EE3;&#x7801;&#x4E0D;&#x80FD;&#x62C9;&#x5230;&#x672C;&#x5730;&#xFF08;&#x5F53;&#x7136;&#x4E5F;&#x4E0D;&#x80FD;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x7684;git&#x4ED3;&#x5E93;&#xFF09;&#xFF0C;&#x4E00;&#x5F8B;&#x5728;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#x3001;&#x6D4B;&#x8BD5;&#x3002;CLion&#x767D;&#x5B66;&#x4E86;&#xFF0C;&#x6295;&#x5954;vim&#x3002;</p>
+<a id="more"></a>
+<blockquote>
+<p>&#x5BF9;&#x4E8E;&#x5927;&#x90E8;&#x5206;&#x4EBA;&#x800C;&#x8A00;&#xFF0C;&#x5982;&#x679C;&#x7EFC;&#x5408;&#x5B66;&#x4E60;&#x6210;&#x672C;&#x548C;&#x5F00;&#x53D1;&#x6548;&#x7387;&#xFF0C;&#x80FD;&#x7528;IDE&#x8FD8;&#x662F;&#x7528;IDE&#x5427;&#x3002;</p>
+</blockquote>
+<h1 id="vim&#x8FD8;&#x662F;emacs"><a href="#vim&#x8FD8;&#x662F;emacs" class="headerlink" title="vim&#x8FD8;&#x662F;emacs"></a>vim&#x8FD8;&#x662F;emacs</h1><p><strong>&#x4E0D;&#x8981;&#x7EA0;&#x7ED3;&#xFF0C;&#x6293;&#x8D77;&#x4E00;&#x4E2A;&#x5C31;&#x662F;&#x5E72;&#x3002;</strong></p>
+<h1 id="&#x57FA;&#x672C;&#x6982;&#x5FF5;"><a href="#&#x57FA;&#x672C;&#x6982;&#x5FF5;" class="headerlink" title="&#x57FA;&#x672C;&#x6982;&#x5FF5;"></a>&#x57FA;&#x672C;&#x6982;&#x5FF5;</h1><p>&#x5BF9;&#x4E8E;&#x6211;&#x7B49;vim&#x5C0F;&#x767D;&#x800C;&#x8A00;&#xFF0C;&#x5728;&#x4F7F;&#x7528;vim&#x4E4B;&#x524D;&#xFF0C;&#x52A1;&#x5FC5;&#x8981;&#x6E05;&#x695A;<code>&#x201C;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x201D;</code>&#xFF08;Command mode&#xFF09;&#x3001;<code>&#x201C;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x201D;</code>&#xFF08;Last line mode&#xFF09;&#x3001;<code>&#x201C;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x201D;</code>&#xFF08;Insert mode&#xFF0C;&#x4E5F;&#x53EB;&#x505A;&#x201C;&#x7F16;&#x8F91;&#x6A21;&#x5F0F;&#x201D;&#xFF09;&#x4E09;&#x4E2A;&#x6982;&#x5FF5;&#xFF0C;&#x548C;&#x4E24;&#x4E09;&#x4E2A;&#x5E38;&#x7528;&#x7684;<code>&#x201C;&#x547D;&#x4EE4;&#x201D;</code>&#x3002;</p>
+<p>&#x9996;&#x5148;&#xFF0C;&#x4FDD;&#x8BC1;&#x4F60;&#x5904;&#x4E8E;unix-style&#x7684;&#x7CFB;&#x7EDF;&#xFF08;&#x5982;&#x5404;&#x79CD;linux&#x53D1;&#x884C;&#x7248;&#xFF0C;macOS&#x7B49;&#x3002;windows&#x672A;&#x5B9E;&#x9A8C;&#xFF09;&#xFF0C;&#x8F93;&#x5165;&#x6CD5;&#x5904;&#x4E8E;&#x82F1;&#x6587;&#x7684;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x7528;vim&#x547D;&#x4EE4;&#x6253;&#x5F00;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vim hello_world.txt</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x5982;&#x679C;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;vim&#x4F1A;&#x5E2E;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x3002;</p>
+</blockquote>
+<p>&#x4EC0;&#x4E48;&#x90FD;&#x4E0D;&#x505A;&#x3002;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x5904;&#x4E8E;&#x201C;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x201D;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7ED9;vim&#x5C0F;&#x767D;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;/&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-01.png" alt="&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-01"></p>
+<p>&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6572;&#x51FB;&#x952E;&#x76D8;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x4F46;&#x4E0D;&#x80FD;&#x7F16;&#x8F91;&#x3002;&#x6CA1;&#x5185;&#x5BB9;&#x6CA1;&#x6CD5;&#x64CD;&#x4F5C;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x5148;&#x6572;&#x51FB;&#x5B57;&#x6BCD;<code>&#x201C;i&#x201D;</code>&#xFF0C;&#x8FDB;&#x5165;&#x201C;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x201D;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7ED9;vim&#x5C0F;&#x767D;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;/&#x8F93;&#x5165;&#x6A21;&#x5F0F;-01.png" alt="&#x8F93;&#x5165;&#x6A21;&#x5F0F;-01"></p>
+<p>&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x7684;&#x7279;&#x70B9;&#x662F;&#xFF0C;&#x7A97;&#x53E3;&#x6700;&#x4E0B;&#x65B9;&#x6709;&#x201C;INSERT&#x201D;&#x5B57;&#x6837;&#x3002;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x5C31;&#x53EF;&#x4EE5;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#x4E86;&#xFF0C;&#x8F93;&#x5165;&#x201C;hello world&#x201D;&#x3002;&#x5B57;&#x6BCD;<code>&#x201C;i&#x201D;</code>&#x5728;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x4E0B;&#x662F;&#x4E00;&#x4E2A;&#x201C;&#x547D;&#x4EE4;&#x201D;&#xFF0C;&#x5728;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x4E0B;&#x5C31;&#x662F;&#x4E2A;&#x5355;&#x7EAF;&#x7684;&#x5B57;&#x6BCD;&#x4E86;&#x2014;&#x2014;&#x6572;&#x51FB;<code>&#x201C;&lt;Enter&gt;&#x201D;</code>&#x952E;&#x6362;&#x5230;&#x4E0B;&#x4E00;&#x884C;&#xFF0C;&#x6572;&#x51FB;&#x5B57;&#x6BCD;&#x201C;i&#x201D;&#x5C31;&#x8F93;&#x5165;&#x4E86;&#x4E00;&#x4E2A;&#x201C;i&#x201D;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7ED9;vim&#x5C0F;&#x767D;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;/&#x8F93;&#x5165;&#x6A21;&#x5F0F;-02.png" alt="&#x8F93;&#x5165;&#x6A21;&#x5F0F;-02"></p>
+<p>&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x6572;&#x51FB;<code>&quot;&lt;Esc&gt;&quot;</code>&#x952E;&#xFF08;&#x952E;&#x76D8;&#x5DE6;&#x4E0A;&#x89D2;&#xFF09;&#x9000;&#x51FA;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x3002;&#x9000;&#x51FA;&#x540E;&#xFF0C;&#x5C06;&#x56DE;&#x5230;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF0C;&#x5C31;&#x4E0D;&#x80FD;&#x7F16;&#x8F91;&#x4E86;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7ED9;vim&#x5C0F;&#x767D;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;/&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-02.png" alt="&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-02"></p>
+<blockquote>
+<p>&#x770B;&#xFF0C;&#x56DE;&#x5230;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x540E;&#xFF0C;&#x7A97;&#x53E3;&#x6700;&#x4E0B;&#x65B9;&#x5C31;&#x6CA1;&#x6709;&#x6709;&#x201C;INSERT&#x201D;&#x5B57;&#x6837;&#x4E86;&#x3002;</p>
+</blockquote>
+<p>&#x6700;&#x540E;&#xFF0C;&#x6572;&#x51FB;&#x7B26;&#x53F7;<code>&#x201C;:&#x201D;</code>&#xFF08;&#x5207;&#x8BB0;&#xFF0C;<strong>&#x82F1;&#x6587;&#x7B26;&#x53F7;</strong>&#xFF09;&#x8FDB;&#x5165;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7ED9;vim&#x5C0F;&#x767D;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;/&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-01.png" alt="&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;-01"></p>
+<p>&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x7684;&#x7279;&#x70B9;&#x662F;&#xFF0C;&#x7A97;&#x53E3;&#x6700;&#x4E0B;&#x65B9;&#x6709;&#x4E00;&#x4E2A;&#x201C;:&#x201D;&#x3002;&#x5728;&#x201C;:&#x201D;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8F93;&#x5165;&#x547D;&#x4EE4;&#xFF1B;&#x7136;&#x800C;&#x8FD9;&#x91CC;&#x7684;&#x547D;&#x4EE4;&#x4E0E;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x4E0B;&#x7684;&#x547D;&#x4EE4;&#x6709;&#x6240;&#x4E0D;&#x540C;&#xFF0C;&#x6BD4;&#x5982;&#x521A;&#x624D;&#x7684;&#x5B57;&#x6BCD;&#x201C;i&#x201D;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x8F93;&#x5165;&#x662F;&#x65E0;&#x6548;&#x7684;&#x3002;&#x6211;&#x4EEC;&#x5148;&#x6572;&#x51FB;<code>&#x201C;&lt;Esc&gt;&#x201D;</code>&#x952E;&#x9000;&#x51FA;&#x8F93;&#x5165;&#x6A21;&#x5F0F;&#x6216;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF0C;&#x4EE5;&#x56DE;&#x5230;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x518D;&#x6B21;&#x6572;&#x51FB;&#x7B26;&#x53F7;<code>&#x201C;:&#x201D;</code>&#xFF0C;&#x91CD;&#x65B0;&#x8FDB;&#x5165;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x3002;&#x8FD9;&#x6B21;&#xFF0C;&#x6211;&#x4EEC;&#x8F93;&#x5165;<code>&#x201C;wq&#x201D;</code>&#xFF0C;&#x6572;&#x51FB;<code>&#x201C;&lt;Enter&gt;&#x201D;</code>&#x952E;&#x2014;&#x2014;&#x201C;wq&#x201D;&#x7684;&#x610F;&#x601D;&#x662F;&#x201C;&#x4FDD;&#x5B58;&#x5E76;&#x9000;&#x51FA;&#x201D;&#xFF0C;&#x5728;&#x8FD9;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x4FDD;&#x5B58;&#x5185;&#x5BB9;&#x5E76;&#x9000;&#x51FA;&#x4E86;vim&#x3002;</p>
+<blockquote>
+<p>&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x201C;wq&#x201D;&#x662F;&#x8FDE;&#x7EED;&#x7684;&#x4E24;&#x4E2A;&#x547D;&#x4EE4;&#xFF1A;&#x201C;w&#x201D;&#x662F;&#x4FDD;&#x5B58;&#x201C;write&#x201D;&#x7684;&#x7F29;&#x5199;&#xFF0C;&#x201C;q&#x201D;&#x662F;&#x9000;&#x51FA;&#x201C;quit&#x201D;&#x7684;&#x7F29;&#x5199;&#xFF0C;unix-style&#x9F13;&#x52B1;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7F29;&#x5199;&#x3002;</p>
+</blockquote>
+<p>&#x8BA9;&#x6211;&#x4EEC;&#x9A8C;&#x8BC1;&#x6587;&#x4EF6;&#x5185;&#x5BB9;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat hello_world.txt</div><div class="line">hello world</div><div class="line">i</div></pre></td></tr></table></figure>
+<p>good job&#xFF01;</p>
+<h1 id="&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;"><a href="#&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;" class="headerlink" title="&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;"></a>&#x5FEB;&#x6377;&#x952E;&#x901F;&#x6210;&#x624B;&#x518C;</h1><p>vim&#x7684;&#x7B80;&#x5355;&#x5728;&#x4E8E;&#xFF0C;&#x638C;&#x63E1;&#x4E86;&#x4E09;&#x4E2A;&#x6A21;&#x5F0F;&#x540E;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5C31;&#x662F;&#x67E5;&#x9605;&#x5404;&#x79CD;&#x725B;&#x903C;&#x7684;&#x5FEB;&#x6377;&#x952E;&#xFF0C;&#x7136;&#x540E;&#x719F;&#x7EC3;&#x64CD;&#x4F5C;&#x3002;&#x4E0D;&#x8FC7;&#xFF0C;&#x4E0E;&#x5176;&#x4ED6;&#x957F;&#x7BC7;&#x7D2F;&#x724D;&#x4ECB;&#x7ECD;vim&#x5FEB;&#x6377;&#x952E;&#x7684;&#x6587;&#x7AE0;&#x4E0D;&#x540C;&#xFF0C;&#x7334;&#x5B50;&#x5D07;&#x5C1A;&#x201C;less is more&#x201D;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x5217;&#x51FA;&#x4E86;&#x7334;&#x5B50;&#x6700;&#x5E38;&#x7528;&#x7684;&#x5FEB;&#x6377;&#x952E;&#xFF0C;&#x53EF;&#x4EE5;&#x50CF;&#x7334;&#x5B50;&#x4E00;&#x6837;&#xFF0C;&#x628A;&#x5B83;&#x5F53;&#x505A;&#x6781;&#x7B80;&#x7248;&#x7684;&#x5FEB;&#x6377;&#x952E;&#x624B;&#x518C;&#xFF0C;&#x76F4;&#x63A5;&#x914D;&#x7F6E;&#x5728;<code>&#x201C;.vimrc&#x201D;</code>&#xFF08;vim&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x7528;&#x6237;&#x76EE;&#x5F55;<code>&quot;~&quot;</code>&#x4E0B;&#xFF09;&#x4E2D;&#xFF1A;</p>
+<blockquote>
+<ul>
+<li><code>&quot;</code>&#x5F00;&#x5934;&#x7684;&#x884C;&#x662F;&#x6CE8;&#x91CA;&#xFF0C;&#x5176;&#x4ED6;&#x662F;vim&#x811A;&#x672C;&#xFF0C;vim&#x542F;&#x52A8;&#x65F6;&#x6267;&#x884C;<code>&#x201C;.vimrc&#x201D;</code>&#x4E2D;&#x7684;&#x5168;&#x90E8;vim&#x811A;&#x672C;</li>
+<li>&#x7EDD;&#x5927;&#x90E8;&#x5206;&#x662F;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x7684;&#x547D;&#x4EE4;</li>
+<li>&#x4EE5;&#x201C;:&#x201D;&#x5F00;&#x5934;&#x7684;&#x662F;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x7684;&#x547D;&#x4EE4;</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">&quot; &#x4E00;&#x4E9B;&#x7279;&#x6B8A;&#x7684;vim&#x811A;&#x672C;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x5E95;&#x7EBF;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x6267;&#x884C;&#xFF0C;&#x6682;&#x65F6;&#x5FFD;&#x7565;&#x5B83;&#x4EEC;</div><div class="line">syntax on	&quot; &#x6839;&#x636E;&#x8BED;&#x6CD5;&#x6E32;&#x67D3;</div><div class="line">set nu	&quot; &#x663E;&#x793A;&#x884C;&#x53F7;</div><div class="line">&quot; set nu!	&quot; &#x4E0D;&#x663E;&#x793A;&#x884C;&#x53F7;</div><div class="line">set colorcolumn=100</div><div class="line">set tabstop=4</div><div class="line">set expandtab</div><div class="line">set autoindent</div><div class="line">set paste!</div><div class="line"></div><div class="line">&quot; &#x6781;&#x7B80;&#x7248;&#x901F;&#x6210;&#x624B;&#x518C;</div><div class="line"></div><div class="line">&quot; &#x5404;&#x79CD;&#x79FB;&#x52A8;&#x5149;&#x6807;</div><div class="line">&quot; vim&#x5EFA;&#x8BAE;&#x5149;&#x6807;&#x79FB;&#x52A8;&#x4F7F;&#x7528;&quot;hjkl&quot;&#xFF0C;&#x8BA9;&#x624B;&#x4FDD;&#x6301;&#x5728;&#x952E;&#x76D8;&#x4E2D;&#x5FC3;&#x3002;&#x4F46;&#x7334;&#x5B50;&#x6682;&#x65F6;&#x8FD8;&#x662F;&#x4E60;&#x60EF;&#x4F7F;&#x7528;&#x65B9;&#x5411;&#x952E;</div><div class="line">&quot; h &#x5411;&#x5DE6;&#x79FB;&#x52A8;&#x4E00;&#x6B21;&#x5149;&#x6807;</div><div class="line">&quot; j &#x5411;&#x4E0B;&#x79FB;&#x52A8;&#x4E00;&#x6B21;&#x5149;&#x6807;</div><div class="line">&quot; k &#x5411;&#x4E0A;&#x79FB;&#x52A8;&#x4E00;&#x6B21;&#x5149;&#x6807;</div><div class="line">&quot; l &#x5411;&#x53F3;&#x79FB;&#x52A8;&#x4E00;&#x6B21;&#x5149;&#x6807;</div><div class="line">&quot; b &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x4E0A;&#x4E00;&#x8BCD;&#x9996;</div><div class="line">&quot; &#x672A;&#x5B9A;&#x4E49;&#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x4E0B;&#x4E00;&#x8BCD;&#x5C3E;</div><div class="line">&quot; w &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x4E0B;&#x4E00;&#x8BCD;&#x9996;</div><div class="line">&quot; e &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x4E0B;&#x4E00;&#x8BCD;&#x5C3E;</div><div class="line">&quot; &lt;ctrl&gt; + u &#x5411;&#x4E0A;&#x6EDA;&#x52A8;10&#x884C;&#xFF08;&#x884C;&#x6570;&#x53EF;&#x914D;&#x7F6E;&#xFF09;</div><div class="line">&quot; &lt;ctrl&gt; + d &#x5411;&#x4E0B;&#x6EDA;&#x52A8;10&#x884C;</div><div class="line">&quot; &lt;ctrl&gt; + f &#x5411;&#x4E0B;&#x6EDA;&#x52A8;&#x4E00;&#x5C4F;</div><div class="line">&quot; &lt;ctrl&gt; + b &#x5411;&#x4E0A;&#x6EDA;&#x52A8;&#x4E00;&#x5C4F;</div><div class="line">&quot; gg &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x6587;&#x4EF6;&#x9996;</div><div class="line">&quot; G &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x6587;&#x4EF6;&#x5C3E;</div><div class="line">&quot; &#x5C06;&#x6570;&#x5B57;&#x548C;&#x65B9;&#x5411;&#x547D;&#x4EE4;&#x7EC4;&#x5408;&#x5728;&#x4E00;&#x8D77;&#xFF0C;vim&#x5927;&#x6CD5;&#x597D;</div><div class="line">&quot; 10k &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x5411;&#x4E0A;10&#x884C;&#xFF0C;10&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x610F;&#x6B63;&#x6570;&#x3002;&#x81EA;&#x7136;10j&#x5C31;&#x662F;&#x5149;&#x6807;&#x5411;&#x4E0B;&#x79FB;&#x52A8;10&#x884C;</div><div class="line">&quot; 10h &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x5411;&#x5DE6;10&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;10l&#x540C;&#x7406;</div><div class="line">&quot; &lt;ctrl&gt; + o &#x79FB;&#x52A8;&#x5149;&#x6807;&#x5230;&#x4E0A;&#x4E00;&#x4F4D;&#x7F6E;</div><div class="line"></div><div class="line">&quot; &#x8FDB;&#x5165;&#x8F93;&#x5165;&#x6A21;&#x5F0F;</div><div class="line">&quot; i &#x5728;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x540E;&#x63D2;&#x5165;&#x5B57;&#x7B26;</div><div class="line">&quot; I &#x5728;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x524D;&#x63D2;&#x5165;&#x5B57;&#x7B26;</div><div class="line">&quot; o &#x5728;&#x5F53;&#x524D;&#x884C;&#x540E;&#x63D2;&#x5165;&#x884C;</div><div class="line">&quot; O &#x5728;&#x5F53;&#x524D;&#x884C;&#x524D;&#x63D2;&#x5165;&#x884C;</div><div class="line"></div><div class="line">&quot; &#x590D;&#x5236;</div><div class="line">&quot; y &#x590D;&#x5236;&#x9009;&#x4E2D;&#x8303;&#x56F4;&#xFF08;&#x914D;&#x5408;&#x540E;&#x9762;&#x7684;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#x64CD;&#x4F5C;&#xFF09;</div><div class="line">&quot; yy &#x590D;&#x5236;&#x884C;</div><div class="line">&quot; y10 &#x4ECE;&#x5F53;&#x524D;&#x884C;&#x5F00;&#x59CB;&#x5411;&#x4E0B;&#x6570;&#xFF0C;&#x5171;&#x590D;&#x5236;11&#x884C;</div><div class="line">&quot; ye &#x590D;&#x5236;&#x5230;&#x8BCD;&#x5C3E;&#xFF08;&#x542B;&#x8BCD;&#x5C3E;&#xFF09;&#xFF0C;&#x5176;&#x4ED6;&#x7EC4;&#x5408;&#x540C;&#x7406;</div><div class="line"></div><div class="line">&quot; &#x7C98;&#x8D34;</div><div class="line">&quot; p &#x5728;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x540E;&#x63D2;&#x5165;</div><div class="line">&quot; P &#x5728;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x524D;&#x63D2;&#x5165;</div><div class="line"></div><div class="line">&quot; &#x526A;&#x5207;&#xFF08;&#x590D;&#x5236; + &#x5220;&#x9664;&#xFF09;</div><div class="line">&quot; d &#x526A;&#x5207;&#x9009;&#x4E2D;&#x8303;&#x56F4;</div><div class="line">&quot; dd &#x526A;&#x5207;&#x884C;</div><div class="line">&quot; d10 &#x4ECE;&#x5F53;&#x524D;&#x884C;&#x5F00;&#x59CB;&#x5411;&#x4E0B;&#x6570;&#xFF0C;&#x5171;&#x526A;&#x5207;11&#x884C;</div><div class="line">&quot; de &#x5220;&#x9664;&#x5230;&#x8BCD;&#x5C3E;&#xFF08;&#x542B;&#x8BCD;&#x5C3E;&#xFF09;&#xFF0C;&#x5176;&#x4ED6;&#x7EC4;&#x5408;&#x540C;&#x7406;</div><div class="line">&quot; x &#x526A;&#x5207;&#x9009;&#x4E2D;&#x8303;&#x56F4;&#x3002;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x81F3;&#x5C11;&#x9009;&#x4E2D;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x56E0;&#x6B64;x&#x66F4;&#x5E38;&#x7528;&#x4E8E;&#x526A;&#x5207;&#x5355;&#x4E2A;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x5176;&#x4ED6;&#x8303;&#x56F4;&#x7C7B;&#x64CD;&#x4F5C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;d</div><div class="line">&quot; &#x526A;&#x5207; = &#x590D;&#x5236; + &#x5220;&#x9664;, &#x610F;&#x5473;&#x7740;&#x63A5;&#x4E0B;&#x6765;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x7C98;&#x8D34;</div><div class="line"></div><div class="line">&quot; v &#x5B57;&#x7B26;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#xFF08;&#x4E00;&#x79CD;&#x7279;&#x6B8A;&#x7684;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#xFF09;</div><div class="line">&quot; V &#x884C;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;</div><div class="line">&quot; &lt;ctrl&gt; + v &#x5217;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#x3002;&#x8FDB;&#x5165;&#x5217;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#x540E;&#xFF0C;&#x53EF;&#x914D;&#x5408;I&#x6307;&#x4EE4;&#x8FDB;&#x884C;&#x5217;&#x7F16;&#x8F91;</div><div class="line">&quot; &#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#x9009;&#x62E9;&#x201C;&#x5757;&#x201D;&#x540E;&#xFF0C;&#x65B9;&#x4FBF;&#x8FDB;&#x884C;&#x53EF;&#x89C6;&#x5316;&#x7684;&#x526A;&#x5207;&#x548C;&#x590D;&#x5236;&#xFF0C;&#x6267;&#x884C;&#x6307;&#x4EE4;&#x6216;&#x6572;&#x51FB;&lt;Esc&gt;&#x952E;&#x9000;&#x51FA;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;</div><div class="line">&quot; &#x9009;&#x62E9;&#x201C;&#x5757;&#x201D;&#x65F6;&#xFF0C;&#x547D;&#x4EE4;&#x6A21;&#x5F0F;&#x4E0B;&#x5404;&#x79CD;&#x5149;&#x6807;&#x79FB;&#x52A8;&#x65B9;&#x5F0F;&#x4ECD;&#x7136;&#x6709;&#x6548;&#xFF0C;&#x4F7F;&#x5F97;&#x7528;&#x6237;&#x80FD;&#x591F;&#x9AD8;&#x6548;&#x9009;&#x62E9;&#x4ECE;&#x5149;&#x6807;&#x8D77;&#x70B9;&#xFF08;&#x8FDB;&#x5165;&#x53EF;&#x89C6;&#x6A21;&#x5F0F;&#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#x5230;&#x5149;&#x6807;&#x7EC8;&#x70B9;&#xFF08;&#x5149;&#x6807;&#x79FB;&#x52A8;&#x540E;&#x7684;&#x4F4D;&#x7F6E;&#xFF09;&#x7684;&#x5757;</div><div class="line"></div><div class="line">&quot; r &#x8986;&#x76D6;&#xFF0C;&#x53EF;&#x4EE5;&#x7B80;&#x5316;&#x201C;&#x5148;&#x5220;&#x9664;&#x518D;&#x8F93;&#x5165;&#x201D;&#x7684;&#x64CD;&#x4F5C;&#x987A;&#x5E8F;</div><div class="line"></div><div class="line">&quot; u undo</div><div class="line">&quot; &lt;ctrl&gt; + r redo</div><div class="line"></div><div class="line">&quot; :w &#x5199;&#x5165;</div><div class="line">&quot; :q &#x9000;&#x51FA;</div><div class="line">&quot; :wq &#x5199;&#x5165;+&#x9000;&#x51FA;&#xFF0C;&#x547D;&#x4EE4;&#x7684;&#x7075;&#x6D3B;&#x7EC4;&#x5408;&#x662F;vim&#x6548;&#x7387;&#x6240;&#x5728;</div><div class="line">&quot; :10 &#x5149;&#x6807;&#x79FB;&#x52A8;&#x5230;&#x7B2C;10&#x884C;&#xFF08;&#x884C;&#x53F7;&#x4ECE;1&#x5F00;&#x59CB;&#xFF09;</div></pre></td></tr></table></figure>
+<p>just do it!</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/猿工/">猿工</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://oh4pp6966.bkt.clouddn.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2018/11/01/给vim小白的快捷键速成手册/">给vim小白的快捷键速成手册</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/10/Linux文件系统：inode&block，文件&目录，硬链&软链/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 15.83px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.67px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.33px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.33px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 11.67px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.83px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10.83px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.5px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.83px;">数据库</a> <a href="/tags/猿工/" style="font-size: 14.17px;">猿工</a> <a href="/tags/猿格/" style="font-size: 14.17px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.5px;">科普</a> <a href="/tags/算法/" style="font-size: 14.17px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.83px;">网络</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.83px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.17px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://spy19930412.github.io/">Jane_s_blog</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://zongwenlong.github.io/">All_is_well</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
