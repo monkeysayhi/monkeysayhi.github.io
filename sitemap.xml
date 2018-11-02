@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/02/%E6%B5%85%E8%B0%88CMS%E5%8E%9F%E7%90%86/</loc>
+    
+    <lastmod>2018-11-02T02:48:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://monkeysayhi.github.io/2018/11/01/%E7%BB%99vim%E5%B0%8F%E7%99%BD%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE%E9%80%9F%E6%88%90%E6%89%8B%E5%86%8C/</loc>
     
-    <lastmod>2018-11-01T03:48:20.000Z</lastmod>
+    <lastmod>2018-11-01T13:23:44.000Z</lastmod>
     
   </url>
   
@@ -534,14 +541,14 @@
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     
