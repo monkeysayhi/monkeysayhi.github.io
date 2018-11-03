@@ -4,18 +4,64 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/03/%E7%B1%BB%E5%8A%A0%E8%BD%BD%EF%BC%88%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%89%E6%97%B6%E6%9C%BA/</loc>
+    <lastmod>2018-11-03T07:09:10.000Z</lastmod>
+    <data>
+        <display>
+        <title>类加载（初始化）时机</title>
+        <pubTime>2018-11-03T07:07:05.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2017/09/23/%E6%BA%90%E7%A0%81%7CString%E6%8B%BC%E6%8E%A5%E6%93%8D%E4%BD%9C%E2%80%9D-%E2%80%9D%E7%9A%84%E4%BC%98%E5%8C%96%EF%BC%9F/</loc>
+    <lastmod>2018-11-02T03:10:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>源码|String拼接操作”+”的优化？</title>
+        <pubTime>2017-09-23T07:54:42.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2018/11/02/%E6%B5%85%E8%B0%88CMS%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2018-11-02T02:48:38.000Z</lastmod>
+    <lastmod>2018-11-02T03:04:20.000Z</lastmod>
     <data>
         <display>
         <title>浅谈CMS原理</title>
         <pubTime>2018-11-02T02:47:14.000Z</pubTime>
         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-        <tag>JVM</tag>
          
          
            
@@ -93,11 +139,11 @@
         <title>面试中单例模式有几种写法？</title>
         <pubTime>2017-09-27T05:38:10.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-        <tag>Java</tag>
          
         <tag>设计模式</tag>
          
@@ -116,9 +162,9 @@
         <title>你真的会阅读Java的异常信息吗？</title>
         <pubTime>2017-10-02T06:19:56.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Java</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -177,13 +223,13 @@
         <title>源码|从串行线程封闭到对象池、线程池</title>
         <pubTime>2017-10-25T16:10:24.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -200,13 +246,13 @@
         <title>浅谈双亲委派模型</title>
         <pubTime>2017-12-20T11:00:37.000Z</pubTime>
         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
-        <tag>Java</tag>
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>猿格</tag>
          
@@ -225,11 +271,11 @@
         <title>Java内存模型</title>
         <pubTime>2016-11-25T16:06:38.000Z</pubTime>
         
-        <tag>面试</tag>
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
-        <tag>Java</tag>
+        <tag>面试</tag>
          
          
            
@@ -246,9 +292,9 @@
         <title>HashMap实现原理</title>
         <pubTime>2017-08-26T03:04:58.000Z</pubTime>
         
-        <tag>面试</tag>
-         
         <tag>Java</tag>
+         
+        <tag>面试</tag>
          
          
            
@@ -403,13 +449,13 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（3）：Condition</title>
         <pubTime>2017-12-07T11:18:45.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -426,13 +472,13 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（1）：lock、unlock</title>
         <pubTime>2017-12-05T12:15:24.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -453,11 +499,11 @@
          
         <tag>原创</tag>
          
-        <tag>算法</tag>
-         
         <tag>索引</tag>
          
         <tag>数据库</tag>
+         
+        <tag>算法</tag>
          
          
            
@@ -474,13 +520,13 @@
         <title>条件队列大法好：使用wait、notify和notifyAll的正确姿势</title>
         <pubTime>2017-11-29T06:38:04.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
         <tag>猿格</tag>
          
@@ -610,13 +656,13 @@
         <title>Java实现生产者-消费者模型</title>
         <pubTime>2017-10-08T09:36:55.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -723,11 +769,11 @@
         <title>Hadoop单步debug追源码</title>
         <pubTime>2018-01-15T09:45:09.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>原创</tag>
          
         <tag>Hadoop</tag>
-         
-        <tag>Java</tag>
          
         <tag>猿工</tag>
          
@@ -792,13 +838,13 @@
         <title>CAS中的ABA问题</title>
         <pubTime>2018-01-02T06:53:11.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -815,15 +861,15 @@
         <title>浅谈偏向锁、轻量级锁、重量级锁</title>
         <pubTime>2018-01-02T05:34:25.000Z</pubTime>
         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>JVM</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -840,15 +886,15 @@
         <title>volatile关键字的作用、原理</title>
         <pubTime>2016-11-29T14:11:35.000Z</pubTime>
         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>JVM</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -865,15 +911,15 @@
         <title>一文解决内存屏障</title>
         <pubTime>2017-12-28T05:08:49.000Z</pubTime>
         
+        <tag>Java</tag>
+         
+        <tag>JVM</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>JVM</tag>
-         
-        <tag>Java</tag>
          
         <tag>硬件</tag>
          
@@ -892,13 +938,13 @@
         <title>源码|批量执行invokeAll()&&多选一invokeAny()</title>
         <pubTime>2017-11-19T13:40:13.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -915,13 +961,13 @@
         <title>AQS的基本原理</title>
         <pubTime>2017-12-04T12:38:02.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -938,13 +984,13 @@
         <title>源码|并发一枝花之ReentrantLock与AQS（2）：lockInterruptibly</title>
         <pubTime>2017-12-05T14:42:59.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -961,13 +1007,13 @@
         <title>条件队列大法好：wait和notify的基本语义</title>
         <pubTime>2017-11-15T15:15:56.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1007,34 +1053,11 @@
         <title>String常量池和String#intern()</title>
         <pubTime>2017-12-15T12:23:45.000Z</pubTime>
         
-        <tag>面试</tag>
+        <tag>Java</tag>
          
         <tag>JVM</tag>
          
-        <tag>Java</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2017/09/23/%E6%BA%90%E7%A0%81%7CString%E6%8B%BC%E6%8E%A5%E6%93%8D%E4%BD%9C%E2%80%9D-%E2%80%9D%E7%9A%84%E4%BC%98%E5%8C%96%EF%BC%9F/</loc>
-    <lastmod>2017-12-15T12:20:49.000Z</lastmod>
-    <data>
-        <display>
-        <title>源码|String拼接操作”+”的优化？</title>
-        <pubTime>2017-09-23T07:54:42.000Z</pubTime>
-        
         <tag>面试</tag>
-         
-        <tag>原创</tag>
-         
-        <tag>JVM</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1072,13 +1095,13 @@
         <title>源码|并发一枝花之BlockingQueue</title>
         <pubTime>2017-10-18T04:33:55.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1095,13 +1118,13 @@
         <title>源码|newTaskFor()和适配器模式</title>
         <pubTime>2017-11-19T14:11:12.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
         <tag>设计模式</tag>
          
@@ -1120,9 +1143,9 @@
         <title>源码|静态工厂返回声明的返回类型的子类型的实例</title>
         <pubTime>2017-09-20T10:03:05.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Java</tag>
+         
+        <tag>原创</tag>
          
         <tag>设计模式</tag>
          
@@ -1141,9 +1164,9 @@
         <title>Java中如何恰当的表达“继承”与“扩展”的语义？</title>
         <pubTime>2017-09-20T13:08:23.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Java</tag>
+         
+        <tag>原创</tag>
          
         <tag>猿格</tag>
          
@@ -1162,9 +1185,9 @@
         <title>源码|什么是服务提供者框架？举例？</title>
         <pubTime>2017-09-20T16:12:59.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Java</tag>
+         
+        <tag>原创</tag>
          
         <tag>设计模式</tag>
          
@@ -1183,11 +1206,11 @@
         <title>Java常用异常整理</title>
         <pubTime>2017-10-04T14:22:55.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1204,13 +1227,13 @@
         <title>Java模拟赛跑过程</title>
         <pubTime>2017-10-08T10:10:20.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1227,13 +1250,13 @@
         <title>源码|ThreadLocal的实现原理</title>
         <pubTime>2016-11-27T15:45:05.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1250,13 +1273,13 @@
         <title>源码|使用FutureTask的正确姿势</title>
         <pubTime>2017-10-29T12:40:26.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
         <tag>猿格</tag>
          
@@ -1275,13 +1298,13 @@
         <title>源码|并发一枝花之CopyOnWriteArrayList</title>
         <pubTime>2017-10-24T14:33:46.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1344,11 +1367,11 @@
         <title>实现不可变类时如何禁止子类化？</title>
         <pubTime>2017-09-20T11:16:39.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
         <tag>设计模式</tag>
          
@@ -1367,9 +1390,9 @@
         <title>静态工厂方法的一些惯用名称？举例？</title>
         <pubTime>2017-09-20T10:26:22.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Java</tag>
+         
+        <tag>原创</tag>
          
         <tag>设计模式</tag>
          
@@ -1390,11 +1413,11 @@
         <title>Builder模式中，为什么必须在对象域而不是builder域中检查参数？</title>
         <pubTime>2017-09-20T10:50:50.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
         <tag>设计模式</tag>
          
@@ -1413,13 +1436,13 @@
         <title>源码|并发一枝花之ConcurrentLinkedQueue【伪】</title>
         <pubTime>2017-10-21T17:05:35.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1457,13 +1480,13 @@
         <title>从Exchager数据交换到基于trade-off的系统设计</title>
         <pubTime>2016-12-05T12:34:56.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>原创</tag>
          
         <tag>系统设计</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1480,13 +1503,13 @@
         <title>源码|从源码分析非线程安全集合类的不安全迭代器</title>
         <pubTime>2016-11-30T15:55:30.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1562,11 +1585,11 @@
         <title>Java集合类综合</title>
         <pubTime>2016-11-25T15:54:35.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-        <tag>Java</tag>
          
          
            
@@ -1583,13 +1606,13 @@
         <title>Java高并发综合</title>
         <pubTime>2017-07-30T16:36:37.000Z</pubTime>
         
+        <tag>Java</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
          
         <tag>并发</tag>
-         
-        <tag>Java</tag>
          
          
            

@@ -8,20 +8,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>浅谈CMS原理 | 程序猿说你好</title>
+  <title>类加载（初始化）时机 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CMS&amp;#xFF08;Concurrent Mark Sweep&amp;#xFF09;&amp;#x6536;&amp;#x96C6;&amp;#x5668;&amp;#x4EE5;&amp;#x83B7;&amp;#x53D6;&amp;#x6700;&amp;#x77ED;&amp;#x56DE;&amp;#x6536;&amp;#x505C;&amp;#x987F;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;&amp;#x76EE;&amp;#x6807;&amp;#xFF0C;&amp;#x662F;HotSpot&amp;">
+  <meta name="description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈CMS原理">
-<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/02/浅谈CMS原理/index.html">
+<meta property="og:title" content="类加载（初始化）时机">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/03/类加载（初始化）时机/index.html">
 <meta property="og:site_name" content="程序猿说你好">
-<meta property="og:description" content="CMS&amp;#xFF08;Concurrent Mark Sweep&amp;#xFF09;&amp;#x6536;&amp;#x96C6;&amp;#x5668;&amp;#x4EE5;&amp;#x83B7;&amp;#x53D6;&amp;#x6700;&amp;#x77ED;&amp;#x56DE;&amp;#x6536;&amp;#x505C;&amp;#x987F;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;&amp;#x76EE;&amp;#x6807;&amp;#xFF0C;&amp;#x662F;HotSpot&amp;">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/浅谈CMS原理/cms.png">
-<meta property="og:updated_time" content="2018-11-02T03:04:20.000Z">
+<meta property="og:description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/类加载（初始化）时机/class-loading.png">
+<meta property="og:updated_time" content="2018-11-03T07:09:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈CMS原理">
-<meta name="twitter:description" content="CMS&amp;#xFF08;Concurrent Mark Sweep&amp;#xFF09;&amp;#x6536;&amp;#x96C6;&amp;#x5668;&amp;#x4EE5;&amp;#x83B7;&amp;#x53D6;&amp;#x6700;&amp;#x77ED;&amp;#x56DE;&amp;#x6536;&amp;#x505C;&amp;#x987F;&amp;#x65F6;&amp;#x95F4;&amp;#x4E3A;&amp;#x76EE;&amp;#x6807;&amp;#xFF0C;&amp;#x662F;HotSpot&amp;">
-<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/浅谈CMS原理/cms.png">
+<meta name="twitter:title" content="类加载（初始化）时机">
+<meta name="twitter:description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/类加载（初始化）时机/class-loading.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -158,68 +158,70 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-浅谈CMS原理" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-类加载（初始化）时机" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      浅谈CMS原理
+      类加载（初始化）时机
     </h1>
   
 
-        <a href="/2018/11/02/浅谈CMS原理/" class="archive-article-date">
-  	<time datetime="2018-11-02T02:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-02</time>
+        <a href="/2018/11/03/类加载（初始化）时机/" class="archive-article-date">
+  	<time datetime="2018-11-03T07:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-03</time>
 </a>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>CMS</code>&#xFF08;Concurrent Mark Sweep&#xFF09;&#x6536;&#x96C6;&#x5668;&#x4EE5;&#x83B7;&#x53D6;&#x6700;&#x77ED;&#x56DE;&#x6536;&#x505C;&#x987F;&#x65F6;&#x95F4;&#x4E3A;&#x76EE;&#x6807;&#xFF0C;&#x662F;HotSpot&#x865A;&#x62DF;&#x673A;&#x4E2D;&#x7B2C;&#x4E00;&#x6B3E;&#x771F;&#x6B63;&#x610F;&#x4E49;&#x4E0A;&#x7684;&#x5E76;&#x53D1;&#x6536;&#x96C6;&#x5668;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x5B9E;&#x73B0;&#x4E86;&#x8BA9;&#x5783;&#x573E;&#x6536;&#x96C6;&#x7EBF;&#x7A0B;&#x4E0E;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#xFF08;&#x57FA;&#x672C;&#x4E0A;&#xFF09;&#x540C;&#x65F6;&#x5DE5;&#x4F5C;&#x3002;</p>
-<blockquote>
-<p>&#x79CB;&#x62DB;&#x4E5F;&#x5FEB;&#x7ED3;&#x675F;&#x4E86;&#x3002;&#x4ECE;&#x4ECA;&#x5929;&#x5F00;&#x59CB;&#xFF0C;&#x6162;&#x6162;&#x6574;&#x7406;&#x9762;&#x8BD5;&#x65F6;&#x51C6;&#x5907;&#x7684;&#x8D44;&#x6599;&#x548C;&#x4E4B;&#x524D;&#x770B;&#x4E66;&#x505A;&#x7684;&#x7B14;&#x8BB0;&#x3002;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x5355;&#x7EAF;&#x9762;&#x5411;&#x9762;&#x8BD5;&#x6574;&#x7406;&#xFF0C;&#x727A;&#x7272;&#x6DF1;&#x5EA6;&#x6362;&#x53D6;&#x5E7F;&#x5EA6;&#xFF0C;&#x4E0D;&#x8FC7;&#x5DF2;&#x7ECF;&#x80FD;&#x591F;&#x4E86;&#x89E3;&#x5F88;&#x591A;&#x57FA;&#x672C;&#x95EE;&#x9898;&#x4E86;&#x3002;</p>
-</blockquote>
+        <p>&#x9762;&#x8BD5;&#x4E2D;&#x5E38;&#x8003;&#x7684;&#x201C;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#x673A;&#x201D;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x6307;&#x201C;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x201D;&#x3002;</p>
 <a id="more"></a>
-<h1 id="&#x8FC7;&#x7A0B;"><a href="#&#x8FC7;&#x7A0B;" class="headerlink" title="&#x8FC7;&#x7A0B;"></a>&#x8FC7;&#x7A0B;</h1><ol>
-<li><code>&#x521D;&#x59CB;&#x6807;&#x8BB0;</code>&#xFF08;CMS initial mark&#xFF09;&#xFF1A;&#x6807;&#x8BB0;&#x4E00;&#x4E0B;GC Roots&#x80FD;&#x76F4;&#x63A5;&#x5173;&#x8054;&#x5230;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x9700;&#x8981;STW&#xFF0C;&#x901F;&#x5EA6;&#x5F88;&#x5FEB;&#x3002;</li>
-<li><code>&#x5E76;&#x53D1;&#x6807;&#x8BB0;</code>&#xFF08;CMS concurrent mark&#xFF09;&#xFF1A;&#x8FDB;&#x884C;GC Roots Tracing&#x3002;&#x4E0D;&#x9700;&#x8981;STW&#x3002;&#x4F1A;&#x4EA7;&#x751F;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#x3002;</li>
-<li><code>&#x91CD;&#x65B0;&#x6807;&#x8BB0;</code>&#xFF08;CMS remark&#xFF09;&#xFF1A;&#x627E;&#x5230;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x671F;&#x95F4;&#x4EA7;&#x751F;&#x7684;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#x3002;&#x9700;&#x8981;STW&#xFF0C;&#x505C;&#x987F;&#x65F6;&#x95F4;&#x4E00;&#x822C;&#x4F1A;&#x6BD4;&#x521D;&#x59CB;&#x6807;&#x8BB0;&#x7A0D;&#x957F;&#xFF0C;&#x4F46;&#x8FDC;&#x6BD4;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x77ED;&#x3002;</li>
-<li><code>&#x5E76;&#x53D1;&#x6E05;&#x9664;</code>&#xFF08;CMS concurrent sweep&#xFF09;&#xFF1A;&#x6E05;&#x9664;&#x5DF2;&#x6807;&#x8BB0;&#x7684;&#x5783;&#x573E;&#x3002;&#x4E0D;&#x9700;&#x8981;STW&#x3002;&#x4F1A;&#x4EA7;&#x751F;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#xFF0C;&#x53EA;&#x80FD;&#x7B49;&#x4E0B;&#x4E00;&#x6B21;GC&#x6E05;&#x7406;&#x3002;</li>
-</ol>
-<p><img src="http://static.msh.tademingzi.com/static/images/&#x6D45;&#x8C08;CMS&#x539F;&#x7406;/cms.png" alt="cms"></p>
-<h2 id="&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x4E3A;&#x4EC0;&#x4E48;&#x6BD4;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x7684;&#x65F6;&#x95F4;&#x77ED;&#xFF1F;"><a href="#&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x4E3A;&#x4EC0;&#x4E48;&#x6BD4;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x7684;&#x65F6;&#x95F4;&#x77ED;&#xFF1F;" class="headerlink" title="&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x4E3A;&#x4EC0;&#x4E48;&#x6BD4;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x7684;&#x65F6;&#x95F4;&#x77ED;&#xFF1F;"></a>&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x4E3A;&#x4EC0;&#x4E48;&#x6BD4;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x7684;&#x65F6;&#x95F4;&#x77ED;&#xFF1F;</h2><p>&#x4E0D;&#x8003;&#x8651;&#x6807;&#x8BB0;&#x5BF9;&#x8C61;&#x5E74;&#x9F84;&#x7B49;&#x64CD;&#x4F5C;&#xFF0C;&#x6700;&#x5BB9;&#x6613;&#x60F3;&#x5230;&#x7684;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<ul>
-<li>&#x5BF9;&#x8C61;&#x6570;&#x7684;&#x533A;&#x522B;&#xFF1A;&#x201C;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x201D;&#x8FC7;&#x7A0B;&#x9700;&#x8981;&#x626B;&#x63CF;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#xFF0C;&#x6807;&#x8BB0;&#x51FA;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x8BE5;&#x6E05;&#x9664;&#xFF09;&#x548C;&#x53EF;&#x8FBE;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x4E0D;&#x8BE5;&#x6E05;&#x9664;&#xFF09;&#xFF1B;&#x201C;&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x201D;&#x53EA;&#x9700;&#x8981;&#x626B;&#x63CF;&#x5728;&#x201C;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x201D;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x53EF;&#x8FBE;&#x6216;&#x65B0;&#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x68C0;&#x67E5;&#x5176;&#x662F;&#x5426;&#x5728;&#x201C;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x201D;&#x8FC7;&#x7A0B;&#x4E2D;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x53EF;&#x8FBE;&#x4E4B;&#x540E;&#xFF0C;&#x7531;&#x4E8E;&#x7528;&#x6237;&#x4F7F;&#x7528;&#x53D8;&#x7684;&#x4E0D;&#x53EF;&#x8FBE;&#x4E86;</li>
-<li>&#x5E76;&#x53D1;&#x73AF;&#x5883;&#x7684;&#x533A;&#x522B;&#xFF1A;&#x201C;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x201D;&#x662F;&#x4E0E;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x4E00;&#x8D77;&#x5DE5;&#x4F5C;&#x7684;&#xFF0C;&#x5E76;&#x53D1;&#x74F6;&#x9888;&#x8F83;&#x7A84;&#xFF08;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#x5C11;+&#x5B89;&#x5168;&#x68C0;&#x67E5;&#xFF09;&#xFF1B;&#x201C;&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x201D;&#x9700;&#x8981;stop the world&#xFF0C;&#x4E4B;&#x540E;&#x4EC5;&#x6709;&#x201C;&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x201D;&#x7684;&#x7EBF;&#x7A0B;&#x5728;&#x5DE5;&#x4F5C;&#xFF0C;&#x5E76;&#x53D1;&#x74F6;&#x9888;&#x5BBD;&#x7684;&#x591A;</li>
-</ul>
-<blockquote>
-<p>PS&#xFF1A;&#x5173;&#x4E8E;&#x5BF9;&#x8C61;&#x6570;&#x7684;&#x533A;&#x522B;&#x8981;&#x60F3;&#x6E05;&#x695A;&#xFF0C;&#x5728;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x6709;&#x4E00;&#x77AC;&#x95F4;&#x4E0D;&#x53EF;&#x8FBE;&#xFF0C;&#x5219;&#x8BE5;&#x5BF9;&#x8C61;&#x4EE5;&#x540E;&#x90FD;&#x5C06;&#x4E0D;&#x53EF;&#x8FBE;&#xFF0C;&#x53EF;&#x5BF9;&#x5176;&#x6E05;&#x7406;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x65F6;&#x4E0D;&#x9700;&#x8981;&#x68C0;&#x67E5;&#x8FD9;&#x90E8;&#x5206;&#x5BF9;&#x8C61;&#x3002;</p>
-</blockquote>
-<h2 id="&#x5E76;&#x53D1;&#x6E05;&#x9664;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x8FB9;&#x4F7F;&#x7528;&#xFF0C;&#x8FB9;&#x6E05;&#x9664;&#xFF1F;"><a href="#&#x5E76;&#x53D1;&#x6E05;&#x9664;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x8FB9;&#x4F7F;&#x7528;&#xFF0C;&#x8FB9;&#x6E05;&#x9664;&#xFF1F;" class="headerlink" title="&#x5E76;&#x53D1;&#x6E05;&#x9664;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x8FB9;&#x4F7F;&#x7528;&#xFF0C;&#x8FB9;&#x6E05;&#x9664;&#xFF1F;"></a>&#x5E76;&#x53D1;&#x6E05;&#x9664;&#x7684;&#x8FC7;&#x7A0B;&#xFF1F;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x8BA9;&#x7528;&#x6237;&#x8FB9;&#x4F7F;&#x7528;&#xFF0C;&#x8FB9;&#x6E05;&#x9664;&#xFF1F;</h2><p>&#x8FD8;&#x662F;&#x90A3;&#x53E5;&#x8BDD;&#xFF1A;</p>
-<blockquote>
-<p>&#x5728;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x540E;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x6709;&#x4E00;&#x77AC;&#x95F4;&#x4E0D;&#x53EF;&#x8FBE;&#xFF0C;&#x5219;&#x8BE5;&#x5BF9;&#x8C61;&#x4EE5;&#x540E;&#x90FD;&#x5C06;&#x4E0D;&#x53EF;&#x8FBE;&#xFF0C;&#x53EF;&#x5BF9;&#x5176;&#x6E05;&#x7406;&#x3002;</p>
-</blockquote>
-<p>&#x6240;&#x4EE5;&#xFF0C;&#x5DF2;&#x7ECF;&#x5728;&#x201C;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x201D;&#x548C;&#x201C;&#x91CD;&#x65B0;&#x6807;&#x8BB0;&#x201D;&#x8FC7;&#x7A0B;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4EE5;&#x540E;&#x90FD;&#x4E0D;&#x4F1A;&#x518D;&#x88AB;&#x7528;&#x6237;&#x4F7F;&#x7528;&#xFF0C;&#x6E05;&#x9664;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x5BF9;&#x7528;&#x6237;&#x5B8C;&#x5168;&#x65E0;&#x5F71;&#x54CD;&#x3002;</p>
-<p>&#x552F;&#x4E00;&#x53EF;&#x80FD;&#x6709;&#x5F71;&#x54CD;&#x7684;&#x662F;&#x6574;&#x7406;&#x5185;&#x5B58;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E5F;&#x53EA;&#x9700;&#x8981;&#x540C;&#x6B65;&#x4F7F;&#x7528;&#x5BF9;&#x8C61;&#x548C;&#x6574;&#x7406;&#x5BF9;&#x8C61;&#x4E24;&#x4E2A;&#x52A8;&#x4F5C;&#x3002;</p>
-<h1 id="CMS&#x7684;&#x4F18;&#x70B9;&#x3001;&#x7F3A;&#x70B9;&#xFF1F;"><a href="#CMS&#x7684;&#x4F18;&#x70B9;&#x3001;&#x7F3A;&#x70B9;&#xFF1F;" class="headerlink" title="CMS&#x7684;&#x4F18;&#x70B9;&#x3001;&#x7F3A;&#x70B9;&#xFF1F;"></a>CMS&#x7684;&#x4F18;&#x70B9;&#x3001;&#x7F3A;&#x70B9;&#xFF1F;</h1><p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<h1 id="&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;"><a href="#&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;"></a>&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;</h1><p>&#x9996;&#x5148;&#xFF0C;&#x533A;&#x5206;&#x7C7B;&#x52A0;&#x8F7D;classloading&#x4E0E;&#x7C7B;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684;&#x52A0;&#x8F7D;loading&#x9636;&#x6BB5;&#xFF1A;</p>
+<p>&#x7C7B;&#x52A0;&#x8F7D;classloading&#x901A;&#x5E38;&#x4E0D;&#x5355;&#x5355;&#x6307;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;loading&#x9636;&#x6BB5;&#xFF0C;&#x800C;&#x6307;&#x7C7B;&#x4ECE;&#x52A0;&#x8F7D;loading&#x5230;&#x521D;&#x59CB;&#x5316;initialization&#x9636;&#x6BB5;&#x7684;&#x8FD9;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x7684;&#x884C;&#x4E3A;&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#xFF0C;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x9700;&#x8981;&#x5F00;&#x59CB;&#x52A0;&#x8F7D;loading&#x5462;&#xFF1F;JVM&#x89C4;&#x8303;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x5F3A;&#x5236;&#x7EA6;&#x675F;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x3002;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x521D;&#x59CB;&#x5316;initialization&#x9636;&#x6BB5;&#xFF0C;JVM&#x89C4;&#x8303;&#x5219;&#x4E25;&#x683C;&#x89C4;&#x5B9A;&#x4E86;&#x6709;&#x4E14;&#x53EA;&#x6709;5&#x79CD;&#x60C5;&#x51B5;&#x5FC5;&#x987B;&#x7ACB;&#x5373;&#x5BF9;&#x7C7B;&#x8FDB;&#x884C;&#x201C;&#x521D;&#x59CB;&#x5316;&#x201D;&#xFF08;&#x56E0;&#x6B64;&#xFF0C;&#x52A0;&#x8F7D;&#x3001;&#x9A8C;&#x8BC1;&#x3001;&#x51C6;&#x5907;&#x3001;&#x89E3;&#x6790;&#x81EA;&#x7136;&#x9700;&#x8981;&#x5728;&#x6B64;&#x4E4B;&#x524D;&#x5F00;&#x59CB;&#xFF09;&#x3002;</p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x9762;&#x8BD5;&#x4E2D;&#x5E38;&#x8003;&#x7684;&#x201C;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#x673A;&#x201D;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x6307;&#x201C;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x201D;&#x3002;&#x7528;&#x4E8E;&#x6F14;&#x793A;&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x7684;&#x9759;&#x6001;&#x8BED;&#x53E5;&#x5757;&#x3001;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x7B49;&#x64CD;&#x4F5C;&#x4E5F;&#x662F;&#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x5B8C;&#x6210;&#x7684;&#x3002;</p>
+<p>&#x7C7B;&#x7684;&#x5B8C;&#x6574;&#x751F;&#x547D;&#x5468;&#x671F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/&#x7C7B;&#x52A0;&#x8F7D;&#xFF08;&#x521D;&#x59CB;&#x5316;&#xFF09;&#x65F6;&#x673A;/class-loading.png" alt="class-loading"></p>
+<h1 id="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;"><a href="#&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;"></a>&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;</h1><p>4&#x79CD;&#x5E38;&#x89C1;&#x573A;&#x666F;&#xFF1A;</p>
 <ol>
-<li>&#x5927;&#x90E8;&#x5206;&#x65F6;&#x95F4;&#x53EF;&#x4E0E;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x5DE5;&#x4F5C;</li>
-<li>&#x4F4E;&#x505C;&#x987F;</li>
+<li>&#x5F53;&#x865A;&#x62DF;&#x673A;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x8981;&#x6267;&#x884C;&#x7684;&#x4E3B;&#x7C7B;<code>MainClass</code>&#xFF08;&#x5373;&#x5305;&#x542B;psvm&#x65B9;&#x6CD5;&#x7684;&#x90A3;&#x4E2A;&#x7C7B;&#xFF09;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x4F1A;&#x5148;&#x521D;&#x59CB;&#x5316;&#x8FD9;&#x4E2A;&#x4E3B;&#x7C7B;&#x3002;</li>
+<li>&#x9047;&#x5230;<code>new</code>&#x3001;<code>getstatic</code>&#x3001;<code>putstatic</code>&#x6216;<code>invokestatic</code>&#x8FD9;4&#x6761;&#x5B57;&#x8282;&#x7801;&#x6307;&#x4EE4;&#x65F6;&#x3002;&#x751F;&#x6210;&#x8FD9;4&#x6761;&#x6307;&#x4EE4;&#x7684;&#x5178;&#x578B;Java&#x4EE3;&#x7801;&#x573A;&#x666F;&#x662F;&#xFF1A;<ol>
+<li>&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#x3002;</li>
+<li>&#x8BFB;&#x53D6;&#x6216;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#x2014;&#x2014;&#x88AB;<code>final</code>&#x4FEE;&#x9970;&#x3001;&#x5DF2;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x628A;&#x7ED3;&#x679C;&#x653E;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#x9664;&#x5916;&#x3002;</li>
+<li>&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x3002;</li>
 </ol>
-<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
-<ol>
-<li>&#x5BF9;CPU&#x8D44;&#x6E90;&#x975E;&#x5E38;&#x654F;&#x611F;&#x3002;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x548C;&#x5E76;&#x53D1;&#x6E05;&#x7406;&#x4E0E;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x4E00;&#x8D77;&#x5DE5;&#x4F5C;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x4E5F;&#x662F;CPU&#x654F;&#x611F;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x5FC5;&#x7136;&#x5F71;&#x54CD;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x3002;</li>
-<li>&#x65E0;&#x6CD5;&#x5904;&#x7406;<code>&#x6D6E;&#x52A8;&#x5783;&#x573E;</code>&#xFF08;Floating Garbage&#xFF09;&#x3002;&#x5E76;&#x53D1;&#x6807;&#x8BB0;&#x4E0E;&#x5E76;&#x53D1;&#x6E05;&#x9664;&#x8FC7;&#x7A0B;&#x4F1A;&#x4EA7;&#x751F;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#xFF0C;&#x5982;&#x679C;CMS&#x4E4B;&#x524D;&#x9884;&#x7559;&#x7684;&#x5185;&#x5B58;&#x65E0;&#x6CD5;&#x6EE1;&#x8DB3;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#xFF0C;&#x5C31;&#x4F1A;&#x51FA;&#x73B0;&#x4E00;&#x6B21;&#x201C;Concurrent Mode Failure&#x201D;&#x5931;&#x8D25;&#xFF0C;&#x8FD9;&#x65F6;&#x865A;&#x62DF;&#x673A;&#x5C06;&#x9000;&#x5316;&#x4F7F;&#x7528;Serial Old&#x6536;&#x96C6;&#x5668;&#xFF0C;&#x91CD;&#x65B0;&#x8FDB;&#x884C;&#x8001;&#x5E74;&#x4EE3;&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#xFF0C;&#x8FD9;&#x6837;&#x505C;&#x987F;&#x65F6;&#x95F4;&#x5C31;&#x5F88;&#x957F;&#x4E86;&#x3002;&#x53EF;&#x4F7F;&#x7528;XX:CMSInitiatingOccupancyFraction&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x89E6;&#x53D1;CMS&#x65F6;&#x7684;&#x8001;&#x5E74;&#x4EE3;&#x7A7A;&#x95F4;&#x6BD4;&#x4F8B;&#xFF08;&#x5269;&#x4F59;&#x7A7A;&#x95F4;&#x5C31;&#x662F;&#x9884;&#x7559;&#x7A7A;&#x95F4;&#xFF09;&#xFF0C;&#x5728;JDK1.6&#x4E2D;&#x9ED8;&#x8BA4;&#x4E3A;92%&#x3002;</li>
-<li>&#x57FA;&#x4E8E;&#x201C;&#x6807;&#x8BB0;-&#x6E05;&#x9664;&#x7B97;&#x6CD5;&#x201D;&#xFF0C;&#x6536;&#x96C6;&#x7ED3;&#x675F;&#x65F6;&#x4F1A;&#x6709;&#x5927;&#x91CF;&#x7A7A;&#x95F4;<code>&#x788E;&#x7247;</code>&#x4EA7;&#x751F;&#xFF0C;&#x5BFC;&#x81F4;&#x660E;&#x660E;&#x5269;&#x4F59;&#x7A7A;&#x95F4;&#x5145;&#x8DB3;&#xFF0C;&#x5374;&#x65E0;&#x6CD5;&#x4E3A;&#x5927;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x8DB3;&#x591F;&#x7684;&#x8FDE;&#x7EED;&#x5185;&#x5B58;&#x3002;&#x53EF;&#x6253;&#x5F00;-XX&#xFF1A;+UseCMSCompactAtFullCollection&#x5F00;&#x5173;&#x53C2;&#x6570;&#xFF08;&#x9ED8;&#x8BA4;&#x6253;&#x5F00;&#xFF09;&#x5728;&#x8FDB;&#x884C;Full GC&#x4E4B;&#x524D;&#x6574;&#x7406;&#x5185;&#x5B58;&#x788E;&#x7247;&#xFF08;&#x79F0;&#x4E3A;&#x201C;&#x538B;&#x7F29;&#x201D;&#xFF09;&#xFF1B;&#x4F7F;&#x7528;-XX:CMSFullGCsBeforeCompaction&#x53C2;&#x6570;&#xFF08;&#x9ED8;&#x8BA4;0&#xFF09;&#x8BBE;&#x7F6E;&#x591A;&#x5C11;&#x6B21;&#x4E0D;&#x5E26;&#x538B;&#x7F29;&#x7684;Full CG&#x4E4B;&#x540E;&#x624D;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x5E26;&#x538B;&#x7F29;&#x7684;Full GC&#x3002;&#x5185;&#x5B58;&#x6574;&#x7406;&#x65E0;&#x6CD5;&#x5E76;&#x884C;&#xFF0C;&#x8FD8;&#x9700;&#x8981;STW&#xFF0C;&#x9700;&#x8981;&#x9002;&#x5F53;&#x8C03;&#x6574;&#x5185;&#x5B58;&#x6574;&#x7406;&#x7684;&#x9891;&#x7387;&#xFF0C;&#x5728;GC&#x6027;&#x80FD;&#x4E0E;&#x7A7A;&#x95F4;&#x5229;&#x7528;&#x7387;&#x4E4B;&#x95F4;&#x5E73;&#x8861;&#x3002;</li>
+</li>
+<li>&#x5F53;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x5176;&#x7236;&#x7C7B;&#x8FD8;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5148;&#x89E6;&#x53D1;&#x5176;&#x7236;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x3002;</li>
+<li>&#x4F7F;&#x7528;<code>java.lang.reflect</code>&#x5305;&#x7684;&#x65B9;&#x6CD5;&#x5BF9;&#x7C7B;&#x8FDB;&#x884C;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65F6;&#x3002;</li>
 </ol>
 <blockquote>
-<p>PS&#xFF1A;  </p>
+<p>&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x662F;&#x8C03;&#x7528;<code>Class.forName()</code>&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53EF;&#x6307;&#x5B9A;<code>initialize</code>&#x53C2;&#x6570;&#x4E3A;true&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7;JNI&#x52A0;&#x8F7D;&#x7C7B;&#x5E76;&#x521D;&#x59CB;&#x5316;&#x3002;</p>
+</blockquote>
+<p>1&#x79CD;&#x4E0D;&#x5E38;&#x89C1;&#x573A;&#x666F;&#xFF1A;</p>
+<ol>
+<li>&#x5F53;&#x4F7F;&#x7528;JDK 1.7&#x7684;&#x52A8;&#x6001;&#x8BED;&#x8A00;&#x652F;&#x6301;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;<code>java.lang.invoke.MethodHandle</code>&#x5B9E;&#x4F8B;&#x6700;&#x540E;&#x7684;&#x89E3;&#x6790;&#x7ED3;&#x679C;<code>REF_getStatic</code>&#x3001;<code>REF_putStatic</code>&#x3001;<code>REF_invokeStatic</code>&#x7684;&#x65B9;&#x6CD5;&#x53E5;&#x67C4;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53E5;&#x67C4;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x6CA1;&#x6709;&#x8FDB;&#x884C;&#x8FC7;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5148;&#x89E6;&#x53D1;&#x5176;&#x521D;&#x59CB;&#x5316;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x5BF9;&#x4E8E;&#x8FD9;5&#x79CD;&#x573A;&#x666F;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x89C4;&#x8303;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x5F88;&#x5F3A;&#x70C8;&#x7684;&#x9650;&#x5B9A;&#x8BED;&#xFF1A;&#x201C;<strong>&#x6709;&#x4E14;&#x53EA;&#x6709;</strong>&#x201D;&#x3002;</p>
+</blockquote>
+<p>&#x8FD9;5&#x79CD;&#x573A;&#x666F;&#x4E2D;&#x7684;&#x884C;&#x4E3A;&#x79F0;&#x4E3A;&#x5BF9;&#x4E00;&#x4E2A;&#x7C7B;&#x8FDB;&#x884C;<code>&#x4E3B;&#x52A8;&#x5F15;&#x7528;</code>&#x3002;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x6240;&#x6709;&#x5F15;&#x7528;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x90FD;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x79F0;&#x4E3A;<code>&#x88AB;&#x52A8;&#x5F15;&#x7528;</code>&#x3002;</p>
+<blockquote>
+<p>&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x53BB;&#x5173;&#x6CE8;&#x88AB;&#x52A8;&#x5F15;&#x7528;&#x3002;&#x88AB;&#x52A8;&#x5F15;&#x7528;&#x4EC5;&#x4EC5;&#x6307;&#x90A3;&#x4E9B;&#x770B;&#x4E0A;&#x53BB;&#x5411;&#x4E3B;&#x52A8;&#x5F15;&#x7528;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x4E0D;&#x662F;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#xFF1A;</p>
 <ul>
-<li>&#x6D6E;&#x52A8;&#x5783;&#x573E;&#xFF1A;&#x7531;&#x4E8E;CMS&#x5E76;&#x53D1;&#x6E05;&#x7406;&#x9636;&#x6BB5;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x8FD8;&#x5728;&#x8FD0;&#x884C;&#x7740;&#xFF0C;&#x4F34;&#x968F;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x81EA;&#x7136;&#x5C31;&#x8FD8;&#x4F1A;&#x6709;&#x65B0;&#x7684;&#x5783;&#x573E;&#x4E0D;&#x65AD;&#x4EA7;&#x751F;&#xFF0C;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x5783;&#x573E;&#x51FA;&#x73B0;&#x5728;&#x6807;&#x8BB0;&#x8FC7;&#x7A0B;&#x4E4B;&#x540E;&#xFF0C;CMS&#x65E0;&#x6CD5;&#x5728;&#x5F53;&#x6B21;&#x6536;&#x96C6;&#x4E2D;&#x5904; &#x7406;&#x6389;&#x5B83;&#x4EEC;&#xFF0C;&#x53EA;&#x597D;&#x7559;&#x5F85;&#x4E0B;&#x4E00;&#x6B21;GC&#x65F6;&#x518D;&#x6E05;&#x7406;&#x6389;&#x3002;&#x8FD9;&#x4E00;&#x90E8;&#x5206;&#x5783;&#x573E;&#x5C31;&#x79F0;&#x4E3A;&#x201C;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#x201D;&#x3002;&#x5728;&#x8FD9;&#x671F;&#x95F4;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x521B;&#x5EFA;&#x65B0;&#x7684;&#x5BF9;&#x8C61;&#x3002;&#x4E3A;&#x4E86;&#x5904;&#x7406;&#x8FD9;&#x90E8;&#x5206;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#x548C;&#x5BF9;&#x8C61;&#xFF0C;CMS&#x5728;&#x5E76;&#x53D1;&#x6E05;&#x7406;&#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x9884;&#x7559;&#x51FA;&#x8DB3;&#x591F;&#x7A7A;&#x95F4;&#x7ED9;&#x5E76;&#x53D1;&#x6E05;&#x7406;&#x671F;&#x95F4;&#x7684;&#x7528;&#x6237;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#x3002;&#x4E00;&#x822C;&#x4F1A;&#x663E;&#x793A;&#x4F7F;&#x7528;-XX:CMSInitiatingOccupancyFraction&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x89E6;&#x53D1;CMS&#x65F6;&#x7684;&#x8001;&#x5E74;&#x4EE3;&#x7A7A;&#x95F4;&#x6BD4;&#x4F8B;&#xFF0C;&#x5982;&#x679C;&#x8001;&#x5E74;&#x4EE3;&#x589E;&#x957F;&#x4E0D;&#x662F;&#x592A;&#x5FEB;&#xFF0C;&#x53EF;&#x4EE5;&#x9002;&#x5F53;&#x63D0;&#x9AD8;&#x6BD4;&#x4F8B;&#xFF0C;&#x4EE5;&#x51CF;&#x5C11;Full GC&#x7684;&#x6B21;&#x6570;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x5B50;&#x7C7B;&#x5F15;&#x7528;&#x7236;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;&#x5B50;&#x7C7B;&#x521D;&#x59CB;&#x5316;&#xFF08;<font color="red">&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#xFF1F;</font>&#xFF09;</li>
+<li>&#x901A;&#x8FC7;&#x6570;&#x7EC4;&#x5B9A;&#x4E49;&#x7C7B;&#x5F15;&#x7528;&#x7C7B;&#xFF0C;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6B64;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF08;JVM&#x4E3A;&#x6BCF;&#x4E2A;&#x6570;&#x7EC4;&#x751F;&#x6210;&#x4E13;&#x6709;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x6BD4;&#x5982;&#x6570;&#x7EC4;<code>A[]</code>&#x7684;&#x7C7B;&#x578B;&#x662F;<code>[A</code>&#xFF09;</li>
+<li>&#x5F15;&#x7528;&#x5E38;&#x91CF;&#xFF0C;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6B64;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x5E38;&#x91CF;&#x5728;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x4F1A;&#x5B58;&#x5165;&#x8C03;&#x7528;&#x7C7B;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#xFF08;<code>&#x5E38;&#x91CF;&#x4F20;&#x64AD;</code>&#xFF09;&#xFF0C;&#x8FD0;&#x884C;&#x671F;&#x4E5F;&#x5C31;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x5230;&#x5B9A;&#x4E49;&#x5E38;&#x91CF;&#x7684;&#x7C7B;&#xFF09;</li>
 </ul>
-<p>&#x5173;&#x4E8E;&#x6D6E;&#x52A8;&#x5783;&#x573E;&#x548C;&#x5185;&#x5B58;&#x788E;&#x7247;&#x7684;&#x95EE;&#x9898;&#x3002;HDFS namenode&#x5728;&#x5806;&#x5185;&#x5B58;&#x8FBE;&#x5230;100G&#x89C4;&#x6A21;&#x65F6;&#xFF0C;&#x901A;&#x5E38;&#x8BBE;&#x7F6E;75%&#x89E6;&#x53D1;Full GC&#xFF0C;&#x4E0D;&#x5F00;&#x542F;&#x538B;&#x7F29;&#xFF0C;&#x4F18;&#x5148;&#x8003;&#x8651;STW&#x9020;&#x6210;&#x7684;&#x5EF6;&#x8FDF;&#x3002;</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;:</p>
+<ul>
+<li><a href="https://blog.csdn.net/anialy/article/details/8175213" target="_blank" rel="external">Java &#x4E2D;&#x5BF9;&#x7C7B;&#x7684;&#x4E3B;&#x52A8;&#x5F15;&#x7528;&#x548C;&#x88AB;&#x52A8;&#x5F15;&#x7528;</a></li>
+</ul>
 </blockquote>
 
       
@@ -326,7 +328,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2018/11/02/浅谈CMS原理/">浅谈CMS原理</a><br/>
+		本文链接：<a href="/2018/11/03/类加载（初始化）时机/">类加载（初始化）时机</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -338,18 +340,9 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/2018/11/03/类加载（初始化）时机/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          类加载（初始化）时机
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/01/给vim小白的快捷键速成手册/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">给vim小白的快捷键速成手册</div>
+    <a href="/2018/11/02/浅谈CMS原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈CMS原理</div>
       <i class="icon-circle-right"></i>
     </a>
   
