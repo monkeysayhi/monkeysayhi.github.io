@@ -8,18 +8,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>分布式理论：CAP、BASE与ACID | 程序猿说你好</title>
+  <title>Java中的final关键字 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
+  <meta name="description" content="final&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#x53EF;&amp;#x4EE5;&amp;#x4FEE;&amp;#x9970;&amp;#x7C7B;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;&amp;#x3001;&amp;#x53D8;&amp;#x91CF;&amp;#x3002;&amp;#x672C;&amp;#x8D28;&amp;#x4F5C;&amp;#x7528;&amp;#x53EF;&amp;#x4EE5;&amp;#x7406;&amp;#x89E3;&amp;#x4E3A;&amp;#x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分布式理论：CAP、BASE与ACID">
-<meta property="og:url" content="https://monkeysayhi.github.io/2018/03/09/分布式理论：CAP、BASE与ACID/index.html">
+<meta property="og:title" content="Java中的final关键字">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/06/Java中的final关键字/index.html">
 <meta property="og:site_name" content="程序猿说你好">
-<meta property="og:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
-<meta property="og:updated_time" content="2018-03-09T12:24:32.000Z">
+<meta property="og:description" content="final&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#x53EF;&amp;#x4EE5;&amp;#x4FEE;&amp;#x9970;&amp;#x7C7B;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;&amp;#x3001;&amp;#x53D8;&amp;#x91CF;&amp;#x3002;&amp;#x672C;&amp;#x8D28;&amp;#x4F5C;&amp;#x7528;&amp;#x53EF;&amp;#x4EE5;&amp;#x7406;&amp;#x89E3;&amp;#x4E3A;&amp;#x">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Java中的final关键字/final局部变量.png">
+<meta property="og:updated_time" content="2018-11-06T10:44:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分布式理论：CAP、BASE与ACID">
-<meta name="twitter:description" content="&amp;#x4ECB;&amp;#x7ECD;&amp;#x51E0;&amp;#x4E2A;&amp;#x5206;&amp;#x5E03;&amp;#x5F0F;&amp;#x7CFB;&amp;#x7EDF;&amp;#x4E2D;&amp;#x7684;&amp;#x57FA;&amp;#x672C;&amp;#x7406;&amp;#x8BBA;&amp;#x3002;">
+<meta name="twitter:title" content="Java中的final关键字">
+<meta name="twitter:description" content="final&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#x53EF;&amp;#x4EE5;&amp;#x4FEE;&amp;#x9970;&amp;#x7C7B;&amp;#x3001;&amp;#x65B9;&amp;#x6CD5;&amp;#x3001;&amp;#x53D8;&amp;#x91CF;&amp;#x3002;&amp;#x672C;&amp;#x8D28;&amp;#x4F5C;&amp;#x7528;&amp;#x53EF;&amp;#x4EE5;&amp;#x7406;&amp;#x89E3;&amp;#x4E3A;&amp;#x">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/Java中的final关键字/final局部变量.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -156,52 +158,49 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-分布式理论：CAP、BASE与ACID" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Java中的final关键字" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分布式理论：CAP、BASE与ACID
+      Java中的final关键字
     </h1>
   
 
-        <a href="/2018/03/09/分布式理论：CAP、BASE与ACID/" class="archive-article-date">
-  	<time datetime="2018-03-09T12:24:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-09</time>
+        <a href="/2018/11/06/Java中的final关键字/" class="archive-article-date">
+  	<time datetime="2018-11-06T10:42:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
 </a>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x4ECB;&#x7ECD;&#x51E0;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x57FA;&#x672C;&#x7406;&#x8BBA;&#x3002;</p>
+        <p>final&#x5173;&#x952E;&#x5B57;&#x53EF;&#x4EE5;&#x4FEE;&#x9970;&#x7C7B;&#x3001;&#x65B9;&#x6CD5;&#x3001;&#x53D8;&#x91CF;&#x3002;&#x672C;&#x8D28;&#x4F5C;&#x7528;&#x53EF;&#x4EE5;&#x7406;&#x89E3;&#x4E3A;&#x201C;<strong>&#x58F0;&#x660E;&#x88AB;&#x4FEE;&#x9970;&#x5BF9;&#x8C61;&#x53EA;&#x8BFB;</strong>&#x201D;&#xFF0C;&#x4E0D;&#x540C;&#x7528;&#x6CD5;&#x5BF9;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x5177;&#x4F53;&#x89E3;&#x91CA;&#x3002;</p>
 <a id="more"></a>
-<h1 id="CAP&#x5B9A;&#x7406;"><a href="#CAP&#x5B9A;&#x7406;" class="headerlink" title="CAP&#x5B9A;&#x7406;"></a>CAP&#x5B9A;&#x7406;</h1><p>CAP&#x5B9A;&#x7406;&#xFF1A;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x6700;&#x591A;&#x53EA;&#x80FD;&#x540C;&#x65F6;&#x6EE1;&#x8DB3;&#x4E00;&#x81F4;&#x6027;&#xFF08;Consistence&#xFF09;&#x3001;&#x53EF;&#x7528;&#x6027;&#xFF08;Availability&#xFF09;&#x548C;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF08;Partition tolerance&#xFF09;&#x8FD9;&#x4E09;&#x9879;&#x4E2D;&#x7684;&#x4E24;&#x9879;&#x3002;</p>
-<ul>
-<li>&#x4E00;&#x81F4;&#x6027;&#xFF1A;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5728;&#x540C;&#x4E00;&#x65F6;&#x95F4;&#x7684;&#x770B;&#x5230;&#x7684;&#x6570;&#x636E;&#x76F8;&#x540C;&#x3002;</li>
-<li>&#x53EF;&#x7528;&#x6027;&#xFF1A;&#x8BFB;&#x3001;&#x5199;&#x6C38;&#x8FDC;&#x90FD;&#x80FD;&#x6210;&#x529F;&#xFF0C;&#x5373;&#xFF0C;&#x670D;&#x52A1;&#x4E00;&#x76F4;&#x53EF;&#x7528;&#x3002;</li>
-<li>&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF1A;&#x5373;&#x4F7F;&#x7CFB;&#x7EDF;&#x7684;&#x67D0;&#x4E2A;&#x5206;&#x533A;&#x9047;&#x5230;&#x4E25;&#x91CD;&#x7684;&#x6545;&#x969C;&#xFF0C;&#x7CFB;&#x7EDF;&#x80FD;&#x7EE7;&#x7EED;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;</li>
-</ul>
-<h1 id="CAP&#x4E2D;&#x7684;&#x6743;&#x8861;"><a href="#CAP&#x4E2D;&#x7684;&#x6743;&#x8861;" class="headerlink" title="CAP&#x4E2D;&#x7684;&#x6743;&#x8861;"></a>CAP&#x4E2D;&#x7684;&#x6743;&#x8861;</h1><p>&#x6839;&#x636E;CAP&#x5B9A;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x65E0;&#x6CD5;&#x540C;&#x65F6;&#x6EE1;&#x8DB3;&#x4E00;&#x81F4;&#x6027;&#x3001;&#x53EF;&#x7528;&#x6027;&#x3001;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#x8FD9;&#x4E09;&#x4E2A;&#x7279;&#x6027;&#x3002;&#x90A3;&#x4E48;&#xFF0C;&#x8981;&#x820D;&#x5F03;&#x54EA;&#x4E2A;&#x5462;&#xFF1F;</p>
-<p>&#x5BF9;&#x4E8E;&#x591A;&#x6570;&#x5927;&#x578B;&#x4E92;&#x8054;&#x7F51;&#x5E94;&#x7528;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4E3B;&#x673A;&#x4F17;&#x591A;&#x3001;&#x90E8;&#x7F72;&#x5206;&#x6563;&#xFF0C;&#x8282;&#x70B9;&#x6545;&#x969C;&#x3001;&#x7F51;&#x7EDC;&#x6545;&#x969C;&#x662F;&#x5E38;&#x6001;&#xFF0C;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;P&#xFF1B;&#x5E94;&#x7528;&#x7684;&#x76EE;&#x7684;&#x662F;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x56E0;&#x6B64;&#x901A;&#x5E38;&#x4E5F;&#x8981;&#x4FDD;&#x8BC1;A&#x3002;&#x65E2;&#x7136;&#x8981;&#x4FDD;&#x8BC1;P&#x548C;A&#xFF0C;&#x5C31;&#x53EA;&#x80FD;&#x4E0D;&#x540C;&#x7A0B;&#x5EA6;&#x7684;&#x820D;&#x5F03;C&#xFF0C;&#x727A;&#x7272;&#x4E00;&#x4E9B;&#x7528;&#x6237;&#x4F53;&#x9A8C;&#x3002;&#x4E25;&#x683C;&#x6765;&#x8BB2;&#xFF0C;&#x90E8;&#x5206;&#x5E94;&#x7528;&#x7684;A&#x4E5F;&#x4E0D;&#x5FC5;&#x4FDD;&#x8BC1;100%&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x4E3B;&#x6D41;&#x505A;&#x6CD5;&#x662F;&#x9996;&#x8981;&#x4FDD;&#x969C;P&#x3001;&#x5728;A&#x548C;C&#x4E4B;&#x95F4;&#x53D6;&#x820D;&#x3001;&#x91CD;A&#x8F7B;C&#x3002;</p>
-<p>&#x4F46;&#x662F;&#xFF0C;&#x5BF9;&#x4E8E;&#x91D1;&#x878D;&#x670D;&#x52A1;&#xFF0C;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;C&#xFF1B;&#x5927;&#x89C4;&#x6A21;&#x91D1;&#x878D;&#x670D;&#x52A1;&#x51E0;&#x4E4E;&#x5FC5;&#x7136;&#x6D89;&#x53CA;&#x7F51;&#x7EDC;&#x5206;&#x533A;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x8981;&#x4FDD;&#x8BC1;P&#xFF1B;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;C&#x3001;P&#xFF0C;&#x53EA;&#x80FD;&#x727A;&#x7272;A&#xFF08;&#x505C;&#x6B62;&#x670D;&#x52A1;&#xFF09;&#x3002;&#x5BF9;&#x4E8E;&#x67D0;&#x4E9B;&#x7279;&#x6B8A;&#x7684;&#x91D1;&#x878D;&#x670D;&#x52A1;&#xFF0C;&#x9700;&#x8981;7*24&#x5C0F;&#x65F6;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x5219;&#x6539;&#x4E3A;&#x727A;&#x7272;&#x90E8;&#x5206;P&#xFF08;&#x5982;&#x5355;&#x8282;&#x70B9;&#x4E3B;&#x4ECE;&#x5907;&#x4EFD;&#xFF0C;&#x6545;&#x969C;&#x5207;&#x6362;&#xFF09;&#xFF0C;&#x4FDD;&#x969C;C&#x3001;A&#x3002;</p>
-<h1 id="BASE&#x5B9A;&#x7406;"><a href="#BASE&#x5B9A;&#x7406;" class="headerlink" title="BASE&#x5B9A;&#x7406;"></a>BASE&#x5B9A;&#x7406;</h1><p>BASE&#x5B9A;&#x7406;&#x662F;&#x5BF9;CAP&#x5B9A;&#x7406;&#x7684;&#x5EF6;&#x4F38;&#xFF1A;&#x5373;&#x4F7F;&#x65E0;&#x6CD5;&#x505A;&#x5230;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#xFF08;Strong Consistency&#xFF09;&#xFF0C;&#x4F46;&#x5E94;&#x7528;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x9002;&#x5408;&#x7684;&#x65B9;&#x5F0F;&#x8FBE;&#x5230;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF08;Eventual Consitency&#xFF09;&#x3002;CAP&#x4E2D;&#x63D0;&#x5230;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x662F;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x6240;&#x8C13;&#x201C;&#x727A;&#x7272;&#x4E00;&#x81F4;&#x6027;&#x201D;&#x6307;&#x727A;&#x7272;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x4FDD;&#x8BC1;&#x5F31;&#x4E00;&#x81F4;&#x6027;&#x3002;</p>
-<p>BASE&#x662F;&#x6307;&#x57FA;&#x672C;&#x53EF;&#x7528;&#xFF08;Basically Available&#xFF09;&#x3001;&#x8F6F;&#x72B6;&#x6001;&#xFF08; Soft State&#xFF09;&#x3001;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF08; Eventual Consistency&#xFF09;&#x3002;</p>
-<ul>
-<li>&#x57FA;&#x672C;&#x53EF;&#x7528;&#xFF1A;&#x51FA;&#x73B0;&#x6545;&#x969C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5141;&#x8BB8;&#x635F;&#x5931;&#x90E8;&#x5206;&#x53EF;&#x7528;&#x6027;&#xFF0C;&#x5373;&#xFF0C;&#x4FDD;&#x8BC1;&#x6838;&#x5FC3;&#x53EF;&#x7528;&#x3002;</li>
-</ul>
-<p>&#x5982;&#xFF0C;&#x7535;&#x5546;&#x5927;&#x4FC3;&#x65F6;&#xFF0C;&#x4E3A;&#x4E86;&#x5E94;&#x5BF9;&#x8BBF;&#x95EE;&#x91CF;&#x6FC0;&#x589E;&#xFF0C;&#x90E8;&#x5206;&#x7528;&#x6237;&#x53EF;&#x80FD;&#x4F1A;&#x88AB;&#x5F15;&#x5BFC;&#x5230;&#x964D;&#x7EA7;&#x9875;&#x9762;&#xFF0C;&#x670D;&#x52A1;&#x5C42;&#x4E5F;&#x53EF;&#x80FD;&#x53EA;&#x63D0;&#x4F9B;&#x964D;&#x7EA7;&#x670D;&#x52A1;</p>
-<ul>
-<li>&#x8F6F;&#x72B6;&#x6001;&#xFF1A;&#x5141;&#x8BB8;&#x7CFB;&#x7EDF;&#x5B58;&#x5728;&#x4E2D;&#x95F4;&#x72B6;&#x6001;&#xFF0C;&#x800C;&#x8BE5;&#x4E2D;&#x95F4;&#x72B6;&#x6001;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x7CFB;&#x7EDF;&#x6574;&#x4F53;&#x53EF;&#x7528;&#x6027;&#x3002;</li>
-</ul>
-<p>&#x8F6F;&#x72B6;&#x6001;&#x672C;&#x8D28;&#x4E0A;&#x662F;&#x4E00;&#x79CD;&#x5F31;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x5141;&#x8BB8;&#x7684;&#x8F6F;&#x72B6;&#x6001;&#x4E0D;&#x80FD;&#x8FDD;&#x80CC;&#x201C;&#x57FA;&#x672C;&#x53EF;&#x7528;&#x201D;&#x7684;&#x8981;&#x6C42;&#x3002;&#x5982;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x5B58;&#x50A8;&#x4E2D;&#x4E00;&#x822C;&#x4E00;&#x4EFD;&#x6570;&#x636E;&#x81F3;&#x5C11;&#x4F1A;&#x6709;&#x4E09;&#x4E2A;&#x526F;&#x672C;&#xFF0C;&#x5141;&#x8BB8;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x95F4;&#x526F;&#x672C;&#x540C;&#x6B65;&#x7684;&#x5EF6;&#x65F6;&#xFF08;&#x67D0;&#x4E9B;&#x65F6;&#x523B;&#x526F;&#x672C;&#x6570;&#x4F4E;&#x4E8E;3&#xFF09;&#x3002;</p>
-<ul>
-<li>&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF1A;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x526F;&#x672C;&#x7ECF;&#x8FC7;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x540E;&#xFF0C;&#x6700;&#x7EC8;&#x80FD;&#x591F;&#x8FBE;&#x5230;&#x4E00;&#x81F4;&#x7684;&#x72B6;&#x6001;&#x3002;</li>
-</ul>
-<p>&#x8F6F;&#x72B6;&#x6001;&#x7684;&#x7EC8;&#x6781;&#x76EE;&#x6807;&#x662F;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x5982;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x5B58;&#x50A8;&#x7684;&#x526F;&#x672C;&#x6570;&#x6700;&#x7EC8;&#x4F1A;&#x8FBE;&#x5230;&#x7A33;&#x5B9A;&#x72B6;&#x6001;&#x3002;</p>
-<h1 id="ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;"><a href="#ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;" class="headerlink" title="ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;"></a>ACID&#x548C;BASE&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;</h1><p>ACID&#x662F;&#x4E8B;&#x52A1;&#x7684;&#x56DB;&#x4E2A;&#x57FA;&#x672C;&#x6027;&#x8D28;&#xFF0C;&#x5C5E;&#x4E8E;&#x4F20;&#x7EDF;&#x6570;&#x636E;&#x5E93;&#x5E38;&#x7528;&#x7684;&#x8BBE;&#x8BA1;&#x7406;&#x5FF5;&#xFF0C;&#x8FFD;&#x6C42;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x6A21;&#x578B;&#xFF0C;&#x8BE6;&#x89C1;<a href="/2016/11/26/&#x4E8B;&#x52A1;&#x7684;ACID&#x548C;&#x56DB;&#x4E2A;&#x9694;&#x79BB;&#x7EA7;&#x522B;/">&#x4E8B;&#x52A1;&#x7684;ACID&#x548C;&#x56DB;&#x4E2A;&#x9694;&#x79BB;&#x7EA7;&#x522B;</a>&#x3002;BASE&#x652F;&#x6301;&#x7684;&#x662F;&#x5927;&#x578B;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#xFF0C;&#x63D0;&#x51FA;&#x901A;&#x8FC7;&#x727A;&#x7272;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x83B7;&#x5F97;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#xFF08;&#x4E0E;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;&#xFF09;&#x3002;</p>
-<p>&#x5728;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x8BBE;&#x8BA1;&#x7684;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x901A;&#x5E38;&#x7CFB;&#x7EDF;&#x7EC4;&#x4EF6;&#x5BF9;&#x4E00;&#x81F4;&#x6027;&#x7684;&#x8981;&#x6C42;&#x4E0D;&#x540C;&#xFF0C;&#x5BF9;ACID&#x548C;BASE&#x7684;&#x53D6;&#x820D;&#x4E5F;&#x5C31;&#x4E0D;&#x540C;&#x3002;</p>
+<h1 id="final&#x7C7B;"><a href="#final&#x7C7B;" class="headerlink" title="final&#x7C7B;"></a>final&#x7C7B;</h1><p><strong>final&#x7C7B;&#x8868;&#x793A;&#x8BE5;&#x7C7B;&#x662F;&#x5B8C;&#x6574;&#xFF08;&#x53EF;&#x7406;&#x89E3;&#x4E3A;&#x6700;&#x7EC8;&#x7248;&#x672C;&#xFF09;&#x7684;&#xFF0C;&#x7981;&#x6B62;&#x6269;&#x5C55;</strong>&#x3002;final&#x6807;&#x8BB0;&#x4F1A;&#x5199;&#x5165;class&#x6587;&#x4EF6;&#x7684;&#x7C7B;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x68C0;&#x67E5;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x4E0A;&#x6E38;extends&#x4E86;&#x4E00;&#x4E2A;final&#x7C7B;&#x540E;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x5931;&#x8D25;&#xFF0C;&#x4ECE;&#x8BED;&#x6CD5;&#x4E0A;&#x4FDD;&#x8BC1;&#x4E0D;&#x80FD;extends&#x4E00;&#x4E2A;final&#x7C7B;&#x3002;</p>
+<p>final&#x7C7B;&#x7ECF;&#x5E38;&#x7528;&#x4E8E;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#x7684;&#x6784;&#x9020;&#x4E2D;&#xFF1A;&#x5982;&#x679C;&#x4E0D;&#x4F7F;&#x7528;final&#x4FEE;&#x9970;&#xFF0C;&#x4E14;&#x6709;&#x5BF9;&#x5B50;&#x7C7B;&#x53EF;&#x89C1;&#x7684;&#x53EF;&#x53D8;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x5219;extends&#x8BE5;&#x201C;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#x201D;&#x540E;&#xFF0C;&#x5B50;&#x7C7B;&#x5C31;&#x53D8;&#x6210;&#x4E86;&#x53EF;&#x53D8;&#x7C7B;&#x3002;&#x8003;&#x8651;&#x5230;&#x591A;&#x6001;&#x7684;&#x5B58;&#x5728;&#xFF0C;&#x8FD9;&#x79CD;&#x201C;&#x6B67;&#x4E49;&#x201D;&#x975E;&#x5E38;&#x5371;&#x9669;&#x3002;&#x8BE6;&#x89C1;&#xFF1A;<a href="/2017/09/20/&#x5B9E;&#x73B0;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#x65F6;&#x5982;&#x4F55;&#x7981;&#x6B62;&#x5B50;&#x7C7B;&#x5316;&#xFF1F;/">&#x5B9E;&#x73B0;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#x65F6;&#x5982;&#x4F55;&#x7981;&#x6B62;&#x5B50;&#x7C7B;&#x5316;&#xFF1F;</a>&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;String&#x7C7B;&#x3001;Interger&#x7C7B;&#x7B49;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></div></pre></td></tr></table></figure>
+<h1 id="final&#x65B9;&#x6CD5;"><a href="#final&#x65B9;&#x6CD5;" class="headerlink" title="final&#x65B9;&#x6CD5;"></a>final&#x65B9;&#x6CD5;</h1><p>&#x4E0E;final&#x7C7B;&#x7684;&#x8BED;&#x4E49;&#x76F8;&#x4F3C;&#xFF0C;<strong>final&#x65B9;&#x6CD5;&#x8868;&#x793A;&#x8BE5;&#x65B9;&#x6CD5;&#x662F;&#x5B8C;&#x6574;&#x7684;&#xFF0C;&#x7981;&#x6B62;&#x91CD;&#x5199;</strong>&#x3002;final&#x6807;&#x8BB0;&#x4F1A;&#x5199;&#x5165;class&#x6587;&#x4EF6;&#x7684;&#x6210;&#x5458;&#x65B9;&#x6CD5;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x68C0;&#x67E5;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x7EE7;&#x627F;&#x94FE;&#x4E0A;&#x6E38;&#x6709;&#x51FD;&#x6570;&#x7B7E;&#x540D;&#x76F8;&#x540C;&#x7684;final&#x65B9;&#x6CD5;&#xFF08;&#x91CD;&#x5199;&#xFF09;&#xFF0C;&#x5219;&#x7F16;&#x8BD1;&#x5931;&#x8D25;&#xFF0C;&#x4ECE;&#x8BED;&#x6CD5;&#x4E0A;&#x4FDD;&#x8BC1;&#x4E0D;&#x80FD;&#x91CD;&#x5199;&#x4E00;&#x4E2A;final&#x65B9;&#x6CD5;&#xFF1B;&#x540C;&#x65F6;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x5B8C;&#x6210;&#x5BF9;final&#x65B9;&#x6CD5;&#x7684;&#x89E3;&#x6790;&#xFF08;<code>&#x9759;&#x6001;&#x7ED1;&#x5B9A;</code>&#xFF09;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;com.sun.org.apache.bcel.internal.classfile.Signature&#x4E2D;&#x7684;dump&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">dump</span><span class="params">(DataOutputStream file)</span> <span class="keyword">throws</span> IOException</span></div><div class="line">{</div><div class="line">  <span class="keyword">super</span>.dump(file);</div><div class="line">  file.writeShort(signature_index);</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="final&#x53D8;&#x91CF;"><a href="#final&#x53D8;&#x91CF;" class="headerlink" title="final&#x53D8;&#x91CF;"></a>final&#x53D8;&#x91CF;</h1><h2 id="final&#x6210;&#x5458;&#x53D8;&#x91CF;"><a href="#final&#x6210;&#x5458;&#x53D8;&#x91CF;" class="headerlink" title="final&#x6210;&#x5458;&#x53D8;&#x91CF;"></a>final&#x6210;&#x5458;&#x53D8;&#x91CF;</h2><p>final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x4F53;&#x73B0;&#x4E86;&#x6700;&#x76F4;&#x89C2;&#x7684;final&#x8BED;&#x4E49;&#xFF1A;<strong>final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x8868;&#x793A;&#x8BE5;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x53EA;&#x8BFB;</strong>&#xFF08;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x8D4B;&#x503C;&#x540E;&#x5C31;&#x4E0D;&#x80FD;&#x518D;&#x4FEE;&#x6539;&#xFF09;&#x3002;final&#x6807;&#x8BB0;&#x4F1A;&#x5199;&#x5165;class&#x6587;&#x4EF6;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x5B9A;&#x4E49;&#x4E2D;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x5668;&#x548C;&#x8FD0;&#x884C;&#x671F;&#x90FD;&#x4F1A;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x7B2C;&#x4E8C;&#x6B21;&#x4FEE;&#x6539;&#x5C31;&#x7F16;&#x8BD1;&#x5931;&#x8D25;&#x6216;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;&#x5B9E;&#x73B0;&#x4E0D;&#x53EF;&#x53D8;&#x7C7B;&#xFF0C;&#x901A;&#x5E38;&#x5EFA;&#x8BAE;&#x5C3D;&#x91CF;&#x4F7F;&#x7528;final&#x4FEE;&#x9970;&#x6BCF;&#x4E00;&#x4E2A;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF08;&#x5EF6;&#x8FDF;&#x521D;&#x59CB;&#x5316;&#x7B49;&#x4F1A;&#x8FDD;&#x80CC;&#x8FD9;&#x4E00;&#x5EFA;&#x8BAE;&#xFF09;&#x3002;</p>
+<p>&#x5982;&#x679C;final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x7684;&#x521D;&#x59CB;&#x5316;&#x88AB;&#x6536;&#x96C6;&#x5230;&#x8BE5;&#x7C7B;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x5219;final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x521D;&#x59CB;&#x5316;&#x4E4B;&#x524D;&#x7684;&#x53D8;&#x91CF;&#x901A;&#x5E38;&#x5177;&#x6709;&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#xFF0C;&#x4F46;&#x8FD9;&#x4E00;&#x6027;&#x8D28;&#x5E76;&#x4E0D;&#x5BB9;&#x6613;&#x5E94;&#x7528;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x5229;&#x7528;&#x3002;&#x8BE6;&#x89C1;&#xFF1A;<a href="/2017/12/28/&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;/#final&#x5173;&#x952E;&#x5B57;">&#x4E00;&#x6587;&#x89E3;&#x51B3;&#x5185;&#x5B58;&#x5C4F;&#x969C;</a>&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;Integer#value&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> value;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Integer</span><span class="params">(<span class="keyword">int</span> value)</span> </span>{</div><div class="line">    <span class="keyword">this</span>.value = value;</div><div class="line">}</div></pre></td></tr></table></figure>
+<blockquote>
+<p>&#x663E;&#x5F0F;&#x7684;&#x7528;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x521D;&#x59CB;&#x5316;final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x3002;</p>
+</blockquote>
+<h3 id="&#x5E38;&#x91CF;"><a href="#&#x5E38;&#x91CF;" class="headerlink" title="&#x5E38;&#x91CF;"></a>&#x5E38;&#x91CF;</h3><p>&#x5982;&#x679C;&#x5728;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x58F0;&#x660E;&#x65F6;&#x5B8C;&#x6210;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x7B2C;&#x4E00;&#x6B21;&#x8D4B;&#x503C;&#xFF09;&#xFF0C;&#x5219;&#x8BE5;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x88AB;JVM&#x89C6;&#x4F5C;&#x5E38;&#x91CF;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x7F16;&#x8BD1;&#x671F;&#x80FD;&#x786E;&#x5B9A;&#x521D;&#x59CB;&#x503C;&#x7684;&#x5E38;&#x91CF;&#xFF08;&#x5982;<code>final int a = 1;</code>&#xFF09;&#xFF0C;&#x901A;&#x5E38;&#x80FD;&#x901A;&#x8FC7;<code>&#x5E38;&#x91CF;&#x6298;&#x53E0;</code>&#x3001;<code>&#x5E38;&#x91CF;&#x4F20;&#x64AD;</code>&#x7B49;&#x6280;&#x672F;&#xFF0C;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x5B8C;&#x6210;&#x5E38;&#x91CF;&#x7684;&#x4F18;&#x5316;&#x548C;&#x89E3;&#x6790;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;<code>Integer.SIZE</code>&#x548C;<code>Integer.BYTES</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Native</span> <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SIZE = <span class="number">32</span>;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BYTES = SIZE / Byte.SIZE;</div></pre></td></tr></table></figure>
+<h2 id="final&#x5C40;&#x90E8;&#x53D8;&#x91CF;"><a href="#final&#x5C40;&#x90E8;&#x53D8;&#x91CF;" class="headerlink" title="final&#x5C40;&#x90E8;&#x53D8;&#x91CF;"></a>final&#x5C40;&#x90E8;&#x53D8;&#x91CF;</h2><p><strong>final&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4E5F;&#x8868;&#x793A;&#x8BE5;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53EA;&#x8BFB;</strong>&#xFF0C;&#x4F46;&#x4E0E;final&#x6210;&#x5458;&#x53D8;&#x91CF;&#x4E0D;&#x540C;&#xFF0C;final&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x53EA;&#x662F;java&#x4E2D;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;<em>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4E0A;&#x7684;final&#x4FEE;&#x9970;&#x5E76;&#x4E0D;&#x4F1A;&#x5199;&#x5165;class&#x6587;&#x4EF6;&#xFF0C;&#x66F4;&#x65E0;&#x6CD5;&#x51FA;&#x73B0;&#x5728;&#x8FD0;&#x884C;&#x671F;</em>&#x3002;&#x5982;&#x679C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x88AB;final&#x4FEE;&#x9970;&#xFF0C;&#x5219;<em>&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x4F1A;&#x68C0;&#x67E5;&#x8BE5;&#x53D8;&#x91CF;&#x662F;&#x5426;&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x7B2C;&#x4E8C;&#x6B21;&#x4FEE;&#x6539;</em>&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x5C31;&#x7F16;&#x8BD1;&#x5931;&#x8D25;&#xFF1B;&#x5426;&#x5219;&#xFF0C;&#x6D88;&#x9664;final&#x4FEE;&#x9970;&#x3002;</p>
+<p>&#x4F8B;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/Java&#x4E2D;&#x7684;final&#x5173;&#x952E;&#x5B57;/final&#x5C40;&#x90E8;&#x53D8;&#x91CF;.png" alt="final&#x5C40;&#x90E8;&#x53D8;&#x91CF;"></p>
 
       
 
@@ -238,7 +237,7 @@ ga('send', 'pageview');
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 	</div>
 
       
@@ -307,7 +306,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2018/03/09/分布式理论：CAP、BASE与ACID/">分布式理论：CAP、BASE与ACID</a><br/>
+		本文链接：<a href="/2018/11/06/Java中的final关键字/">Java中的final关键字</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -319,18 +318,9 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/2018/03/10/Linux文件系统：inode&block，文件&目录，硬链&软链/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Linux文件系统：inode&amp;block，文件&amp;目录，硬链&amp;软链
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/03/07/浅谈TCP（2）：流量控制与拥塞控制/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">浅谈TCP（2）：流量控制与拥塞控制</div>
+    <a href="/2018/11/05/Java中的常见OOM及原因/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java中的常见OOM及原因</div>
       <i class="icon-circle-right"></i>
     </a>
   
