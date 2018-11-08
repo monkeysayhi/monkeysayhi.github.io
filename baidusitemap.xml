@@ -564,13 +564,13 @@
         <title>浅谈MySQL的B树索引与索引优化</title>
         <pubTime>2018-03-06T06:14:26.000Z</pubTime>
         
-        <tag>索引</tag>
-         
-        <tag>数据库</tag>
-         
         <tag>面试</tag>
          
         <tag>原创</tag>
+         
+        <tag>索引</tag>
+         
+        <tag>数据库</tag>
          
         <tag>算法</tag>
          
@@ -748,11 +748,11 @@
         <title>事务的ACID和四个隔离级别</title>
         <pubTime>2016-11-25T16:34:15.000Z</pubTime>
         
-        <tag>数据库</tag>
-         
         <tag>面试</tag>
          
         <tag>原创</tag>
+         
+        <tag>数据库</tag>
          
         <tag>事务</tag>
          
