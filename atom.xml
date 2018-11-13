@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://monkeysayhi.github.io/"/>
-  <updated>2018-11-08T04:22:58.000Z</updated>
+  <updated>2018-11-13T03:04:26.000Z</updated>
   <id>https://monkeysayhi.github.io/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java中的装箱、拆箱</title>
+    <link href="https://monkeysayhi.github.io/2018/11/13/Java%E4%B8%AD%E7%9A%84%E8%A3%85%E7%AE%B1%E3%80%81%E6%8B%86%E7%AE%B1/"/>
+    <id>https://monkeysayhi.github.io/2018/11/13/Java中的装箱、拆箱/</id>
+    <published>2018-11-13T03:04:12.000Z</published>
+    <updated>2018-11-13T03:04:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>&#x88C5;&#x7BB1;&#xFF1A;&#x5C06;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x4E3A;&#x5305;&#x88C5;&#x5668;&#x7C7B;&#x578B;</li>
+<li>&#x62C6;&#x7BB1;&#xFF1A;&#x5C06;&#x5305;&#x88C5;&#x5668;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x4E3A;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;</li>
+</ul>
+<p>&#x88C5;&#x7BB1;&#x4E0E;&#x62C6;&#x7BB1;&#x7684;&#x8FC7;&#x7A0B;&#x65F6;&#x81EA;&#x52A8;&#x8FDB;&#x884C;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x79F0;&#x4E3A;&#x201C;&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x201D;&#x3001;&#x201C;&#x81EA;&#x52A8;&#x62C6;&#x7BB1;&#x201D;&#xFF0C;&#x5C5E;&#x4E8E;&#x7F16;&#x8BD1;&#x671F;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#x3002;</p>
+<a id="more"></a>
+<p>&#x4EE5;&#x57FA;&#x672C;&#x7C7B;&#x578B;int&#x4E0E;&#x5305;&#x88C5;&#x7C7B;&#x578B;Integer&#x4E3A;&#x4F8B;&#x8BA8;&#x8BBA;&#x3002;&#x65E2;&#x7136;&#x662F;&#x7F16;&#x8BD1;&#x671F;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x90A3;&#x4E48;&#x76F4;&#x63A5;&#x5206;&#x6790;&#x7F16;&#x8BD1;&#x51FA;&#x6765;&#x7684;&#x5B57;&#x8282;&#x7801;&#x5373;&#x53EF;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;jad&#x5DE5;&#x5177;&#xFF08;&#x4F30;&#x8BA1;&#x5185;&#x90E8;&#x5C01;&#x88C5;&#x4E86;javap&#x4E00;&#x7C7B;&#x7684;&#x5DE5;&#x5177;&#xFF09;&#x3002;</p>
+<h1 id="&#x88C5;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;"><a href="#&#x88C5;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x88C5;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;"></a>&#x88C5;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">  Integer boxing = <span class="number">1</span>;</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>jad&#x89E3;&#x6790;class&#x6587;&#x4EF6;&#xFF0C;&#x53D1;&#x73B0;&#x6839;&#x636E;&#x5B57;&#x8282;&#x7801;&#x53CD;&#x7F16;&#x8BD1;&#x4E3A;<code>Integer.valueOf(int)</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>{</div><div class="line">  Integer boxing = Integer.valueOf(<span class="number">1</span>);</div><div class="line">  <span class="comment">//    0    0:iconst_1        </span></div><div class="line">  <span class="comment">//    1    1:invokestatic    #2   &lt;Method Integer Integer.valueOf(int)&gt;</span></div><div class="line">  <span class="comment">//    2    4:astore_1        </span></div><div class="line">  <span class="comment">//    3    5:return          </span></div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x5DE5;&#x5382;&#x65B9;&#x6CD5;&#xFF0C;&#x5185;&#x90E8;&#x6700;&#x7EC8;&#x8C03;&#x7528;&#x4E86;Integer&#x7C7B;&#x7684;&#x6784;&#x9020;&#x5668;<code>Integer.&lt;init&gt;(init)</code>&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>{</div><div class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</div><div class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x7279;&#x522B;&#x7684;&#xFF0C;Integer&#x7C7B;&#x9ED8;&#x8BA4;&#x7F13;&#x5B58;<code>-128~127</code>&#x7684;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#xFF08;&#x4E0A;&#x754C;&#x53EF;&#x901A;&#x8FC7;<code>java.lang.Integer.IntegerCache.high</code>&#x53C2;&#x6570;&#x914D;&#x7F6E;&#xFF0C;&#x6700;&#x5C0F;127&#xFF09;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x5185;&#x7684;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#x6765;&#x81EA;&#x7F13;&#x5B58;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#xFF0C;&#x76F8;&#x540C;value&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x76F8;&#x7B49;&#xFF1B;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x5916;&#x7684;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x5747;&#x4E0D;&#x76F8;&#x7B49;&#x3002;</p>
+<h1 id="&#x62C6;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;"><a href="#&#x62C6;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;" class="headerlink" title="&#x62C6;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;"></a>&#x62C6;&#x7BB1;&#x7684;&#x5B9E;&#x73B0;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</div><div class="line">  <span class="keyword">int</span> unboxing = <span class="keyword">new</span> Integer(<span class="string">&quot;2&quot;</span>);</div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x62C6;&#x7BB1;&#x7684;&#x65F6;&#x5019;&#x7F16;&#x8BD1;&#x4E3A;<code>Integer.intValue()</code>&#x65B9;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>{</div><div class="line">  <span class="keyword">int</span> unboxing = (<span class="keyword">new</span> Integer(<span class="string">&quot;2&quot;</span>)).intValue();</div><div class="line">  <span class="comment">//    0    0:new             #2   &lt;Class Integer&gt;</span></div><div class="line">  <span class="comment">//    1    3:dup             </span></div><div class="line">  <span class="comment">//    2    4:ldc1            #3   &lt;String &quot;2&quot;&gt;</span></div><div class="line">  <span class="comment">//    3    6:invokespecial   #4   &lt;Method void Integer(String)&gt;</span></div><div class="line">  <span class="comment">//    4    9:invokevirtual   #5   &lt;Method int Integer.intValue()&gt;</span></div><div class="line">  <span class="comment">//    5   12:istore_1        </span></div><div class="line">  <span class="comment">//    6   13:return          </span></div><div class="line">}</div></pre></td></tr></table></figure>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x5185;&#x90E8;&#x503C;<code>Integer#value</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intValue</span><span class="params">()</span> </span>{</div><div class="line">    <span class="keyword">return</span> value;</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x4E0E;&#x81EA;&#x52A8;&#x62C6;&#x7BB1;&#x7684;&#x9677;&#x9631;"><a href="#&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x4E0E;&#x81EA;&#x52A8;&#x62C6;&#x7BB1;&#x7684;&#x9677;&#x9631;" class="headerlink" title="&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x4E0E;&#x81EA;&#x52A8;&#x62C6;&#x7BB1;&#x7684;&#x9677;&#x9631;"></a>&#x81EA;&#x52A8;&#x88C5;&#x7BB1;&#x4E0E;&#x81EA;&#x52A8;&#x62C6;&#x7BB1;&#x7684;&#x9677;&#x9631;</h1><p>&#x9677;&#x9631;&#x4E3B;&#x8981;&#x51FA;&#x73B0;&#x5728;&#x5305;&#x88C5;&#x7C7B;&#x578B;&#x4E0E;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x6DF7;&#x7528;&#x7684;&#x573A;&#x666F;&#x4E2D;&#x3002;</p>
+<p>&#x4EE5;&#x201C;<code>==</code>&#x201D;&#x4E3A;&#x4F8B;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x6570;&#x90FD;&#x662F;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x6BD4;&#x8F83;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x64CD;&#x4F5C;&#x6570;&#x662F;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F;&#x5305;&#x88C5;&#x7C7B;&#x578B;&#xFF0C;&#x5219;&#x62C6;&#x7BB1;&#x4E3A;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x518D;&#x6BD4;&#x8F83;&#xFF1A;&#x5982;&#x679C;&#x5305;&#x88C5;&#x5BF9;&#x8C61;&#x4E3A;null&#xFF0C;&#x629B;&#x51FA;NullPointerException&#x3002;&#xFF08;&#x60F3;&#x60F3;&#x770B;&#xFF0C;&#x5982;&#x679C;&#x88C5;&#x7BB1;&#x4E3A;&#x5305;&#x88C5;&#x7C7B;&#x578B;&#xFF0C;&#x663E;&#x7136;&#x65E0;&#x6CD5;&#x53D1;&#x73B0;null&#xFF09;</li>
+<li>&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x6570;&#x90FD;&#x662F;&#x5305;&#x88C5;&#x7C7B;&#x578B;&#xFF0C;&#x5219;&#x6BD4;&#x8F83;&#x4E8C;&#x8005;&#x7684;&#x5F15;&#x7528;&#x662F;&#x5426;&#x76F8;&#x7B49;&#xFF1A;&#x5982;&#x679C;&#x4E8C;&#x8005;&#x5185;&#x90E8;&#x503C;&#x76F8;&#x7B49;&#xFF0C;&#x4F46;&#x5728;&#x7F13;&#x5B58;&#x8303;&#x56F4;&#x5916;&#xFF0C;&#x5219;&#x5FC5;&#x7136;&#x4E0D;&#x7B49;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x8981;&#x6BD4;&#x8F83;&#x5305;&#x88C5;&#x7C7B;&#x578B;&#x662F;&#x5426;&#x76F8;&#x7B49;&#xFF0C;&#x6700;&#x597D;&#x663E;&#x793A;&#x7684;&#x4F7F;&#x7528;equals&#x65B9;&#x6CD5;&#x3002;</p>
+</blockquote>
+<p>&#x53E6;&#x5916;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x7B97;&#x672F;&#x8FD0;&#x7B97;&#x3001;&#x9664;&#x201C;<code>==</code>&#x201D;&#x5916;&#x7684;&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x3001;&#x4F4D;&#x8FD0;&#x7B97;&#x7B49;&#xFF0C;&#x5219;&#x7EDF;&#x4E00;&#x62C6;&#x7BB1;&#x4E3A;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x518D;&#x8FD0;&#x7B97;&#xFF1B;&#x6709;&#x629B;&#x51FA;NullPointerException&#x7684;&#x5371;&#x9669;&#x3002;</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&amp;#x88C5;&amp;#x7BB1;&amp;#xFF1A;&amp;#x5C06;&amp;#x57FA;&amp;#x672C;&amp;#x6570;&amp;#x636E;&amp;#x7C7B;&amp;#x578B;&amp;#x8F6C;&amp;#x6362;&amp;#x4E3A;&amp;#x5305;&amp;#x88C5;&amp;#x5668;&amp;#x7C7B;&amp;#x578B;&lt;/li&gt;
+&lt;li&gt;&amp;#x62C6;&amp;#x7BB1;&amp;#xFF1A;&amp;#x5C06;&amp;#x5305;&amp;#x88C5;&amp;#x5668;&amp;#x7C7B;&amp;#x578B;&amp;#x8F6C;&amp;#x6362;&amp;#x4E3A;&amp;#x57FA;&amp;#x672C;&amp;#x6570;&amp;#x636E;&amp;#x7C7B;&amp;#x578B;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;#x88C5;&amp;#x7BB1;&amp;#x4E0E;&amp;#x62C6;&amp;#x7BB1;&amp;#x7684;&amp;#x8FC7;&amp;#x7A0B;&amp;#x65F6;&amp;#x81EA;&amp;#x52A8;&amp;#x8FDB;&amp;#x884C;&amp;#x7684;&amp;#xFF0C;&amp;#x56E0;&amp;#x6B64;&amp;#x79F0;&amp;#x4E3A;&amp;#x201C;&amp;#x81EA;&amp;#x52A8;&amp;#x88C5;&amp;#x7BB1;&amp;#x201D;&amp;#x3001;&amp;#x201C;&amp;#x81EA;&amp;#x52A8;&amp;#x62C6;&amp;#x7BB1;&amp;#x201D;&amp;#xFF0C;&amp;#x5C5E;&amp;#x4E8E;&amp;#x7F16;&amp;#x8BD1;&amp;#x671F;&amp;#x7684;&amp;#x8BED;&amp;#x6CD5;&amp;#x7CD6;&amp;#x3002;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>线程池ThreadPoolExecutor总结</title>
@@ -91,13 +148,13 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="并发" scheme="https://monkeysayhi.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
   </entry>
   
@@ -141,11 +198,11 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -207,11 +264,11 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -279,11 +336,11 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -352,11 +409,11 @@
     </summary>
     
     
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
       <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
     
       <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
+    
+      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
     
       <category term="JVM" scheme="https://monkeysayhi.github.io/tags/JVM/"/>
     
@@ -1039,13 +1096,13 @@
     </summary>
     
     
-      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
       <category term="索引" scheme="https://monkeysayhi.github.io/tags/%E7%B4%A2%E5%BC%95/"/>
     
       <category term="数据库" scheme="https://monkeysayhi.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+      <category term="面试" scheme="https://monkeysayhi.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
     
       <category term="算法" scheme="https://monkeysayhi.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
@@ -2404,155 +2461,6 @@
       <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
     
       <category term="HDFS" scheme="https://monkeysayhi.github.io/tags/HDFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hadoop单步debug追源码</title>
-    <link href="https://monkeysayhi.github.io/2018/01/15/Hadoop%E5%8D%95%E6%AD%A5debug%E8%BF%BD%E6%BA%90%E7%A0%81/"/>
-    <id>https://monkeysayhi.github.io/2018/01/15/Hadoop单步debug追源码/</id>
-    <published>2018-01-15T09:45:09.000Z</published>
-    <updated>2018-01-15T10:59:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>&#x53C2;&#x8003;<a href="/2018/01/15/Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;/">Mac&#x7F16;&#x8BD1;Hadoop&#x6E90;&#x7801;</a>&#x7F16;&#x8BD1;&#x597D;Hadoop&#x6E90;&#x7801;&#x540E;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;&#x4E86;&#x3002;</p>
-<blockquote>
-<p>&#x5F53;&#x7136;&#xFF0C;&#x672C;&#x6587;&#x4E0D;&#x4EC5;&#x9002;&#x7528;&#x4E8E;debug Hadoop&#x6E90;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x65E0;&#x7F1D;&#x8FC1;&#x79FB;&#x5230;&#x5176;&#x4ED6;&#x6846;&#x67B6;&#x3002;</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="&#x7248;&#x672C;&#x58F0;&#x660E;"><a href="#&#x7248;&#x672C;&#x58F0;&#x660E;" class="headerlink" title="&#x7248;&#x672C;&#x58F0;&#x660E;"></a>&#x7248;&#x672C;&#x58F0;&#x660E;</h1><ul>
-<li>&#x6E90;&#x7801;&#xFF1A;<code>Apache Hadoop 2.6.0</code></li>
-<li>&#x7CFB;&#x7EDF;&#xFF1A;<code>macOS 10.12.4</code></li>
-<li>JDK&#xFF1A;<code>oracle jdk 1.7.0_79</code></li>
-<li>IDE&#xFF1A;<code>IntelliJ IDEA 2017.2.3</code> </li>
-</ul>
-<h1 id="&#x5355;&#x7EBF;&#x7A0B;debug"><a href="#&#x5355;&#x7EBF;&#x7A0B;debug" class="headerlink" title="&#x5355;&#x7EBF;&#x7A0B;debug"></a>&#x5355;&#x7EBF;&#x7A0B;debug</h1><p>&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;datanode&#x6E90;&#x7801;&#x4E3A;&#x4F8B;&#x3002;</p>
-<h2 id="&#x542F;&#x52A8;namenode"><a href="#&#x542F;&#x52A8;namenode" class="headerlink" title="&#x542F;&#x52A8;namenode"></a>&#x542F;&#x52A8;namenode</h2><p>&#x6B63;&#x5E38;&#x542F;&#x52A8;namenode&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sbin/hadoop-daemon.sh start namenode</div></pre></td></tr></table></figure>
-<h2 id="&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;"><a href="#&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;" class="headerlink" title="&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;"></a>&#x914D;&#x7F6E;&#x5E76;&#x542F;&#x52A8;datanode&#xFF08;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF09;</h2><p>&#x4FEE;&#x6539;<code>etc/hadoop/hadoop-env.sh</code>&#xFF0C;&#x8BBE;&#x7F6E;<code>HADOOP_OPTS</code>&#xFF1A;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># Extra Java runtime options.  Empty by default.</div><div class="line">HADOOP_OPTS=&quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8888&quot;</div><div class="line">export HADOOP_OPTS=&quot;$HADOOP_OPTS -Djava.net.preferIPv4Stack=true&quot;</div></pre></td></tr></table></figure>
-<p>&#x542F;&#x52A8;datanode&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sbin/hadoop-daemon.sh start datanode</div></pre></td></tr></table></figure>
-<p>&#x8F93;&#x51FA;&#xFF1A;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">starting datanode, logging to /Users/msh/Applications/experiment/hadoop-2.6.0/logs/hadoop-msh-datanode-mshdeMacBook-Pro.local.out</div><div class="line">Listening for transport dt_socket at address: 8888</div></pre></td></tr></table></figure>
-<p>&#x67E5;&#x770B;log&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail <span class="_">-f</span> /Users/msh/Applications/experiment/hadoop-2.6.0/logs/hadoop-msh-datanode-mshdeMacBook-Pro.local.logs</div></pre></td></tr></table></figure>
-<p>&#x4F1A;&#x62A5;&#x6587;&#x4EF6;&#x4E0D;&#x5B58;&#x5728;&#x3002;&#x56E0;&#x4E3A;&#x6B64;&#x65F6;JVM&#x662F;hang&#x4F4F;&#x7684;&#xFF08;&#x7B49;&#x5F85;&#x8C03;&#x8BD5;&#x5668;&#x8FDE;&#x63A5;&#xFF0C;&#x89C1;&#x4E0B;&#xFF09;&#xFF0C;&#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C;main&#x65B9;&#x6CD5;&#xFF0C;&#x4E5F;&#x5C31;&#x6CA1;&#x6709;&#x521B;&#x5EFA;log&#x6587;&#x4EF6;&#x3002;</p>
-<p>&#x8F6C;&#x53BB;&#x914D;&#x7F6E;IDEA&#x3002;</p>
-<h2 id="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"><a href="#&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;" class="headerlink" title="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"></a>&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;</h2><p>IDEA&#x4E2D;&#x6253;&#x5F00;&#x5BF9;&#x5E94;&#x7248;&#x672C;&#x7684;hadoop&#x6E90;&#x7801;&#xFF08;2.6.0&#xFF09;&#x3002;</p>
-<p>Run-&gt;Edit Configurations&#xFF0C;&#x5DE6;&#x4E0A;&#x89D2;&#x7684;+&#x53F7;&#x9009;&#x62E9;Remote&#xFF0C;&#x4E3B;&#x8981;&#x914D;&#x7F6E;&#x4E3B;&#x673A;localhost&#x3001;&#x7AEF;&#x53E3;8888&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png" alt="&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png"></p>
-<blockquote>
-<p>Eclipse&#x540C;&#x7406;&#x3002; </p>
-</blockquote>
-<p>&#x914D;&#x7F6E;&#x9879;&#x505A;&#x7B80;&#x5355;&#x8BF4;&#x660E;&#xFF1A;</p>
-<ul>
-<li><code>-agentlib:jdwp</code>&#xFF1A;&#x4F7F;&#x7528;JDWP&#x5B9E;&#x73B0;&#x8FDC;&#x7A0B;&#x8C03;&#x8BD5;&#xFF0C;&#x5305;&#x542B;&#x82E5;&#x5E72;&#x5B50;&#x9009;&#x9879;&#x3002;</li>
-<li><code>transport=dt_socket</code>&#xFF1A;&#x8C03;&#x8BD5;&#x5668;&#x548C;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#x4E4B;&#x95F4;&#x4F7F;&#x7528;&#x5957;&#x63A5;&#x5B57;&#x4F20;&#x8F93;&#x3002;</li>
-<li><code>server=y</code>&#xFF1A;&#x542F;&#x52A8;&#x7684;JVM&#x662F;&#x63A5;&#x6536;&#x8C03;&#x8BD5;&#x8BF7;&#x6C42;&#x7684;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#xFF08;IDEA&#x4E0A;&#x542F;&#x52A8;&#x7684;&#x662F;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#xFF0C;&#x4F1A;&#x5B58;&#x5728;&#x4E00;&#x4E2A;server=n&#x7684;&#x8FDB;&#x7A0B;&#xFF09;&#x3002;</li>
-<li><code>suspend=y</code>&#xFF1A;&#x542F;&#x52A8;&#x7684;JVM&#x4F1A;&#x6682;&#x505C;&#x7B49;&#x5F85;&#xFF0C;&#x76F4;&#x5230;&#x8C03;&#x8BD5;&#x5668;&#x8FDE;&#x63A5;&#x4E0A;&#x624D;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#xFF0C;&#x56E0;&#x6B64;&#x542F;&#x52A8;datanode&#x65F6;&#x624D;&#x80FD;&#x201C;hang&#x4F4F;&#x201D;&#xFF0C;&#x7B49;&#x5F85;&#x6211;&#x4EEC;&#x542F;&#x52A8;&#x8C03;&#x8BD5;&#x5668;&#xFF08;&#x8FD9;&#x91CC;&#x4E0E;IDEA&#x63D0;&#x4F9B;&#x7684;&#x914D;&#x7F6E;&#x662F;suspend=n&#xFF0C;&#x6211;&#x4E60;&#x60EF;&#x7528;suspend=y&#xFF09;&#x3002;</li>
-<li><code>address=8888</code>&#xFF1A;&#x88AB;&#x8C03;&#x8BD5;&#x8005;&#x5728;8888&#x7AEF;&#x53E3;&#x4E0A;&#x76D1;&#x542C;&#x8C03;&#x8BD5;&#x8BF7;&#x6C42;&#x3002;</li>
-</ul>
-<h2 id="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"><a href="#&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"></a>&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;</h2><p>&#x6CBF;&#x7740;&#x5728;Datanode&#x7C7B;&#x7684;main&#x65B9;&#x6CD5;&#x8BBE;&#x7F6E;&#x51E0;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
-<ul>
-<li>&#x6F14;&#x793A;&#x57FA;&#x672C;&#x7684;&#x8C03;&#x8BD5;&#x4EA4;&#x4E92;</li>
-</ul>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
-<ul>
-<li>&#x5229;&#x7528;&#x6253;&#x5370;&#x7684;log&#x9A8C;&#x8BC1;</li>
-</ul>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
-<h2 id="&#x5F00;&#x59CB;debug"><a href="#&#x5F00;&#x59CB;debug" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="&#x8C03;&#x8BD5;&#x5668;"><a href="#&#x8C03;&#x8BD5;&#x5668;" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>IDEA&#x4E2D;&#xFF0C;Run-&gt;Debug&#xFF0C;&#x9009;&#x62E9;&#x521A;&#x521A;&#x914D;&#x7F6E;&#x7684;TestDatanode&#x53C2;&#x6570;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x5F00;&#x59CB;debug.png" alt="&#x5F00;&#x59CB;debug.png"></p>
-<p>&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
-<h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x56DE;&#x5230;&#x542F;&#x52A8;datanode&#x7684;&#x7EC8;&#x7AEF;&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x770B;log&#x3002;</p>
-<p>&#x53D1;&#x73B0;&#x6587;&#x4EF6;&#x5DF2;&#x521B;&#x5EFA;&#x4F46;&#x662F;&#x7A7A;&#x6587;&#x4EF6;&#x3002;</p>
-<h3 id="&#x8C03;&#x8BD5;&#x5668;-1"><a href="#&#x8C03;&#x8BD5;&#x5668;-1" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>&#x56DE;&#x5230;IDEA&#xFF0C;F8&#x8DF3;&#x8FC7;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF0C;&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
-<p>&#x8FD9;&#x53E5;&#x4EE3;&#x7801;&#x4F1A;&#x6253;&#x5370;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#xFF08;&#x6B64;&#x5904;&#x4E0D;&#x8BA8;&#x8BBA;&#xFF09;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x8BE5;&#x884C;&#x540E;&#xFF0C;&#x65E5;&#x5FD7;&#x88AB;&#x6253;&#x5370;&#xFF0C;&#x8BF4;&#x660E;&#x6211;&#x4EEC;&#x7684;&#x5355;&#x72EC;debug&#x6210;&#x529F;&#x4E86;&#x3002;</p>
-<p>F8&#x540E;&#x505C;&#x5728;&#x4E0B;&#x4E00;&#x884C;&#xFF0C;&#x56DE;&#x53BB;&#x67E5;&#x770B;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x3002;</p>
-<h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x67E5;&#x770B;log&#xFF1A;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2018-01-15 11:37:52,314 INFO org.apache.hadoop.hdfs.server.datanode.DataNode: STARTUP_MSG:</div><div class="line">/************************************************************</div><div class="line">STARTUP_MSG: Starting DataNode</div><div class="line">...&#xFF08;&#x5185;&#x5BB9;&#x592A;&#x957F;&#xFF0C;&#x7565;&#xFF09;</div></pre></td></tr></table></figure>
-<p>&#x786E;&#x5B9E;&#x6253;&#x5370;&#x4E86;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#x3002;</p>
-<p>&#x641E;&#x5B9A;&#x3002;</p>
-<blockquote>
-<p>&#x5982;&#x679C;&#x540C;&#x65F6;&#x8C03;&#x8BD5;&#x591A;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x6CE8;&#x610F;&#x8BBE;&#x7F6E;&#x4E0D;&#x540C;&#x7684;&#x7AEF;&#x53E3;</p>
-</blockquote>
-<h1 id="&#x591A;&#x7EBF;&#x7A0B;debug"><a href="#&#x591A;&#x7EBF;&#x7A0B;debug" class="headerlink" title="&#x591A;&#x7EBF;&#x7A0B;debug"></a>&#x591A;&#x7EBF;&#x7A0B;debug</h1><blockquote>
-<p>Hadoop&#x4E2D;&#x6709;&#x5927;&#x91CF;&#x4F18;&#x79C0;&#x7684;&#x5E76;&#x53D1;&#x8BBE;&#x8BA1;&#xFF0C;&#x591A;&#x7EBF;&#x7A0B;debug&#x5FC5;&#x4E0D;&#x53EF;&#x5C11;&#x3002;</p>
-</blockquote>
-<p>IDEA&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x9ED8;&#x8BA4;&#x53EA;&#x80FD;&#x76D1;&#x63A7;&#x524D;&#x53F0;&#x7EBF;&#x7A0B;&#xFF08;&#x4E00;&#x822C;&#x662F;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF09;&#xFF0C;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x65AD;&#x70B9;&#x90FD;&#x4F1A;&#x5FFD;&#x7565;&#xFF0C;&#x65E0;&#x6CD5;&#x8C03;&#x8BD5;&#x591A;&#x7EBF;&#x7A0B;&#x4EE3;&#x7801;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;IDEA&#x3001;Eclipse&#x7B49;&#x672C;&#x8EAB;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#xFF0C;&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;&#x5373;&#x53EF;&#x3002;</p>
-<p>&#x4E0B;&#x9762;&#x4ECD;&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;datanode&#x6E90;&#x7801;&#x4E3A;&#x4F8B;&#xFF0C;&#x770B;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x591A;&#x7EBF;&#x7A0B;debug&#x3002;</p>
-<h2 id="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"><a href="#&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;" class="headerlink" title="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"></a>&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;</h2><p>&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;&#x4E3A;&#x201C;All&#x201D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png" alt="&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png"></p>
-<p>&#x6539;&#x4E3A;Thread&#xFF0C;&#x5E76;&#x70B9;&#x51FB;&#x201C;Make Default&#x201D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/Thread&#x6A21;&#x5F0F;.png" alt="Thread&#x6A21;&#x5F0F;.png"></p>
-<p>&#x8FD9;&#x6837;&#x4EE5;&#x540E;&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x5C31;&#x90FD;&#x662F;Thread&#x6A21;&#x5F0F;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#x4E86;&#x3002;</p>
-<h2 id="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1"><a href="#&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"></a>&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;</h2><blockquote>
-<p>&#x91CD;&#x65B0;&#x542F;&#x52A8;namenode&#x4E0E;datanode&#xFF0C;&#x8FDE;&#x63A5;&#x4E0A;datanode&#x3002;</p>
-</blockquote>
-<p>&#x6CBF;&#x7740;DataNode.secureMain()&#x627E;&#x5230;createDataNode-&gt;runDatanodeDaemon&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/runDatanodeDaemon.png" alt="runDatanodeDaemon.png"></p>
-<p>DataXceiver&#x8D1F;&#x8D23;datanode&#x7684;&#x7BA1;&#x9053;&#x6D41;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#xFF0C;&#x4EE5;&#x5B88;&#x62A4;&#x7EBF;&#x7A0B;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x5728;&#x3002;&#x4EE5;dataXceiverServer&#x4F8B;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;Runable&#x7C7B;&#x4E3A;DataXceiverServer&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/DataXceiverServer.png" alt="DataXceiverServer.png"></p>
-<h2 id="&#x5F00;&#x59CB;debug-1"><a href="#&#x5F00;&#x59CB;debug-1" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="main&#x7EBF;&#x7A0B;"><a href="#main&#x7EBF;&#x7A0B;" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x6267;&#x884C;&#x5230;DataNode&#x7C7B;&#x4E2D;&#x7684;2104&#x884C;<code>dataXceiverServer.start();</code>&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
-<p>&#x5982;&#x679C;F8&#x8DF3;&#x8FC7;&#x65AD;&#x70B9;&#xFF0C;dataXceiverServer&#x5C31;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#xFF0C;&#x7EE7;&#x800C;&#x505C;&#x5728;&#x7C7B;&#x4E2D;&#x7684;133&#x884C;<code>while (datanode.shouldRun &amp;&amp; !datanode.shutdownForUpgrade) {</code>&#x3002;F8&#x540E;&#xFF0C;&#x89C2;&#x5BDF;&#x76EE;&#x524D;&#x6709;&#x54EA;&#x4E9B;&#x7EBF;&#x7A0B;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png" alt="main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png"></p>
-<p>&#x6CE8;&#x610F;&#x5230;&#xFF0C;&#x5E95;&#x90E8;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x901A;&#x77E5;&#xFF1A;dataXceiverServer&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x4E86;&#x65AD;&#x70B9;&#x3002;</p>
-<h3 id="dataXceiverServer&#x7EBF;&#x7A0B;"><a href="#dataXceiverServer&#x7EBF;&#x7A0B;" class="headerlink" title="dataXceiverServer&#x7EBF;&#x7A0B;"></a>dataXceiverServer&#x7EBF;&#x7A0B;</h3><p>main&#x7EBF;&#x7A0B;&#x653E;&#x7740;&#xFF0C;&#x5207;&#x6362;&#x5230;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png"></p>
-<blockquote>
-<p>&#x56FE;&#x6807;&#x4E3A;&#x201C;&#x7EA2;&#x70B9;+&#x5BF9;&#x52FE;&#x201D;&#x7684;&#x662F;&#x6B63;&#x5E38;debug&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5176;&#x4ED6;&#x56FE;&#x6807;&#x53EA;&#x6709;&#x201C;&#x7EA2;&#x70B9;&#x201D;&#x7684;&#x662F;&#x540E;&#x53F0;&#x505C;&#x5728;&#x65AD;&#x70B9;&#x4E0A;&#x7684;&#x7EBF;&#x7A0B;&#x3002;</p>
-</blockquote>
-<p>&#x5207;&#x6362;&#x540E;&#xFF0C;IDEA&#x4F1A;&#x81EA;&#x52A8;&#x5230;&#x5207;&#x6362;&#x5BF9;&#x5E94;&#x7EBF;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png"></p>
-<p>&#x76F8;&#x5E94;&#x81EA;&#x52A8;&#x8DF3;&#x5230;&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x4F4D;&#x7F6E;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
-<p>&#x6B64;&#x65F6;&#xFF0C;debug&#x64CD;&#x4F5C;&#x90FD;&#x4F1A;&#x4F5C;&#x7528;&#x5230;&#x5F53;&#x524D;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#x4E0A;&#xFF0C;&#x5373;&#x53EA;&#x5F71;&#x54CD;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;main&#x7EBF;&#x7A0B;&#x4FDD;&#x6301;&#x7B49;&#x5F85;&#xFF08;&#x56E0;&#x4E3A;&#x521A;&#x624D;&#x8BA9;main&#x7EBF;&#x7A0B;&#x4E5F;&#x505C;&#x5728;&#x4E86;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#x4E0A;&#xFF09;&#x3002;</p>
-<p>F8&#xFF0C;&#x6267;&#x884C;&#x5230;accept&#x4E00;&#x884C;&#xFF0C;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x8FC7;&#x6765;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;hang&#x5728;&#x8FD9;&#x91CC;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png"></p>
-<h3 id="main&#x7EBF;&#x7A0B;-1"><a href="#main&#x7EBF;&#x7A0B;-1" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x518D;&#x5207;&#x6362;&#x56DE;main&#x7EBF;&#x7A0B;&#x3002;</p>
-<p>&#x865A;&#x62DF;&#x673A;&#x6808;&#x6062;&#x590D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png" alt="main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png"></p>
-<p>&#x4EE3;&#x7801;&#x4E5F;&#x8FD8;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png" alt="main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png"></p>
-<p>F8&#x8DF3;&#x8FC7;2105&#x884C;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png" alt="main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png"></p>
-<p>main&#x7EBF;&#x7A0B;&#x4ECD;&#x80FD;&#x591F;&#x6B63;&#x5E38;debug&#x3002;</p>
-<blockquote>
-<p>&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x9001;&#x8FC7;&#x6765;&#x7684;&#x65F6;&#x5019;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;&#x6062;&#x590D;RUNNING&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x5728;&#x540E;&#x53F0;&#x9ED8;&#x9ED8;&#x6267;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x65AD;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x7528;&#x6237;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;debug&#x3002;</p>
-</blockquote>
-<p>&#x641E;&#x5B9A;&#x3002;</p>
-<hr>
-<blockquote>
-<p>&#x53C2;&#x8003;&#xFF1A;</p>
-<ul>
-<li><a href="https://www.iteblog.com/archives/897.html" target="_blank" rel="external">Hadoop&#x6E90;&#x7801;&#x7F16;&#x8BD1;&#x4E0E;&#x8C03;&#x8BD5;</a></li>
-<li><a href="http://blog.csdn.net/fuzzytalker/article/details/50925218" target="_blank" rel="external">Idea Intellij&#x591A;&#x7EBF;&#x7A0B;&#x8C03;&#x8BD5;</a></li>
-</ul>
-</blockquote>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&amp;#x53C2;&amp;#x8003;&lt;a href=&quot;/2018/01/15/Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;/&quot;&gt;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&lt;/a&gt;&amp;#x7F16;&amp;#x8BD1;&amp;#x597D;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x4E86;&amp;#x3002;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&amp;#x5F53;&amp;#x7136;&amp;#xFF0C;&amp;#x672C;&amp;#x6587;&amp;#x4E0D;&amp;#x4EC5;&amp;#x9002;&amp;#x7528;&amp;#x4E8E;debug Hadoop&amp;#x6E90;&amp;#x7801;&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x65E0;&amp;#x7F1D;&amp;#x8FC1;&amp;#x79FB;&amp;#x5230;&amp;#x5176;&amp;#x4ED6;&amp;#x6846;&amp;#x67B6;&amp;#x3002;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://monkeysayhi.github.io/tags/Java/"/>
-    
-      <category term="原创" scheme="https://monkeysayhi.github.io/tags/%E5%8E%9F%E5%88%9B/"/>
-    
-      <category term="Hadoop" scheme="https://monkeysayhi.github.io/tags/Hadoop/"/>
-    
-      <category term="猿工" scheme="https://monkeysayhi.github.io/tags/%E7%8C%BF%E5%B7%A5/"/>
-    
-      <category term="IDEA" scheme="https://monkeysayhi.github.io/tags/IDEA/"/>
     
   </entry>
   
