@@ -4,6 +4,52 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/14/HDFS%E6%95%B0%E6%8D%AE%E6%B5%81%E7%AE%A1%E9%81%93%E4%BA%8C%E4%B8%89%E9%97%AE/</loc>
+    <lastmod>2018-11-14T10:44:35.000Z</lastmod>
+    <data>
+        <display>
+        <title>HDFS数据流管道二三问</title>
+        <pubTime>2018-11-14T10:43:32.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>Hadoop</tag>
+         
+        <tag>HDFS</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://monkeysayhi.github.io/2018/01/19/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%86%99%E6%95%B0%E6%8D%AE%E5%9D%97%EF%BC%881%EF%BC%89/</loc>
+    <lastmod>2018-11-13T08:18:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>源码|HDFS之DataNode：写数据块（1）</title>
+        <pubTime>2018-01-19T09:55:06.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>Hadoop</tag>
+         
+        <tag>HDFS</tag>
+         
+        <tag>原创</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2018/11/13/Java%E4%B8%AD%E7%9A%84%E8%A3%85%E7%AE%B1%E3%80%81%E6%8B%86%E7%AE%B1/</loc>
     <lastmod>2018-11-13T03:04:26.000Z</lastmod>
     <data>
@@ -403,11 +449,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -426,11 +472,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -449,34 +495,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://monkeysayhi.github.io/2018/01/19/%E6%BA%90%E7%A0%81%7CHDFS%E4%B9%8BDataNode%EF%BC%9A%E5%86%99%E6%95%B0%E6%8D%AE%E5%9D%97%EF%BC%881%EF%BC%89/</loc>
-    <lastmod>2018-03-21T12:49:43.000Z</lastmod>
-    <data>
-        <display>
-        <title>源码|HDFS之DataNode：写数据块（1）</title>
-        <pubTime>2018-01-19T09:55:06.000Z</pubTime>
-        
-        <tag>面试</tag>
-         
         <tag>原创</tag>
-         
-        <tag>Hadoop</tag>
-         
-        <tag>HDFS</tag>
          
          
            
@@ -495,11 +518,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -518,11 +541,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -585,13 +608,13 @@
         <title>浅谈MySQL的B树索引与索引优化</title>
         <pubTime>2018-03-06T06:14:26.000Z</pubTime>
         
-        <tag>索引</tag>
-         
-        <tag>数据库</tag>
-         
         <tag>面试</tag>
          
         <tag>原创</tag>
+         
+        <tag>索引</tag>
+         
+        <tag>数据库</tag>
          
         <tag>算法</tag>
          
@@ -769,11 +792,11 @@
         <title>事务的ACID和四个隔离级别</title>
         <pubTime>2016-11-25T16:34:15.000Z</pubTime>
         
-        <tag>数据库</tag>
-         
         <tag>面试</tag>
          
         <tag>原创</tag>
+         
+        <tag>数据库</tag>
          
         <tag>事务</tag>
          
@@ -794,11 +817,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -817,11 +840,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
@@ -838,9 +861,9 @@
         <title>Mac编译Hadoop源码</title>
         <pubTime>2018-01-15T08:06:49.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>原创</tag>
          
         <tag>Mac</tag>
          
@@ -859,9 +882,9 @@
         <title>Hadoop单步debug追源码</title>
         <pubTime>2018-01-15T09:45:09.000Z</pubTime>
         
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
+         
+        <tag>原创</tag>
          
         <tag>Java</tag>
          
@@ -886,11 +909,11 @@
         
         <tag>面试</tag>
          
-        <tag>原创</tag>
-         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
+         
+        <tag>原创</tag>
          
          
            
