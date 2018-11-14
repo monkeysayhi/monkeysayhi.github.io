@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://static.msh.tademingzi.com/static/images/HDFS数据流管道二三问/管道写.png">
 <meta property="og:image" content="http://static.msh.tademingzi.com/static/images/HDFS数据流管道二三问/星型写.png">
 <meta property="og:image" content="http://static.msh.tademingzi.com/static/images/HDFS数据流管道二三问/Y型写.png">
-<meta property="og:updated_time" content="2018-11-14T10:44:35.000Z">
+<meta property="og:updated_time" content="2018-11-14T10:56:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDFS数据流管道二三问">
 <meta name="twitter:description" content="HDFS&amp;#x901A;&amp;#x8FC7;&amp;#x6570;&amp;#x636E;&amp;#x6D41;&amp;#x7684;&amp;#x65B9;&amp;#x5F0F;&amp;#x5199;&amp;#x6570;&amp;#x636E;&amp;#x5757;&amp;#x3002;">
@@ -195,14 +195,14 @@ ga('send', 'pageview');
 </ul>
 <h1 id="&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x7EBF;&#x7A0B;"><a href="#&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x7EBF;&#x7A0B;" class="headerlink" title="&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x7EBF;&#x7A0B;"></a>&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x5173;&#x952E;&#x7EBF;&#x7A0B;</h1><p>&#x9664;&#x4E86;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x7BA1;&#x9053;&#x4E2D;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;dn&#x90FD;&#x6709;&#x4E24;&#x4E2A;&#x5173;&#x952E;&#x7EBF;&#x7A0B;&#xFF1A;</p>
 <ol>
-<li>DataXceiver&#x7EBF;&#x7A0B;&#xFF1A;dn&#x4E0A;&#x7BA1;&#x9053;&#x6D41;&#x7684;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x8D1F;&#x8D23;&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x7684;packet&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7BA1;&#x9053;&#x5199;&#xFF08;<code>BlockReceiver#receivePacket()</code>&#xFF09;&#x3002;</li>
-<li>PacketResponder&#x7EBF;&#x7A0B;&#xFF1A;&#x8D1F;&#x8D23;&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack&#xFF0C;&#x5E76;&#x7EE7;&#x7EED;&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;&#x3002;</li>
+<li>DataXceiver&#x7EBF;&#x7A0B;&#xFF1A;dn&#x4E0A;&#x7BA1;&#x9053;&#x6D41;&#x7684;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x8D1F;&#x8D23;<strong>&#x63A5;&#x6536;&#x4E0A;&#x6E38;&#x7684;packet</strong>&#xFF0C;&#x5E76;<strong>&#x7EE7;&#x7EED;&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7BA1;&#x9053;&#x5199;</strong>&#x3002;&#xFF08;<code>BlockReceiver#receivePacket()</code>&#xFF09;&#x3002;</li>
+<li>PacketResponder&#x7EBF;&#x7A0B;&#xFF1A;&#x8D1F;&#x8D23;<strong>&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack</strong>&#xFF0C;&#x5E76;<strong>&#x7EE7;&#x7EED;&#x5411;&#x4E0A;&#x6E38;&#x7BA1;&#x9053;&#x54CD;&#x5E94;</strong>&#x3002;</li>
 </ol>
 <p>&#x4F5C;&#x4E3A;&#x7BA1;&#x9053;&#x7684;&#x53D1;&#x8D77;&#x8005;&#xFF0C;&#x4E5F;&#x662F;&#x7BA1;&#x9053;&#x7684;&#x8D77;&#x70B9;&#xFF0C;&#x9700;&#x8981;&#x4E3B;&#x52A8;&#x5199;&#x5165;&#x6570;&#x636E;&#xFF0C;&#x6709;&#x4E09;&#x4E2A;&#x5173;&#x952E;&#x7EBF;&#x7A0B;&#xFF1A;</p>
 <ol>
 <li>&#x7528;&#x6237;&#x5199;&#x6570;&#x636E;&#x7684;&#x7EBF;&#x7A0B;&#xFF1A;&#x7528;&#x6237;&#x4EE5;chunk&#x4E3A;&#x7C92;&#x5EA6;&#x5411;&#x7F13;&#x51B2;&#x533A;&#x5199;&#x6570;&#x636E;&#xFF0C;&#x5199;&#x6EE1;&#x4E00;&#x4E2A;packet&#x540E;&#x653E;&#x5165;dataQueue&#x3002;</li>
-<li>DataStreamer&#x7EBF;&#x7A0B;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x7BA1;&#x9053;&#x6D41;&#x7684;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x8D1F;&#x8D23;&#x5C06;packet&#x4ECE;dataQueue&#x79FB;&#x52A8;&#x5230;ackQueue&#xFF0C;&#x5E76;&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7BA1;&#x9053;&#x5199;packet&#x3002;</li>
-<li>PacketResponder&#x7EBF;&#x7A0B;&#xFF1A;&#x8D1F;&#x8D23;&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack&#xFF0C;&#x5E76;&#x79FB;&#x9664;ackQueue&#x4E2D;&#x7684;packet&#x3002;</li>
+<li>DataStreamer&#x7EBF;&#x7A0B;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x4E0A;&#x7BA1;&#x9053;&#x6D41;&#x7684;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF0C;&#x8D1F;&#x8D23;<strong>&#x5C06;packet&#x4ECE;dataQueue&#x79FB;&#x52A8;&#x5230;ackQueue</strong>&#xFF0C;&#x5E76;<strong>&#x5411;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7BA1;&#x9053;&#x5199;packet</strong>&#x3002;</li>
+<li>PacketResponder&#x7EBF;&#x7A0B;&#xFF1A;&#x8D1F;&#x8D23;<strong>&#x63A5;&#x6536;&#x4E0B;&#x6E38;&#x8282;&#x70B9;&#x7684;ack</strong>&#xFF0C;&#x5E76;<strong>&#x79FB;&#x9664;ackQueue&#x4E2D;&#x7684;packet</strong>&#x3002;</li>
 </ol>
 <p>&#x7ED3;&#x5408;&#x4E0A;&#x56FE;&#xFF0C;DataXceiver&#x7EBF;&#x7A0B;&#x3001;DataStreamer&#x7EBF;&#x7A0B;&#x7EF4;&#x62A4;<code>in-&gt;mirrorOut</code>&#x65B9;&#x5411;&#x7684;packet&#x6570;&#x636E;&#x6D41;&#xFF0C;PacketResponder&#x7EBF;&#x7A0B;&#x7EF4;&#x62A4;<code>mirrorIn-&gt;replyOut</code>&#x65B9;&#x5411;&#x7684;ack&#x6570;&#x636E;&#x6D41;&#x3002;</p>
 <h1 id="&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;"><a href="#&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;"></a>&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;</h1><p><img src="http://static.msh.tademingzi.com/static/images/HDFS&#x6570;&#x636E;&#x6D41;&#x7BA1;&#x9053;&#x4E8C;&#x4E09;&#x95EE;/&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;.png" alt="&#x7BA1;&#x9053;&#x7684;&#x6574;&#x4F53;&#x8FC7;&#x7A0B;"></p>
@@ -214,8 +214,8 @@ ga('send', 'pageview');
 </ol>
 <p>&#x4E09;&#x4E2A;&#x8FC7;&#x7A0B;&#x90FD;&#x662F;&#x7BA1;&#x9053;&#x5F0F;&#x7684;&#x3002;</p>
 <h1 id="&#x4F18;&#x7F3A;&#x70B9;"><a href="#&#x4F18;&#x7F3A;&#x70B9;" class="headerlink" title="&#x4F18;&#x7F3A;&#x70B9;"></a>&#x4F18;&#x7F3A;&#x70B9;</h1><ul>
-<li>&#x4F18;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x8003;&#x8651;&#x4E0A;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x90A3;&#x4E48;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x4F18;&#x70B9;&#x662F;&#x7F51;&#x7EDC;&#x8D1F;&#x8F7D;&#x6BD4;&#x8F83;&#x5747;&#x8861;&#x3002;</li>
-<li>&#x7F3A;&#x70B9;&#xFF1A;&#x6162;&#x8282;&#x70B9;&#x4F1A;&#x6210;&#x4E3A;&#x5E26;&#x5BBD;&#x74F6;&#x9888;&#xFF0C;&#x4E14;&#x6574;&#x4F53;&#x4E0A;&#x5EF6;&#x8FDF;&#x66F4;&#x9AD8;&#x3002;</li>
+<li>&#x4F18;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x8003;&#x8651;&#x4E0A;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x90A3;&#x4E48;&#x7BA1;&#x9053;&#x5199;&#x7684;&#x4F18;&#x70B9;&#x662F;<strong>&#x7F51;&#x7EDC;&#x8D1F;&#x8F7D;&#x6BD4;&#x8F83;&#x5747;&#x8861;</strong>&#x3002;</li>
+<li>&#x7F3A;&#x70B9;&#xFF1A;<code>&#x6162;&#x8282;&#x70B9;</code>&#x4F1A;&#x6210;&#x4E3A;&#x5E26;&#x5BBD;&#x74F6;&#x9888;&#xFF0C;&#x4E14;&#x6574;&#x4F53;&#x4E0A;<strong>&#x5EF6;&#x8FDF;&#x66F4;&#x9AD8;</strong>&#x3002;</li>
 </ul>
 <h1 id="&#x5982;&#x4F55;&#x4F18;&#x5316;&#x5EF6;&#x8FDF;"><a href="#&#x5982;&#x4F55;&#x4F18;&#x5316;&#x5EF6;&#x8FDF;" class="headerlink" title="&#x5982;&#x4F55;&#x4F18;&#x5316;&#x5EF6;&#x8FDF;"></a>&#x5982;&#x4F55;&#x4F18;&#x5316;&#x5EF6;&#x8FDF;</h1><p><code>&#x7BA1;&#x9053;&#x5199;</code>&#x7684;&#x65B9;&#x5F0F;&#x901A;&#x5E38;&#x79F0;&#x4E3A;<code>pipeline</code>&#xFF1A;</p>
 <p><img src="http://static.msh.tademingzi.com/static/images/HDFS&#x6570;&#x636E;&#x6D41;&#x7BA1;&#x9053;&#x4E8C;&#x4E09;&#x95EE;/&#x7BA1;&#x9053;&#x5199;.png" alt="&#x7BA1;&#x9053;&#x5199;"></p>
