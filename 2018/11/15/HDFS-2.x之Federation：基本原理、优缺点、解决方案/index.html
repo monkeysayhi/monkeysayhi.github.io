@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- redirect begin -->
+  <!-- redirect end -->
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
+  <title>HDFS-2.x之Federation：基本原理、优缺点、解决方案 | 程序猿说你好</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HDFS 2.x&amp;#x5F15;&amp;#x5165;Federation&amp;#x7684;&amp;#x76EE;&amp;#x7684;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4E24;&amp;#x4E2A;&amp;#xFF1A;
+
+&amp;#x6C34;&amp;#x5E73;&amp;#x62C6;&amp;#x5206;nn&amp;#xFF0C;&amp;#x4F7F;&amp;#x96C6;&amp;#x7FA4;&amp;#x80FD;&amp;#x5BB9;&amp;#x7EB3;&amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDFS-2.x之Federation：基本原理、优缺点、解决方案">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/15/HDFS-2.x之Federation：基本原理、优缺点、解决方案/index.html">
+<meta property="og:site_name" content="程序猿说你好">
+<meta property="og:description" content="HDFS 2.x&amp;#x5F15;&amp;#x5165;Federation&amp;#x7684;&amp;#x76EE;&amp;#x7684;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4E24;&amp;#x4E2A;&amp;#xFF1A;
+
+&amp;#x6C34;&amp;#x5E73;&amp;#x62C6;&amp;#x5206;nn&amp;#xFF0C;&amp;#x4F7F;&amp;#x96C6;&amp;#x7FA4;&amp;#x80FD;&amp;#x5BB9;&amp;#x7EB3;&amp;#">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/HDFS-2.x之Federation：基本原理、优缺点、解决方案/架构.png">
+<meta property="og:updated_time" content="2018-11-15T14:10:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HDFS-2.x之Federation：基本原理、优缺点、解决方案">
+<meta name="twitter:description" content="HDFS 2.x&amp;#x5F15;&amp;#x5165;Federation&amp;#x7684;&amp;#x76EE;&amp;#x7684;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x4E24;&amp;#x4E2A;&amp;#xFF1A;
+
+&amp;#x6C34;&amp;#x5E73;&amp;#x62C6;&amp;#x5206;nn&amp;#xFF0C;&amp;#x4F7F;&amp;#x96C6;&amp;#x7FA4;&amp;#x80FD;&amp;#x5BB9;&amp;#x7EB3;&amp;#">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/HDFS-2.x之Federation：基本原理、优缺点、解决方案/架构.png">
+  
+    <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89666809-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://static.msh.tademingzi.com/static/images/_common/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">猴子007</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">来了就是猿</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">时间线</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">猴子007</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://static.msh.tademingzi.com/static/images/_common/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">猴子007</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">来了就是猿</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">时间线</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/monkeysayhi" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:monkeysayhi7@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-HDFS-2.x之Federation：基本原理、优缺点、解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HDFS-2.x之Federation：基本原理、优缺点、解决方案
+    </h1>
+  
+
+        <a href="/2018/11/15/HDFS-2.x之Federation：基本原理、优缺点、解决方案/" class="archive-article-date">
+  	<time datetime="2018-11-15T14:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-15</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HDFS 2.x&#x5F15;&#x5165;Federation&#x7684;&#x76EE;&#x7684;&#x4E3B;&#x8981;&#x662F;&#x4E24;&#x4E2A;&#xFF1A;</p>
+<ul>
+<li>&#x6C34;&#x5E73;&#x62C6;&#x5206;nn&#xFF0C;&#x4F7F;&#x96C6;&#x7FA4;&#x80FD;&#x5BB9;&#x7EB3;&#x66F4;&#x591A;&#x7684;&#x5143;&#x4FE1;&#x606F;</li>
+<li>&#x8D1F;&#x8F7D;&#x5747;&#x8861;</li>
+</ul>
+<a id="more"></a>
+<h1 id="&#x57FA;&#x672C;&#x539F;&#x7406;"><a href="#&#x57FA;&#x672C;&#x539F;&#x7406;" class="headerlink" title="&#x57FA;&#x672C;&#x539F;&#x7406;"></a>&#x57FA;&#x672C;&#x539F;&#x7406;</h1><p>&#x6574;&#x4F53;&#x601D;&#x8DEF;&#x662F;&#x4E00;&#x4E2A;&#x6302;&#x8F7D;&#x8868;&#xFF0C;&#x6307;&#x660E;&#x54EA;&#x4E9B;&#x8DEF;&#x5F84;&#x5B9E;&#x9645;&#x6307;&#x5411;&#x54EA;&#x4E2A;nn&#xFF08;&#x6216;ns&#xFF09;&#x3002;</p>
+<p>&#x6302;&#x8F7D;&#x8868;&#x914D;&#x7F6E;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5982;&#x679C;&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x73B0;&#x8DEF;&#x5F84;shcema&#x662F;viewfs&#xFF0C;&#x5C31;&#x6309;&#x7167;&#x6302;&#x8F7D;&#x8868;&#x5C06;&#x8BF7;&#x6C42;&#x5B9A;&#x5411;&#x5230;&#x5B9E;&#x9645;&#x7684;nn&#x3002;</p>
+<p>&#x67B6;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="http://static.msh.tademingzi.com/static/images/HDFS-2.x&#x4E4B;Federation&#xFF1A;&#x57FA;&#x672C;&#x539F;&#x7406;&#x3001;&#x4F18;&#x7F3A;&#x70B9;&#x3001;&#x89E3;&#x51B3;&#x65B9;&#x6848;/&#x67B6;&#x6784;.png" alt="&#x67B6;&#x6784;"></p>
+<p>dn&#x901A;&#x8FC7;BlockPoolManager&#x5C06;&#x8BF7;&#x6C42;&#x8DEF;&#x7531;&#x5230;&#x5404;ns&#x5BF9;&#x5E94;&#x7684;BPOfferService&#x4E0A;&#xFF1B;&#x518D;&#x901A;&#x8FC7;BPOfferService&#x4E0E;&#x5177;&#x4F53;&#x7684;ns&#xFF08;&#x5982;&#x4E0A;&#x56FE;NN-1&#xFF09;&#x901A;&#x4FE1;&#xFF08;&#x4E0E;&#x5177;&#x4F53;&#x7684;nn&#x7684;&#x5219;&#x662F;BPServiceActor&#xFF09;&#x3002;</p>
+<h1 id="&#x4F18;&#x7F3A;&#x70B9;&#xFF08;&#x7B80;&#x8981;&#x7248;&#xFF09;"><a href="#&#x4F18;&#x7F3A;&#x70B9;&#xFF08;&#x7B80;&#x8981;&#x7248;&#xFF09;" class="headerlink" title="&#x4F18;&#x7F3A;&#x70B9;&#xFF08;&#x7B80;&#x8981;&#x7248;&#xFF09;"></a>&#x4F18;&#x7F3A;&#x70B9;&#xFF08;&#x7B80;&#x8981;&#x7248;&#xFF09;</h1><p>HDFS 2.x Federation&#x4F7F;&#x7528;&#x4E86;&#x5BA2;&#x6237;&#x7AEF;&#x6302;&#x8F7D;&#x7684;&#x65B9;&#x6848;&#xFF0C;&#x6838;&#x5FC3;&#x7684;&#x4F18;&#x7F3A;&#x70B9;&#x4E5F;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x6302;&#x8F7D;&#x4E0A;&#x3002;</p>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x8D1F;&#x8F7D;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5BF9;nn&#x5B8C;&#x5168;&#x6CA1;&#x6709;&#x5F71;&#x54CD;</li>
+<li>&#x5B9E;&#x73B0;&#x7B80;&#x5355;</li>
+</ul>
+<p>&#x574F;&#x5904;&#xFF1A;</p>
+<ul>
+<li>&#x7EF4;&#x62A4;&#x6210;&#x672C;&#x9AD8;&#xFF0C;&#x6BCF;&#x6B21;&#x4FEE;&#x6539;&#x6302;&#x8F7D;&#x8868;&#xFF0C;&#x90FD;&#x5FC5;&#x987B;&#x624B;&#x52A8;&#x540C;&#x6B65;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</li>
+<li>&#x4EBA;&#x5DE5;&#x7EF4;&#x62A4;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF0C;&#x4E0D;&#x80FD;&#x968F;&#x4E1A;&#x52A1;&#x53D8;&#x5316;</li>
+</ul>
+<h1 id="&#x7F3A;&#x70B9;&#xFF08;&#x8BE6;&#x7EC6;&#x7248;&#xFF09;"><a href="#&#x7F3A;&#x70B9;&#xFF08;&#x8BE6;&#x7EC6;&#x7248;&#xFF09;" class="headerlink" title="&#x7F3A;&#x70B9;&#xFF08;&#x8BE6;&#x7EC6;&#x7248;&#xFF09;"></a>&#x7F3A;&#x70B9;&#xFF08;&#x8BE6;&#x7EC6;&#x7248;&#xFF09;</h1><ol>
+<li><strong>&#x6302;&#x8F7D;&#x8868;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x6302;&#x8F7D;&#x70B9;&#x7684;&#x8BBF;&#x95EE;&#x542B;&#x4E49;&#x4E0D;&#x660E;&#xFF1A;<ul>
+<li>&#x7531;&#x4E8E;HDFS&#x5BA2;&#x6237;&#x7AEF;&#x539F;&#x6709;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x4E00;&#x4E2A;DFSClient&#x53EA;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;nameservice&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x6B21;&#x8DEF;&#x5F84;&#x5904;&#x7406;&#x4E0D;&#x80FD;&#x8F6C;&#x4E3A;&#x591A;&#x4E2A;nameservice&#x7684;&#x591A;&#x6B21;RPC&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x8DE8;&#x6302;&#x8F7D;&#x70B9;&#x7684;&#x8BFB;&#x64CD;&#x4F5C;&#xFF0C;&#x53EA;&#x6839;&#x636E;&#x6302;&#x8F7D;&#x914D;&#x7F6E;&#x8FD4;&#x56DE;&#x5047;&#x7ED3;&#x679C;</li>
+<li>&#x5BF9;&#x4E8E;&#x8DE8;&#x6302;&#x8F7D;&#x70B9;&#x7684;&#x5199;&#x64CD;&#x4F5C;&#xFF08;rename&#x7B49;&#xFF09;&#x64CD;&#x4F5C;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;</li>
+</ul>
+</li>
+<li><strong>&#x5BA2;&#x6237;&#x7AEF;&#x6302;&#x8F7D;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x6302;&#x8F7D;&#x7EF4;&#x62A4;&#x6210;&#x672C;&#x9AD8;&#xFF0C;&#x4E00;&#x65E6;&#x4FEE;&#x6539;&#x4E86;&#x6302;&#x8F7D;&#x8868;&#xFF0C;&#x5FC5;&#x987B;&#x53CA;&#x65F6;&#x66F4;&#x65B0;&#x6240;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5426;&#x5219;&#x7528;&#x8001;&#x7684;&#x6302;&#x8F7D;&#x903B;&#x8F91;&#x5199;nn&#xFF0C;&#x540E;&#x679C;&#x53EF;&#x80FD;&#x975E;&#x5E38;&#x4E25;&#x91CD;&#x3002;</li>
+<li><strong>&#x57FA;&#x4E8E;&#x914D;&#x7F6E;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x5982;&#x679C;&#x8D1F;&#x8F7D;&#x53D1;&#x751F;&#x53D8;&#x5316;&#xFF0C;&#x4EBA;&#x5DE5;&#x4FEE;&#x6539;&#x5EF6;&#x8FDF;&#x8F83;&#x9AD8;&#x3002;</li>
+<li><strong>&#x76EE;&#x524D;&#x5B9E;&#x73B0;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x76EE;&#x524D;&#x7684;&#x6302;&#x8F7D;&#x529F;&#x80FD;&#x975E;&#x5E38;&#x5F31;&#xFF1A;<ul>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x58F0;&#x660E;&#x4E86;&#x6302;&#x8F7D;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x540C;&#x7EA7;&#x76EE;&#x5F55;&#x90FD;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6302;&#x8F7D;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x58F0;&#x660E;&#x4E86;&#x6302;&#x8F7D;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x5B50;&#x8DEF;&#x5F84;&#x4E0D;&#x80FD;&#x518D;&#x58F0;&#x660E;&#x6302;&#x8F7D;</li>
+</ul>
+</li>
+<li>HDFS Federation&#x7269;&#x7406;&#x4E0A;&#x6CA1;&#x6709;&#x5408;&#x5E76;&#x96C6;&#x7FA4;&#x7684;&#x7F3A;&#x70B9;&#xFF1A;&#x5982;&#x679C;&#x8981;&#x8DE8;ns&#x4FEE;&#x6539;&#x6302;&#x8F7D;&#x903B;&#x8F91;&#xFF0C;&#x5219;&#x9700;&#x4F7F;&#x7528;DistCp&#x5C06;&#x6570;&#x636E;&#x4ECE;&#x4E00;&#x4E2A;ns&#x62F7;&#x8D1D;&#x5230;&#x53E6;&#x4E00;&#x4E2A;ns&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#x4E24;&#x4E2A;ns&#x901A;&#x5E38;&#x5171;&#x4EAB;&#x6240;&#x6709;dn&#xFF0C;&#x62F7;&#x8D1D;&#x9020;&#x6210;&#x4E86;&#x6781;&#x5927;&#x7684;&#x6D6A;&#x8D39;&#x3002;</li>
+<li>&#x5F15;&#x5165;viewfs&#x7684;&#x7F3A;&#x70B9;&#xFF1A;HDFS&#x8DEF;&#x5F84;&#x7684;scheme&#x9700;&#x8981;&#x53D8;&#x4E3A;viewfs&#xFF0C;&#x800C;viewfs&#x548C;&#x5176;&#x4ED6;scheme&#x4E92;&#x4E0D;&#x517C;&#x5BB9;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5C06;fs.defaultFS&#x7684;&#x914D;&#x7F6E;&#x4ECE;<code>hdfs://ns1/</code>&#x53D8;&#x4E3A;<code>viewfs://ns/</code>&#xFF0C;&#x5219;<code>hdfs:///test</code>&#x4F1A;&#x56E0;&#x672A;&#x6307;&#x5B9A;ns&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</li>
+</ol>
+<h1 id="&#x89E3;&#x51B3;&#x65B9;&#x6848;"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;</h1><ol>
+<li><strong>&#x6302;&#x8F7D;&#x8868;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x5C06;&#x5143;&#x4FE1;&#x606F;&#x6574;&#x4F53;&#x6216;&#x90E8;&#x5206;&#x62BD;&#x8C61;&#x5230;&#x5355;&#x72EC;&#x7684;&#x89D2;&#x8272;&#x4E2D;&#xFF0C;&#x4EE5;&#x5F7B;&#x5E95;&#x629B;&#x5F03;&#x6302;&#x8F7D;&#x65B9;&#x6848;&#xFF0C;&#x7528;&#x7F51;&#x7EDC;&#x6210;&#x672C;&#x6362;scalability&#x3002;&#x5982;&#x62BD;&#x79BB;FSDirectory&#x6216;BlockManager&#x3002;</li>
+<li><strong>&#x5BA2;&#x6237;&#x7AEF;&#x6302;&#x8F7D;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x670D;&#x52A1;&#x7AEF;&#x6302;&#x8F7D;&#xFF0C;&#x53C2;&#x8003;Tair ConfigServer&#x3001;HDFS 3.x&#x7684;Router-Based Federation&#x3002;</li>
+<li><strong>&#x57FA;&#x4E8E;&#x914D;&#x7F6E;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x81EA;&#x52A8;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF0C;&#x4F46;&#x7531;&#x4E8E;&#x95EE;&#x9898;1&#x3001;5&#xFF0C;&#x5F88;&#x96BE;&#x89E3;&#x51B3;&#x3002;</li>
+<li><strong>&#x76EE;&#x524D;&#x5B9E;&#x73B0;&#x7684;&#x7F3A;&#x70B9;</strong>&#xFF1A;&#x4EFF;&#x7167;IP&#x534F;&#x8BAE;&#x7684;&#x8DEF;&#x7531;&#x8868;&#x3002;<ul>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x58F0;&#x660E;&#x4E86;&#x6302;&#x8F7D;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x540C;&#x7EA7;&#x76EE;&#x5F55;&#x90FD;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x6302;&#x8F7D;&#xFF1A;&#x975E;&#x6302;&#x8F7D;&#x76EE;&#x5F55;&#x8DEF;&#x7531;&#x5230;default ns&#x5339;&#x914D;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x8DEF;&#x5F84;&#x58F0;&#x660E;&#x4E86;&#x6302;&#x8F7D;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x5B50;&#x8DEF;&#x5F84;&#x4E0D;&#x80FD;&#x518D;&#x58F0;&#x660E;&#x6302;&#x8F7D;&#xFF1A;&#x8DEF;&#x7531;&#x89E3;&#x6790;&#x65F6;&#x8FDB;&#x884C;&#x6700;&#x957F;&#x5339;&#x914D;&#x5339;&#x914D;&#x3002;</li>
+</ul>
+</li>
+<li>HDFS Federation&#x7269;&#x7406;&#x4E0A;&#x6CA1;&#x6709;&#x5408;&#x5E76;&#x96C6;&#x7FA4;&#x7684;&#x7F3A;&#x70B9;&#xFF1A;FastCopy&#x53EF;&#x4EE5;&#x90E8;&#x5206;&#x89E3;&#x51B3;&#xFF0C;&#x6216;&#x8005;&#x4E00;&#x4E9B;&#x201C;&#x7834;&#x574F;&#x6027;&#x201D;&#x7684;&#x65B9;&#x6848;&#xFF08;&#x4EC5;&#x7528;&#x4E8E;Federation&#xFF0C;&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#x5143;&#x4FE1;&#x606F;&#x548C;block&#xFF09;&#x3002;</li>
+<li>&#x5F15;&#x5165;viewfs&#x7684;&#x7F3A;&#x70B9;&#xFF1A;&#x7EDF;&#x4E00;schema&#x540E;&#x4E0D;&#x518D;&#x53D8;&#x5316;&#xFF0C;<font color="red">&#x5426;&#x5219;&#x65E0;&#x89E3;&#xFF1F;&#xFF1F;&#xFF1F;</font></li>
+</ol>
+<hr>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://tech.meituan.com/hdfs_federation.html" target="_blank" rel="external">HDFS Federation&#x5728;&#x7F8E;&#x56E2;&#x70B9;&#x8BC4;&#x7684;&#x5E94;&#x7528;&#x4E0E;&#x6539;&#x8FDB;</a></li>
+</ul>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>make a better world for everyone<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://static.msh.tademingzi.com/static/images/_common/weixin_pay_qr_code.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+        <div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode"></div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+      <!--文章底部-->
+      <div style="font-size:12px;border-bottom: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #f6f6f6; MIN-HEIGHT: 120px; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid">
+	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
+		<div style="text-align:center">
+			扫描微信关注我<br>
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://static.msh.tademingzi.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+		</div>
+	</div>
+	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
+		本文链接：<a href="/2018/11/15/HDFS-2.x之Federation：基本原理、优缺点、解决方案/">HDFS-2.x之Federation：基本原理、优缺点、解决方案</a><br/>
+		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
+		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
+		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
+	</div>
+</div>
+      
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/14/HDFS数据流管道二三问/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HDFS数据流管道二三问</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 猴子007
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/HDFS/" style="font-size: 16.15px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.92px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15.38px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.46px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.08px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 11.54px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.77px;">TCP</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 10.77px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.69px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.77px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.85px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.85px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.31px;">科普</a> <a href="/tags/算法/" style="font-size: 13.85px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.77px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.62px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.77px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.23px;">面试</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/u/e94a22a2b6f1/">简书</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://juejin.im/user/59cf5ebef265da0672286a9a/">掘金</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://spy19930412.github.io/">Jane_s_blog</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://zongwenlong.github.io/">All_is_well</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">我是猴子007，&lt;br&gt;一只非常特殊的动物，&lt;br&gt;可以从事程序的开发、维护，&lt;br&gt;经常因寻找香蕉或母猿而无心工作。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

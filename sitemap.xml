@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/15/HDFS-2.x%E4%B9%8BFederation%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E3%80%81%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    
+    <lastmod>2018-11-15T14:10:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://monkeysayhi.github.io/2018/11/14/HDFS%E6%95%B0%E6%8D%AE%E6%B5%81%E7%AE%A1%E9%81%93%E4%BA%8C%E4%B8%89%E9%97%AE/</loc>
     
     <lastmod>2018-11-14T10:56:46.000Z</lastmod>
@@ -583,14 +590,14 @@
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.css</loc>
+    <loc>https://monkeysayhi.github.io/static/css/google-code-prettify/themes/tomorrow-night-bright.min.css</loc>
     
     <lastmod>2016-04-12T01:33:06.000Z</lastmod>
     
