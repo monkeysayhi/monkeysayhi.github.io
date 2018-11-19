@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://monkeysayhi.github.io/2018/11/19/HDFS-2.x%E4%B9%8BFederation%EF%BC%9A%E5%9F%BA%E4%BA%8EConfigServer%E7%9A%84%E8%BD%BB%E9%87%8F%E7%BA%A7%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2018-11-19T09:54:04.000Z</lastmod>
+    <data>
+        <display>
+        <title>HDFS-2.x之Federation：基于ConfigServer的轻量级服务端挂载</title>
+        <pubTime>2018-11-19T09:54:04.000Z</pubTime>
+        
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
+         
+        <tag>Hadoop</tag>
+         
+        <tag>HDFS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://monkeysayhi.github.io/2018/11/15/HDFS-2.x%E4%B9%8BFederation%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E3%80%81%E4%BC%98%E7%BC%BA%E7%82%B9%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2018-11-15T14:10:38.000Z</lastmod>
     <data>
@@ -13,11 +36,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -36,11 +59,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -59,11 +82,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -472,11 +495,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -495,11 +518,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -518,11 +541,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -541,11 +564,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -564,11 +587,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -631,13 +654,13 @@
         <title>浅谈MySQL的B树索引与索引优化</title>
         <pubTime>2018-03-06T06:14:26.000Z</pubTime>
         
-        <tag>面试</tag>
-         
-        <tag>原创</tag>
-         
         <tag>索引</tag>
          
         <tag>数据库</tag>
+         
+        <tag>面试</tag>
+         
+        <tag>原创</tag>
          
         <tag>算法</tag>
          
@@ -815,11 +838,11 @@
         <title>事务的ACID和四个隔离级别</title>
         <pubTime>2016-11-25T16:34:15.000Z</pubTime>
         
+        <tag>数据库</tag>
+         
         <tag>面试</tag>
          
         <tag>原创</tag>
-         
-        <tag>数据库</tag>
          
         <tag>事务</tag>
          
@@ -840,11 +863,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -863,11 +886,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
@@ -884,9 +907,9 @@
         <title>Mac编译Hadoop源码</title>
         <pubTime>2018-01-15T08:06:49.000Z</pubTime>
         
-        <tag>Hadoop</tag>
-         
         <tag>原创</tag>
+         
+        <tag>Hadoop</tag>
          
         <tag>Mac</tag>
          
@@ -905,9 +928,9 @@
         <title>Hadoop单步debug追源码</title>
         <pubTime>2018-01-15T09:45:09.000Z</pubTime>
         
-        <tag>Hadoop</tag>
-         
         <tag>原创</tag>
+         
+        <tag>Hadoop</tag>
          
         <tag>Java</tag>
          
@@ -932,11 +955,11 @@
         
         <tag>面试</tag>
          
+        <tag>原创</tag>
+         
         <tag>Hadoop</tag>
          
         <tag>HDFS</tag>
-         
-        <tag>原创</tag>
          
          
            
