@@ -8,20 +8,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://monkeysayhi.github.io">
-  <title>类加载（初始化）时机 | 程序猿说你好</title>
+  <title>Yarn笔记：Container启动流程 | 程序猿说你好</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
+  <meta name="description" content="&amp;#x4E0A;&amp;#x6B21;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x6E90;&amp;#x7801;|Yarn&amp;#x7684;&amp;#x4E8B;&amp;#x4EF6;&amp;#x9A71;&amp;#x52A8;&amp;#x6A21;&amp;#x578B;&amp;#x4E0E;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929;&amp;#x770B;&amp;#x4E2A;&amp;#x5C0F;&amp;#x">
 <meta property="og:type" content="article">
-<meta property="og:title" content="类加载（初始化）时机">
-<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/03/类加载（初始化）时机/index.html">
+<meta property="og:title" content="Yarn笔记：Container启动流程">
+<meta property="og:url" content="https://monkeysayhi.github.io/2018/11/26/Yarn笔记：Container启动流程/index.html">
 <meta property="og:site_name" content="程序猿说你好">
-<meta property="og:description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/类加载（初始化）时机/class-loading.png">
-<meta property="og:updated_time" content="2018-11-03T07:09:10.000Z">
+<meta property="og:description" content="&amp;#x4E0A;&amp;#x6B21;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x6E90;&amp;#x7801;|Yarn&amp;#x7684;&amp;#x4E8B;&amp;#x4EF6;&amp;#x9A71;&amp;#x52A8;&amp;#x6A21;&amp;#x578B;&amp;#x4E0E;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929;&amp;#x770B;&amp;#x4E2A;&amp;#x5C0F;&amp;#x">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Yarn笔记：Container启动流程/RMContainer.png">
+<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Yarn笔记：Container启动流程/NMContainer.png">
+<meta property="og:updated_time" content="2018-11-26T09:17:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="类加载（初始化）时机">
-<meta name="twitter:description" content="&amp;#x9762;&amp;#x8BD5;&amp;#x4E2D;&amp;#x5E38;&amp;#x8003;&amp;#x7684;&amp;#x201C;&amp;#x7C7B;&amp;#x52A0;&amp;#x8F7D;&amp;#x65F6;&amp;#x673A;&amp;#x201D;&amp;#x4E25;&amp;#x683C;&amp;#x6765;&amp;#x8BF4;&amp;#x6307;&amp;#x201C;&amp;#x7C7B;&amp;#x7684;&amp;#x521D;&amp;#x59CB;&amp;#x5316;&amp;#x65F6;">
-<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/类加载（初始化）时机/class-loading.png">
+<meta name="twitter:title" content="Yarn笔记：Container启动流程">
+<meta name="twitter:description" content="&amp;#x4E0A;&amp;#x6B21;&amp;#x4ECB;&amp;#x7ECD;&amp;#x4E86;&amp;#x6E90;&amp;#x7801;|Yarn&amp;#x7684;&amp;#x4E8B;&amp;#x4EF6;&amp;#x9A71;&amp;#x52A8;&amp;#x6A21;&amp;#x578B;&amp;#x4E0E;&amp;#x72B6;&amp;#x6001;&amp;#x673A;&amp;#xFF0C;&amp;#x4ECA;&amp;#x5929;&amp;#x770B;&amp;#x4E2A;&amp;#x5C0F;&amp;#x">
+<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/Yarn笔记：Container启动流程/RMContainer.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -158,71 +159,62 @@ ga('send', 'pageview');
 </nav>
 
       <div class="body-wrap">
-        <article id="post-类加载（初始化）时机" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Yarn笔记：Container启动流程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      类加载（初始化）时机
+      Yarn笔记：Container启动流程
     </h1>
   
 
-        <a href="/2018/11/03/类加载（初始化）时机/" class="archive-article-date">
-  	<time datetime="2018-11-03T07:07:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-03</time>
+        <a href="/2018/11/26/Yarn笔记：Container启动流程/" class="archive-article-date">
+  	<time datetime="2018-11-26T09:17:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-26</time>
 </a>
 
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&#x9762;&#x8BD5;&#x4E2D;&#x5E38;&#x8003;&#x7684;&#x201C;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#x673A;&#x201D;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x6307;&#x201C;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x201D;&#x3002;</p>
+        <p>&#x4E0A;&#x6B21;&#x4ECB;&#x7ECD;&#x4E86;<a href="/2018/11/20/&#x6E90;&#x7801;|Yarn&#x7684;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x6A21;&#x578B;&#x4E0E;&#x72B6;&#x6001;&#x673A;/">&#x6E90;&#x7801;|Yarn&#x7684;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x6A21;&#x578B;&#x4E0E;&#x72B6;&#x6001;&#x673A;</a>&#xFF0C;&#x4ECA;&#x5929;&#x770B;&#x4E2A;&#x5C0F;&#x4F8B;&#x5B50;&#x2014;&#x2014;Container&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#xFF0C;&#x5DE9;&#x56FA;&#x5BF9;Yarn&#x5206;&#x5E03;&#x5F0F;&#x6A21;&#x578B;&#x548C;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x5E76;&#x53D1;&#x6A21;&#x578B;&#x7684;&#x7406;&#x89E3;&#x3002;</p>
 <a id="more"></a>
-<h1 id="&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;"><a href="#&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;"></a>&#x89E3;&#x91CA;&#x7C7B;&#x52A0;&#x8F7D;&#x4E0E;&#x521D;&#x59CB;&#x5316;</h1><p>&#x9996;&#x5148;&#xFF0C;&#x533A;&#x5206;&#x7C7B;&#x52A0;&#x8F7D;classloading&#x4E0E;&#x7C7B;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684;&#x52A0;&#x8F7D;loading&#x9636;&#x6BB5;&#xFF1A;</p>
-<p>&#x7C7B;&#x52A0;&#x8F7D;classloading&#x901A;&#x5E38;&#x4E0D;&#x5355;&#x5355;&#x6307;&#x7C7B;&#x7684;&#x52A0;&#x8F7D;loading&#x9636;&#x6BB5;&#xFF0C;&#x800C;&#x6307;&#x7C7B;&#x4ECE;&#x52A0;&#x8F7D;loading&#x5230;&#x521D;&#x59CB;&#x5316;initialization&#x9636;&#x6BB5;&#x7684;&#x8FD9;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;&#x7684;&#x884C;&#x4E3A;&#x3002;</p>
-<p>&#x90A3;&#x4E48;&#xFF0C;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x9700;&#x8981;&#x5F00;&#x59CB;&#x52A0;&#x8F7D;loading&#x5462;&#xFF1F;JVM&#x89C4;&#x8303;&#x4E2D;&#x5E76;&#x6CA1;&#x6709;&#x5F3A;&#x5236;&#x7EA6;&#x675F;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x865A;&#x62DF;&#x673A;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x3002;&#x4F46;&#x662F;&#x5BF9;&#x4E8E;&#x521D;&#x59CB;&#x5316;initialization&#x9636;&#x6BB5;&#xFF0C;JVM&#x89C4;&#x8303;&#x5219;&#x4E25;&#x683C;&#x89C4;&#x5B9A;&#x4E86;&#x6709;&#x4E14;&#x53EA;&#x6709;5&#x79CD;&#x60C5;&#x51B5;&#x5FC5;&#x987B;&#x7ACB;&#x5373;&#x5BF9;&#x7C7B;&#x8FDB;&#x884C;&#x201C;&#x521D;&#x59CB;&#x5316;&#x201D;&#xFF08;&#x56E0;&#x6B64;&#xFF0C;&#x52A0;&#x8F7D;&#x3001;&#x9A8C;&#x8BC1;&#x3001;&#x51C6;&#x5907;&#x3001;&#x89E3;&#x6790;&#x81EA;&#x7136;&#x9700;&#x8981;&#x5728;&#x6B64;&#x4E4B;&#x524D;&#x5F00;&#x59CB;&#xFF09;&#x3002;</p>
-<p>&#x56E0;&#x6B64;&#xFF0C;&#x9762;&#x8BD5;&#x4E2D;&#x5E38;&#x8003;&#x7684;&#x201C;&#x7C7B;&#x52A0;&#x8F7D;&#x65F6;&#x673A;&#x201D;&#x4E25;&#x683C;&#x6765;&#x8BF4;&#x6307;&#x201C;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x201D;&#x3002;&#x7528;&#x4E8E;&#x6F14;&#x793A;&#x7C7B;&#x52A0;&#x8F7D;&#x987A;&#x5E8F;&#x7684;&#x9759;&#x6001;&#x8BED;&#x53E5;&#x5757;&#x3001;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x8D4B;&#x503C;&#x7B49;&#x64CD;&#x4F5C;&#x4E5F;&#x662F;&#x5728;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x673A;&#x5B8C;&#x6210;&#x7684;&#x3002;</p>
-<p>&#x7C7B;&#x7684;&#x5B8C;&#x6574;&#x751F;&#x547D;&#x5468;&#x671F;&#x5982;&#x4E0B;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/&#x7C7B;&#x52A0;&#x8F7D;&#xFF08;&#x521D;&#x59CB;&#x5316;&#xFF09;&#x65F6;&#x673A;/class-loading.png" alt="class-loading"></p>
-<h1 id="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;"><a href="#&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;" class="headerlink" title="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;"></a>&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x521D;&#x59CB;&#x5316;</h1><p>4&#x79CD;&#x5E38;&#x89C1;&#x573A;&#x666F;&#xFF1A;</p>
+<p>&#x503C;&#x5F97;&#x5E86;&#x5E78;&#x7684;&#x662F;&#xFF0C;&#x5C3D;&#x7BA1;&#x72B6;&#x6001;&#x673A;&#x6A21;&#x578B;&#x8BBE;&#x8BA1;&#x590D;&#x6742;&#xFF0C;&#x4F46;&#x4E00;&#x65E6;&#x8BBE;&#x8BA1;&#xFF08;&#x6700;&#x597D;&#x80FD;&#x8BC1;&#x660E;&#xFF09;&#x5B8C;&#x6210;&#xFF0C;&#x5C31;&#x81EA;&#x7136;&#x7684;&#x89E3;&#x51B3;&#x4E86;&#x5F88;&#x591A;&#x5206;&#x5E03;&#x5F0F;&#x548C;&#x5E76;&#x53D1;&#x4E0A;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x6B64;&#xFF0C;&#x5BF9;Yarn&#x6E90;&#x7801;&#x7684;&#x5B66;&#x4E60;&#x4E0D;&#x4F1A;&#x50CF;HDFS&#x4E00;&#x6837;&#x5197;&#x957F;&#x67AF;&#x71E5;&#xFF0C;&#x5F80;&#x5F80;&#x987A;&#x7740;&#x72B6;&#x6001;&#x673A;&#x770B;&#x51E0;&#x4E2A;&#x5173;&#x952E;&#x6D41;&#x7A0B;&#x5373;&#x53EF;&#x3002;</p>
+<blockquote>
+<p>&#x6E90;&#x7801;&#x7248;&#x672C;&#xFF1A;Apache Hadoop 2.6.0</p>
+</blockquote>
+<h1 id="&#x4E00;&#x3001;RM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x51C6;&#x5907;Container"><a href="#&#x4E00;&#x3001;RM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x51C6;&#x5907;Container" class="headerlink" title="&#x4E00;&#x3001;RM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x51C6;&#x5907;Container"></a>&#x4E00;&#x3001;RM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x51C6;&#x5907;Container</h1><p><img src="http://static.msh.tademingzi.com/static/images/Yarn&#x7B14;&#x8BB0;&#xFF1A;Container&#x542F;&#x52A8;&#x6D41;&#x7A0B;/RMContainer.png" alt="RMContainer"></p>
 <ol>
-<li>&#x5F53;&#x865A;&#x62DF;&#x673A;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x7528;&#x6237;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x8981;&#x6267;&#x884C;&#x7684;&#x4E3B;&#x7C7B;<code>MainClass</code>&#xFF08;&#x5373;&#x5305;&#x542B;psvm&#x65B9;&#x6CD5;&#x7684;&#x90A3;&#x4E2A;&#x7C7B;&#xFF09;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x4F1A;&#x5148;&#x521D;&#x59CB;&#x5316;&#x8FD9;&#x4E2A;&#x4E3B;&#x7C7B;&#x3002;</li>
-<li>&#x9047;&#x5230;<code>new</code>&#x3001;<code>getstatic</code>&#x3001;<code>putstatic</code>&#x6216;<code>invokestatic</code>&#x8FD9;4&#x6761;&#x5B57;&#x8282;&#x7801;&#x6307;&#x4EE4;&#x65F6;&#x3002;&#x751F;&#x6210;&#x8FD9;4&#x6761;&#x6307;&#x4EE4;&#x7684;&#x5178;&#x578B;Java&#x4EE3;&#x7801;&#x573A;&#x666F;&#x662F;&#xFF1A;<ol>
-<li>&#x4F7F;&#x7528;<code>new</code>&#x5173;&#x952E;&#x5B57;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#x3002;</li>
-<li>&#x8BFB;&#x53D6;&#x6216;&#x8BBE;&#x7F6E;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#x2014;&#x2014;&#x88AB;<code>final</code>&#x4FEE;&#x9970;&#x3001;&#x5DF2;&#x5728;&#x7F16;&#x8BD1;&#x671F;&#x628A;&#x7ED3;&#x679C;&#x653E;&#x5165;&#x5E38;&#x91CF;&#x6C60;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#x9664;&#x5916;&#x3002;</li>
-<li>&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x3002;</li>
+<li>&#x6536;&#x5230;AM&#x7684;&#x5FC3;&#x8DF3;&#x8BF7;&#x6C42;&#xFF0C;&#x7ACB;&#x5373;&#x54CD;&#x5E94;&#x3002;</li>
+<li>&#x6839;&#x636E;&#x8D44;&#x6E90;&#x548C;&#x8D1F;&#x8F7D;&#x9009;&#x62E9;NM&#xFF08;<font color="red">&#x4E24;&#x79CD;&#x8D44;&#x6E90;&#x7B56;&#x7565;&#xFF1F;&#xFF1F;&#xFF1F;</font>&#xFF09;&#x3002;</li>
+<li>&#x521B;&#x5EFA;RMContainer&#x72B6;&#x6001;&#x673A;&#xFF0C;<code>NEW</code>&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x53D1;&#x9001;<code>START</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x8F6C;&#x5230;<code>ALLOCATED</code>&#x72B6;&#x6001;&#xFF08;&#x8868;&#x793A;&#x8BE5;container&#x5DF2;&#x88AB;&#x5206;&#x914D;&#xFF0C;&#x4F46;&#x672A;&#x901A;&#x77E5;AM&#xFF09;&#x3002;</li>
+<li>&#x5728;<strong>&#x4E0B;&#x4E00;&#x6B21;AM&#x5FC3;&#x8DF3;&#x54CD;&#x5E94;&#x4E2D;&#x8FD4;&#x56DE;&#x5DF2;&#x5206;&#x914D;&#x7684;container</strong>&#xFF08;&#x5373;&#xFF0C;&#x5F02;&#x6B65;&#x5206;&#x914D;&#xFF09;&#x3002;</li>
+<li>&#x53D1;&#x9001;<code>ACQUIRED</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x8F6C;&#x5230;<code>ACQUIRED</code>&#x72B6;&#x6001;&#xFF08;&#x8868;&#x793A;&#x8BE5;container&#x5DF2;&#x901A;&#x77E5;AM&#xFF09;&#x3002;</li>
 </ol>
-</li>
-<li>&#x5F53;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x7C7B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x5176;&#x7236;&#x7C7B;&#x8FD8;&#x6CA1;&#x6709;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5148;&#x89E6;&#x53D1;&#x5176;&#x7236;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#x3002;</li>
-<li>&#x4F7F;&#x7528;<code>java.lang.reflect</code>&#x5305;&#x7684;&#x65B9;&#x6CD5;&#x5BF9;&#x7C7B;&#x8FDB;&#x884C;&#x53CD;&#x5C04;&#x8C03;&#x7528;&#x65F6;&#x3002;</li>
+<h1 id="&#x4E8C;&#x3001;AM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x62FF;&#x5230;Container&#xFF0C;&#x901A;&#x77E5;NM&#x542F;&#x52A8;"><a href="#&#x4E8C;&#x3001;AM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x62FF;&#x5230;Container&#xFF0C;&#x901A;&#x77E5;NM&#x542F;&#x52A8;" class="headerlink" title="&#x4E8C;&#x3001;AM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x62FF;&#x5230;Container&#xFF0C;&#x901A;&#x77E5;NM&#x542F;&#x52A8;"></a>&#x4E8C;&#x3001;AM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x62FF;&#x5230;Container&#xFF0C;&#x901A;&#x77E5;NM&#x542F;&#x52A8;</h1><ol>
+<li>&#x6536;&#x5230;&#x5FC3;&#x8DF3;&#x54CD;&#x5E94;&#x4E2D;&#x7684;&#x5DF2;&#x5206;&#x914D;container&#x3002;</li>
+<li>&#x901A;&#x77E5;NM&#x542F;&#x52A8;&#x8BE5;container&#x3002;</li>
 </ol>
+<h1 id="&#x4E09;&#x3001;NM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x5B9E;&#x9645;&#x542F;&#x52A8;Container"><a href="#&#x4E09;&#x3001;NM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x5B9E;&#x9645;&#x542F;&#x52A8;Container" class="headerlink" title="&#x4E09;&#x3001;NM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x5B9E;&#x9645;&#x542F;&#x52A8;Container"></a>&#x4E09;&#x3001;NM&#x4E0A;&#x7684;&#x8FC7;&#x7A0B;&#xFF1A;&#x5B9E;&#x9645;&#x542F;&#x52A8;Container</h1><p><img src="http://static.msh.tademingzi.com/static/images/Yarn&#x7B14;&#x8BB0;&#xFF1A;Container&#x542F;&#x52A8;&#x6D41;&#x7A0B;/NMContainer.png" alt="NMContainer"></p>
 <blockquote>
-<p>&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x6BD4;&#x8F83;&#x5E38;&#x7528;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#x662F;&#x8C03;&#x7528;<code>Class.forName()</code>&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x53EF;&#x6307;&#x5B9A;<code>initialize</code>&#x53C2;&#x6570;&#x4E3A;true&#xFF0C;&#x6700;&#x540E;&#x901A;&#x8FC7;JNI&#x52A0;&#x8F7D;&#x7C7B;&#x5E76;&#x521D;&#x59CB;&#x5316;&#x3002;</p>
+<p>NM&#x4E0A;&#x7684;Container&#x3001;&#x8D44;&#x6E90;&#x7B49;&#x4E5F;&#x6709;&#x7C7B;&#x4F3C;&#x72B6;&#x6001;&#x8F6C;&#x6362;&#x8FC7;&#x7A0B;&#xFF0C;&#x4EE5;&#x4E0B;&#x63CF;&#x8FF0;&#x5FFD;&#x7565;&#x3002;</p>
 </blockquote>
-<p>1&#x79CD;&#x4E0D;&#x5E38;&#x89C1;&#x573A;&#x666F;&#xFF1A;</p>
 <ol>
-<li>&#x5F53;&#x4F7F;&#x7528;JDK 1.7&#x7684;&#x52A8;&#x6001;&#x8BED;&#x8A00;&#x652F;&#x6301;&#x65F6;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;<code>java.lang.invoke.MethodHandle</code>&#x5B9E;&#x4F8B;&#x6700;&#x540E;&#x7684;&#x89E3;&#x6790;&#x7ED3;&#x679C;<code>REF_getStatic</code>&#x3001;<code>REF_putStatic</code>&#x3001;<code>REF_invokeStatic</code>&#x7684;&#x65B9;&#x6CD5;&#x53E5;&#x67C4;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53E5;&#x67C4;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x7C7B;&#x6CA1;&#x6709;&#x8FDB;&#x884C;&#x8FC7;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5148;&#x89E6;&#x53D1;&#x5176;&#x521D;&#x59CB;&#x5316;&#x3002;</li>
+<li>NM&#x6536;&#x5230;AM&#x7684;&#x542F;&#x52A8;&#x6307;&#x4EE4;&#x3002;</li>
+<li>&#x521B;&#x5EFA;Container&#x72B6;&#x6001;&#x673A;&#x3001;&#x521D;&#x59CB;&#x5316;&#x8D44;&#x6E90;&#x7B49;&#xFF08;&#x8D44;&#x6E90;&#x4E5F;&#x901A;&#x8FC7;&#x72B6;&#x6001;&#x673A;&#x7BA1;&#x7406;&#xFF09;&#x3002;</li>
+<li>ContainerLaucher&#x670D;&#x52A1;&#x6536;&#x5230;<code>LAUNCH_CONTAINER</code>&#x4E8B;&#x4EF6;&#x3002;</li>
+<li>&#x5C06;&#x5F85;&#x8FD0;&#x884C;container&#x6240;&#x9700;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x3001;&#x8FD0;&#x884C;&#x547D;&#x4EE4;&#x7B49;&#x5199;&#x5165;<code>launch_container.sh</code>&#x811A;&#x672C;&#x3002;</li>
+<li>&#x542F;&#x52A8;ContainerMonitor&#xFF0C;&#x76D1;&#x63A7;container&#x7684;&#x5185;&#x5B58;&#x8D44;&#x6E90;&#xFF08;&#x8D85;&#x8FC7;&#x914D;&#x989D;&#x5C31;kill&#x3002;CPU&#x914D;&#x5408;&#x901A;&#x8FC7;cgroup&#x63A7;&#x5236;&#x3002;&#xFF09;&#x3002;</li>
+<li>&#x5C06;&#x542F;&#x52A8;<code>launch_container.sh</code>&#x811A;&#x672C;&#x7684;&#x547D;&#x4EE4;&#x5199;&#x5165;<code>container_executor.sh</code>&#x811A;&#x672C;&#xFF08;<strong>&#x9632;&#x6B62;&#x53D8;&#x91CF;&#x5C55;&#x5F00;&#x3001;&#x7279;&#x6B8A;&#x7B26;&#x53F7;&#x8F6C;&#x4E49;&#x7B49;</strong>&#xFF09;&#x3002;</li>
+<li>&#x542F;&#x52A8;<code>container_executor.sh</code>&#x811A;&#x672C;&#x3002;</li>
+<li>&#x5728;<code>NM-&gt;RM</code>&#x7684;&#x5FC3;&#x8DF3;&#x8BF7;&#x6C42;&#x4E2D;&#x5F02;&#x6B65;&#x6C47;&#x62A5;&#x5DF2;&#x542F;&#x52A8;&#x7684;container&#x3002;</li>
 </ol>
-<blockquote>
-<p>&#x5BF9;&#x4E8E;&#x8FD9;5&#x79CD;&#x573A;&#x666F;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x89C4;&#x8303;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x5F88;&#x5F3A;&#x70C8;&#x7684;&#x9650;&#x5B9A;&#x8BED;&#xFF1A;&#x201C;<strong>&#x6709;&#x4E14;&#x53EA;&#x6709;</strong>&#x201D;&#x3002;</p>
-</blockquote>
-<p>&#x8FD9;5&#x79CD;&#x573A;&#x666F;&#x4E2D;&#x7684;&#x884C;&#x4E3A;&#x79F0;&#x4E3A;&#x5BF9;&#x4E00;&#x4E2A;&#x7C7B;&#x8FDB;&#x884C;<code>&#x4E3B;&#x52A8;&#x5F15;&#x7528;</code>&#x3002;&#x9664;&#x6B64;&#x4E4B;&#x5916;&#xFF0C;&#x6240;&#x6709;&#x5F15;&#x7528;&#x7C7B;&#x7684;&#x65B9;&#x5F0F;&#x90FD;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x521D;&#x59CB;&#x5316;&#xFF0C;&#x79F0;&#x4E3A;<code>&#x88AB;&#x52A8;&#x5F15;&#x7528;</code>&#x3002;</p>
-<blockquote>
-<p>&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x53BB;&#x5173;&#x6CE8;&#x88AB;&#x52A8;&#x5F15;&#x7528;&#x3002;&#x88AB;&#x52A8;&#x5F15;&#x7528;&#x4EC5;&#x4EC5;&#x6307;&#x90A3;&#x4E9B;&#x770B;&#x4E0A;&#x53BB;&#x5411;&#x4E3B;&#x52A8;&#x5F15;&#x7528;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x5374;&#x4E0D;&#x662F;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x5982;&#xFF1A;</p>
-<ul>
-<li>&#x901A;&#x8FC7;&#x5B50;&#x7C7B;&#x5F15;&#x7528;&#x7236;&#x7C7B;&#x7684;&#x9759;&#x6001;&#x5B57;&#x6BB5;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;&#x5B50;&#x7C7B;&#x521D;&#x59CB;&#x5316;&#xFF08;<font color="red">&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#xFF1F;</font>&#xFF09;</li>
-<li>&#x901A;&#x8FC7;&#x6570;&#x7EC4;&#x5B9A;&#x4E49;&#x7C7B;&#x5F15;&#x7528;&#x7C7B;&#xFF0C;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6B64;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF08;JVM&#x4E3A;&#x6BCF;&#x4E2A;&#x6570;&#x7EC4;&#x751F;&#x6210;&#x4E13;&#x6709;&#x7684;&#x7C7B;&#x578B;&#xFF0C;&#x6BD4;&#x5982;&#x6570;&#x7EC4;<code>A[]</code>&#x7684;&#x7C7B;&#x578B;&#x662F;<code>[A</code>&#xFF09;</li>
-<li>&#x5F15;&#x7528;&#x5E38;&#x91CF;&#xFF0C;&#x4E0D;&#x4F1A;&#x89E6;&#x53D1;&#x6B64;&#x7C7B;&#x7684;&#x521D;&#x59CB;&#x5316;&#xFF08;&#x5E38;&#x91CF;&#x5728;&#x7F16;&#x8BD1;&#x9636;&#x6BB5;&#x4F1A;&#x5B58;&#x5165;&#x8C03;&#x7528;&#x7C7B;&#x7684;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#xFF08;<code>&#x5E38;&#x91CF;&#x4F20;&#x64AD;</code>&#xFF09;&#xFF0C;&#x8FD0;&#x884C;&#x671F;&#x4E5F;&#x5C31;&#x6CA1;&#x6709;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x5230;&#x5B9A;&#x4E49;&#x5E38;&#x91CF;&#x7684;&#x7C7B;&#xFF09;</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p>&#x53C2;&#x8003;:</p>
-<ul>
-<li><a href="https://blog.csdn.net/anialy/article/details/8175213" target="_blank" rel="external">Java &#x4E2D;&#x5BF9;&#x7C7B;&#x7684;&#x4E3B;&#x52A8;&#x5F15;&#x7528;&#x548C;&#x88AB;&#x52A8;&#x5F15;&#x7528;</a></li>
-</ul>
-</blockquote>
+<h1 id="&#x56DB;&#x3001;&#x56DE;&#x5230;RM&#xFF1A;&#x9996;&#x5C3E;"><a href="#&#x56DB;&#x3001;&#x56DE;&#x5230;RM&#xFF1A;&#x9996;&#x5C3E;" class="headerlink" title="&#x56DB;&#x3001;&#x56DE;&#x5230;RM&#xFF1A;&#x9996;&#x5C3E;"></a>&#x56DB;&#x3001;&#x56DE;&#x5230;RM&#xFF1A;&#x9996;&#x5C3E;</h1><ol>
+<li>&#x6536;&#x5230;NM&#x5FC3;&#x8DF3;&#x4E2D;&#x7684;&#x6C47;&#x62A5;&#x3002;</li>
+<li>&#x5411;RMContainer&#x72B6;&#x6001;&#x673A;&#x53D1;&#x9001;<code>LAUNCHED</code>&#x4E8B;&#x4EF6;&#xFF0C;&#x8F6C;&#x5230;<code>RUNNING</code>&#x72B6;&#x6001;&#x3002;</li>
+</ol>
 
       
 
@@ -259,7 +251,7 @@ ga('send', 'pageview');
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yarn/">Yarn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 	</div>
 
       
@@ -328,7 +320,7 @@ ga('send', 'pageview');
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
-		本文链接：<a href="/2018/11/03/类加载（初始化）时机/">类加载（初始化）时机</a><br/>
+		本文链接：<a href="/2018/11/26/Yarn笔记：Container启动流程/">Yarn笔记：Container启动流程</a><br/>
 		作者：<a title="点击联系我" href="mailto:monkeysayhi7@gmail.com">猴子007</a><br/>
 		出处：<a href="/">https://monkeysayhi.github.io</a><br/>
 		本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名及链接。
@@ -340,18 +332,9 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/2018/11/05/Java中的常见OOM及原因/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java中的常见OOM及原因
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/02/浅谈CMS原理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">浅谈CMS原理</div>
+    <a href="/2018/11/20/源码|Yarn的事件驱动模型与状态机/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">源码|Yarn的事件驱动模型与状态机</div>
       <i class="icon-circle-right"></i>
     </a>
   
