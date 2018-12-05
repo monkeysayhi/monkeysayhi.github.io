@@ -157,6 +157,62 @@ ga('send', 'pageview');
       <div class="body-wrap">
         
   
+    <article id="post-源码|HDFS之NameNode：创建文件（1）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/源码|HDFS之NameNode：创建文件（1）/">源码|HDFS之NameNode：创建文件（1）</a>
+    </h1>
+  
+
+        <a href="/2018/02/07/源码|HDFS之NameNode：创建文件（1）/" class="archive-article-date">
+  	<time datetime="2018-02-07T08:51:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-07</time>
+</a>
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>namenode&#x4E3B;&#x8981;&#x8D1F;&#x8D23;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#x7684;&#x7BA1;&#x7406;&#x548C;&#x6587;&#x4EF6;&#x5230;&#x6570;&#x636E;&#x5757;&#x7684;&#x6620;&#x5C04;&#x3002;&#x6709;&#x4E86;<a href="/2018/02/06/&#x6E90;&#x7801;|HDFS&#x4E4B;NameNode&#xFF1A;&#x521B;&#x5EFA;&#x76EE;&#x5F55;/">&#x6E90;&#x7801;|HDFS&#x4E4B;NameNode&#xFF1A;&#x521B;&#x5EFA;&#x76EE;&#x5F55;</a>&#x5BF9;&#x521B;&#x5EFA;&#x76EE;&#x5F55;&#x8FC7;&#x7A0B;&#x4E2D;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#x64CD;&#x4F5C;&#x7684;&#x5206;&#x6790;&#x57FA;&#x7840;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x76F8;&#x5BF9;&#x8F7B;&#x677E;&#x7684;&#x5206;&#x6790;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x7684;&#x6D41;&#x7A0B;&#x4E86;&#x3002;</p>
+<p>&#x8BA1;&#x5212;&#x5206;&#x4E09;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x5206;&#x522B;&#x5206;&#x6790;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x8282;&#x70B9;&#xFF08;&#x53EA;&#x6D89;&#x53CA;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#xFF09;&#x3001;&#x6DFB;&#x52A0;&#x6570;&#x636E;&#x5757;&#xFF08;&#x6D89;&#x53CA;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#x3001;datanode&#x4EA4;&#x4E92;&#xFF09;&#x3001;&#x5B8C;&#x6210;&#x6587;&#x4EF6;&#xFF08;&#x6D89;&#x53CA;&#x6587;&#x4EF6;&#x5143;&#x4FE1;&#x606F;&#x3001;datanode&#x4EA4;&#x4E92;&#x3001;&#x5BB9;&#x9519;&#x6027;&#xFF09;&#x4E09;&#x4E2A;&#x5B50;&#x6D41;&#x7A0B;&#x3002;&#x4EC5;&#x201C;&#x5B8C;&#x6210;&#x6587;&#x4EF6;&#x201D;&#x5B50;&#x6D41;&#x7A0B;&#x4E2D;&#x6D89;&#x53CA;&#x90E8;&#x5206;&#x5BB9;&#x9519;&#x6027;&#x7684;&#x5206;&#x6790;&#xFF0C;&#x5373;&#x201C;&#x6587;&#x4EF6;&#x521B;&#x5EFA;&#x6210;&#x529F;&#x540E;&#xFF0C;&#x90E8;&#x5206;&#x6570;&#x636E;&#x5757;&#x526F;&#x672C;&#x6570;&#x4F4E;&#x4E8E;&#x6700;&#x5C0F;&#x526F;&#x672C;&#x7CFB;&#x6570;&#x201D;&#xFF0C;&#x5176;&#x4ED6;&#x5BB9;&#x9519;&#x6027;&#x65B9;&#x6848;&#x5747;&#x9700;&#x8981;&#x5BA2;&#x6237;&#x7AEF;&#x4E3B;&#x5BFC;&#xFF0C;&#x7EDF;&#x4E00;&#x653E;&#x5230;&#x5BF9;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x5206;&#x6790;&#x4E2D;&#x8BA8;&#x8BBA;&#x3002;</p>
+<p>&#x4ECA;&#x5929;&#x5206;&#x6790;&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x8282;&#x70B9;&#x5B50;&#x6D41;&#x7A0B;&#x3002;</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2018/02/07/源码|HDFS之NameNode：创建文件（1）/#more">more >></a>
+        </p>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+      
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-源码|HDFS之NameNode：创建目录" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -596,61 +652,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-HDFS-1.x、2.x的RPC接口" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/09/HDFS-1.x、2.x的RPC接口/">HDFS-1.x、2.x的RPC接口</a>
-    </h1>
-  
-
-        <a href="/2018/01/09/HDFS-1.x、2.x的RPC接口/" class="archive-article-date">
-  	<time datetime="2018-01-09T10:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
-</a>
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>HDFS&#x4E2D;&#x7684;&#x4E3B;&#x8981;RPC&#x63A5;&#x53E3;&#x3002;</p>
-<p>&#x67B6;&#x6784;&#x56FE;&#x53C2;&#x8003;&#x524D;&#x6587;<a href="/2018/01/09/HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;/">HDFS1.x&#x3001;2.x&#x67B6;&#x6784;&#x56FE;</a>&#x3002;</p>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2018/01/09/HDFS-1.x、2.x的RPC接口/#more">more >></a>
-        </p>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原创/">原创</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-      
-</article>
-
-
-
-
-
-
-
-
-  
     <article id="post-HDFS1.x、2.x架构图" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -773,7 +774,7 @@ ga('send', 'pageview');
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/HDFS/" style="font-size: 16.15px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.92px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15.38px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.46px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.08px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 11.54px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.77px;">TCP</a> <a href="/tags/Yarn/" style="font-size: 11.54px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 12.31px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.69px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.77px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.85px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.85px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.31px;">科普</a> <a href="/tags/算法/" style="font-size: 13.85px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.77px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.62px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.77px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.23px;">面试</a>
+    				<a href="/tags/HDFS/" style="font-size: 16.15px;">HDFS</a> <a href="/tags/Hadoop/" style="font-size: 16.92px;">Hadoop</a> <a href="/tags/IDEA/" style="font-size: 10px;">IDEA</a> <a href="/tags/JVM/" style="font-size: 15.38px;">JVM</a> <a href="/tags/Java/" style="font-size: 18.46px;">Java</a> <a href="/tags/LintCode/" style="font-size: 13.08px;">LintCode</a> <a href="/tags/Linux/" style="font-size: 12.31px;">Linux</a> <a href="/tags/Mac/" style="font-size: 10px;">Mac</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/TCP/" style="font-size: 10.77px;">TCP</a> <a href="/tags/Yarn/" style="font-size: 11.54px;">Yarn</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/事务/" style="font-size: 10px;">事务</a> <a href="/tags/分布式/" style="font-size: 12.31px;">分布式</a> <a href="/tags/原创/" style="font-size: 20px;">原创</a> <a href="/tags/并发/" style="font-size: 17.69px;">并发</a> <a href="/tags/数据库/" style="font-size: 10.77px;">数据库</a> <a href="/tags/猿工/" style="font-size: 13.85px;">猿工</a> <a href="/tags/猿格/" style="font-size: 13.85px;">猿格</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a> <a href="/tags/硬件/" style="font-size: 10px;">硬件</a> <a href="/tags/科普/" style="font-size: 12.31px;">科普</a> <a href="/tags/算法/" style="font-size: 13.85px;">算法</a> <a href="/tags/系统设计/" style="font-size: 10px;">系统设计</a> <a href="/tags/索引/" style="font-size: 10px;">索引</a> <a href="/tags/网络/" style="font-size: 10.77px;">网络</a> <a href="/tags/设计模式/" style="font-size: 14.62px;">设计模式</a> <a href="/tags/轮子/" style="font-size: 10px;">轮子</a> <a href="/tags/鉴赏/" style="font-size: 10px;">鉴赏</a> <a href="/tags/随笔/" style="font-size: 10.77px;">随笔</a> <a href="/tags/面试/" style="font-size: 19.23px;">面试</a>
     			</div>
     	</section>
     
