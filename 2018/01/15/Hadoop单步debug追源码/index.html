@@ -16,30 +16,30 @@
 <meta property="og:url" content="https://monkeysayhi.github.io/2018/01/15/Hadoop单步debug追源码/index.html">
 <meta property="og:site_name" content="程序猿说你好">
 <meta property="og:description" content="&amp;#x53C2;&amp;#x8003;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x7F16;&amp;#x8BD1;&amp;#x597D;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x4E86;&amp;#x3">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/调试器配置.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/第一个断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/第二个断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/开始debug.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/停在第一个断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/停在第二个断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/默认的断点挂起模式.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/Thread模式.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/runDatanodeDaemon.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/DataXceiverServer.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/main线程1-断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/main线程1-所有线程.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-切换线程.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-虚拟机栈.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-断点.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-hang.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/main线程2-切换.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/main线程2-代码停在切换前的位置.png">
-<meta property="og:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/main线程2-继续执行.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/调试器配置.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/第一个断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/第二个断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/开始debug.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/停在第一个断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/停在第二个断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/默认的断点挂起模式.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/Thread模式.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/runDatanodeDaemon.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/DataXceiverServer.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/main线程1-断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/main线程1-所有线程.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-切换线程.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-虚拟机栈.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-断点.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/dataXceiverServer线程1-hang.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/main线程2-切换.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/main线程2-代码停在切换前的位置.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/main线程2-继续执行.png">
 <meta property="og:updated_time" content="2018-01-15T10:59:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop单步debug追源码">
 <meta name="twitter:description" content="&amp;#x53C2;&amp;#x8003;Mac&amp;#x7F16;&amp;#x8BD1;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x7F16;&amp;#x8BD1;&amp;#x597D;Hadoop&amp;#x6E90;&amp;#x7801;&amp;#x540E;&amp;#xFF0C;&amp;#x5C31;&amp;#x53EF;&amp;#x4EE5;&amp;#x5355;&amp;#x6B65;debug&amp;#x8FFD;&amp;#x6E90;&amp;#x7801;&amp;#x4E86;&amp;#x3">
-<meta name="twitter:image" content="http://static.msh.tademingzi.com/static/images/Hadoop单步debug追源码/调试器配置.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop单步debug追源码/调试器配置.png">
   
     <link rel="alternative" href="/atom.xml" title="程序猿说你好" type="application/atom+xml">
   
@@ -72,7 +72,7 @@ ga('send', 'pageview');
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img src="http://static.msh.tademingzi.com/static/images/_common/avatar.jpg" class="js-avatar">
+			<img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/_common/avatar.jpg" class="js-avatar">
 			
 		</a>
 
@@ -142,7 +142,7 @@ ga('send', 'pageview');
 		<header id="header" class="inner">
 			<div class="profilepic">
 				
-					<img src="http://static.msh.tademingzi.com/static/images/_common/avatar.jpg" class="js-avatar">
+					<img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/_common/avatar.jpg" class="js-avatar">
 				
 			</div>
 			<hgroup>
@@ -221,7 +221,7 @@ ga('send', 'pageview');
 <p>&#x8F6C;&#x53BB;&#x914D;&#x7F6E;IDEA&#x3002;</p>
 <h2 id="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"><a href="#&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;" class="headerlink" title="&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;"></a>&#x914D;&#x7F6E;IDEA&#xFF08;&#x8C03;&#x8BD5;&#x5668;&#xFF09;</h2><p>IDEA&#x4E2D;&#x6253;&#x5F00;&#x5BF9;&#x5E94;&#x7248;&#x672C;&#x7684;hadoop&#x6E90;&#x7801;&#xFF08;2.6.0&#xFF09;&#x3002;</p>
 <p>Run-&gt;Edit Configurations&#xFF0C;&#x5DE6;&#x4E0A;&#x89D2;&#x7684;+&#x53F7;&#x9009;&#x62E9;Remote&#xFF0C;&#x4E3B;&#x8981;&#x914D;&#x7F6E;&#x4E3B;&#x673A;localhost&#x3001;&#x7AEF;&#x53E3;8888&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png" alt="&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png" alt="&#x8C03;&#x8BD5;&#x5668;&#x914D;&#x7F6E;.png"></p>
 <blockquote>
 <p>Eclipse&#x540C;&#x7406;&#x3002; </p>
 </blockquote>
@@ -237,19 +237,19 @@ ga('send', 'pageview');
 <ul>
 <li>&#x6F14;&#x793A;&#x57FA;&#x672C;&#x7684;&#x8C03;&#x8BD5;&#x4EA4;&#x4E92;</li>
 </ul>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
 <ul>
 <li>&#x5229;&#x7528;&#x6253;&#x5370;&#x7684;log&#x9A8C;&#x8BC1;</li>
 </ul>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
 <h2 id="&#x5F00;&#x59CB;debug"><a href="#&#x5F00;&#x59CB;debug" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="&#x8C03;&#x8BD5;&#x5668;"><a href="#&#x8C03;&#x8BD5;&#x5668;" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>IDEA&#x4E2D;&#xFF0C;Run-&gt;Debug&#xFF0C;&#x9009;&#x62E9;&#x521A;&#x521A;&#x914D;&#x7F6E;&#x7684;TestDatanode&#x53C2;&#x6570;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x5F00;&#x59CB;debug.png" alt="&#x5F00;&#x59CB;debug.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x5F00;&#x59CB;debug.png" alt="&#x5F00;&#x59CB;debug.png"></p>
 <p>&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
 <h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x56DE;&#x5230;&#x542F;&#x52A8;datanode&#x7684;&#x7EC8;&#x7AEF;&#xFF0C;&#x518D;&#x6B21;&#x67E5;&#x770B;log&#x3002;</p>
 <p>&#x53D1;&#x73B0;&#x6587;&#x4EF6;&#x5DF2;&#x521B;&#x5EFA;&#x4F46;&#x662F;&#x7A7A;&#x6587;&#x4EF6;&#x3002;</p>
 <h3 id="&#x8C03;&#x8BD5;&#x5668;-1"><a href="#&#x8C03;&#x8BD5;&#x5668;-1" class="headerlink" title="&#x8C03;&#x8BD5;&#x5668;"></a>&#x8C03;&#x8BD5;&#x5668;</h3><p>&#x56DE;&#x5230;IDEA&#xFF0C;F8&#x8DF3;&#x8FC7;&#x7B2C;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#xFF0C;&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png" alt="&#x505C;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#x65AD;&#x70B9;.png"></p>
 <p>&#x8FD9;&#x53E5;&#x4EE3;&#x7801;&#x4F1A;&#x6253;&#x5370;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#xFF08;&#x6B64;&#x5904;&#x4E0D;&#x8BA8;&#x8BBA;&#xFF09;&#x3002;&#x5982;&#x679C;&#x6267;&#x884C;&#x8BE5;&#x884C;&#x540E;&#xFF0C;&#x65E5;&#x5FD7;&#x88AB;&#x6253;&#x5370;&#xFF0C;&#x8BF4;&#x660E;&#x6211;&#x4EEC;&#x7684;&#x5355;&#x72EC;debug&#x6210;&#x529F;&#x4E86;&#x3002;</p>
 <p>F8&#x540E;&#x505C;&#x5728;&#x4E0B;&#x4E00;&#x884C;&#xFF0C;&#x56DE;&#x53BB;&#x67E5;&#x770B;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x3002;</p>
 <h3 id="&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1"><a href="#&#x88AB;&#x8C03;&#x8BD5;&#x8005;-1" class="headerlink" title="&#x88AB;&#x8C03;&#x8BD5;&#x8005;"></a>&#x88AB;&#x8C03;&#x8BD5;&#x8005;</h3><p>&#x67E5;&#x770B;log&#xFF1A;</p>
@@ -265,41 +265,41 @@ ga('send', 'pageview');
 <p>IDEA&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x9ED8;&#x8BA4;&#x53EA;&#x80FD;&#x76D1;&#x63A7;&#x524D;&#x53F0;&#x7EBF;&#x7A0B;&#xFF08;&#x4E00;&#x822C;&#x662F;&#x4E3B;&#x7EBF;&#x7A0B;&#xFF09;&#xFF0C;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x65AD;&#x70B9;&#x90FD;&#x4F1A;&#x5FFD;&#x7565;&#xFF0C;&#x65E0;&#x6CD5;&#x8C03;&#x8BD5;&#x591A;&#x7EBF;&#x7A0B;&#x4EE3;&#x7801;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;IDEA&#x3001;Eclipse&#x7B49;&#x672C;&#x8EAB;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#xFF0C;&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;&#x5373;&#x53EF;&#x3002;</p>
 <p>&#x4E0B;&#x9762;&#x4ECD;&#x4EE5;&#x5355;&#x6B65;debug&#x8FFD;datanode&#x6E90;&#x7801;&#x4E3A;&#x4F8B;&#xFF0C;&#x770B;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x591A;&#x7EBF;&#x7A0B;debug&#x3002;</p>
 <h2 id="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"><a href="#&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;" class="headerlink" title="&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;"></a>&#x5F00;&#x542F;Thread&#x6A21;&#x5F0F;</h2><p>&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;&#x4E3A;&#x201C;All&#x201D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png" alt="&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png" alt="&#x9ED8;&#x8BA4;&#x7684;&#x65AD;&#x70B9;&#x6302;&#x8D77;&#x6A21;&#x5F0F;.png"></p>
 <p>&#x6539;&#x4E3A;Thread&#xFF0C;&#x5E76;&#x70B9;&#x51FB;&#x201C;Make Default&#x201D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/Thread&#x6A21;&#x5F0F;.png" alt="Thread&#x6A21;&#x5F0F;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/Thread&#x6A21;&#x5F0F;.png" alt="Thread&#x6A21;&#x5F0F;.png"></p>
 <p>&#x8FD9;&#x6837;&#x4EE5;&#x540E;&#x8BBE;&#x7F6E;&#x7684;&#x65AD;&#x70B9;&#x5C31;&#x90FD;&#x662F;Thread&#x6A21;&#x5F0F;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;debug&#x4E86;&#x3002;</p>
 <h2 id="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1"><a href="#&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;-1" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;"></a>&#x8BBE;&#x7F6E;&#x65AD;&#x70B9;</h2><blockquote>
 <p>&#x91CD;&#x65B0;&#x542F;&#x52A8;namenode&#x4E0E;datanode&#xFF0C;&#x8FDE;&#x63A5;&#x4E0A;datanode&#x3002;</p>
 </blockquote>
 <p>&#x6CBF;&#x7740;DataNode.secureMain()&#x627E;&#x5230;createDataNode-&gt;runDatanodeDaemon&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/runDatanodeDaemon.png" alt="runDatanodeDaemon.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/runDatanodeDaemon.png" alt="runDatanodeDaemon.png"></p>
 <p>DataXceiver&#x8D1F;&#x8D23;datanode&#x7684;&#x7BA1;&#x9053;&#x6D41;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#xFF0C;&#x4EE5;&#x5B88;&#x62A4;&#x7EBF;&#x7A0B;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x5728;&#x3002;&#x4EE5;dataXceiverServer&#x4F8B;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;Runable&#x7C7B;&#x4E3A;DataXceiverServer&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/DataXceiverServer.png" alt="DataXceiverServer.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/DataXceiverServer.png" alt="DataXceiverServer.png"></p>
 <h2 id="&#x5F00;&#x59CB;debug-1"><a href="#&#x5F00;&#x59CB;debug-1" class="headerlink" title="&#x5F00;&#x59CB;debug"></a>&#x5F00;&#x59CB;debug</h2><h3 id="main&#x7EBF;&#x7A0B;"><a href="#main&#x7EBF;&#x7A0B;" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x6267;&#x884C;&#x5230;DataNode&#x7C7B;&#x4E2D;&#x7684;2104&#x884C;<code>dataXceiverServer.start();</code>&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="main&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
 <p>&#x5982;&#x679C;F8&#x8DF3;&#x8FC7;&#x65AD;&#x70B9;&#xFF0C;dataXceiverServer&#x5C31;&#x4F1A;&#x5728;&#x540E;&#x53F0;&#x542F;&#x52A8;&#xFF0C;&#x7EE7;&#x800C;&#x505C;&#x5728;&#x7C7B;&#x4E2D;&#x7684;133&#x884C;<code>while (datanode.shouldRun &amp;&amp; !datanode.shutdownForUpgrade) {</code>&#x3002;F8&#x540E;&#xFF0C;&#x89C2;&#x5BDF;&#x76EE;&#x524D;&#x6709;&#x54EA;&#x4E9B;&#x7EBF;&#x7A0B;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png" alt="main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png" alt="main&#x7EBF;&#x7A0B;1-&#x6240;&#x6709;&#x7EBF;&#x7A0B;.png"></p>
 <p>&#x6CE8;&#x610F;&#x5230;&#xFF0C;&#x5E95;&#x90E8;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x901A;&#x77E5;&#xFF1A;dataXceiverServer&#x7EBF;&#x7A0B;&#x9047;&#x5230;&#x4E86;&#x65AD;&#x70B9;&#x3002;</p>
 <h3 id="dataXceiverServer&#x7EBF;&#x7A0B;"><a href="#dataXceiverServer&#x7EBF;&#x7A0B;" class="headerlink" title="dataXceiverServer&#x7EBF;&#x7A0B;"></a>dataXceiverServer&#x7EBF;&#x7A0B;</h3><p>main&#x7EBF;&#x7A0B;&#x653E;&#x7740;&#xFF0C;&#x5207;&#x6362;&#x5230;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x5207;&#x6362;&#x7EBF;&#x7A0B;.png"></p>
 <blockquote>
 <p>&#x56FE;&#x6807;&#x4E3A;&#x201C;&#x7EA2;&#x70B9;+&#x5BF9;&#x52FE;&#x201D;&#x7684;&#x662F;&#x6B63;&#x5E38;debug&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5176;&#x4ED6;&#x56FE;&#x6807;&#x53EA;&#x6709;&#x201C;&#x7EA2;&#x70B9;&#x201D;&#x7684;&#x662F;&#x540E;&#x53F0;&#x505C;&#x5728;&#x65AD;&#x70B9;&#x4E0A;&#x7684;&#x7EBF;&#x7A0B;&#x3002;</p>
 </blockquote>
 <p>&#x5207;&#x6362;&#x540E;&#xFF0C;IDEA&#x4F1A;&#x81EA;&#x52A8;&#x5230;&#x5207;&#x6362;&#x5BF9;&#x5E94;&#x7EBF;&#x7A0B;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x865A;&#x62DF;&#x673A;&#x6808;.png"></p>
 <p>&#x76F8;&#x5E94;&#x81EA;&#x52A8;&#x8DF3;&#x5230;&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x4F4D;&#x7F6E;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-&#x65AD;&#x70B9;.png"></p>
 <p>&#x6B64;&#x65F6;&#xFF0C;debug&#x64CD;&#x4F5C;&#x90FD;&#x4F1A;&#x4F5C;&#x7528;&#x5230;&#x5F53;&#x524D;&#x7684;&#x865A;&#x62DF;&#x673A;&#x6808;&#x4E0A;&#xFF0C;&#x5373;&#x53EA;&#x5F71;&#x54CD;dataXceiverServer&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;main&#x7EBF;&#x7A0B;&#x4FDD;&#x6301;&#x7B49;&#x5F85;&#xFF08;&#x56E0;&#x4E3A;&#x521A;&#x624D;&#x8BA9;main&#x7EBF;&#x7A0B;&#x4E5F;&#x505C;&#x5728;&#x4E86;&#x4E00;&#x4E2A;&#x65AD;&#x70B9;&#x4E0A;&#xFF09;&#x3002;</p>
 <p>F8&#xFF0C;&#x6267;&#x884C;&#x5230;accept&#x4E00;&#x884C;&#xFF0C;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x8FC7;&#x6765;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;hang&#x5728;&#x8FD9;&#x91CC;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png" alt="dataXceiverServer&#x7EBF;&#x7A0B;1-hang.png"></p>
 <h3 id="main&#x7EBF;&#x7A0B;-1"><a href="#main&#x7EBF;&#x7A0B;-1" class="headerlink" title="main&#x7EBF;&#x7A0B;"></a>main&#x7EBF;&#x7A0B;</h3><p>&#x518D;&#x5207;&#x6362;&#x56DE;main&#x7EBF;&#x7A0B;&#x3002;</p>
 <p>&#x865A;&#x62DF;&#x673A;&#x6808;&#x6062;&#x590D;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png" alt="main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png" alt="main&#x7EBF;&#x7A0B;2-&#x5207;&#x6362;.png"></p>
 <p>&#x4EE3;&#x7801;&#x4E5F;&#x8FD8;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png" alt="main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png" alt="main&#x7EBF;&#x7A0B;2-&#x4EE3;&#x7801;&#x505C;&#x5728;&#x5207;&#x6362;&#x524D;&#x7684;&#x4F4D;&#x7F6E;.png"></p>
 <p>F8&#x8DF3;&#x8FC7;2105&#x884C;&#x65AD;&#x70B9;&#xFF1A;</p>
-<p><img src="http://static.msh.tademingzi.com/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png" alt="main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png"></p>
+<p><img src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/Hadoop&#x5355;&#x6B65;debug&#x8FFD;&#x6E90;&#x7801;/main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png" alt="main&#x7EBF;&#x7A0B;2-&#x7EE7;&#x7EED;&#x6267;&#x884C;.png"></p>
 <p>main&#x7EBF;&#x7A0B;&#x4ECD;&#x80FD;&#x591F;&#x6B63;&#x5E38;debug&#x3002;</p>
 <blockquote>
 <p>&#x6709;&#x8FDE;&#x63A5;&#x53D1;&#x9001;&#x8FC7;&#x6765;&#x7684;&#x65F6;&#x5019;&#xFF0C;dataXceiverServer&#x7EBF;&#x7A0B;&#x4F1A;&#x6062;&#x590D;RUNNING&#x72B6;&#x6001;&#xFF0C;&#x5E76;&#x5728;&#x540E;&#x53F0;&#x9ED8;&#x9ED8;&#x6267;&#x884C;&#x5230;&#x4E0B;&#x4E00;&#x65AD;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x7B49;&#x5F85;&#x7528;&#x6237;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;debug&#x3002;</p>
@@ -331,7 +331,7 @@ ga('send', 'pageview');
                     
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="http://static.msh.tademingzi.com/static/images/_common/weixin_pay_qr_code.png">
+                      <img class="reward-img" src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/_common/weixin_pay_qr_code.png">
                       <span class="reward-type">微信</span>
                     </div>
                     
@@ -414,7 +414,7 @@ ga('send', 'pageview');
 	<div style="MARGIN-TOP: 5px; MARGIN-BOTTOM: 5px; FLOAT: left; MARGIN-LEFT: 5px; MARGIN-RIGHT: 10px">
 		<div style="text-align:center">
 			扫描微信关注我<br>
-			<img alt="微信公众号二维码" title="微信公众号二维码" src="http://static.msh.tademingzi.com/static/images/_common/weixin_qr_code.jpg" height="90" />
+			<img alt="微信公众号二维码" title="微信公众号二维码" src="https://raw.githubusercontent.com/monkeysayhi/HexoBlogOnGithub/master/qiniu/static/images/_common/weixin_qr_code.jpg" height="90" />
 		</div>
 	</div>
 	<div style="LINE-HEIGHT: 200%; MARGIN-TOP: 10px; COLOR: #000000">
